@@ -50,29 +50,29 @@
 
 #pragma mark -委托方法
 
-//连接设备成功的委托
--(void)setBlockOnConnected:(void (^)(CBCentralManager *central,CBPeripheral *peripheral))block{
-    m_connectedPeripheralBlock = block;
-}
-//找到设备的委托
--(void)setBlockOnDiscoverToPeripherals:(void (^)(CBCentralManager *central,CBPeripheral *peripheral,NSDictionary *advertisementData, NSNumber *RSSI))block{
-    m_discoverToPeripheralsBlock = block;
-}
-
-//设置查找服务回叫
--(void)setBlockOndDiscoverServices:(void (^)(CBPeripheral *peripheral,NSError *error))block{
-    m_discoverServicesBlock = block;
-}
-
-//设置查找Peripherals的规则
--(void)setDiscoverPeripheralsFilter:(BOOL (^)(NSString *peripheralsFilter))filter{
-    discoverPeripheralsFilter = filter;
-}
-
-//设置连接Peripherals的规则
--(void)setConnectPeripheralsFilter:(BOOL (^)(NSString *peripheralsFilter))filter{
-    connePeripheralsFilter = filter;
-}
+////连接设备成功的委托
+//-(void)setBlockOnConnected:(void (^)(CBCentralManager *central,CBPeripheral *peripheral))block{
+//    blockOnConnectedPeripheral = block;
+//}
+////找到设备的委托
+//-(void)setBlockOnDiscoverToPeripherals:(void (^)(CBCentralManager *central,CBPeripheral *peripheral,NSDictionary *advertisementData, NSNumber *RSSI))block{
+//    blockOnDiscoverToPeripherals = block;
+//}
+//
+////设置查找服务回叫
+//-(void)setBlockOndDiscoverServices:(void (^)(CBPeripheral *peripheral,NSError *error))block{
+//    blockOnDiscoverServices = block;
+//}
+//
+////设置查找Peripherals的规则
+//-(void)setFilterOnDiscoverPeripherals:(BOOL (^)(NSString *peripheralsFilter))filter{
+//    filterOnDiscoverPeripherals = filter;
+//}
+//
+////设置连接Peripherals的规则
+//-(void)setConnectPeripheralsFilter:(BOOL (^)(NSString *peripheralsFilter))filter{
+//    filterOnConnetToPeripherals = filter;
+//}
 
 
 
@@ -124,30 +124,30 @@
                                                        object:nil
                                                      userInfo:@{@"central":central,@"peripheral":peripheral,@"advertisementData":advertisementData,@"RSSI":RSSI}];
     //扫描到设备callback
-    if(m_discoverToPeripheralsBlock){
-        if (!discoverPeripheralsFilter) {
+    if(blockOnDiscoverPeripherals){
+        if (!filterOnDiscoverPeripherals) {
             //若为空，则所有都匹配名称不为空的设备
-            discoverPeripheralsFilter =  ^(NSString *str){
+            filterOnDiscoverPeripherals =  ^(NSString *str){
                 if(![str isEqualToString:@""])
                     return YES;
                 return NO;
             };
         }
-        if (discoverPeripheralsFilter(peripheral.name)) {
-            m_discoverToPeripheralsBlock(central,peripheral,advertisementData,RSSI);
+        if (filterOnDiscoverPeripherals(peripheral.name)) {
+            blockOnDiscoverPeripherals(central,peripheral,advertisementData,RSSI);
         }
     }
     
     //处理连接设备
     if(needConnectPeripheral){
-         if (!connePeripheralsFilter) {
-             connePeripheralsFilter =  ^(NSString *str){
+         if (!filterOnConnetToPeripherals) {
+             filterOnConnetToPeripherals =  ^(NSString *str){
                  if(![str isEqualToString:@""])
                      return YES;
                  return NO;
              };
          }
-        if (connePeripheralsFilter(peripheral.name)) {
+        if (filterOnConnetToPeripherals(peripheral.name)) {
             //    //连接设备
 //            [central connectPeripheral:peripheral->CBperipheral
 //                                    options:[NSDictionary dictionaryWithObject:[NSNumber numberWithBool:YES] forKey:CBConnectPeripheralOptionNotifyOnDisconnectionKey]];
@@ -165,17 +165,17 @@
     [connectTimer invalidate];//停止时钟
     //执行回叫
     //扫描到设备callback
-    if(m_discoverToPeripheralsBlock){
-        if (!discoverPeripheralsFilter) {
+    if(blockOnDiscoverPeripherals){
+        if (!filterOnDiscoverPeripherals) {
             //若为空，则所有都匹配名称不为空的设备
-            discoverPeripheralsFilter =  ^(NSString *str){
+            filterOnDiscoverPeripherals =  ^(NSString *str){
                 if(![str isEqualToString:@""])
                     return YES;
                 return NO;
             };
         }
-        if (discoverPeripheralsFilter(peripheral.name)) {
-            m_connectedPeripheralBlock(central,peripheral);
+        if (filterOnDiscoverPeripherals(peripheral.name)) {
+            blockOnConnectedPeripheral(central,peripheral);
         }
     }
     
@@ -211,7 +211,7 @@
     }
     //回叫block
     if (needDiscoverServices) {
-        m_discoverServicesBlock(peripheral,error);
+        blockOnDiscoverServices(peripheral,error);
     }
     //discover characteristics
     for (CBService *service in peripheral.services) {

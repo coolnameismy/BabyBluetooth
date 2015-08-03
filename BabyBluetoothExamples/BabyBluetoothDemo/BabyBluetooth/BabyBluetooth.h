@@ -115,7 +115,7 @@ typedef NS_ENUM(NSInteger, BabyStatus) {
  *
  *  @return <#return value description#>
  */
--(void) scanForPeripheralsWithBlock:(BBDiscoverToPeripheralsBlock)discoverPeripheralBlock;
+-(void) scanForPeripheralsWithBlock:(BBDiscoverPeripheralsBlock)discoverPeripheralBlock;
 
 
 /**

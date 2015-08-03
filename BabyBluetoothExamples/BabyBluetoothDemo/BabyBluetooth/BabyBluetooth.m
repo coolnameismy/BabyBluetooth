@@ -53,27 +53,27 @@
 #pragma mark -委托方法
 
 -(void)setBlockOnDiscoverToPeripherals:(void (^)(CBCentralManager *central,CBPeripheral *peripheral,NSDictionary *advertisementData, NSNumber *RSSI))block{
-    [bleHander setBlockOnDiscoverToPeripherals:block];
+    bleHander->blockOnDiscoverPeripherals = block;
 }
 
 
 -(void)setBlockOnConnected:(void (^)(CBCentralManager *central,CBPeripheral *peripheral))block{
-    [bleHander setBlockOnConnected:block];
+    bleHander->blockOnConnectedPeripheral = block;
 }
 
 //设置查找服务回叫
 -(void)setBlockOndDiscoverServices:(void (^)(CBPeripheral *peripheral,NSError *error))block{
-    [bleHander setBlockOndDiscoverServices:block];
+    bleHander->blockOnDiscoverServices = block;
 }
 
 //设置查找Peripherals的规则
 -(void)setDiscoverPeripheralsFilter:(BOOL (^)(NSString *peripheralsFilter))filter{
-    [bleHander setDiscoverPeripheralsFilter:filter];
+    bleHander->filterOnDiscoverPeripherals = filter;
 }
 
 //设置连接Peripherals的规则
 -(void)setConnectPeripheralsFilter:(BOOL (^)(NSString *peripheralsFilter))filter{
-    [bleHander setConnectPeripheralsFilter:filter];
+    bleHander->filterOnConnetToPeripherals = filter;
 }
 
 
@@ -157,6 +157,10 @@
 
 -(void)validateProcess{
     NSString *reason = @"";
+    
+    
+    
+    
     //需要扫描
     if (bleHander->needScanForPeripherals) {
 
@@ -197,9 +201,7 @@
                 [bleManager cancelPeripheralConnection:p];
             }
         }
-        [bleHander->pocket setObject:nullob forKey:@"connectedPeripherals"]
-//        cancelPeripheralConnection
-//        stopScan
+        [bleHander->pocket setObject:[NSNull null] forKey:@"connectedPeripherals"];
     };
 }
 

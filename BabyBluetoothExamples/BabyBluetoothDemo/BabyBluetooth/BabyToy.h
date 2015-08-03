@@ -10,7 +10,7 @@
 #import <CoreBluetooth/CoreBluetooth.h>
 
 //找到设备的委托
-typedef void (^BBDiscoverToPeripheralsBlock)(CBCentralManager *central,CBPeripheral *peripheral,NSDictionary *advertisementData, NSNumber *RSSI);
+typedef void (^BBDiscoverPeripheralsBlock)(CBCentralManager *central,CBPeripheral *peripheral,NSDictionary *advertisementData, NSNumber *RSSI);
 //连接设备成功的block
 typedef void (^BBConnectedPeripheralBlock)(CBCentralManager *central,CBPeripheral *peripheral);
 //连接设备失败的block
@@ -19,7 +19,10 @@ typedef void (^BBFailToConnectBlock)(CBCentralManager *central,CBPeripheral *per
 typedef void (^BBDisconnectBlock)(CBCentralManager *central,CBPeripheral *peripheral,NSError *error);
 //找到服务的block
 typedef void (^BBDiscoverServicesBlock)(CBPeripheral *peripheral,NSError *error);
-
+//找到Characteristics的block
+typedef void (^BBDiscoverCharacteristicsBlock)(CBPeripheral *peripheral,CBService *service,NSError *error);
+//更新（获取）Characteristics的value的block
+typedef void (^BBUpdateValueForCharacteristicBlock)(CBPeripheral *peripheral,CBCharacteristic *characteristic,NSError *error);
 
 
 @interface BabyToy : NSObject
