@@ -48,7 +48,7 @@
 //退出时断开连接
 -(void)viewDidDisappear:(BOOL)animated{
     NSLog(@"viewWillDisappear");
-    baby.stop(0);
+//        baby.stop(0);
 }
 
 
@@ -94,7 +94,7 @@
 }
 -(void)loadData{
     [SVProgressHUD showInfoWithStatus:@"开始连接设备"];
-    baby.connectToPeripheral(self.currPeripheral).discoverServices().discoverCharacteristics().readValueForCharacteristic().discoverDescriptorsForCharacteristic().readValueForDescriptors().begin().stop(20);
+    baby.connectToPeripheral(self.currPeripheral).discoverServices().discoverCharacteristics().readValueForCharacteristic().discoverDescriptorsForCharacteristic().readValueForDescriptors().begin();
     //    baby.connectToPeripheral(self.currPeripheral).begin();
  
   }
@@ -187,7 +187,7 @@
     CharacteristicViewController *vc = [[CharacteristicViewController alloc]init];
     vc.currPeripheral = self.currPeripheral;
     vc.characteristic =[[[self.services objectAtIndex:indexPath.section] characteristics]objectAtIndex:indexPath.row];
-    vc.baby = baby;
+    vc->baby = baby;
     [self.navigationController pushViewController:vc animated:YES];
 }
 

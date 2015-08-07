@@ -57,7 +57,6 @@
 //连接Peripherals
 -(void)connectToPeripheral:(CBPeripheral *)peripheral{
     [bleManager connectPeripheral:peripheral options:nil];
-    
 }
 
 //断开所以已连接的设备
@@ -147,7 +146,7 @@
             //    //连接设备
 //            [central connectPeripheral:peripheral->CBperipheral
 //                                    options:[NSDictionary dictionaryWithObject:[NSNumber numberWithBool:YES] forKey:CBConnectPeripheralOptionNotifyOnDisconnectionKey]];
-            [central connectPeripheral:peripheral options:nil];
+            [bleManager connectPeripheral:peripheral options:nil];
             //开一个定时器监控连接超时的情况
             connectTimer = [NSTimer scheduledTimerWithTimeInterval:5.0f target:self selector:@selector(disconnect:) userInfo:peripheral repeats:NO];
         }

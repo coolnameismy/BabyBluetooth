@@ -12,11 +12,16 @@
 #import "PeripheralInfo.h"
 
 
-@interface CharacteristicViewController : UIViewController<UITableViewDataSource,UITableViewDelegate>
+@interface CharacteristicViewController : UIViewController<UITableViewDataSource,UITableViewDelegate>{
+@public
+    BabyBluetooth *baby;
+    NSMutableArray *sect;
+  __block  NSMutableArray *readValueArray;
+}
 
 @property (nonatomic,strong)UITableView *tableView;
 @property (nonatomic,strong)CBCharacteristic *characteristic;
 @property (nonatomic,strong)CBPeripheral *currPeripheral;
-@property (nonatomic,strong)BabyBluetooth *baby;
+
 
 @end

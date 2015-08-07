@@ -206,6 +206,7 @@
             babysister->needDiscoverDescriptorsForCharacteristic = NO;
             babysister->needReadValueForDescriptors = NO;
             babyStatus = BabyStatusStop;
+            babysister->pocket = [[NSMutableDictionary alloc]init];
             //停止扫描，断开连接
             [babysister stopScan];
             [babysister stopConnectAllPerihperals];            
@@ -250,6 +251,44 @@
     NSLog(@"then");
     return self;
 }
+
+
+
+
+
+//读取Characteristic的详细信息
+-(BabyBluetooth *(^)(CBPeripheral *peripheral,CBCharacteristic *characteristic)) fetchCharacteristicDetails{
+
+    return ^(CBPeripheral *peripheral,CBCharacteristic *characteristic){
+        //判断连接状态
+        if (peripheral.state ==CBPeripheralStateConnected) {
+            self->babysister->needReadValueForDescriptors = YES;
+            [peripheral readValueForCharacteristic:characteristic];
+            [peripheral discoverDescriptorsForCharacteristic:characteristic];
+
+        }else{
+            NSLog(@"!!!设备当前处于非连接状态");
+        }
+        
+        return self;
+    };
+}
+//-(BabyBluetooth *(^)())CharacteristicInfo:(CBPeripheral *)peripheral characteristic:(CBCharacteristic *)characteristic{
+//
+//    [peripheral readValueForCharacteristic:characteristic];
+//    return ^(){
+//        return self;
+//    };
+//}
+//
+
+
+
+
+
+
+
+
 
 
 
@@ -457,3 +496,5 @@
  
 
 @end
+
+

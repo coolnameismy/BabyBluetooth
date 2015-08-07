@@ -19,6 +19,8 @@ typedef NS_ENUM(NSInteger, BabyStatus) {
     BabyStatusRuning
 };
 
+
+
 @interface BabyBluetooth : NSObject{
     
     @private
@@ -86,6 +88,9 @@ typedef NS_ENUM(NSInteger, BabyStatus) {
 //获取Descriptors的值
 -(BabyBluetooth *(^)()) readValueForDescriptors;
 
+//更新Characteristics的值
+-(BabyBluetooth *(^)(CBPeripheral *peripheral,CBCharacteristic *characteristic)) fetchCharacteristicDetails;
+
 //开始执行
 -(BabyBluetooth *(^)()) begin;
 //开始并执行sec秒后停止
@@ -96,6 +101,12 @@ typedef NS_ENUM(NSInteger, BabyStatus) {
 -(BabyBluetooth *) and;
 -(BabyBluetooth *) then;
 
+
+
+
+////读取Characteristic的详细信息
+//-(BabyBluetooth *(^)())CharacteristicInfo:(CBPeripheral *)peripheral characteristic:(CBCharacteristic *)characteristic;
+//
 
 /**
  * 单例构造方法
@@ -113,3 +124,5 @@ typedef NS_ENUM(NSInteger, BabyStatus) {
 
 
 @end
+
+ 
