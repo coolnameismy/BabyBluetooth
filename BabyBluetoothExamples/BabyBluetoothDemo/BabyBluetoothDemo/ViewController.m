@@ -7,6 +7,8 @@
 //
 
 #import "ViewController.h"
+#import "SVProgressHUD.h"
+
 
 //screen width and height
 #define width [UIScreen mainScreen].bounds.size.width
@@ -38,9 +40,15 @@
     peripherals = [[NSMutableArray alloc]init];
     //开始扫描设备
     [self performSelector:@selector(scanPeripheral) withObject:nil afterDelay:2];
+    [SVProgressHUD showInfoWithStatus:@"准备扫描设备"];
 
     //测试方法
-//    [NSTimer scheduledTimerWithTimeInterval:1.2 target:self selector:@selector(testInsertRow) userInfo:nil repeats:YES];
+    //[NSTimer scheduledTimerWithTimeInterval:1.2 target:self selector:@selector(testInsertRow) userInfo:nil repeats:YES];
+}
+
+-(void)viewWillDisappear:(BOOL)animated{
+    NSLog(@"viewWillDisappear");
+    baby.stop(0);
 }
 
 #pragma mark -蓝牙配置和操作
@@ -50,16 +58,19 @@
     //初始化BabyBluetooth， BabyBluetooth init
     baby = [[BabyBluetooth alloc]init];
     __weak typeof(self) weakSelf = self;
+    
+    //设置扫描到设备的委托
     [baby setBlockOnDiscoverToPeripherals:^(CBCentralManager *central, CBPeripheral *peripheral, NSDictionary *advertisementData, NSNumber *RSSI) {
         NSLog(@"搜索到了设备:%@",peripheral.name);
         [weakSelf insertTableView:peripheral];
     }];
+    //设置设备连接成功的委托
     [baby setBlockOnConnected:^(CBCentralManager *central, CBPeripheral *peripheral) {
         //设置连接成功的block
         NSLog(@"设备：%@--连接成功",peripheral.name);
     }];
-    
-    [baby setBlockOndDiscoverServices:^(CBPeripheral *peripheral, NSError *error) {
+    //设置发现设备的Services的委托
+    [baby setBlockOnDiscoverServices:^(CBPeripheral *peripheral, NSError *error) {
         for (CBService *service in peripheral.services) {
             NSLog(@"搜索到服务:%@",service.UUID.UUIDString);
         }
@@ -70,17 +81,29 @@
                 cell.detailTextLabel.text = [NSString stringWithFormat:@"%d个service",peripheral.services.count];
             }
         }
-        
     }];
-    
-    
-//#warning 设置长连接，测试设备特殊设置
-//    //开启长连接
-//    if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:@"39E1FA06-84A8-11E2-AFBA-0002A5D5C51B"]] ) {
-//        int i = 1;
-//        NSData *data = [NSData dataWithBytes: &@(1) length: 1];
-//        [_testPeripheral writeValue:data forCharacteristic:characteristic type:CBCharacteristicWriteWithResponse];
-//    }
+    //设置发现设service的Characteristics的委托
+    [baby setBlockOnDiscoverCharacteristics:^(CBPeripheral *peripheral, CBService *service, NSError *error) {
+        NSLog(@"===service name:%@",service.UUID);
+        for (CBCharacteristic *c in service.characteristics) {
+            NSLog(@"charateristic name is :%@",c.UUID);
+        }
+    }];
+    //设置读取characteristics的委托
+    [baby setBlockOnReadValueForCharacteristic:^(CBPeripheral *peripheral, CBCharacteristic *characteristics, NSError *error) {
+        NSLog(@"characteristic name:%@ value is:%@",characteristics.UUID,characteristics.value);
+    }];
+    //设置发现characteristics的descriptors的委托
+    [baby setBlockOnDiscoverDescriptorsForCharacteristic:^(CBPeripheral *peripheral, CBCharacteristic *characteristic, NSError *error) {
+        NSLog(@"===characteristic name:%@",characteristic.service.UUID);
+        for (CBDescriptor *d in characteristic.descriptors) {
+            NSLog(@"CBDescriptor name is :%@",d.UUID);
+        }
+    }];
+    //设置读取Descriptor的委托
+    [baby setBlockOnReadValueForDescriptors:^(CBPeripheral *peripheral, CBDescriptor *descriptor, NSError *error) {
+        NSLog(@"Descriptor name:%@ value is:%@",descriptor.characteristic.UUID, descriptor.value);
+    }];
     
     //设置查找设备的过滤器
     [baby setDiscoverPeripheralsFilter:^BOOL(NSString *peripheralsFilter) {
@@ -90,23 +113,33 @@
         }
         return NO;
     }];
+    
 }
+
+
+
+//#warning 设置长连接，测试设备特殊设置
+//    //开启长连接
+//    if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:@"39E1FA06-84A8-11E2-AFBA-0002A5D5C51B"]] ) {
+//        int i = 1;
+//        NSData *data = [NSData dataWithBytes: &@(1) length: 1];
+//        [_testPeripheral writeValue:data forCharacteristic:characteristic type:CBCharacteristicWriteWithResponse];
+//    }
+    
+
 
 //扫描设备,读取服务
 -(void)scanPeripheral{
     
-//    baby.scanForPeripherals().begin(); //扫描设备
-    
-    //扫描设备 然后读取服务,然后读取characteristics名称和值和属性
-    baby.scanForPeripherals().then.connectToPeripheral()
-    .then.discoverServices().then.discoverCharacteristics().begin();
+    //扫描设备 然后读取服务,然后读取characteristics名称和值和属性，获取characteristics对应的description的名称和值
+//
+    [SVProgressHUD showInfoWithStatus:@"正在扫描设备"];
+    baby.scanForPeripherals().begin().stop(10);
+//    baby.scanForPeripherals().connectToPeripherals().discoverServices().discoverCharacteristics().readValueForCharacteristic().discoverDescriptorsForCharacteristic().readValueForDescriptors().begin().stop(30);
+ 
 }
 
-//点击table row连接制定设备
--(void)selectRowForConnectPeripheral:(CBPeripheral *)peripheral{
-    baby.connectToPeripheral(peripheral).discoverServices().discoverCharacteristics().begin(10).stop();
-    
-}
+
 
 //读取服务
 -(void)fetchServices{
@@ -127,7 +160,6 @@
     [peripherals addObject:peripheral];
     
     [self.tableView insertRowsAtIndexPaths:indexPaths withRowAnimation:UITableViewRowAnimationAutomatic];
-    NSLog(@"insertDevice done!");
 }
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
@@ -162,6 +194,10 @@
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     [self.tableView deselectRowAtIndexPath:indexPath animated:YES];
+    PeripheralViewContriller *vc = [[PeripheralViewContriller alloc]init];
+    vc.currPeripheral = [peripherals objectAtIndex:indexPath.row];
+    vc->baby = self->baby;
+    [self.navigationController pushViewController:vc animated:YES];
 }
 
 

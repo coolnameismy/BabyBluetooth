@@ -22,8 +22,11 @@ typedef void (^BBDiscoverServicesBlock)(CBPeripheral *peripheral,NSError *error)
 //找到Characteristics的block
 typedef void (^BBDiscoverCharacteristicsBlock)(CBPeripheral *peripheral,CBService *service,NSError *error);
 //更新（获取）Characteristics的value的block
-typedef void (^BBUpdateValueForCharacteristicBlock)(CBPeripheral *peripheral,CBCharacteristic *characteristic,NSError *error);
-
+typedef void (^BBReadValueForCharacteristicBlock)(CBPeripheral *peripheral,CBCharacteristic *characteristic,NSError *error);
+//获取Characteristics的名称
+typedef void (^BBDiscoverDescriptorsForCharacteristicBlock)(CBPeripheral *peripheral,CBCharacteristic *service,NSError *error);
+//获取Descriptors的值
+typedef void (^BBReadValueForDescriptorsBlock)(CBPeripheral *peripheral,CBDescriptor *descriptor,NSError *error);
 
 @interface BabyToy : NSObject
 

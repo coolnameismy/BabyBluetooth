@@ -17,6 +17,8 @@
     if(self){
         //pocket
         pocket = [[NSMutableDictionary alloc]init];
+        connectedPeripherals = [[NSMutableArray alloc]init];
+        bleManager = [[CBCentralManager alloc]initWithDelegate:self queue:dispatch_get_main_queue()];
         
         //监听通知
         [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(scanForPeripheralNotifyReceived:) name:@"scanForPeripherals" object:nil];
@@ -48,34 +50,28 @@
     NSLog(@">>>connectToPeripheralNotifyReceived");
 }
 
-#pragma mark -委托方法
+//扫描Peripherals
+-(void)scanPeripherals{
+    [bleManager scanForPeripheralsWithServices:nil options:nil];
+}
+//连接Peripherals
+-(void)connectToPeripheral:(CBPeripheral *)peripheral{
+    [bleManager connectPeripheral:peripheral options:nil];
+    
+}
 
-////连接设备成功的委托
-//-(void)setBlockOnConnected:(void (^)(CBCentralManager *central,CBPeripheral *peripheral))block{
-//    blockOnConnectedPeripheral = block;
-//}
-////找到设备的委托
-//-(void)setBlockOnDiscoverToPeripherals:(void (^)(CBCentralManager *central,CBPeripheral *peripheral,NSDictionary *advertisementData, NSNumber *RSSI))block{
-//    blockOnDiscoverToPeripherals = block;
-//}
-//
-////设置查找服务回叫
-//-(void)setBlockOndDiscoverServices:(void (^)(CBPeripheral *peripheral,NSError *error))block{
-//    blockOnDiscoverServices = block;
-//}
-//
-////设置查找Peripherals的规则
-//-(void)setFilterOnDiscoverPeripherals:(BOOL (^)(NSString *peripheralsFilter))filter{
-//    filterOnDiscoverPeripherals = filter;
-//}
-//
-////设置连接Peripherals的规则
-//-(void)setConnectPeripheralsFilter:(BOOL (^)(NSString *peripheralsFilter))filter{
-//    filterOnConnetToPeripherals = filter;
-//}
-
-
-
+//断开所以已连接的设备
+-(void)stopConnectAllPerihperals{
+    for (int i=0;i<connectedPeripherals.count;i++) {
+        [bleManager cancelPeripheralConnection:connectedPeripherals[i]];
+    }
+    connectedPeripherals = [[NSMutableArray alloc]init];
+    NSLog(@"babyBluetooth stop");
+}
+//停止扫描
+-(void)stopScan{
+    [bleManager stopScan];
+}
 
 #pragma mark -CBCentralManagerDelegate委托方法
 
@@ -115,7 +111,7 @@
 - (void)centralManager:(CBCentralManager *)central didDiscoverPeripheral:(CBPeripheral *)peripheral advertisementData:(NSDictionary *)advertisementData RSSI:(NSNumber *)RSSI
 {
     //日志
-//    NSLog(@"当扫描到设备:%@",peripheral.name);
+     NSLog(@"当扫描到设备:%@",peripheral.name);
    
     //设备添加到q列表
     [self addPeripheral:peripheral];
@@ -152,6 +148,8 @@
 //            [central connectPeripheral:peripheral->CBperipheral
 //                                    options:[NSDictionary dictionaryWithObject:[NSNumber numberWithBool:YES] forKey:CBConnectPeripheralOptionNotifyOnDisconnectionKey]];
             [central connectPeripheral:peripheral options:nil];
+            //开一个定时器监控连接超时的情况
+            connectTimer = [NSTimer scheduledTimerWithTimeInterval:5.0f target:self selector:@selector(disconnect:) userInfo:peripheral repeats:NO];
         }
     }
     
@@ -163,6 +161,8 @@
 {
     NSLog(@">>>连接到名称为（%@）的设备-成功",peripheral.name);
     [connectTimer invalidate];//停止时钟
+    [connectedPeripherals addObject:peripheral];
+    
     //执行回叫
     //扫描到设备callback
     if(blockOnDiscoverPeripherals){
@@ -176,6 +176,8 @@
         }
         if (filterOnDiscoverPeripherals(peripheral.name)) {
             blockOnConnectedPeripheral(central,peripheral);
+
+
         }
     }
     
@@ -184,6 +186,7 @@
         [peripheral setDelegate:self];
         [peripheral discoverServices:nil];
     }
+    
 }
 
 //连接到Peripherals-失败
@@ -196,6 +199,7 @@
 //Peripherals断开连接
 - (void)centralManager:(CBCentralManager *)central didDisconnectPeripheral:(CBPeripheral *)peripheral error:(NSError *)error{
     NSLog(@">>>外设连接断开连接 %@: %@\n", [peripheral name], [error localizedDescription]);
+    [connectedPeripherals removeObject:peripheral];
 //    [self findPeripheral:peripheral.name]->disConnectBlock(central,peripheral,error);
 }
 
@@ -203,52 +207,102 @@
 - (void)peripheral:(CBPeripheral *)peripheral didDiscoverServices:(NSError *)error
 {
 
-//    NSLog(@">>>扫描到服务：%@",peripheral.services);
+//  NSLog(@">>>扫描到服务：%@",peripheral.services);
     if (error)
     {
         NSLog(@">>>Discovered services for %@ with error: %@", peripheral.name, [error localizedDescription]);
         return;
     }
     //回叫block
-    if (needDiscoverServices) {
+    if (blockOnDiscoverServices) {
         blockOnDiscoverServices(peripheral,error);
     }
+    
     //discover characteristics
-    for (CBService *service in peripheral.services) {
-        [peripheral discoverCharacteristics:nil forService:service];
+    if (needDiscoverCharacteristics) {
+        for (CBService *service in peripheral.services) {
+            [peripheral discoverCharacteristics:nil forService:service];
+        }
     }
-
+    
+    
 }
-
+//发现服务的Characteristics
 -(void)peripheral:(CBPeripheral *)peripheral didDiscoverCharacteristicsForService:(CBService *)service error:(NSError *)error{
     if (error)
     {
         NSLog(@"error Discovered characteristics for %@ with error: %@", service.UUID, [error localizedDescription]);
         return;
     }
+    //回叫block
+    if (blockOnDiscoverCharacteristics) {
+        blockOnDiscoverCharacteristics(peripheral,service,error);
+    }
     
-    for (CBCharacteristic *characteristic in service.characteristics)
-    {
-         [peripheral readValueForCharacteristic:characteristic];
-
+    //如果需要更新Characteristic的值
+    if (needReadValueForCharacteristic) {
+        for (CBCharacteristic *characteristic in service.characteristics)
+        {
+            [peripheral readValueForCharacteristic:characteristic];
+        }
+    }
+    
+    //如果搜索Characteristic的Descriptors
+    if (needDiscoverDescriptorsForCharacteristic) {
+        for (CBCharacteristic *characteristic in service.characteristics)
+        {
+            [peripheral discoverDescriptorsForCharacteristic:characteristic];
+        }
     }
 }
 
+//读取Characteristics的值
 -(void)peripheral:(CBPeripheral *)peripheral didUpdateValueForCharacteristic:(CBCharacteristic *)characteristic error:(NSError *)error{
 
-
-    NSString *value = [[NSString alloc]initWithData:characteristic.value encoding:NSUTF8StringEncoding];
-    if (value) {
-        NSLog(@"%@>>>>>%@>>>>>%@",characteristic.service.UUID, characteristic.UUID,value);
-    }else{
-        NSLog(@"%@>>>>>%@>>>>>%@",characteristic.service.UUID, characteristic.UUID,characteristic.value);
+    if (error)
+    {
+        NSLog(@"error didUpdateValueForCharacteristic %@ with error: %@", characteristic.UUID, [error localizedDescription]);
+        return;
     }
-    if ([characteristic.UUID.UUIDString isEqualToString:@"2A23"]) {
-      
+    //回叫block
+    if (blockOnReadValueForCharacteristic) {
+        blockOnReadValueForCharacteristic(peripheral,characteristic,error);
     }
-   
-
     
+}
+//发现Characteristics的Descriptors
+-(void)peripheral:(CBPeripheral *)peripheral didDiscoverDescriptorsForCharacteristic:(CBCharacteristic *)characteristic error:(NSError *)error{
+    if (error)
+    {
+        NSLog(@"error Discovered DescriptorsForCharacteristic for %@ with error: %@", characteristic.UUID, [error localizedDescription]);
+        return;
+    }
+    //回叫block
+    if (blockOnDiscoverDescriptorsForCharacteristic) {
+        blockOnDiscoverDescriptorsForCharacteristic(peripheral,characteristic,error);
+    }
+    //如果需要更新Characteristic的Descriptors
+    if (needReadValueForDescriptors) {
+        for (CBDescriptor *d in characteristic.descriptors)
+        {
+            [peripheral readValueForDescriptor:d];
+        }
+    }
+}
+
+//读取Characteristics的Descriptors的值
+-(void)peripheral:(CBPeripheral *)peripheral didUpdateValueForDescriptor:(CBDescriptor *)descriptor error:(NSError *)error{
+
+    if (error)
+    {
+        NSLog(@"error didUpdateValueForDescriptor  for %@ with error: %@", descriptor.UUID, [error localizedDescription]);
+        return;
+    }
+    //回叫block
+    if (blockOnReadValueForDescriptors) {
+        blockOnReadValueForDescriptors(peripheral,descriptor,error);
+    }
+
 }
 
 #pragma mark -私有方法

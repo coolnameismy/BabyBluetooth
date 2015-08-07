@@ -18,7 +18,7 @@
 
 
 @implementation BabyBluetooth{
-    Babysister *bleHander;
+    Babysister *babysister;
 }
 
 
@@ -38,12 +38,10 @@
 -(instancetype)init{
     self = [super init];
     if (self) {
-        //线程
-        peripheralsSemaphore = dispatch_semaphore_create(0);
-        simpleBleQueue = dispatch_queue_create("com.jumppo.simpleBLE", NULL);
+        
         //初始化对象
-        bleHander = [[Babysister alloc]init];
-        bleManager = [[BBCentralManager alloc]initWithDelegate:bleHander queue:dispatch_get_main_queue()];
+        babysister = [[Babysister alloc]init];
+      
 
     }
     return self;
@@ -52,28 +50,47 @@
 
 #pragma mark -委托方法
 
+//找到Peripherals的委托
 -(void)setBlockOnDiscoverToPeripherals:(void (^)(CBCentralManager *central,CBPeripheral *peripheral,NSDictionary *advertisementData, NSNumber *RSSI))block{
-    bleHander->blockOnDiscoverPeripherals = block;
+    babysister->blockOnDiscoverPeripherals = block;
 }
 
-
+//连接Peripherals成功的委托
 -(void)setBlockOnConnected:(void (^)(CBCentralManager *central,CBPeripheral *peripheral))block{
-    bleHander->blockOnConnectedPeripheral = block;
+    babysister->blockOnConnectedPeripheral = block;
 }
 
 //设置查找服务回叫
--(void)setBlockOndDiscoverServices:(void (^)(CBPeripheral *peripheral,NSError *error))block{
-    bleHander->blockOnDiscoverServices = block;
+-(void)setBlockOnDiscoverServices:(void (^)(CBPeripheral *peripheral,NSError *error))block{
+    babysister->blockOnDiscoverServices = block;
 }
+
+//设置查找到Characteristics的block
+-(void)setBlockOnDiscoverCharacteristics:(void (^)(CBPeripheral *peripheral,CBService *service,NSError *error))block{
+    babysister->blockOnDiscoverCharacteristics = block;
+}
+//设置获取到最新Characteristics值的block
+-(void)setBlockOnReadValueForCharacteristic:(void (^)(CBPeripheral *peripheral,CBCharacteristic *characteristic,NSError *error))block{
+    babysister->blockOnReadValueForCharacteristic = block;
+}
+//设置查找到Characteristics描述的block
+-(void)setBlockOnDiscoverDescriptorsForCharacteristic:(void (^)(CBPeripheral *peripheral,CBCharacteristic *service,NSError *error))block{
+    babysister->blockOnDiscoverDescriptorsForCharacteristic = block;
+}
+//设置读取到Characteristics描述的值的block
+-(void)setBlockOnReadValueForDescriptors:(void (^)(CBPeripheral *peripheral,CBDescriptor *descriptorNSError,NSError *error))block{
+    babysister->blockOnReadValueForDescriptors = block;
+}
+
 
 //设置查找Peripherals的规则
 -(void)setDiscoverPeripheralsFilter:(BOOL (^)(NSString *peripheralsFilter))filter{
-    bleHander->filterOnDiscoverPeripherals = filter;
+    babysister->filterOnDiscoverPeripherals = filter;
 }
 
 //设置连接Peripherals的规则
 -(void)setConnectPeripheralsFilter:(BOOL (^)(NSString *peripheralsFilter))filter{
-    bleHander->filterOnConnetToPeripherals = filter;
+    babysister->filterOnConnetToPeripherals = filter;
 }
 
 
@@ -83,25 +100,25 @@
 -(BabyBluetooth *(^)()) scanForPeripherals{
     
     return ^BabyBluetooth *(){
-         bleHander->needScanForPeripherals = YES;
+         babysister->needScanForPeripherals = YES;
         
         return self;
     };
 }
 
 //连接Peripherals
--(BabyBluetooth *(^)()) connectToPeripheral{
+-(BabyBluetooth *(^)()) connectToPeripherals{
     return ^BabyBluetooth *(){
-        bleHander->needConnectPeripheral = YES;
+        babysister->needConnectPeripheral = YES;
         return self;
     };
     
 }
 
--(BabyBluetooth *(^)()) connectToPeripheral:(CBPeripheral *)peripheral{
-    return ^BabyBluetooth *(){
-        bleHander->needConnectPeripheral = YES;
-        [bleHander->pocket setValue:peripheral forKey:@"peripheral"];
+-(BabyBluetooth *(^)(CBPeripheral *peripheral)) connectToPeripheral{
+    return ^BabyBluetooth *(CBPeripheral *peripheral){
+        babysister->needConnectPeripheral = YES;
+        [babysister->pocket setValue:peripheral forKey:@"peripheral"];
         return self;
     };
 }
@@ -109,7 +126,7 @@
 //发现Services
 -(BabyBluetooth *(^)()) discoverServices{
     return ^BabyBluetooth *(){
-         bleHander->needDiscoverServices = YES;
+         babysister->needDiscoverServices = YES;
         return self;
     };
     
@@ -118,18 +135,53 @@
 //获取Characteristics
 -(BabyBluetooth *(^)()) discoverCharacteristics{
     return ^BabyBluetooth *(){
-        bleHander->needDiscoverCharacteristics = YES;
+        babysister->needDiscoverCharacteristics = YES;
         return self;
     };
     
 }
+
+//更新Characteristics的值
+-(BabyBluetooth *(^)()) readValueForCharacteristic{
+    return ^BabyBluetooth *(){
+        babysister->needReadValueForCharacteristic = YES;
+        return self;
+    };
+}
+
+//设置查找到Descriptors名称的block
+-(BabyBluetooth *(^)()) discoverDescriptorsForCharacteristic{
+    return ^BabyBluetooth *(){
+        babysister->needDiscoverDescriptorsForCharacteristic = YES;
+        return self;
+    };
+    
+}
+//设置读取到Descriptors值的block
+-(BabyBluetooth *(^)()) readValueForDescriptors{
+    return ^BabyBluetooth *(){
+        babysister->needReadValueForDescriptors = YES;
+        return self;
+    };
+}
+
 //开始并执行
 -(BabyBluetooth *(^)()) begin{
     [self validateProcess];
     return ^BabyBluetooth *(){
-        //开始扫描peripherals
-        if(bleHander->needScanForPeripherals){
-            [bleManager scanForPeripherals];
+        //直接连接或者是扫描后连接
+        if (babysister->needScanForPeripherals) {
+            //开始扫描peripherals
+            if(babysister->needScanForPeripherals){
+                [babysister scanPeripherals];
+            }
+        }else{
+            CBPeripheral *p = [babysister->pocket valueForKey:@"peripheral"];
+            if (p) {
+                //直接连接设备
+                [babysister connectToPeripheral:p];
+            }
+            
         }
         //重置状态
         babyStatus = BabyStatusRuning;
@@ -139,21 +191,28 @@
     
 }
 
+//sec秒后停止
+-(void(^)(int sec)) stop {
 
-//开始并执行sec秒后停止
--(BabyBluetooth *(^)()) begin:(int)sec{
-    [self validateProcess];
-    return ^BabyBluetooth *(int sec){
-        //开始扫描peripherals
-        if(bleHander->needScanForPeripherals){
-            [bleManager scanForPeripherals];
-        }
-        //重置状态
-        babyStatus = BabyStatusRuning;
-        [self performSelector:@selector(stop) withObject:nil afterDelay:sec];
-        return self;
+    return ^(int sec){
+        NSLog(@"stop in %d sec",sec);
+        dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, sec * NSEC_PER_SEC);
+        dispatch_after(popTime, dispatch_get_main_queue(), ^{
+            babysister->needScanForPeripherals = NO;
+            babysister->needConnectPeripheral = NO;
+            babysister->needDiscoverServices = NO;
+            babysister->needDiscoverCharacteristics = NO;
+            babysister->needReadValueForCharacteristic = NO;
+            babysister->needDiscoverDescriptorsForCharacteristic = NO;
+            babysister->needReadValueForDescriptors = NO;
+            babyStatus = BabyStatusStop;
+            //停止扫描，断开连接
+            [babysister stopScan];
+            [babysister stopConnectAllPerihperals];            
+        });
     };
-}
+
+} 
 
 -(void)validateProcess{
     NSString *reason = @"";
@@ -162,7 +221,7 @@
     
     
     //需要扫描
-    if (bleHander->needScanForPeripherals) {
+    if (babysister->needScanForPeripherals) {
 
             
 
@@ -170,40 +229,18 @@
     }
     //不需要扫描
     else{
-        CBPeripheral *peripheral = [bleHander->pocket valueForKey:@"peripheral"];
+        CBPeripheral *peripheral = [babysister->pocket valueForKey:@"peripheral"];
         if (!peripheral) {
             reason = @"若不执行scanForPeripherals方法，则必须执行connectToPeripheral方法并且需要传入参数(CBPeripheral *)peripheral";
         }
     }
-    
-    
-    
-    
     
     NSException *e = [NSException exceptionWithName:@"BadyBluetooth process exception" reason:reason userInfo:nil];
     if (![reason isEqualToString:@""]) {
         @throw e;
     }
 }
-//停止
--(void(^)()) stop{
-    return ^(){
-        bleHander->needScanForPeripherals = NO;
-        bleHander->needConnectPeripheral = NO;
-        bleHander->needDiscoverServices = NO;
-        bleHander->needDiscoverCharacteristics = NO;
-        babyStatus = BabyStatusStop;
-        //停止扫描，断开连接
-        [bleManager stopScan];
-        NSMutableArray *connectedPeripherals = [bleHander->pocket valueForKey:@"connectedPeripherals"];
-        if (connectedPeripherals) {
-            for (CBPeripheral *p in connectedPeripherals) {
-                [bleManager cancelPeripheralConnection:p];
-            }
-        }
-        [bleHander->pocket setObject:[NSNull null] forKey:@"connectedPeripherals"];
-    };
-}
+
 
 -(BabyBluetooth *) and{
     NSLog(@"and");
@@ -215,231 +252,8 @@
 }
 
 
-#pragma mark - 查找设备
 
 
-
-/**
- * 默认时间内（10秒）扫描出周围的设备
- * @return 扫描到的设备列表 NSMutableArray<CBPeripheral>
- */
-//-(NSMutableArray *) scanForPeripherals{
-//    NSMutableArray *devices = [[NSMutableArray alloc]init];
-//    
-//    [self scanPeripherals];
-//    dispatch_sync(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-//        [NSThread sleepForTimeInterval:10];
-//        [self stopScan:nil];
-//    });
-//    
-//    [[self findPeripherals] enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *stop) {
-//        SBPeripheral *SBperipheral = obj;
-//        [devices addObject:SBperipheral->CBperipheral];
-//    }];
-//    
-//    return devices;
-//}
-
-/**
- * 给定时间内扫描出周围的设备，
- * @warning 该方法是线程同步方法完成，须用异步方式调用，否则会造成线程柱塞
- * @see 相同功能的异步版本 scanForPeripheralsWithBlock:(SBDiscoverToPeripheralsBlock)discoverBlock
- * @param scanTime 给定的时间，单位为秒
- * @return 扫描到的设备列表 NSMutableArray<CBPeripheral>
- */
-#warning todo
-//-(NSMutableArray *)scanForPeripheralsInSecond:(int)scanTime{
-//    
-//    NSMutableArray *devices = [[NSMutableArray alloc]init];
-//    
-//   [self m_scanForPeripherals];
-//    dispatch_sync(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-//        [NSThread sleepForTimeInterval:scanTime];
-//        [self stopScan:nil];
-//    });
-//    
-//    [[self findPeripherals] enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *stop) {
-//        SBPeripheral *SBperipheral = obj;
-//        [devices addObject:SBperipheral->CBperipheral];
-//    }];
-//    
-//    return devices;
-//}
-
-
-
-
-
-
-
-
-
-
-//主设备状态更新
-- (void)centralManagerDidUpdateState:(CBCentralManager *)central
-{
-    
-}
-
-
-
-#pragma mark - 连接设备
-#warning todo
-//连接设备
-//-(void) connectToPeripheral:(NSString *)peripheralName succeedBlock:(SBConnectedBlock)succeedBlock failedBlock:(SBFailToConnectBlock)failedBlock disconnectBlock:(SBDisconnectBlock)disconnectBlock{
-//    
-//    SBPeripheral *peripheral = [self findPeripheral:peripheralName];
-//    peripheral->connectedBlock = succeedBlock;
-//    peripheral->failToConnectBlock = failedBlock;
-//    peripheral->disConnectBlock = disconnectBlock;
-//
-//    //连接设备
-//    [self.manager connectPeripheral:peripheral->CBperipheral
-//                            options:[NSDictionary dictionaryWithObject:[NSNumber numberWithBool:YES] forKey:CBConnectPeripheralOptionNotifyOnDisconnectionKey]];
-//    
-//    //开一个定时器监控连接超时的情况
-//    connectTimer = [NSTimer scheduledTimerWithTimeInterval:5.0f target:self selector:@selector(disconnect:) userInfo:peripheral repeats:NO];
-//    
-//}
-
-/**
- *  连接设备并扫描服务
- */
-#warning todo
-//-(void) connectToPeripheral:(NSString *)peripheralName
-//               succeedBlock:(SBConnectedBlock)succeedBlock
-//                failedBlock:(SBFailToConnectBlock)failedBlock
-//            disconnectBlock:(SBDisconnectBlock)disconnectBlock
-//           discoverServicesBlock:(SBDiscoverServicesBlock)discoverServicesBlock{
-//    
-//    [self connectToPeripheral:peripheralName succeedBlock:^(CBCentralManager *central, CBPeripheral *peripheral) {
-//        //发现服务
-//        [peripheral setDelegate:self];
-//        [peripheral discoverServices:nil];
-//        //找到SBPeripheral ，设定找到服务的block
-//        SBPeripheral *sbperipheral = [self findPeripheral:peripheralName];
-//        sbperipheral->discoverServiceslock = discoverServicesBlock;
-//        succeedBlock(central, peripheral);
-//    }failedBlock:failedBlock disconnectBlock:disconnectBlock];
-//     SBPeripheral *peripheral = [self findPeripheral:peripheralName];
-//    peripheral->discoverServiceslock = discoverServicesBlock;
-//    
-//}
-
-//断开设备连接
-#warning todo
-//-(void) disconnect:(CBPeripheral *)peripheral
-//{
-//    NSLog(@"disconnect：连接断开");
-//    [self.manager cancelPeripheralConnection:peripheral];
-//}
-//
-
-
-
-
-#pragma mark -外设服务
-#warning todo
-///**
-// *  找到设备服务
-// */
-//-(void) scanServices:(CBPeripheral *)peripheral succeed:(SBDiscoverServicesBlock)succeed{
-//    
-//    
-//}
-//扫描外设服务
-//- (void)peripheral:(CBPeripheral *)peripheral didDiscoverServices:(NSError *)error
-//{
-//    NSLog(@"didDiscoverServices");
-//    NSLog(@"%d",peripheral.state);
-//    
-//    if (error)
-//    {
-//        NSLog(@"Discovered services for %@ with error: %@", peripheral.name, [error localizedDescription]);
-//        
-//        return;
-//    }
-//    //回叫block
-//    SBPeripheral *sbPeripheral = [self findPeripheral:peripheral.name];
-//    if (sbPeripheral) {
-//        sbPeripheral->discoverServiceslock(peripheral,error);
-//    }
-//
-//    //discover characteristics
-//    
-//        
-//}
-
-
-
-//获取设备的characteristics
--(void) fetchPeripheralCharacteristics:(CBPeripheral *)peripheral{
-    
-    for (int i=0; i < peripheral.services.count; i++) {
-      CBService *service = [peripheral.services objectAtIndex:i];
-      NSLog(@"Fetching characteristics for service with UUID : %s\r\n",[self CBUUIDToString:service.UUID]);
-      [peripheral discoverCharacteristics:nil forService:service];
-    }
-    
-}
-
-
-//获取指定服务的characteristics
--(void)fetchServicesCharacteristics:(CBPeripheral *)peripheral service:(CBService *)service{
-    [peripheral discoverCharacteristics:nil forService:service];
-}
-
-//获取指定服务,指定名称的characteristics
--(void)fetchCharacteristicsByName:(NSArray *)characteristicsNames
-                       peripheral:(CBPeripheral *)peripheral
-                          service:(CBService *)service{
-
-    [peripheral discoverCharacteristics:characteristicsNames forService:service];
-}
-
-//扫描服务到服务的特征
-- (void)peripheral:(CBPeripheral *)peripheral didDiscoverCharacteristicsForService:(CBService *)service error:(NSError *)error
-{
-   
-    
-    if (error)
-    {
-        NSLog(@"error Discovered characteristics for %@ with error: %@", service.UUID, [error localizedDescription]);
-        return;
-    }
-    
-   // [self testwriteChar:peripheral characteristic:[service.characteristics objectAtIndex:5]];
-    
-    
-    for (CBCharacteristic *characteristic in service.characteristics)
-    {
-        
-//        printf("Updated notification state for characteristic with UUID %s on service with  UUID %s on peripheral with UUID %s\r\n",[self CBUUIDToString:characteristic.UUID],[self CBUUIDToString:characteristic.service.UUID],[self UUIDToString:(__bridge CFUUIDRef )peripheral.identifier]);
-        
-        //[self readValue:service.UUID characteristicUUID:characteristic.UUID p:peripheral];
-        [_testPeripheral readValueForCharacteristic:characteristic];
-        
-        
-        //开启长连接
-        if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:@"39E1FA06-84A8-11E2-AFBA-0002A5D5C51B"]] ) {
-            int i = 1;
-            NSData *data = [NSData dataWithBytes: &i length: 1];
-            [_testPeripheral writeValue:data forCharacteristic:characteristic type:CBCharacteristicWriteWithResponse];
-            
-        
-        }
-        
-        
-        
-        //订阅通知
-        if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:@"39E1FA05-84A8-11E2-AFBA-0002A5D5C51B"]] ) {
-            [_testPeripheral setNotifyValue:YES forCharacteristic:characteristic];
-            
-        }
-    }
-    
-    
-}
 
 //////////////////////////////////////////////end特征和外设////////////////////////////////////////////////
 
@@ -640,16 +454,6 @@
 #pragma mark -test
 
 
-
--(int (^)(int, int))add{
-    return ^int(int a,int b){
-        return a+b;
-    };
-}
-//- (MASConstraint * (^)(id))equalTo {
-//    return ^id(id attribute) {
-//        return self.equalToWithRelation(attribute, NSLayoutRelationEqual);
-//    };
-//}
+ 
 
 @end

@@ -19,17 +19,12 @@ typedef NS_ENUM(NSInteger, BabyStatus) {
     BabyStatusRuning
 };
 
-@interface BabyBluetooth : NSObject<CBPeripheralDelegate>{
+@interface BabyBluetooth : NSObject{
     
     @private
-    //主设备
-    BBCentralManager *bleManager;
     //BabyStatus;
     BabyStatus babyStatus;
   
-    //线程
-    dispatch_semaphore_t peripheralsSemaphore;
-    dispatch_queue_t simpleBleQueue;
 }
 
 #pragma mark -属性 property
@@ -57,7 +52,16 @@ typedef NS_ENUM(NSInteger, BabyStatus) {
 //连接Peripherals成功的委托
 -(void)setBlockOnConnected:(void (^)(CBCentralManager *central,CBPeripheral *peripheral))block;
 //设置查找服务回叫
--(void)setBlockOndDiscoverServices:(void (^)(CBPeripheral *peripheral,NSError *error))block;
+-(void)setBlockOnDiscoverServices:(void (^)(CBPeripheral *peripheral,NSError *error))block;
+//设置查找到Characteristics的block
+-(void)setBlockOnDiscoverCharacteristics:(void (^)(CBPeripheral *peripheral,CBService *service,NSError *error))block;
+//设置获取到最新Characteristics值的block
+-(void)setBlockOnReadValueForCharacteristic:(void (^)(CBPeripheral *peripheral,CBCharacteristic *characteristic,NSError *error))block;
+//设置查找到Descriptors名称的block
+-(void)setBlockOnDiscoverDescriptorsForCharacteristic:(void (^)(CBPeripheral *peripheral,CBCharacteristic *characteristic,NSError *error))block;
+//设置读取到Descriptors值的block
+-(void)setBlockOnReadValueForDescriptors:(void (^)(CBPeripheral *peripheral,CBDescriptor *descriptorNSError,NSError *error))block;
+
 
 //设置查找Peripherals的规则
 -(void)setDiscoverPeripheralsFilter:(BOOL (^)(NSString *peripheralsFilter))filter;
@@ -69,18 +73,25 @@ typedef NS_ENUM(NSInteger, BabyStatus) {
 //查找Peripherals
 -(BabyBluetooth *(^)()) scanForPeripherals;
 //连接Peripherals
--(BabyBluetooth *(^)()) connectToPeripheral;
--(BabyBluetooth *(^)()) connectToPeripheral:(CBPeripheral *)peripheral;
+-(BabyBluetooth *(^)()) connectToPeripherals;
+-(BabyBluetooth *(^)(CBPeripheral *peripheral)) connectToPeripheral;
 //发现Services
 -(BabyBluetooth *(^)()) discoverServices;
 //获取Characteristics
 -(BabyBluetooth *(^)()) discoverCharacteristics;
+//更新Characteristics的值
+-(BabyBluetooth *(^)()) readValueForCharacteristic;
+//获取Characteristics的名称
+-(BabyBluetooth *(^)()) discoverDescriptorsForCharacteristic;
+//获取Descriptors的值
+-(BabyBluetooth *(^)()) readValueForDescriptors;
+
 //开始执行
 -(BabyBluetooth *(^)()) begin;
 //开始并执行sec秒后停止
--(BabyBluetooth *(^)()) begin:(int)sec;
-//停止
--(void(^)()) stop;
+//-(BabyBluetooth *(^)()) begin:(int)sec;
+//sec秒后停止
+-(void(^)(int sec)) stop;
 
 -(BabyBluetooth *) and;
 -(BabyBluetooth *) then;
@@ -93,61 +104,12 @@ typedef NS_ENUM(NSInteger, BabyStatus) {
 +(instancetype)shareSimpleBLE; 
 
 
-/**
- * 默认时间内（10秒）扫描出周围的设备
- * @return 扫描到的设备列表 NSMutableArray<CBPeripheral>
- */
-//-(NSMutableArray *) scanForPeripherals;
-
-/**
- * 给定时间内扫描出周围的设备，
- * @warning 该方法是线程同步方法完成，须用异步方式调用，否则会造成线程柱塞
- * @see 相同功能的异步版本 scanForPeripheralsWithBlock:(SBDiscoverToPeripheralsBlock)discoverBlock
- * @param scanTime 给定的时间，单位为秒
- * @return 扫描到的设备列表 NSMutableArray<CBPeripheral>
- */
--(NSMutableArray *)scanForPeripheralsInSecond:(int)scanTime;
-
-/**
- *  查找设备
- *
- *  @param findPeripheralsBlock discoverPeripheral
- *
- *  @return <#return value description#>
- */
--(void) scanForPeripheralsWithBlock:(BBDiscoverPeripheralsBlock)discoverPeripheralBlock;
-
-
-/**
- *  连接设备
- */
--(void) connectToPeripheral:(NSString *)peripheralName succeedBlock:(BBConnectedPeripheralBlock)succeedBlock failedBlock:(BBFailToConnectBlock)failedBlock disconnectBlock:(BBDisconnectBlock)disconnectBlock;
-
-/**
- *  连接设备并扫描服务
- */
--(void) connectToPeripheral:(NSString *)peripheralName
-               succeedBlock:(BBConnectedPeripheralBlock)succeedBlock
-                failedBlock:(BBFailToConnectBlock)failedBlock
-            disconnectBlock:(BBDisconnectBlock)disconnectBlock
-      discoverServicesBlock:(BBDiscoverServicesBlock)discoverServicesBlock;
-
-
-/**
- *  找到设备服务
- */
-//-(void) scanServices:(CBPeripheral *)peripheral succeed:(SBDiscoverServicesBlock)succeed;
-
 
 #pragma mark -测试使用
 
 /**
  *  测试
  */
-@property(strong,nonatomic) CBPeripheral *testPeripheral;
 
-
--(int (^)(int a,int b)) add;
-//- (MASConstraint * (^)(id attr))equalTo;
 
 @end

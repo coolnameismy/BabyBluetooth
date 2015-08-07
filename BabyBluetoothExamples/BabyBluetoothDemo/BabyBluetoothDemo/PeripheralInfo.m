@@ -1,0 +1,21 @@
+//
+//  PeripheralInfo.m
+//  BabyBluetoothDemo
+//
+//  Created by ZTELiuyw on 15/8/6.
+//  Copyright (c) 2015年 刘彦玮. All rights reserved.
+//
+
+#import "PeripheralInfo.h"
+
+@implementation PeripheralInfo
+
+-(instancetype)init{
+    self = [super init];
+    if (self) {
+        self.characteristics = [[NSMutableArray alloc]init];
+    }
+    return self;
+}
+
+@end

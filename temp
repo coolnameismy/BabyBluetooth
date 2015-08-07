@@ -1,0 +1,69 @@
+BabyBluetooch
+
+目录：
+1-简单的使用例子和常用业务场景
+2-如何加入到你的项目中
+3-委托方法
+4-过滤器
+5-数据读、写、通知
+6-联系我
+
+-下个版本
+
+
+
+
+
+
+方法调用：
+//扫描设备 然后读取服务,然后读取characteristics名称和值和属性，获取characteristics对应的description的名称和值
+baby.scanForPeripherals().connectToPeripheral().discoverServices().discoverCharacteristics().readValueForCharacteristic().discoverDescriptorsForCharacteristic().readValueForDescriptors().begin();
+
+委托设置：
+//设置扫描到设备的委托
+[baby setBlockOnDiscoverToPeripherals:^(CBCentralManager *central, CBPeripheral *peripheral, NSDictionary *advertisementData, NSNumber *RSSI) {
+    NSLog(@"搜索到了设备:%@",peripheral.name);
+}];
+//设置设备连接成功的委托
+[baby setBlockOnConnected:^(CBCentralManager *central, CBPeripheral *peripheral) {
+    NSLog(@"设备：%@--连接成功",peripheral.name);
+}];
+//设置发现设备的Services的委托
+[baby setBlockOnDiscoverServices:^(CBPeripheral *peripheral, NSError *error) {
+    for (CBService *service in peripheral.services) {
+        NSLog(@"搜索到服务:%@",service.UUID.UUIDString);
+    }
+}];
+//设置发现设service的Characteristics的委托
+[baby setBlockOnDiscoverCharacteristics:^(CBPeripheral *peripheral, CBService *service, NSError *error) {
+    NSLog(@"===service name:%@",service.UUID);
+    for (CBCharacteristic *c in service.characteristics) {
+        NSLog(@"charateristic name is :%@",c.UUID);
+    }
+}];
+//设置读取characteristics的委托
+[baby setBlockOnReadValueForCharacteristic:^(CBPeripheral *peripheral, CBCharacteristic *characteristics, NSError *error) {
+    NSLog(@"characteristic name:%@ value is:%@",characteristics.UUID,characteristics.value);
+}];
+//设置发现characteristics的descriptors的委托
+[baby setBlockOnDiscoverDescriptorsForCharacteristic:^(CBPeripheral *peripheral, CBCharacteristic *characteristic, NSError *error) {
+    NSLog(@"===characteristic name:%@",characteristic.service.UUID);
+    for (CBDescriptor *d in characteristic.descriptors) {
+        NSLog(@"CBDescriptor name is :%@",d.UUID);
+    }
+}];
+//设置读取Descriptor的委托
+[baby setBlockOnReadValueForDescriptors:^(CBPeripheral *peripheral, CBDescriptor *descriptor, NSError *error) {
+    NSLog(@"Descriptor name:%@ value is:%@",descriptor.characteristic.UUID, descriptor.value);
+}];
+
+//过滤器
+//设置查找设备的过滤器
+[baby setDiscoverPeripheralsFilter:^BOOL(NSString *peripheralsFilter) {
+    //设置查找规则是名称大于1 ， the search rule is peripheral.name length > 1
+    if (peripheralsFilter.length >1) {
+        return YES;
+    }
+    return NO;
+}];
+

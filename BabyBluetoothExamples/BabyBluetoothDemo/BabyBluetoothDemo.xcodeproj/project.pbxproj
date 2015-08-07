@@ -19,6 +19,12 @@
 		E1807EA71B6CA53600E99C63 /* BabyBluetooth.m in Sources */ = {isa = PBXBuildFile; fileRef = E1807EA01B6CA53600E99C63 /* BabyBluetooth.m */; };
 		E1807EA81B6CA53600E99C63 /* Babysister.m in Sources */ = {isa = PBXBuildFile; fileRef = E1807EA21B6CA53600E99C63 /* Babysister.m */; };
 		E1807EAC1B6CAF0700E99C63 /* BabyToy.m in Sources */ = {isa = PBXBuildFile; fileRef = E1807EAB1B6CAF0700E99C63 /* BabyToy.m */; };
+		F05F7BA21B70AB0F0051C68A /* PeripheralViewContriller.m in Sources */ = {isa = PBXBuildFile; fileRef = F05F7BA11B70AB0F0051C68A /* PeripheralViewContriller.m */; };
+		F05F7BA61B733A240051C68A /* PeripheralInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = F05F7BA51B733A240051C68A /* PeripheralInfo.m */; };
+		F05F7BAD1B7372300051C68A /* SVIndefiniteAnimatedView.m in Sources */ = {isa = PBXBuildFile; fileRef = F05F7BA91B7372300051C68A /* SVIndefiniteAnimatedView.m */; };
+		F05F7BAE1B7372300051C68A /* SVProgressHUD.bundle in Resources */ = {isa = PBXBuildFile; fileRef = F05F7BAA1B7372300051C68A /* SVProgressHUD.bundle */; };
+		F05F7BAF1B7372300051C68A /* SVProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = F05F7BAC1B7372300051C68A /* SVProgressHUD.m */; };
+		F05F7BB21B7442B50051C68A /* CharacteristicViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F05F7BB11B7442B50051C68A /* CharacteristicViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -56,6 +62,17 @@
 		E1807EAA1B6CAF0700E99C63 /* BabyToy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BabyToy.h; sourceTree = "<group>"; };
 		E1807EAB1B6CAF0700E99C63 /* BabyToy.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BabyToy.m; sourceTree = "<group>"; };
 		E1807EAD1B6CBB3100E99C63 /* B.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = B.h; sourceTree = "<group>"; };
+		F05F7BA01B70AB0F0051C68A /* PeripheralViewContriller.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PeripheralViewContriller.h; sourceTree = "<group>"; };
+		F05F7BA11B70AB0F0051C68A /* PeripheralViewContriller.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PeripheralViewContriller.m; sourceTree = "<group>"; };
+		F05F7BA41B733A240051C68A /* PeripheralInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PeripheralInfo.h; sourceTree = "<group>"; };
+		F05F7BA51B733A240051C68A /* PeripheralInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PeripheralInfo.m; sourceTree = "<group>"; };
+		F05F7BA81B7372300051C68A /* SVIndefiniteAnimatedView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVIndefiniteAnimatedView.h; sourceTree = "<group>"; };
+		F05F7BA91B7372300051C68A /* SVIndefiniteAnimatedView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SVIndefiniteAnimatedView.m; sourceTree = "<group>"; };
+		F05F7BAA1B7372300051C68A /* SVProgressHUD.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = SVProgressHUD.bundle; sourceTree = "<group>"; };
+		F05F7BAB1B7372300051C68A /* SVProgressHUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVProgressHUD.h; sourceTree = "<group>"; };
+		F05F7BAC1B7372300051C68A /* SVProgressHUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SVProgressHUD.m; sourceTree = "<group>"; };
+		F05F7BB01B7442B50051C68A /* CharacteristicViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CharacteristicViewController.h; sourceTree = "<group>"; };
+		F05F7BB11B7442B50051C68A /* CharacteristicViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CharacteristicViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -99,10 +116,15 @@
 		E1807E6F1B6CA29100E99C63 /* BabyBluetoothDemo */ = {
 			isa = PBXGroup;
 			children = (
+				F05F7BA31B7339E90051C68A /* Model */,
 				E1807E741B6CA29100E99C63 /* AppDelegate.h */,
 				E1807E751B6CA29100E99C63 /* AppDelegate.m */,
 				E1807E771B6CA29100E99C63 /* ViewController.h */,
 				E1807E781B6CA29100E99C63 /* ViewController.m */,
+				F05F7BA01B70AB0F0051C68A /* PeripheralViewContriller.h */,
+				F05F7BA11B70AB0F0051C68A /* PeripheralViewContriller.m */,
+				F05F7BB01B7442B50051C68A /* CharacteristicViewController.h */,
+				F05F7BB11B7442B50051C68A /* CharacteristicViewController.m */,
 				E1807E7A1B6CA29100E99C63 /* Main.storyboard */,
 				E1807E7D1B6CA29100E99C63 /* Images.xcassets */,
 				E1807E7F1B6CA29100E99C63 /* LaunchScreen.xib */,
@@ -158,8 +180,30 @@
 		E1807EA91B6CA53A00E99C63 /* Framework */ = {
 			isa = PBXGroup;
 			children = (
+				F05F7BA71B7372300051C68A /* SVProgressHUD */,
 			);
 			name = Framework;
+			sourceTree = "<group>";
+		};
+		F05F7BA31B7339E90051C68A /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				F05F7BA41B733A240051C68A /* PeripheralInfo.h */,
+				F05F7BA51B733A240051C68A /* PeripheralInfo.m */,
+			);
+			name = Model;
+			sourceTree = "<group>";
+		};
+		F05F7BA71B7372300051C68A /* SVProgressHUD */ = {
+			isa = PBXGroup;
+			children = (
+				F05F7BA81B7372300051C68A /* SVIndefiniteAnimatedView.h */,
+				F05F7BA91B7372300051C68A /* SVIndefiniteAnimatedView.m */,
+				F05F7BAA1B7372300051C68A /* SVProgressHUD.bundle */,
+				F05F7BAB1B7372300051C68A /* SVProgressHUD.h */,
+				F05F7BAC1B7372300051C68A /* SVProgressHUD.m */,
+			);
+			path = SVProgressHUD;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -245,6 +289,7 @@
 				E1807E7C1B6CA29100E99C63 /* Main.storyboard in Resources */,
 				E1807E811B6CA29100E99C63 /* LaunchScreen.xib in Resources */,
 				E1807E7E1B6CA29100E99C63 /* Images.xcassets in Resources */,
+				F05F7BAE1B7372300051C68A /* SVProgressHUD.bundle in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -262,13 +307,18 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F05F7BA21B70AB0F0051C68A /* PeripheralViewContriller.m in Sources */,
 				E1807EA81B6CA53600E99C63 /* Babysister.m in Sources */,
 				E1807E791B6CA29100E99C63 /* ViewController.m in Sources */,
+				F05F7BA61B733A240051C68A /* PeripheralInfo.m in Sources */,
 				E1807EA71B6CA53600E99C63 /* BabyBluetooth.m in Sources */,
+				F05F7BAF1B7372300051C68A /* SVProgressHUD.m in Sources */,
 				E1807E761B6CA29100E99C63 /* AppDelegate.m in Sources */,
 				E1807E731B6CA29100E99C63 /* main.m in Sources */,
 				E1807EA51B6CA53600E99C63 /* BBPeripheral.m in Sources */,
 				E1807EAC1B6CAF0700E99C63 /* BabyToy.m in Sources */,
+				F05F7BB21B7442B50051C68A /* CharacteristicViewController.m in Sources */,
+				F05F7BAD1B7372300051C68A /* SVIndefiniteAnimatedView.m in Sources */,
 				E1807EA41B6CA53600E99C63 /* BBCentralManager.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -466,6 +516,7 @@
 				E1807E921B6CA29100E99C63 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		E1807E931B6CA29100E99C63 /* Build configuration list for PBXNativeTarget "BabyBluetoothDemoTests" */ = {
 			isa = XCConfigurationList;
@@ -474,6 +525,7 @@
 				E1807E951B6CA29100E99C63 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
