@@ -298,17 +298,6 @@
 
 
 //////////////////////////////////////////////数据交互////////////////////////////////////////////////
-- (void)peripheral:(CBPeripheral *)peripheral didUpdateValueForCharacteristic:(CBCharacteristic *)characteristic error:(NSError *)error{
-    
-    NSLog(@"================================================");
-    NSLog(@"properties:%lu for descriptors: %@ value: %@", characteristic.properties, characteristic.descriptors, characteristic.value);
-    NSLog(@"characteristic UUID:%@ and service uuid : %@", characteristic.UUID
-             ,characteristic.service.UUID);
-    NSString *value = [[NSString alloc]initWithData:characteristic.value encoding:NSUTF8StringEncoding];
-    NSLog(@"%@",value);
-    
-    
-}
 - (void)peripheral:(CBPeripheral *)peripheral didWriteValueForCharacteristic:(CBCharacteristic *)characteristic error:(NSError *)error{
 //    debugMethod();s
 }

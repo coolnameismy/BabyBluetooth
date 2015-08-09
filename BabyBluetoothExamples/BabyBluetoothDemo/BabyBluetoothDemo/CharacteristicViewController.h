@@ -17,6 +17,7 @@
     BabyBluetooth *baby;
     NSMutableArray *sect;
   __block  NSMutableArray *readValueArray;
+  __block  NSMutableArray *descriptors;
 }
 
 @property (nonatomic,strong)UITableView *tableView;

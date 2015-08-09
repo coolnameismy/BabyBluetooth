@@ -28,13 +28,12 @@
     //初始化数据
     sect = [NSMutableArray arrayWithObjects:@"read value",@"write value",@"desc",@"properties", nil];
     readValueArray = [[NSMutableArray alloc]init];
+    descriptors = [[NSMutableArray alloc]init];
     //配置ble委托
     [self babyDelegate];
     //读取服务
     baby.fetchCharacteristicDetails(self.currPeripheral,self.characteristic);
 }
-
-
 
 
 -(void)createUI{
@@ -67,29 +66,64 @@
     //设置读取characteristics的委托
     [baby setBlockOnReadValueForCharacteristic:^(CBPeripheral *peripheral, CBCharacteristic *characteristics, NSError *error) {
 //        NSLog(@"CharacteristicViewController===characteristic name:%@ value is:%@",characteristics.UUID,characteristics.value);
-        [weakSelf insertRowToTableView:characteristics];
+        [weakSelf insertReadValues:characteristics];
         
     }];
     //设置发现characteristics的descriptors的委托
     [baby setBlockOnDiscoverDescriptorsForCharacteristic:^(CBPeripheral *peripheral, CBCharacteristic *characteristic, NSError *error) {
-        NSLog(@"CharacteristicViewController===characteristic name:%@",characteristic.service.UUID);
+//        NSLog(@"CharacteristicViewController===characteristic name:%@",characteristic.service.UUID);
         for (CBDescriptor *d in characteristic.descriptors) {
-            NSLog(@"CharacteristicViewController CBDescriptor name is :%@",d.UUID);
+//            NSLog(@"CharacteristicViewController CBDescriptor name is :%@",d.UUID);
+            [weakSelf insertDescriptor:d];
         }
     }];
     //设置读取Descriptor的委托
     [baby setBlockOnReadValueForDescriptors:^(CBPeripheral *peripheral, CBDescriptor *descriptor, NSError *error) {
+        for (int i =0 ; i<descriptors.count; i++) {
+            if (descriptors[i]==descriptor) {
+                UITableViewCell *cell = [weakSelf.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:i inSection:2]];
+//                NSString *valueStr = [[NSString alloc]initWithData:descriptor.value encoding:NSUTF8StringEncoding];
+                cell.detailTextLabel.text = [NSString stringWithFormat:@"%@",descriptor.value];
+            }
+        }
         NSLog(@"CharacteristicViewController Descriptor name:%@ value is:%@",descriptor.characteristic.UUID, descriptor.value);
     }];
 }
 
--(void)insertRowToTableView:(CBCharacteristic *)characteristics{
+//插入描述
+-(void)insertDescriptor:(CBDescriptor *)descriptor{
+    [self->descriptors addObject:descriptor];
+    NSMutableArray *indexPahts = [[NSMutableArray alloc]init];
+    NSIndexPath *indexPaht = [NSIndexPath indexPathForRow:self->descriptors.count-1 inSection:2];
+    [indexPahts addObject:indexPaht];
+    [self.tableView insertRowsAtIndexPaths:indexPahts withRowAnimation:UITableViewRowAnimationAutomatic];
+}
+//插入读取的值
+-(void)insertReadValues:(CBCharacteristic *)characteristics{
     [self->readValueArray addObject:[NSString stringWithFormat:@"%@",characteristics.value]];
     NSMutableArray *indexPahts = [[NSMutableArray alloc]init];
     NSIndexPath *indexPaht = [NSIndexPath indexPathForRow:self->readValueArray.count-1 inSection:0];
     [indexPahts addObject:indexPaht];
     [self.tableView insertRowsAtIndexPaths:indexPahts withRowAnimation:UITableViewRowAnimationAutomatic];
 }
+
+//写一个值
+-(void)writeValue{
+    int i = 1;
+    Byte b = 0X01;
+    NSData *data = [NSData dataWithBytes:&b length:sizeof(b)];
+    [self.currPeripheral writeValue:data forCharacteristic:self.characteristic type:CBCharacteristicWriteWithResponse];
+}
+//订阅一个值
+-(void)setNotifiy{
+    [self.currPeripheral setNotifyValue:YES forCharacteristic:self.characteristic];
+}
+//取消通知
+-(void)cancelNotifiy{
+    [self.currPeripheral setNotifyValue:NO forCharacteristic:self.characteristic];
+}
+
+
 #pragma mark -Table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
@@ -110,7 +144,7 @@
             break;
         case 2:
             //desc
-            return 1;
+            return descriptors.count;
             break;
         case 3:
             //properties
@@ -134,8 +168,10 @@
         case 0:
             //read value
         {
-            cell.textLabel.text = @"read value";
-            cell.detailTextLabel.text = @"read value detailstext";
+            cell.textLabel.text = [readValueArray objectAtIndex:indexPath.row];
+            NSDateFormatter *formatter = [[NSDateFormatter alloc]init];
+            [formatter setDateFormat:@"yyyy-MM-dd hh:mm:ss"];
+            cell.detailTextLabel.text = [formatter stringFromDate:[NSDate date]];
 //            cell.textLabel.text = [readValueArray valueForKey:@"value"];
 //            cell.detailTextLabel.text = [readValueArray valueForKey:@"stamp"];
         }
@@ -150,18 +186,56 @@
         case 2:
         //desc
         {
-            cell.textLabel.text = @"desc";
+            CBDescriptor *descriptor = [descriptors objectAtIndex:indexPath.row];
+            cell.textLabel.text = [NSString stringWithFormat:@"%@",descriptor.UUID];
+
         }
             break;
         case 3:
             //properties
         {
-            cell.textLabel.text = @"properties";
+//            CBCharacteristicPropertyBroadcast												= 0x01,
+//            CBCharacteristicPropertyRead													= 0x02,
+//            CBCharacteristicPropertyWriteWithoutResponse									= 0x04,
+//            CBCharacteristicPropertyWrite													= 0x08,
+//            CBCharacteristicPropertyNotify													= 0x10,
+//            CBCharacteristicPropertyIndicate												= 0x20,
+//            CBCharacteristicPropertyAuthenticatedSignedWrites								= 0x40,
+//            CBCharacteristicPropertyExtendedProperties										= 0x80,
+//            CBCharacteristicPropertyNotifyEncryptionRequired NS_ENUM_AVAILABLE(NA, 6_0)		= 0x100,
+//            CBCharacteristicPropertyIndicateEncryptionRequired NS_ENUM_AVAILABLE(NA, 6_0)	= 0x200
+            
+            CBCharacteristicProperties p = self.characteristic.properties;
+            cell.textLabel.text = @"";
+            
+            if (p & CBCharacteristicPropertyBroadcast) {
+                cell.textLabel.text = [cell.textLabel.text stringByAppendingString:@" | Broadcast"];
+            }
+            if (p & CBCharacteristicPropertyRead) {
+                cell.textLabel.text = [cell.textLabel.text stringByAppendingString:@" | Read"];
+            }
+            if (p & CBCharacteristicPropertyWriteWithoutResponse) {
+                cell.textLabel.text = [cell.textLabel.text stringByAppendingString:@" | WriteWithoutResponse"];
+            }
+            if (p & CBCharacteristicPropertyWrite) {
+                cell.textLabel.text = [cell.textLabel.text stringByAppendingString:@" | Write"];
+            }
+            if (p & CBCharacteristicPropertyNotify) {
+                cell.textLabel.text = [cell.textLabel.text stringByAppendingString:@" | Notify"];
+            }
+            if (p & CBCharacteristicPropertyIndicate) {
+                cell.textLabel.text = [cell.textLabel.text stringByAppendingString:@" | Indicate"];
+            }
+            if (p & CBCharacteristicPropertyAuthenticatedSignedWrites) {
+                cell.textLabel.text = [cell.textLabel.text stringByAppendingString:@" | AuthenticatedSignedWrites"];
+            }
+            if (p & CBCharacteristicPropertyExtendedProperties) {
+                cell.textLabel.text = [cell.textLabel.text stringByAppendingString:@" | ExtendedProperties"];
+            }
+            
         }
-
+            default:
             break;
-        default:
-            return 0 ;break;
     }
 
     
@@ -170,11 +244,41 @@
 
 
 -(UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
-    UILabel *title = [[UILabel alloc]initWithFrame:CGRectMake(0, 0, 100, 50)];
-    title.text = [sect objectAtIndex:section];
-    [title setTextColor:[UIColor whiteColor]];
-    [title setBackgroundColor:[UIColor darkGrayColor]];
-    return title;
+    switch (section) {
+        case 1:
+            //write value
+        {
+            UIView *view = [[UIView alloc]initWithFrame:CGRectMake(0, 0, width, 30)];
+            UILabel *title = [[UILabel alloc]initWithFrame:CGRectMake(0, 0, 100, 30)];
+            title.text = [sect objectAtIndex:section];
+            [title setTextColor:[UIColor whiteColor]];
+            [title setBackgroundColor:[UIColor darkGrayColor]];
+            [view addSubview:title];
+            UIButton *setNotifiyBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+            [setNotifiyBtn setFrame:CGRectMake(100, 0, 100, 30)];
+            [setNotifiyBtn setTitle:@"通知" forState:UIControlStateNormal];
+            [setNotifiyBtn setBackgroundColor:[UIColor darkGrayColor]];
+            [setNotifiyBtn addTarget:self action:@selector(setNotifiy) forControlEvents:UIControlEventTouchUpInside];
+            [view addSubview:setNotifiyBtn];
+            UIButton *writeBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+            [writeBtn setFrame:CGRectMake(200, 0, 100, 30)];
+            [writeBtn setTitle:@"写一个新值" forState:UIControlStateNormal];
+            [writeBtn setBackgroundColor:[UIColor darkGrayColor]];
+            [writeBtn addTarget:self action:@selector(writeValue) forControlEvents:UIControlEventTouchUpInside];
+            [view addSubview:writeBtn];
+            return view;
+        }
+            break;
+        default:
+        {
+            UILabel *title = [[UILabel alloc]initWithFrame:CGRectMake(0, 0, 100, 50)];
+            title.text = [sect objectAtIndex:section];
+            [title setTextColor:[UIColor whiteColor]];
+            [title setBackgroundColor:[UIColor darkGrayColor]];
+            return title;
+        }
+    }
+    return  nil;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section

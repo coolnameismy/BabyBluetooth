@@ -35,6 +35,7 @@
     
     [self.view addSubview:self.tableView];
     //初始化BabyBluetooth 蓝牙库
+
     [self pregnancy];
     //初始化其他数据 init other
     peripherals = [[NSMutableArray alloc]init];
@@ -130,11 +131,13 @@
 
 //扫描设备,读取服务
 -(void)scanPeripheral{
+
+//
     
     //扫描设备 然后读取服务,然后读取characteristics名称和值和属性，获取characteristics对应的description的名称和值
 //
     [SVProgressHUD showInfoWithStatus:@"正在扫描设备"];
-    baby.scanForPeripherals().begin().stop(10);
+    baby.scanForPeripherals().begin().stop(1000);
 //    baby.scanForPeripherals().connectToPeripherals().discoverServices().discoverCharacteristics().readValueForCharacteristic().discoverDescriptorsForCharacteristic().readValueForDescriptors().begin().stop(30);
  
 }

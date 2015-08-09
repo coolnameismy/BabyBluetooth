@@ -304,6 +304,27 @@
 
 }
 
+-(void)peripheral:(CBPeripheral *)peripheral didUpdateNotificationStateForCharacteristic:(CBCharacteristic *)characteristic error:(NSError *)error{
+   
+    if ([characteristic.UUID.UUIDString isEqualToString:@"FFA1"]) {
+        //plant assistant notify
+        NSLog(@"plant assistant notify");
+        NSLog(@"=value:%@",characteristic.value);
+    }else{
+        //普通的通知
+        NSLog(@"didUpdateNotificationStateForCharacteristic");
+        NSLog(@"=uuid:%@,value:%@",characteristic.UUID,characteristic.value);
+    }
+}
+-(void)peripheral:(CBPeripheral *)peripheral didWriteValueForCharacteristic:(CBCharacteristic *)characteristic error:(NSError *)error{
+    NSLog(@"didWriteValueForCharacteristic");
+    NSLog(@"=uuid:%@,new value:%@",characteristic.UUID,characteristic.value);
+}
+-(void)peripheral:(CBPeripheral *)peripheral didWriteValueForDescriptor:(CBDescriptor *)descriptor error:(NSError *)error{
+    NSLog(@"didWriteValueForCharacteristic");
+    NSLog(@"=uuid:%@,new value:%@",descriptor.UUID,descriptor.value);
+}
+
 #pragma mark -私有方法
 
 #pragma mark -设备list管理
