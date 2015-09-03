@@ -49,7 +49,7 @@
 
 -(void)viewWillDisappear:(BOOL)animated{
     NSLog(@"viewWillDisappear");
-    baby.stop(0);
+//    baby.stop(0);
 }
 
 #pragma mark -蓝牙配置和操作
@@ -57,7 +57,8 @@
 //蓝牙网关初始化和委托方法设置 BabyBluetooth init and config
 -(void)pregnancy{
     //初始化BabyBluetooth， BabyBluetooth init
-    baby = [[BabyBluetooth alloc]init];
+//    baby = [[BabyBluetooth alloc]init];
+    baby = [BabyBluetooth shareBabyBluetooth];
     __weak typeof(self) weakSelf = self;
     
     //设置扫描到设备的委托
@@ -144,12 +145,6 @@
 
 
 
-//读取服务
--(void)fetchServices{
-
-    
-}
-//读取RSSI
 
 
 

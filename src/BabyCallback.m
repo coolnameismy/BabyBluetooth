@@ -19,7 +19,7 @@
                 return YES;
             return NO;
         }];
-        [self setFilterOnDiscoverPeripherals:^BOOL(NSString *peripheralsName) {
+        [self setFilterOnConnetToPeripherals:^BOOL(NSString *peripheralsName) {
             if(![peripheralsName isEqualToString:@""])
                 return YES;
             return NO;

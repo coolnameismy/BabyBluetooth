@@ -82,7 +82,7 @@ typedef NS_ENUM(NSUInteger, BabySpeakerType) {
 -(BabyCallback *)callbackOnChnnel:(NSString *)channel
                createWhenNotExist:(BOOL)createWhenNotExist{
     
-    BabyCallback *callback = [channels objectForKey:@"babyDefault"];
+    BabyCallback *callback = [channels objectForKey:channel];
     if (!callback && createWhenNotExist){
         callback = [[BabyCallback alloc]init];
         [channels setObject:callback forKey:channel];

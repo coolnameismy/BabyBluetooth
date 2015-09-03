@@ -73,40 +73,40 @@ typedef NS_ENUM(NSInteger, BabyStatus) {
 -(void)setConnectPeripheralsFilter:(BOOL (^)(NSString *peripheralsFilter))filter;
 
 
+
+//channel
 //找到Peripherals的委托
--(void)setBlockOnDiscoverToPeripherals:(void (^)(CBCentralManager *central,CBPeripheral *peripheral,NSDictionary *advertisementData, NSNumber *RSSI))block
-                               channel:(NSString *)channel;
+-(void)setBlockOnDiscoverToPeripheralsOnChannel:(NSString *)channel
+                                          block:(void (^)(CBCentralManager *central,CBPeripheral *peripheral,NSDictionary *advertisementData, NSNumber *RSSI))block;
 
 //连接Peripherals成功的委托
--(void)setBlockOnConnected:(void (^)(CBCentralManager *central,CBPeripheral *peripheral))block
-                   channel:(NSString *)channel;
+-(void)setBlockOnConnectedOnChannel:(NSString *)channel
+                              block:(void (^)(CBCentralManager *central,CBPeripheral *peripheral))block;
 
 //设置查找服务回叫
--(void)setBlockOnDiscoverServices:(void (^)(CBPeripheral *peripheral,NSError *error))block
-                          channel:(NSString *)channel;
+-(void)setBlockOnDiscoverServicesOnChannel:(NSString *)channel
+                                     block:(void (^)(CBPeripheral *peripheral,NSError *error))block;
 
 //设置查找到Characteristics的block
--(void)setBlockOnDiscoverCharacteristics:(void (^)(CBPeripheral *peripheral,CBService *service,NSError *error))block
-                                 channel:(NSString *)channel;
+-(void)setBlockOnDiscoverCharacteristicsOnChannel:(NSString *)channel
+                                            block:(void (^)(CBPeripheral *peripheral,CBService *service,NSError *error))block;
 //设置获取到最新Characteristics值的block
--(void)setBlockOnReadValueForCharacteristic:(void (^)(CBPeripheral *peripheral,CBCharacteristic *characteristic,NSError *error))block
-                                    channel:(NSString *)channel;
+-(void)setBlockOnReadValueForCharacteristicOnChannel:(NSString *)channel
+                                               block:(void (^)(CBPeripheral *peripheral,CBCharacteristic *characteristic,NSError *error))block;
 //设置查找到Characteristics描述的block
--(void)setBlockOnDiscoverDescriptorsForCharacteristic:(void (^)(CBPeripheral *peripheral,CBCharacteristic *service,NSError *error))block
-                                              channel:(NSString *)channel;
+-(void)setBlockOnDiscoverDescriptorsForCharacteristicOnChannel:(NSString *)channel
+                                                         block:(void (^)(CBPeripheral *peripheral,CBCharacteristic *service,NSError *error))block;
 //设置读取到Characteristics描述的值的block
--(void)setBlockOnReadValueForDescriptors:(void (^)(CBPeripheral *peripheral,CBDescriptor *descriptorNSError,NSError *error))block
-                                 channel:(NSString *)channel;
-
+-(void)setBlockOnReadValueForDescriptorsOnChannel:(NSString *)channel
+                                            block:(void (^)(CBPeripheral *peripheral,CBDescriptor *descriptorNSError,NSError *error))block;
 
 //设置查找Peripherals的规则
--(void)setDiscoverPeripheralsFilter:(BOOL (^)(NSString *peripheralsFilter))filter
-                            channel:(NSString *)channel;
+-(void)setDiscoverPeripheralsFilterOnChannel:(NSString *)channel
+                                      filter:(BOOL (^)(NSString *peripheralsFilter))filter;
 
 //设置连接Peripherals的规则
--(void)setConnectPeripheralsFilter:(BOOL (^)(NSString *peripheralsFilter))filter
-                           channel:(NSString *)channel;
-
+-(void)setConnectPeripheralsFilterOnChannel:(NSString *)channel
+                                     filter:(BOOL (^)(NSString *peripheralsFilter))filter;
 
 #pragma mark -链式函数
 //查找Peripherals
@@ -135,14 +135,14 @@ typedef NS_ENUM(NSInteger, BabyStatus) {
 //-(BabyBluetooth *(^)()) begin:(int)sec;
 
 //sec秒后停止
--(void(^)(int sec)) stop;
+-(BabyBluetooth *(^)(int sec)) stop;
 
 
 /**
  切换委托的频道
  @parameter channel 频道名称，nil为默认频道
  */
--(void(^)(NSString *channel)) channel;
+-(BabyBluetooth *(^)(NSString *channel)) channel;
 
 
 -(BabyBluetooth *) and;
@@ -156,9 +156,9 @@ typedef NS_ENUM(NSInteger, BabyStatus) {
 
 /**
  * 单例构造方法
- * @return SimpleBLE共享实例
+ * @return BabyBluetooth共享实例
  */
-+(instancetype)shareSimpleBLE;
++(instancetype)shareBabyBluetooth;
 
 
 

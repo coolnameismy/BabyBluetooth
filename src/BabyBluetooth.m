@@ -24,7 +24,7 @@
 
 
 //单例模式
-+(instancetype)shareSimpleBLE{
++(instancetype)shareBabyBluetooth{
     static BabyBluetooth *share = nil;
     static dispatch_once_t oneToken;
     dispatch_once(&oneToken, ^{
@@ -97,54 +97,54 @@
 
 //channel
 //找到Peripherals的委托
--(void)setBlockOnDiscoverToPeripherals:(void (^)(CBCentralManager *central,CBPeripheral *peripheral,NSDictionary *advertisementData, NSNumber *RSSI))block
-                               channel:(NSString *)channel{
+-(void)setBlockOnDiscoverToPeripheralsOnChannel:(NSString *)channel
+                                          block:(void (^)(CBCentralManager *central,CBPeripheral *peripheral,NSDictionary *advertisementData, NSNumber *RSSI))block{
     [[babySpeaker callbackOnChnnel:channel createWhenNotExist:YES] setBlockOnDiscoverPeripherals:block];
 }
 
 //连接Peripherals成功的委托
--(void)setBlockOnConnected:(void (^)(CBCentralManager *central,CBPeripheral *peripheral))block
-                   channel:(NSString *)channel{
+-(void)setBlockOnConnectedOnChannel:(NSString *)channel
+                              block:(void (^)(CBCentralManager *central,CBPeripheral *peripheral))block{
     [[babySpeaker callbackOnChnnel:channel createWhenNotExist:YES] setBlockOnConnectedPeripheral:block];
 }
 
 //设置查找服务回叫
--(void)setBlockOnDiscoverServices:(void (^)(CBPeripheral *peripheral,NSError *error))block
-                          channel:(NSString *)channel{
+-(void)setBlockOnDiscoverServicesOnChannel:(NSString *)channel
+                                     block:(void (^)(CBPeripheral *peripheral,NSError *error))block{
     [[babySpeaker callbackOnChnnel:channel createWhenNotExist:YES] setBlockOnDiscoverServices:block];
 }
 
 //设置查找到Characteristics的block
--(void)setBlockOnDiscoverCharacteristics:(void (^)(CBPeripheral *peripheral,CBService *service,NSError *error))block
-                                 channel:(NSString *)channel{
+-(void)setBlockOnDiscoverCharacteristicsOnChannel:(NSString *)channel
+                                            block:(void (^)(CBPeripheral *peripheral,CBService *service,NSError *error))block{
     [[babySpeaker callbackOnChnnel:channel createWhenNotExist:YES] setBlockOnDiscoverCharacteristics:block];
 }
 //设置获取到最新Characteristics值的block
--(void)setBlockOnReadValueForCharacteristic:(void (^)(CBPeripheral *peripheral,CBCharacteristic *characteristic,NSError *error))block
-                                    channel:(NSString *)channel{
+-(void)setBlockOnReadValueForCharacteristicOnChannel:(NSString *)channel
+                                               block:(void (^)(CBPeripheral *peripheral,CBCharacteristic *characteristic,NSError *error))block{
     [[babySpeaker callbackOnChnnel:channel createWhenNotExist:YES] setBlockOnReadValueForCharacteristic:block];
 }
 //设置查找到Characteristics描述的block
--(void)setBlockOnDiscoverDescriptorsForCharacteristic:(void (^)(CBPeripheral *peripheral,CBCharacteristic *service,NSError *error))block
-                                              channel:(NSString *)channel{
+-(void)setBlockOnDiscoverDescriptorsForCharacteristicOnChannel:(NSString *)channel
+                                                         block:(void (^)(CBPeripheral *peripheral,CBCharacteristic *service,NSError *error))block{
     [[babySpeaker callbackOnChnnel:channel createWhenNotExist:YES] setBlockOnDiscoverDescriptorsForCharacteristic:block];
 }
 //设置读取到Characteristics描述的值的block
--(void)setBlockOnReadValueForDescriptors:(void (^)(CBPeripheral *peripheral,CBDescriptor *descriptorNSError,NSError *error))block
-                                 channel:(NSString *)channel{
+-(void)setBlockOnReadValueForDescriptorsOnChannel:(NSString *)channel
+                                            block:(void (^)(CBPeripheral *peripheral,CBDescriptor *descriptorNSError,NSError *error))block{
     [[babySpeaker callbackOnChnnel:channel createWhenNotExist:YES] setBlockOnReadValueForDescriptors:block];
 }
 
 
 //设置查找Peripherals的规则
--(void)setDiscoverPeripheralsFilter:(BOOL (^)(NSString *peripheralsFilter))filter
-                            channel:(NSString *)channel{
+-(void)setDiscoverPeripheralsFilterOnChannel:(NSString *)channel
+                                      filter:(BOOL (^)(NSString *peripheralsFilter))filter{
     [[babySpeaker callbackOnChnnel:channel createWhenNotExist:YES] setFilterOnDiscoverPeripherals:filter];
 }
 
 //设置连接Peripherals的规则
--(void)setConnectPeripheralsFilter:(BOOL (^)(NSString *peripheralsFilter))filter
-                           channel:(NSString *)channel{
+-(void)setConnectPeripheralsFilterOnChannel:(NSString *)channel
+                                     filter:(BOOL (^)(NSString *peripheralsFilter))filter{
     [[babySpeaker callbackOnChnnel:channel createWhenNotExist:YES] setFilterOnConnetToPeripherals:filter];
 }
 
@@ -223,6 +223,11 @@
 -(BabyBluetooth *(^)()) begin{
     [self validateProcess];
     return ^BabyBluetooth *(){
+    
+        //调整委托方法的channel，如果没设置默认为缺省频道
+        NSString *channel = [babysister->pocket valueForKey:@"channel"];
+        [babySpeaker switchChannel:channel];
+        
         //直接连接或者是扫描后连接
         if (babysister->needScanForPeripherals) {
             //开始扫描peripherals
@@ -246,9 +251,9 @@
 }
 
 //sec秒后停止
--(void(^)(int sec)) stop {
+-(BabyBluetooth *(^)(int sec)) stop {
     
-    return ^(int sec){
+    return ^BabyBluetooth *(int sec){
         NSLog(@"stop in %d sec",sec);
         dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, sec * NSEC_PER_SEC);
         dispatch_after(popTime, dispatch_get_main_queue(), ^{
@@ -265,17 +270,22 @@
             [babysister stopScan];
             [babysister stopConnectAllPerihperals];
         });
+        return self;
     };
     
 }
 
 //切换委托频道
--(void(^)(NSString *channel)) channel{
-    return ^(NSString *channel){
-        [babySpeaker switchChannel:channel];
+-(BabyBluetooth *(^)(NSString *channel)) channel{
+    return ^BabyBluetooth *(NSString *channel){
+        //先缓存数据，到begin方法统一处理
+        [babysister->pocket setValue:channel forKey:@"channel"];
+        return self;
     };
 }
 
+
+#warning 未完成方法校验
 -(void)validateProcess{
     NSString *reason = @"";
     

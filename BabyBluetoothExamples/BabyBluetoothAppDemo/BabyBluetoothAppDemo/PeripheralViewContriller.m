@@ -10,6 +10,7 @@
 
 #define width [UIScreen mainScreen].bounds.size.width
 #define height [UIScreen mainScreen].bounds.size.height
+#define channelOnPeropheralView @"peropheralView"
 
 @interface PeripheralViewContriller ()
 
@@ -57,50 +58,51 @@
 -(void)babyDelegate{
     
     __weak typeof(self)weakSelf = self;
-    //设置设备连接成功的委托
-    [baby setBlockOnConnected:^(CBCentralManager *central, CBPeripheral *peripheral) {
+
+    //设置设备连接成功的委托,同一个baby对象，使用不同的channel切换委托回调
+
+    [baby setBlockOnConnectedOnChannel:channelOnPeropheralView block:^(CBCentralManager *central, CBPeripheral *peripheral) {
         [SVProgressHUD showInfoWithStatus:[NSString stringWithFormat:@"设备：%@--连接成功",peripheral.name]];
     }];
     
     //设置发现设备的Services的委托
-    [baby setBlockOnDiscoverServices:^(CBPeripheral *peripheral, NSError *error) {
+    [baby setBlockOnDiscoverServicesOnChannel:channelOnPeropheralView block:^(CBPeripheral *peripheral, NSError *error) {
         for (CBService *s in peripheral.services) {
             ///插入section到tableview
             [weakSelf insertSectionToTableView:s];
         }
     }];
     //设置发现设service的Characteristics的委托
-    [baby setBlockOnDiscoverCharacteristics:^(CBPeripheral *peripheral, CBService *service, NSError *error) {
+    [baby setBlockOnDiscoverCharacteristicsOnChannel:channelOnPeropheralView block:^(CBPeripheral *peripheral, CBService *service, NSError *error) {
         NSLog(@"===service name:%@",service.UUID);
         //插入row到tableview
         [weakSelf insertRowToTableView:service];
        
     }];
     //设置读取characteristics的委托
-    [baby setBlockOnReadValueForCharacteristic:^(CBPeripheral *peripheral, CBCharacteristic *characteristics, NSError *error) {
+    [baby setBlockOnReadValueForCharacteristicOnChannel:channelOnPeropheralView block:^(CBPeripheral *peripheral, CBCharacteristic *characteristics, NSError *error) {
         NSLog(@"characteristic name:%@ value is:%@",characteristics.UUID,characteristics.value);
     }];
     //设置发现characteristics的descriptors的委托
-    [baby setBlockOnDiscoverDescriptorsForCharacteristic:^(CBPeripheral *peripheral, CBCharacteristic *characteristic, NSError *error) {
+    [baby setBlockOnDiscoverDescriptorsForCharacteristicOnChannel:channelOnPeropheralView block:^(CBPeripheral *peripheral, CBCharacteristic *characteristic, NSError *error) {
         NSLog(@"===characteristic name:%@",characteristic.service.UUID);
         for (CBDescriptor *d in characteristic.descriptors) {
             NSLog(@"CBDescriptor name is :%@",d.UUID);
         }
     }];
     //设置读取Descriptor的委托
-    [baby setBlockOnReadValueForDescriptors:^(CBPeripheral *peripheral, CBDescriptor *descriptor, NSError *error) {
+    [baby setBlockOnReadValueForDescriptorsOnChannel:channelOnPeropheralView block:^(CBPeripheral *peripheral, CBDescriptor *descriptor, NSError *error) {
         NSLog(@"Descriptor name:%@ value is:%@",descriptor.characteristic.UUID, descriptor.value);
     }];
     
 }
 -(void)loadData{
     [SVProgressHUD showInfoWithStatus:@"开始连接设备"];
-    baby.connectToPeripheral(self.currPeripheral).discoverServices().discoverCharacteristics().readValueForCharacteristic().discoverDescriptorsForCharacteristic().readValueForDescriptors().begin();
+    baby.channel(channelOnPeropheralView).connectToPeripheral(self.currPeripheral).discoverServices().discoverCharacteristics().readValueForCharacteristic().discoverDescriptorsForCharacteristic().readValueForDescriptors().begin();
     //    baby.connectToPeripheral(self.currPeripheral).begin();
- 
-  }
+}
 
-
+#warning 测试数据
 //个性化，读取设备养护数据
 -(void)readPlantAssistantData{
     //写入当前系统时间
