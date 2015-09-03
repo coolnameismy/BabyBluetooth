@@ -34,24 +34,24 @@ typedef void (^BBReadValueForDescriptorsBlock)(CBPeripheral *peripheral,CBDescri
 //委托方法 callback block
 
 //发现peripherals
-@property(nonatomic,assign) BBDiscoverPeripheralsBlock blockOnDiscoverPeripherals;
+@property(nonatomic,strong) BBDiscoverPeripheralsBlock blockOnDiscoverPeripherals;
 //连接callback
-@property(nonatomic,assign) BBConnectedPeripheralBlock blockOnConnectedPeripheral;
+@property(nonatomic,strong) BBConnectedPeripheralBlock blockOnConnectedPeripheral;
  //发现services
-@property(nonatomic,assign)  BBDiscoverServicesBlock blockOnDiscoverServices;
+@property(nonatomic,strong)  BBDiscoverServicesBlock blockOnDiscoverServices;
 //发现Characteristics
-@property(nonatomic,assign)  BBDiscoverCharacteristicsBlock blockOnDiscoverCharacteristics;
+@property(nonatomic,strong)  BBDiscoverCharacteristicsBlock blockOnDiscoverCharacteristics;
 //发现更新Characteristics的
-@property(nonatomic,assign)  BBReadValueForCharacteristicBlock blockOnReadValueForCharacteristic;
+@property(nonatomic,strong)  BBReadValueForCharacteristicBlock blockOnReadValueForCharacteristic;
 //获取Characteristics的名称
-@property(nonatomic,assign)  BBDiscoverDescriptorsForCharacteristicBlock blockOnDiscoverDescriptorsForCharacteristic;
+@property(nonatomic,strong)  BBDiscoverDescriptorsForCharacteristicBlock blockOnDiscoverDescriptorsForCharacteristic;
 //获取Descriptors的值
-@property(nonatomic,assign)  BBReadValueForDescriptorsBlock blockOnReadValueForDescriptors;
+@property(nonatomic,strong)  BBReadValueForDescriptorsBlock blockOnReadValueForDescriptors;
 
 
 //过滤器Filter
-@property(nonatomic,assign)  BOOL (^filterOnConnetToPeripherals)(NSString *peripheralsName);    //发现peripherals规则
-@property(nonatomic,assign)  BOOL (^filterOnDiscoverPeripherals)(NSString *peripheralsName);    //连接peripherals规则
+@property(nonatomic,strong)  BOOL (^filterOnConnetToPeripherals)(NSString *peripheralsName);    //发现peripherals规则
+@property(nonatomic,strong)  BOOL (^filterOnDiscoverPeripherals)(NSString *peripheralsName);    //连接peripherals规则
 
 
 

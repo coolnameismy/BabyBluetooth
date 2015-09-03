@@ -10,10 +10,10 @@
 
 @implementation Babysister
 
-#define blockOnDiscoverPeripherals [[babySpeaker callbackOnCurrChannel] blockOnDiscoverPeripherals]
-#define  filterOnDiscoverPeripherals [[babySpeaker callbackOnCurrChannel] filterOnDiscoverPeripherals]
-#define filterOnConnetToPeripherals [[babySpeaker callbackOnCurrChannel]filterOnConnetToPeripherals]
-#define blockOnConnectedPeripheral [[babySpeaker callbackOnCurrChannel]blockOnConnectedPeripheral]
+//#define blockOnDiscoverPeripherals [[babySpeaker callbackOnCurrChannel] blockOnDiscoverPeripherals]
+//#define  filterOnDiscoverPeripherals [[babySpeaker callbackOnCurrChannel] filterOnDiscoverPeripherals]
+//#define filterOnConnetToPeripherals [[babySpeaker callbackOnCurrChannel]filterOnConnetToPeripherals]
+//#define blockOnConnectedPeripheral [[babySpeaker callbackOnCurrChannel]blockOnConnectedPeripheral]
 #define currChannel [babySpeaker callbackOnCurrChannel]
 
 
@@ -125,45 +125,22 @@
                                                      userInfo:@{@"central":central,@"peripheral":peripheral,@"advertisementData":advertisementData,@"RSSI":RSSI}];
 
     
-   
     //扫描到设备callback
-    if(blockOnDiscoverPeripherals){
-    
-        
-        if (!filterOnDiscoverPeripherals) {
-            //若为空，则所有都匹配名称不为空的设备
-            [[babySpeaker callbackOnCurrChannel] setFilterOnDiscoverPeripherals:^BOOL(NSString *peripheralsName) {
-                if(![peripheralsName isEqualToString:@""])
-                    return YES;
-                return NO;
-            }];
-        }
-        if (filterOnDiscoverPeripherals(peripheral.name)) {
-            blockOnDiscoverPeripherals(central,peripheral,advertisementData,RSSI);
-            
+    if([currChannel blockOnDiscoverPeripherals]){
+        if ([currChannel filterOnDiscoverPeripherals](peripheral.name)) {
+            [[babySpeaker callbackOnCurrChannel] blockOnDiscoverPeripherals](central,peripheral,advertisementData,RSSI);
         }
     }
     
     //处理连接设备
     if(needConnectPeripheral){
-        
-
-        
-         if (filterOnConnetToPeripherals) {
-             [[babySpeaker callbackOnCurrChannel]setFilterOnConnetToPeripherals:^BOOL(NSString *peripheralsName) {
-                 if(![peripheralsName isEqualToString:@""])
-                     return YES;
-                 return NO;
-             }];
-         }
-        if (filterOnConnetToPeripherals(peripheral.name)) {
+        if ([currChannel filterOnConnetToPeripherals](peripheral.name)) {
             [bleManager connectPeripheral:peripheral options:nil];
             //开一个定时器监控连接超时的情况
             connectTimer = [NSTimer scheduledTimerWithTimeInterval:5.0f target:self selector:@selector(disconnect:) userInfo:peripheral repeats:NO];
         }
     }
     
-
 }
 
 //停止扫描
@@ -180,8 +157,8 @@
     
     //执行回叫
     //扫描到设备callback
-    if(blockOnConnectedPeripheral){
-        blockOnConnectedPeripheral(central,peripheral);
+    if([currChannel blockOnConnectedPeripheral]){
+        [currChannel blockOnConnectedPeripheral](central,peripheral);
     }
     
     //扫描外设的服务

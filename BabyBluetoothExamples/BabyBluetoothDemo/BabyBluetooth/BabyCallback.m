@@ -11,5 +11,20 @@
 @implementation BabyCallback
 
 
-
+-(instancetype)init{
+    self = [super init];
+    if (self){
+        [self setFilterOnDiscoverPeripherals:^BOOL(NSString *peripheralsName) {
+            if(![peripheralsName isEqualToString:@""])
+                return YES;
+            return NO;
+        }];
+        [self setFilterOnDiscoverPeripherals:^BOOL(NSString *peripheralsName) {
+            if(![peripheralsName isEqualToString:@""])
+                return YES;
+            return NO;
+        }];
+    }
+    return self;
+}
 @end

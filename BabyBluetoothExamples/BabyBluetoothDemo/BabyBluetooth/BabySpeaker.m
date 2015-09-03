@@ -56,6 +56,7 @@ typedef NS_ENUM(NSUInteger, BabySpeakerType) {
     self = [super init];
     if (self) {
         BabyCallback *defaultCallback = [[BabyCallback alloc]init];
+        channels = [[NSMutableDictionary alloc]init];
         currChannel = defaultChannel;
         [channels setObject:defaultCallback forKey:defaultChannel];
     }
@@ -63,7 +64,7 @@ typedef NS_ENUM(NSUInteger, BabySpeakerType) {
 }
 
 -(BabyCallback *)callback{
-    return [channels objectForKey:@"babyDefault"];
+    return [channels objectForKey:defaultChannel];
 }
 
 -(BabyCallback *)callbackOnCurrChannel {
