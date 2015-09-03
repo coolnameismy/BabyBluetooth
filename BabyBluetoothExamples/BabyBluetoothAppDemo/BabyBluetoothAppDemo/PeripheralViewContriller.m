@@ -1,6 +1,6 @@
 //
 //  PeripheralViewContriller.m
-//  BabyBluetoothDemo
+//  BabyBluetoothAppDemo
 //
 //  Created by ZTELiuyw on 15/8/4.
 //  Copyright (c) 2015年 刘彦玮. All rights reserved.
