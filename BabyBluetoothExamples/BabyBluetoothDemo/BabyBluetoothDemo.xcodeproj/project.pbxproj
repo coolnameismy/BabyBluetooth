@@ -19,6 +19,8 @@
 		E1807EA71B6CA53600E99C63 /* BabyBluetooth.m in Sources */ = {isa = PBXBuildFile; fileRef = E1807EA01B6CA53600E99C63 /* BabyBluetooth.m */; };
 		E1807EA81B6CA53600E99C63 /* Babysister.m in Sources */ = {isa = PBXBuildFile; fileRef = E1807EA21B6CA53600E99C63 /* Babysister.m */; };
 		E1807EAC1B6CAF0700E99C63 /* BabyToy.m in Sources */ = {isa = PBXBuildFile; fileRef = E1807EAB1B6CAF0700E99C63 /* BabyToy.m */; };
+		E1DEF5011B9726B90005C9F2 /* BabySpeaker.m in Sources */ = {isa = PBXBuildFile; fileRef = E1DEF5001B9726B90005C9F2 /* BabySpeaker.m */; };
+		E1DEF5041B9728380005C9F2 /* BabyCallback.m in Sources */ = {isa = PBXBuildFile; fileRef = E1DEF5031B9728380005C9F2 /* BabyCallback.m */; };
 		F05F7BA21B70AB0F0051C68A /* PeripheralViewContriller.m in Sources */ = {isa = PBXBuildFile; fileRef = F05F7BA11B70AB0F0051C68A /* PeripheralViewContriller.m */; };
 		F05F7BA61B733A240051C68A /* PeripheralInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = F05F7BA51B733A240051C68A /* PeripheralInfo.m */; };
 		F05F7BAD1B7372300051C68A /* SVIndefiniteAnimatedView.m in Sources */ = {isa = PBXBuildFile; fileRef = F05F7BA91B7372300051C68A /* SVIndefiniteAnimatedView.m */; };
@@ -62,6 +64,10 @@
 		E1807EAA1B6CAF0700E99C63 /* BabyToy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BabyToy.h; sourceTree = "<group>"; };
 		E1807EAB1B6CAF0700E99C63 /* BabyToy.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BabyToy.m; sourceTree = "<group>"; };
 		E1807EAD1B6CBB3100E99C63 /* B.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = B.h; sourceTree = "<group>"; };
+		E1DEF4FF1B9726B90005C9F2 /* BabySpeaker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BabySpeaker.h; sourceTree = "<group>"; };
+		E1DEF5001B9726B90005C9F2 /* BabySpeaker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BabySpeaker.m; sourceTree = "<group>"; };
+		E1DEF5021B9728380005C9F2 /* BabyCallback.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BabyCallback.h; sourceTree = "<group>"; };
+		E1DEF5031B9728380005C9F2 /* BabyCallback.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BabyCallback.m; sourceTree = "<group>"; };
 		F05F7BA01B70AB0F0051C68A /* PeripheralViewContriller.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PeripheralViewContriller.h; sourceTree = "<group>"; };
 		F05F7BA11B70AB0F0051C68A /* PeripheralViewContriller.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PeripheralViewContriller.m; sourceTree = "<group>"; };
 		F05F7BA41B733A240051C68A /* PeripheralInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PeripheralInfo.h; sourceTree = "<group>"; };
@@ -173,6 +179,10 @@
 				E1807EAA1B6CAF0700E99C63 /* BabyToy.h */,
 				E1807EAB1B6CAF0700E99C63 /* BabyToy.m */,
 				E1807EAD1B6CBB3100E99C63 /* B.h */,
+				E1DEF4FF1B9726B90005C9F2 /* BabySpeaker.h */,
+				E1DEF5001B9726B90005C9F2 /* BabySpeaker.m */,
+				E1DEF5021B9728380005C9F2 /* BabyCallback.h */,
+				E1DEF5031B9728380005C9F2 /* BabyCallback.m */,
 			);
 			path = BabyBluetooth;
 			sourceTree = "<group>";
@@ -310,6 +320,7 @@
 				F05F7BA21B70AB0F0051C68A /* PeripheralViewContriller.m in Sources */,
 				E1807EA81B6CA53600E99C63 /* Babysister.m in Sources */,
 				E1807E791B6CA29100E99C63 /* ViewController.m in Sources */,
+				E1DEF5011B9726B90005C9F2 /* BabySpeaker.m in Sources */,
 				F05F7BA61B733A240051C68A /* PeripheralInfo.m in Sources */,
 				E1807EA71B6CA53600E99C63 /* BabyBluetooth.m in Sources */,
 				F05F7BAF1B7372300051C68A /* SVProgressHUD.m in Sources */,
@@ -319,6 +330,7 @@
 				E1807EAC1B6CAF0700E99C63 /* BabyToy.m in Sources */,
 				F05F7BB21B7442B50051C68A /* CharacteristicViewController.m in Sources */,
 				F05F7BAD1B7372300051C68A /* SVIndefiniteAnimatedView.m in Sources */,
+				E1DEF5041B9728380005C9F2 /* BabyCallback.m in Sources */,
 				E1807EA41B6CA53600E99C63 /* BBCentralManager.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
