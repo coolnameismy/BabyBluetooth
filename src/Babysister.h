@@ -1,6 +1,6 @@
 //
-//  SimpleBLENotifiyHandler.h
-//  PlantAssistant
+//  Babysister.h
+//  
 //
 //  Created by 刘彦玮 on 15/7/30.
 //  Copyright (c) 2015年 刘彦玮. All rights reserved.
@@ -11,6 +11,7 @@
 #import <CoreBluetooth/CoreBluetooth.h>
 #import "BabyToy.h"
 #import "BabySpeaker.h"
+
 
 
 

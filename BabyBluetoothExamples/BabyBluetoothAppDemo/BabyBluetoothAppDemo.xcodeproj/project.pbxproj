@@ -53,7 +53,6 @@
 		E1807E861B6CA29100E99C63 /* BabyBluetoothAppDemoTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = BabyBluetoothAppDemoTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		E1807E8B1B6CA29100E99C63 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		E1807E8C1B6CA29100E99C63 /* BabyBluetoothDemoTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BabyBluetoothDemoTests.m; sourceTree = "<group>"; };
-		E1DEF5061B98857B0005C9F2 /* B.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = B.h; sourceTree = "<group>"; };
 		E1DEF5071B98857B0005C9F2 /* BabyBluetooth.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BabyBluetooth.h; sourceTree = "<group>"; };
 		E1DEF5081B98857B0005C9F2 /* BabyBluetooth.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BabyBluetooth.m; sourceTree = "<group>"; };
 		E1DEF5091B98857B0005C9F2 /* BabyCallback.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BabyCallback.h; sourceTree = "<group>"; };
@@ -178,7 +177,6 @@
 		E1DEF5051B98857A0005C9F2 /* BabyBluetoothLib */ = {
 			isa = PBXGroup;
 			children = (
-				E1DEF5061B98857B0005C9F2 /* B.h */,
 				E1DEF5071B98857B0005C9F2 /* BabyBluetooth.h */,
 				E1DEF5081B98857B0005C9F2 /* BabyBluetooth.m */,
 				E1DEF5091B98857B0005C9F2 /* BabyCallback.h */,

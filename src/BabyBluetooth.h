@@ -1,6 +1,6 @@
 //
-//  GAAT.h
-//  PlantAssistant
+//  BabyBluetooth
+//  
 //
 //  Created by 刘彦玮 on 15/3/31.
 //  Copyright (c) 2015年 刘彦玮. All rights reserved.
@@ -125,9 +125,6 @@ typedef NS_ENUM(NSInteger, BabyStatus) {
 //获取Descriptors的值
 -(BabyBluetooth *(^)()) readValueForDescriptors;
 
-//更新Characteristics的值
--(BabyBluetooth *(^)(CBPeripheral *peripheral,CBCharacteristic *characteristic)) fetchCharacteristicDetails;
-
 //开始执行
 -(BabyBluetooth *(^)()) begin;
 
@@ -140,36 +137,25 @@ typedef NS_ENUM(NSInteger, BabyStatus) {
 //持有对象
 -(BabyBluetooth *(^)(id obj)) having;
 
-
-/**
- 切换委托的频道
- @parameter channel 频道名称，nil为默认频道
- */
+//切换委托的频道
 -(BabyBluetooth *(^)(NSString *channel)) channel;
 
-
+//谓词，返回self
 -(BabyBluetooth *) and;
 -(BabyBluetooth *) then;
 
 
+#pragma mark -工具方法
 
-//读取Characteristic的详细信息
-//-(BabyBluetooth *(^)())CharacteristicInfo:(CBPeripheral *)peripheral characteristic:(CBCharacteristic *)characteristic;
-//
+//更新Characteristics的值
+-(BabyBluetooth *(^)(CBPeripheral *peripheral,CBCharacteristic *characteristic)) fetchCharacteristicDetails;
+
 
 /**
  * 单例构造方法
  * @return BabyBluetooth共享实例
  */
 +(instancetype)shareBabyBluetooth;
-
-
-
-#pragma mark -测试使用
-
-/**
- *  测试
- */
 
 
 @end
