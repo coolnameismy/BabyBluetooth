@@ -80,7 +80,7 @@
         for (int i=0;i<peripherals.count;i++) {
             UITableViewCell *cell = [weakSelf.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:i inSection:0]];
             if (cell.textLabel.text == peripheral.name) {
-                cell.detailTextLabel.text = [NSString stringWithFormat:@"%d个service",peripheral.services.count];
+                cell.detailTextLabel.text = [NSString stringWithFormat:@"%lu个service",(unsigned long)peripheral.services.count];
             }
         }
     }];

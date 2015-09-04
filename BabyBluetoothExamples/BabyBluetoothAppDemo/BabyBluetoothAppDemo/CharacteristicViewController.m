@@ -32,7 +32,13 @@
     //配置ble委托
     [self babyDelegate];
     //读取服务
-    baby.fetchCharacteristicDetails(self.currPeripheral,self.characteristic);
+    //baby.fetchCharacteristicDetails(self.currPeripheral,self.characteristic);
+    
+//    baby.using(peripheral).discoverServices().discoverCharacteristics().discoverDescriptorsForCharacteristic().readValueForCharacteristic().readValueForDescriptors();
+//    
+//    baby.using(services).discoverCharacteristics().discoverDescriptorsForCharacteristic().readValueForCharacteristic().readValueForDescriptors();
+//    
+//    baby.using(peripheral).connectToPeripherals().discoverCharacteristics().discoverDescriptorsForCharacteristic().readValueForCharacteristic().readValueForDescriptors();
 }
 
 
@@ -109,7 +115,7 @@
 
 //写一个值
 -(void)writeValue{
-    int i = 1;
+//    int i = 1;
     Byte b = 0X01;
     NSData *data = [NSData dataWithBytes:&b length:sizeof(b)];
     [self.currPeripheral writeValue:data forCharacteristic:self.characteristic type:CBCharacteristicWriteWithResponse];

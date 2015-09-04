@@ -287,28 +287,49 @@
 
 #warning 未完成方法校验
 -(void)validateProcess{
-    NSString *reason = @"";
     
+    NSMutableArray *faildReason = [[NSMutableArray alloc]init];
     
-    //需要扫描
-    if (babysister->needScanForPeripherals) {
-        
-        
-        
-        
-    }
-    //不需要扫描
-    else{
-        CBPeripheral *peripheral = [babysister->pocket valueForKey:@"peripheral"];
-        if (!peripheral) {
-            reason = @"若不执行scanForPeripherals方法，则必须执行connectToPeripheral方法并且需要传入参数(CBPeripheral *)peripheral";
+    //规则：不执行discoverDescriptorsForCharacteristic()时，不能执行readValueForDescriptors()
+    if (!babysister->needDiscoverDescriptorsForCharacteristic) {
+        if (!babysister->needReadValueForDescriptors) {
+            [faildReason addObject:@"未执行discoverDescriptorsForCharacteristic()不能执行readValueForDescriptors()"];
         }
     }
     
-    NSException *e = [NSException exceptionWithName:@"BadyBluetooth process exception" reason:reason userInfo:nil];
-    if (![reason isEqualToString:@""]) {
-        @throw e;
+    //规则：不执行discoverCharacteristics()时，不能执行readValueForCharacteristic()或者是discoverDescriptorsForCharacteristic()
+    if (!babysister->needDiscoverCharacteristics) {
+        if (babysister->needReadValueForCharacteristic||babysister->needDiscoverDescriptorsForCharacteristic) {
+            [faildReason addObject:@"未执行discoverCharacteristics()不能执行readValueForCharacteristic()或discoverDescriptorsForCharacteristic()"];
+        }
     }
+    
+    //规则： 不执行discoverServices()不能执行discoverCharacteristics()、readValueForCharacteristic()、discoverDescriptorsForCharacteristic()、readValueForDescriptors()
+    if (!babysister->needDiscoverServices) {
+        if (babysister->needDiscoverCharacteristics||babysister->needDiscoverDescriptorsForCharacteristic ||babysister->needReadValueForCharacteristic ||babysister->needReadValueForDescriptors) {
+             [faildReason addObject:@"未执行discoverServices()不能执行discoverCharacteristics()、readValueForCharacteristic()、discoverDescriptorsForCharacteristic()、readValueForDescriptors()"];
+        }
+        
+    }
+
+    //规则：不执行connectToPeripherals()时，不能执行discoverServices()
+    if(!babysister->needConnectPeripheral){
+        if (babysister->needDiscoverServices) {
+             [faildReason addObject:@"未执行connectToPeripherals()不能执行discoverServices()"];
+        }
+    }
+    
+    //规则：不执行needScanForPeripherals，必须执行connectToPeripheral()方法时带入参数peripheral
+    if (!babysister->needScanForPeripherals) {
+        CBPeripheral *peripheral = [babysister->pocket valueForKey:@"peripheral"];
+        if (!peripheral) {
+            [faildReason addObject:@"若不执行scanForPeripherals()方法，则必须执行connectToPeripheral方法并且需要传入参数(CBPeripheral *)peripheral"];
+        }
+    }
+    
+    //抛出异常
+    NSException *e = [NSException exceptionWithName:@"BadyBluetooth usage exception" reason:[faildReason lastObject]  userInfo:nil];
+    @throw e;
 }
 
 
@@ -342,208 +363,6 @@
         return self;
     };
 }
-//-(BabyBluetooth *(^)())CharacteristicInfo:(CBPeripheral *)peripheral characteristic:(CBCharacteristic *)characteristic{
-//
-//    [peripheral readValueForCharacteristic:characteristic];
-//    return ^(){
-//        return self;
-//    };
-//}
-//
-
-
-
-
-
-
-
-
-
-
-
-
-
-//////////////////////////////////////////////end特征和外设////////////////////////////////////////////////
-
-
-//////////////////////////////////////////////数据交互////////////////////////////////////////////////
-- (void)peripheral:(CBPeripheral *)peripheral didWriteValueForCharacteristic:(CBCharacteristic *)characteristic error:(NSError *)error{
-    //    debugMethod();s
-}
--(void)testwriteChar:(CBPeripheral *)peripheral characteristic: (CBCharacteristic *)characteristic
-{
-    int i = 1;
-    NSData *data = [NSData dataWithBytes: &i length: sizeof(i)];
-    [peripheral writeValue:data forCharacteristic:characteristic type:CBCharacteristicWriteWithResponse];
-    
-}
-- (void)peripheral:(CBPeripheral *)peripheral didUpdateNotificationStateForCharacteristic:(CBCharacteristic *)characteristic error:(NSError *)error{
-    //     debugMethod();
-}
-
-/*!
- *  @method readValue:
- *
- *  @param serviceUUID Service UUID to read from (e.g. 0x2400)
- *  @param characteristicUUID Characteristic UUID to read from (e.g. 0x2401)
- *  @param p CBPeripheral to read from
- *
- *  @discussion Main routine for read value request. It converts integers into
- *  CBUUID's used by CoreBluetooth. It then searches through the peripherals services to find a
- *  suitable service, it then checks that there is a suitable characteristic on this service.
- *  If this is found, the read value is started. When value is read the didUpdateValueForCharacteristic
- *  routine is called.
- *
- *  @see didUpdateValueForCharacteristic
- */
-
--(void) readValue: (int)serviceUUID characteristicUUID:(int)characteristicUUID p:(CBPeripheral *)p {
-    printf("In read Value");
-    
-    int suuid = 0xFFF0;
-    int cuuid = 0xFFF4;
-    UInt16 s = [self swap:suuid];
-    UInt16 c = [self swap:cuuid];
-    
-    
-    //    UInt16 s = [self swap:serviceUUID];
-    //    UInt16 c = [self swap:characteristicUUID];
-    NSData *sd = [[NSData alloc] initWithBytes:(char *)&s length:2];
-    NSData *cd = [[NSData alloc] initWithBytes:(char *)&c length:2];
-    CBUUID *su = [CBUUID UUIDWithData:sd];
-    CBUUID *cu = [CBUUID UUIDWithData:cd];
-    CBService *service = [self findServiceFromUUIDEx:su p:p];
-    if (!service) {
-        printf("Could not find service with UUID %s on peripheral with UUID %s\r\n",[self CBUUIDToString:su],[self UUIDToString:(__bridge CFUUIDRef )p.identifier]);
-        return;
-    }
-    CBCharacteristic *characteristic = [self findCharacteristicFromUUIDEx:cu service:service];
-    if (!characteristic) {
-        printf("Could not find characteristic with UUID %s on service with UUID %s on peripheral with UUID %s\r\n",[self CBUUIDToString:cu],[self CBUUIDToString:su],[self UUIDToString:(__bridge CFUUIDRef )p.identifier]);
-        return;
-    }
-    [p readValueForCharacteristic:characteristic];
-}
-
-
-
-
-//////////////////////////////////////////////工具方法////////////////////////////////////////////////
-
-/*
- *  @method CBUUIDToString
- *
- *  @param UUID UUID to convert to string
- *
- *  @returns Pointer to a character buffer containing UUID in string representation
- *
- *  @discussion CBUUIDToString converts the data of a CBUUID class to a character pointer for easy printout using printf()
- *
- */
--(const char *) CBUUIDToString:(CBUUID *) UUID {
-    return [[UUID.data description] cStringUsingEncoding:NSStringEncodingConversionAllowLossy];
-}
-
-
-/*
- *  @method UUIDToString
- *
- *  @param UUID UUID to convert to string
- *
- *  @returns Pointer to a character buffer containing UUID in string representation
- *
- *  @discussion UUIDToString converts the data of a CFUUIDRef class to a character pointer for easy printout using printf()
- *
- */
--(const char *) UUIDToString:(CFUUIDRef)UUID {
-    if (!UUID) return "NULL";
-    CFStringRef s = CFUUIDCreateString(NULL, UUID);
-    return CFStringGetCStringPtr(s, 0);
-    
-}
-
-/*!
- *  @method swap:
- *
- *  @param s Uint16 value to byteswap
- *
- *  @discussion swap byteswaps a UInt16
- *
- *  @return Byteswapped UInt16
- */
-
--(UInt16) swap:(UInt16)s {
-    UInt16 temp = s << 8;
-    temp |= (s >> 8);
-    return temp;
-}
-
-/*
- *  @method findServiceFromUUID:
- *
- *  @param UUID CBUUID to find in service list
- *  @param p Peripheral to find service on
- *
- *  @return pointer to CBService if found, nil if not
- *
- *  @discussion findServiceFromUUID searches through the services list of a peripheral to find a
- *  service with a specific UUID
- *
- */
--(CBService *) findServiceFromUUIDEx:(CBUUID *)UUID p:(CBPeripheral *)p {
-    
-    NSLog(@"----------services = %@",p.services);
-    
-    for(int i = 0; i < p.services.count; i++) {
-        CBService *s = [p.services objectAtIndex:i];
-        NSLog(@"----------s = %@",s);
-        
-        if ([self compareCBUUID:s.UUID UUID2:UUID]) return s;
-    }
-    return nil; //Service not found on this peripheral
-}
-
-/*
- *  @method findCharacteristicFromUUID:
- *
- *  @param UUID CBUUID to find in Characteristic list of service
- *  @param service Pointer to CBService to search for charateristics on
- *
- *  @return pointer to CBCharacteristic if found, nil if not
- *
- *  @discussion findCharacteristicFromUUID searches through the characteristic list of a given service
- *  to find a characteristic with a specific UUID
- *
- */
--(CBCharacteristic *) findCharacteristicFromUUIDEx:(CBUUID *)UUID service:(CBService*)service {
-    for(int i=0; i < service.characteristics.count; i++) {
-        CBCharacteristic *c = [service.characteristics objectAtIndex:i];
-        if ([self compareCBUUID:c.UUID UUID2:UUID]) return c;
-    }
-    return nil; //Characteristic not found on this service
-}
-
-/*
- *  @method compareCBUUID
- *
- *  @param UUID1 UUID 1 to compare
- *  @param UUID2 UUID 2 to compare
- *
- *  @returns 1 (equal) 0 (not equal)
- *
- *  @discussion compareCBUUID compares two CBUUID's to each other and returns 1 if they are equal and 0 if they are not
- *
- */
-
--(int) compareCBUUID:(CBUUID *) UUID1 UUID2:(CBUUID *)UUID2 {
-    char b1[16];
-    char b2[16];
-    [UUID1.data getBytes:b1];
-    [UUID2.data getBytes:b2];
-    if (memcmp(b1, b2, UUID1.data.length) == 0)return 1;
-    else return 0;
-}
-
 
 
 

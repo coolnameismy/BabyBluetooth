@@ -285,6 +285,8 @@
 
 }
 
+
+#warning notify方法
 -(void)peripheral:(CBPeripheral *)peripheral didUpdateNotificationStateForCharacteristic:(CBCharacteristic *)characteristic error:(NSError *)error{
    
     if ([characteristic.UUID.UUIDString isEqualToString:@"FFA1"]) {
@@ -328,20 +330,6 @@
 -(NSMutableDictionary *)findPeripherals{
     return peripherals;
 }
-
-#warning todo
-#pragma mark -未测试的方法
-//查找设备
-//-(void) scanForPeripheralsWithBlock:(SBDiscoverToPeripheralsBlock)discoverBlock
-//{
-//
-//    [self m_scanForPeripherals];
-//    discoverPeripheralBlock = discoverBlock;
-//    
-//}
-
-
-
 
 
 @end
