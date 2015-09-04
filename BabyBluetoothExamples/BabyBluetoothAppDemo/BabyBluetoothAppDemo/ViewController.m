@@ -146,8 +146,6 @@
 
 
 
-
-
 #pragma mark -UIViewController 方法
 //插入table数据
 -(void)insertTableView:(CBPeripheral *)peripheral{

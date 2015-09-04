@@ -62,6 +62,8 @@
 //连接Peripherals
 -(void)connectToPeripheral:(CBPeripheral *)peripheral{
     [bleManager connectPeripheral:peripheral options:nil];
+    //
+
 }
 
 //断开所以已连接的设备
@@ -140,7 +142,6 @@
             connectTimer = [NSTimer scheduledTimerWithTimeInterval:5.0f target:self selector:@selector(disconnect:) userInfo:peripheral repeats:NO];
         }
     }
-    
 }
 
 //停止扫描
@@ -204,9 +205,9 @@
             [peripheral discoverCharacteristics:nil forService:service];
         }
     }
-    
-    
 }
+
+
 //发现服务的Characteristics
 -(void)peripheral:(CBPeripheral *)peripheral didDiscoverCharacteristicsForService:(CBService *)service error:(NSError *)error{
     if (error)
@@ -267,6 +268,15 @@
         {
             [peripheral readValueForDescriptor:d];
         }
+    }
+    
+    //执行一次的方法
+    if (oneReadValueForDescriptors) {
+        for (CBDescriptor *d in characteristic.descriptors)
+        {
+            [peripheral readValueForDescriptor:d];
+        }
+        oneReadValueForDescriptors = NO;
     }
 }
 

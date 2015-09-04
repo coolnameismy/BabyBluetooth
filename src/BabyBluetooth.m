@@ -17,6 +17,18 @@
 
 
 
+//BOOL needDiscoverCharacteristics;//是否获取Characteristics
+//BOOL needReadValueForCharacteristic;//是否获取（更新）Characteristics的值
+//BOOL needDiscoverDescriptorsForCharacteristic;//是否获取Characteristics的描述
+//BOOL needReadValueForDescriptors;//是否获取Descriptors的值
+
+//typedef NS_OPTIONS(NSUInteger, BBSeriseOption) {
+//    BBSeriseOptionCanScanForPeripherals = 1 << 0,
+//    BBSeriseOptionCanConnectPeripheral = 1 << 1,
+//    BBSeriseOptionCanDiscoverServices = 1 << 2,
+//    BBSeriseOptionCanDiscoverServices = 1 << 3,
+//};
+
 @implementation BabyBluetooth{
     Babysister *babysister;
 }
@@ -154,8 +166,7 @@
 -(BabyBluetooth *(^)()) scanForPeripherals{
     
     return ^BabyBluetooth *(){
-        babysister->needScanForPeripherals = YES;
-        
+        [babysister->pocket setObject:@"YES" forKey:@"needScanForPeripherals"];
         return self;
     };
 }
@@ -163,24 +174,16 @@
 //连接Peripherals
 -(BabyBluetooth *(^)()) connectToPeripherals{
     return ^BabyBluetooth *(){
-        babysister->needConnectPeripheral = YES;
+        [babysister->pocket setObject:@"YES" forKey:@"needConnectPeripheral"];
         return self;
     };
-    
 }
 
--(BabyBluetooth *(^)(CBPeripheral *peripheral)) connectToPeripheral{
-    return ^BabyBluetooth *(CBPeripheral *peripheral){
-        babysister->needConnectPeripheral = YES;
-        [babysister->pocket setValue:peripheral forKey:@"peripheral"];
-        return self;
-    };
-}
 
 //发现Services
 -(BabyBluetooth *(^)()) discoverServices{
     return ^BabyBluetooth *(){
-        babysister->needDiscoverServices = YES;
+        [babysister->pocket setObject:@"YES" forKey:@"needDiscoverServices"];
         return self;
     };
     
@@ -189,7 +192,7 @@
 //获取Characteristics
 -(BabyBluetooth *(^)()) discoverCharacteristics{
     return ^BabyBluetooth *(){
-        babysister->needDiscoverCharacteristics = YES;
+        [babysister->pocket setObject:@"YES" forKey:@"needDiscoverCharacteristics"];
         return self;
     };
     
@@ -198,7 +201,7 @@
 //更新Characteristics的值
 -(BabyBluetooth *(^)()) readValueForCharacteristic{
     return ^BabyBluetooth *(){
-        babysister->needReadValueForCharacteristic = YES;
+        [babysister->pocket setObject:@"YES" forKey:@"needReadValueForCharacteristic"];
         return self;
     };
 }
@@ -206,7 +209,7 @@
 //设置查找到Descriptors名称的block
 -(BabyBluetooth *(^)()) discoverDescriptorsForCharacteristic{
     return ^BabyBluetooth *(){
-        babysister->needDiscoverDescriptorsForCharacteristic = YES;
+        [babysister->pocket setObject:@"YES" forKey:@"needDiscoverDescriptorsForCharacteristic"];
         return self;
     };
     
@@ -214,33 +217,65 @@
 //设置读取到Descriptors值的block
 -(BabyBluetooth *(^)()) readValueForDescriptors{
     return ^BabyBluetooth *(){
-        babysister->needReadValueForDescriptors = YES;
+        [babysister->pocket setObject:@"YES" forKey:@"needDiscoverDescriptorsForCharacteristic"];
         return self;
     };
 }
 
 //开始并执行
 -(BabyBluetooth *(^)()) begin{
-    [self validateProcess];
+
     return ^BabyBluetooth *(){
-    
+        //
+        [self resetSeriseParmeter];
+        //处理链式函数缓存的数据
+        if ([[babysister->pocket valueForKey:@"needScanForPeripherals"] isEqualToString:@"YES"]) {
+            babysister->needScanForPeripherals = YES;
+        }
+        if ([[babysister->pocket valueForKey:@"needConnectPeripheral"] isEqualToString:@"YES"]) {
+            babysister->needConnectPeripheral = YES;
+        }
+        if ([[babysister->pocket valueForKey:@"needDiscoverServices"] isEqualToString:@"YES"]) {
+            babysister->needDiscoverServices = YES;
+        }
+        if ([[babysister->pocket valueForKey:@"needDiscoverCharacteristics"] isEqualToString:@"YES"]) {
+            babysister->needDiscoverCharacteristics = YES;
+        }
+        if ([[babysister->pocket valueForKey:@"needReadValueForCharacteristic"] isEqualToString:@"YES"]) {
+            babysister->needReadValueForCharacteristic = YES;
+        }
+        if ([[babysister->pocket valueForKey:@"needDiscoverDescriptorsForCharacteristic"] isEqualToString:@"YES"]) {
+            babysister->needDiscoverDescriptorsForCharacteristic = YES;
+        }
+        if ([[babysister->pocket valueForKey:@"needReadValueForDescriptors"] isEqualToString:@"YES"]) {
+            babysister->needReadValueForDescriptors = YES;
+        }
+        
         //调整委托方法的channel，如果没设置默认为缺省频道
         NSString *channel = [babysister->pocket valueForKey:@"channel"];
         [babySpeaker switchChannel:channel];
         
-        //直接连接或者是扫描后连接
+        //缓存的peripheral
+        CBPeripheral *cachedPeripheral = [babysister->pocket valueForKey:NSStringFromClass([CBPeripheral class])];
+        
+        //校验series合法性
+        [self validateProcess];
+        
+        //清空pocjet
+        babysister->pocket = [[NSMutableDictionary alloc]init];
+        
+        //扫描后连接
         if (babysister->needScanForPeripherals) {
             //开始扫描peripherals
             if(babysister->needScanForPeripherals){
                 [babysister scanPeripherals];
             }
-        }else{
-            CBPeripheral *p = [babysister->pocket valueForKey:@"peripheral"];
-            if (p) {
-                //直接连接设备
-                [babysister connectToPeripheral:p];
+        }
+        //直接连接
+        else{
+            if (cachedPeripheral) {
+                [babysister connectToPeripheral:cachedPeripheral];
             }
-            
         }
         //重置状态
         babyStatus = BabyStatusRuning;
@@ -257,14 +292,8 @@
         NSLog(@"stop in %d sec",sec);
         dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, sec * NSEC_PER_SEC);
         dispatch_after(popTime, dispatch_get_main_queue(), ^{
-            babysister->needScanForPeripherals = NO;
-            babysister->needConnectPeripheral = NO;
-            babysister->needDiscoverServices = NO;
-            babysister->needDiscoverCharacteristics = NO;
-            babysister->needReadValueForCharacteristic = NO;
-            babysister->needDiscoverDescriptorsForCharacteristic = NO;
-            babysister->needReadValueForDescriptors = NO;
-            babyStatus = BabyStatusStop;
+            
+            [self resetSeriseParmeter];
             babysister->pocket = [[NSMutableDictionary alloc]init];
             //停止扫描，断开连接
             [babysister stopScan];
@@ -272,8 +301,28 @@
         });
         return self;
     };
-    
 }
+
+//重置串行方法参数
+-(void)resetSeriseParmeter{
+    babysister->needScanForPeripherals = NO;
+    babysister->needConnectPeripheral = NO;
+    babysister->needDiscoverServices = NO;
+    babysister->needDiscoverCharacteristics = NO;
+    babysister->needReadValueForCharacteristic = NO;
+    babysister->needDiscoverDescriptorsForCharacteristic = NO;
+    babysister->needReadValueForDescriptors = NO;
+    babyStatus = BabyStatusStop;
+}
+
+//持有对象
+-(BabyBluetooth *(^)(id obj)) having{
+    return ^(id obj){
+        [babysister->pocket setObject:obj forKey:NSStringFromClass([obj class])];
+        return self;
+    };
+}
+
 
 //切换委托频道
 -(BabyBluetooth *(^)(NSString *channel)) channel{
@@ -285,14 +334,14 @@
 }
 
 
-#warning 未完成方法校验
+
 -(void)validateProcess{
     
     NSMutableArray *faildReason = [[NSMutableArray alloc]init];
     
     //规则：不执行discoverDescriptorsForCharacteristic()时，不能执行readValueForDescriptors()
     if (!babysister->needDiscoverDescriptorsForCharacteristic) {
-        if (!babysister->needReadValueForDescriptors) {
+        if (babysister->needReadValueForDescriptors) {
             [faildReason addObject:@"未执行discoverDescriptorsForCharacteristic()不能执行readValueForDescriptors()"];
         }
     }
@@ -313,23 +362,26 @@
     }
 
     //规则：不执行connectToPeripherals()时，不能执行discoverServices()
-    if(!babysister->needConnectPeripheral){
-        if (babysister->needDiscoverServices) {
-             [faildReason addObject:@"未执行connectToPeripherals()不能执行discoverServices()"];
-        }
-    }
+//    if(!babysister->needConnectPeripheral){
+//        if (babysister->needDiscoverServices) {
+//             [faildReason addObject:@"未执行connectToPeripherals()不能执行discoverServices()"];
+//        }
+//    }
     
     //规则：不执行needScanForPeripherals，必须执行connectToPeripheral()方法时带入参数peripheral
     if (!babysister->needScanForPeripherals) {
-        CBPeripheral *peripheral = [babysister->pocket valueForKey:@"peripheral"];
+        CBPeripheral *peripheral = [babysister->pocket valueForKey:NSStringFromClass([CBPeripheral class])];
         if (!peripheral) {
             [faildReason addObject:@"若不执行scanForPeripherals()方法，则必须执行connectToPeripheral方法并且需要传入参数(CBPeripheral *)peripheral"];
         }
     }
     
     //抛出异常
-    NSException *e = [NSException exceptionWithName:@"BadyBluetooth usage exception" reason:[faildReason lastObject]  userInfo:nil];
-    @throw e;
+    if ([faildReason lastObject]) {
+        NSException *e = [NSException exceptionWithName:@"BadyBluetooth usage exception" reason:[faildReason lastObject]  userInfo:nil];
+        @throw e;
+    }
+  
 }
 
 
@@ -344,18 +396,19 @@
 
 
 
-
-
 //读取Characteristic的详细信息
 -(BabyBluetooth *(^)(CBPeripheral *peripheral,CBCharacteristic *characteristic)) fetchCharacteristicDetails{
+
+    //切换频道
+    [babySpeaker switchChannel:[babysister->pocket valueForKey:@"channel"]];
+    babysister->pocket = [[NSMutableDictionary alloc]init];
     
     return ^(CBPeripheral *peripheral,CBCharacteristic *characteristic){
         //判断连接状态
-        if (peripheral.state ==CBPeripheralStateConnected) {
-            self->babysister->needReadValueForDescriptors = YES;
+        if (peripheral.state == CBPeripheralStateConnected) {
+            self->babysister->oneReadValueForDescriptors = YES;
             [peripheral readValueForCharacteristic:characteristic];
             [peripheral discoverDescriptorsForCharacteristic:characteristic];
-            
         }else{
             NSLog(@"!!!设备当前处于非连接状态");
         }

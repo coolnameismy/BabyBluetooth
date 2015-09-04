@@ -27,6 +27,8 @@
     BOOL needDiscoverDescriptorsForCharacteristic;//是否获取Characteristics的描述
     BOOL needReadValueForDescriptors;//是否获取Descriptors的值
     
+    //一次性处理
+    BOOL oneReadValueForDescriptors;
     
     //方法执行时间
     int executeTime;

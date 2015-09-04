@@ -98,7 +98,7 @@
 }
 -(void)loadData{
     [SVProgressHUD showInfoWithStatus:@"开始连接设备"];
-    baby.channel(channelOnPeropheralView).connectToPeripheral(self.currPeripheral).discoverServices().discoverCharacteristics().readValueForCharacteristic().discoverDescriptorsForCharacteristic().readValueForDescriptors().begin();
+    baby.having(self.currPeripheral).and.channel(channelOnPeropheralView).then.connectToPeripherals().discoverServices().discoverCharacteristics().readValueForCharacteristic().discoverDescriptorsForCharacteristic().readValueForDescriptors().begin();
     //    baby.connectToPeripheral(self.currPeripheral).begin();
 }
 

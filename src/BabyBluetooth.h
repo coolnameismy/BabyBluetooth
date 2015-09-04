@@ -113,7 +113,7 @@ typedef NS_ENUM(NSInteger, BabyStatus) {
 -(BabyBluetooth *(^)()) scanForPeripherals;
 //连接Peripherals
 -(BabyBluetooth *(^)()) connectToPeripherals;
--(BabyBluetooth *(^)(CBPeripheral *peripheral)) connectToPeripheral;
+
 //发现Services
 -(BabyBluetooth *(^)()) discoverServices;
 //获取Characteristics
@@ -136,6 +136,9 @@ typedef NS_ENUM(NSInteger, BabyStatus) {
 
 //sec秒后停止
 -(BabyBluetooth *(^)(int sec)) stop;
+
+//持有对象
+-(BabyBluetooth *(^)(id obj)) having;
 
 
 /**

@@ -18,6 +18,7 @@
 #define height [UIScreen mainScreen].bounds.size.height
 #define isIOS7  ([[[UIDevice currentDevice] systemVersion] floatValue] >= 7)
 #define navHeight ( isIOS7 ? 64 : 44)  //导航栏高度
+#define channelOnCharacteristicView @"CharacteristicView"
 
 
 @implementation CharacteristicViewController
@@ -32,13 +33,8 @@
     //配置ble委托
     [self babyDelegate];
     //读取服务
-    //baby.fetchCharacteristicDetails(self.currPeripheral,self.characteristic);
-    
-//    baby.using(peripheral).discoverServices().discoverCharacteristics().discoverDescriptorsForCharacteristic().readValueForCharacteristic().readValueForDescriptors();
-//    
-//    baby.using(services).discoverCharacteristics().discoverDescriptorsForCharacteristic().readValueForCharacteristic().readValueForDescriptors();
-//    
-//    baby.using(peripheral).connectToPeripherals().discoverCharacteristics().discoverDescriptorsForCharacteristic().readValueForCharacteristic().readValueForDescriptors();
+    baby.channel(channelOnCharacteristicView).fetchCharacteristicDetails(self.currPeripheral,self.characteristic);
+
 }
 
 
@@ -70,13 +66,12 @@
 
     __weak typeof(self)weakSelf = self;
     //设置读取characteristics的委托
-    [baby setBlockOnReadValueForCharacteristic:^(CBPeripheral *peripheral, CBCharacteristic *characteristics, NSError *error) {
+    [baby setBlockOnReadValueForCharacteristicOnChannel:channelOnCharacteristicView block:^(CBPeripheral *peripheral, CBCharacteristic *characteristics, NSError *error) {
 //        NSLog(@"CharacteristicViewController===characteristic name:%@ value is:%@",characteristics.UUID,characteristics.value);
         [weakSelf insertReadValues:characteristics];
-        
     }];
     //设置发现characteristics的descriptors的委托
-    [baby setBlockOnDiscoverDescriptorsForCharacteristic:^(CBPeripheral *peripheral, CBCharacteristic *characteristic, NSError *error) {
+    [baby setBlockOnDiscoverDescriptorsForCharacteristicOnChannel:channelOnCharacteristicView block:^(CBPeripheral *peripheral, CBCharacteristic *characteristic, NSError *error) {
 //        NSLog(@"CharacteristicViewController===characteristic name:%@",characteristic.service.UUID);
         for (CBDescriptor *d in characteristic.descriptors) {
 //            NSLog(@"CharacteristicViewController CBDescriptor name is :%@",d.UUID);
@@ -84,7 +79,7 @@
         }
     }];
     //设置读取Descriptor的委托
-    [baby setBlockOnReadValueForDescriptors:^(CBPeripheral *peripheral, CBDescriptor *descriptor, NSError *error) {
+    [baby setBlockOnReadValueForDescriptorsOnChannel:channelOnCharacteristicView block:^(CBPeripheral *peripheral, CBDescriptor *descriptor, NSError *error) {
         for (int i =0 ; i<descriptors.count; i++) {
             if (descriptors[i]==descriptor) {
                 UITableViewCell *cell = [weakSelf.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:i inSection:2]];
