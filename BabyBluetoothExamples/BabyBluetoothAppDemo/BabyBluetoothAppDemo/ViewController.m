@@ -108,13 +108,14 @@
     }];
     
     //设置查找设备的过滤器
-    [baby setDiscoverPeripheralsFilter:^BOOL(NSString *peripheralsFilter) {
-        //设置查找规则是名称大于1 ， the search rule is peripheral.name length > 1
-        if (peripheralsFilter.length >1) {
+    [baby setFilterOnDiscoverPeripherals:^BOOL(NSString *peripheralName) {
+        //设置查找规则是名称大于1 ， the search rule is peripheral.name length > 2
+        if (peripheralName.length >2) {
             return YES;
         }
         return NO;
     }];
+    
     
 }
 
@@ -140,8 +141,8 @@
     [SVProgressHUD showInfoWithStatus:@"正在扫描设备"];
     baby.scanForPeripherals().begin();
 //    baby.scanForPeripherals().connectToPeripherals().discoverServices().discoverCharacteristics().readValueForCharacteristic().discoverDescriptorsForCharacteristic().readValueForDescriptors().begin().stop(30);
- 
 }
+
 
 
 

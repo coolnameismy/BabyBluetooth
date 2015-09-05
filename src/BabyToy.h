@@ -25,7 +25,6 @@
 +(int)ConvertDataToInt:(NSData *)data;
 //十六进制转换为普通字符串的。
 + (NSData *)ConvertHexStringToData:(NSString *)hexString;
-
 //根据UUIDString查找CBCharacteristic
 +(CBCharacteristic *)findCharacteristicFormServices:(NSMutableArray *)services
                                          UUIDString:(NSString *)UUIDString;

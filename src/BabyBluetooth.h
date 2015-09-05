@@ -1,5 +1,5 @@
 //
-//  BabyBluetooth
+//  BabyBluetooth.h
 //  
 //
 //  Created by 刘彦玮 on 15/3/31.
@@ -44,6 +44,8 @@ typedef NS_ENUM(NSInteger, BabyStatus) {
 
 #pragma mark -设置委托方法
 
+//设备状态改变的委托
+-(void)setBlockOnCentralManagerDidUpdateState:(void (^)(CBCentralManager *central))block;
 //找到Peripherals的委托
 -(void)setBlockOnDiscoverToPeripherals:(void (^)(CBCentralManager *central,CBPeripheral *peripheral,NSDictionary *advertisementData, NSNumber *RSSI))block;
 //连接Peripherals成功的委托
@@ -61,13 +63,16 @@ typedef NS_ENUM(NSInteger, BabyStatus) {
 
 
 //设置查找Peripherals的规则
--(void)setDiscoverPeripheralsFilter:(BOOL (^)(NSString *peripheralsFilter))filter;
+-(void)setFilterOnDiscoverPeripherals:(BOOL (^)(NSString *peripheralName))filter;
 //设置连接Peripherals的规则
--(void)setConnectPeripheralsFilter:(BOOL (^)(NSString *peripheralsFilter))filter;
+-(void)setFilterOnConnetToPeripherals:(BOOL (^)(NSString *peripheralName))filter;
 
 
 
 //channel
+//设备状态改变的委托
+-(void)setBlockOnCentralManagerDidUpdateStateOnChannel:(NSString *)channel
+                                                        block:(void (^)(CBCentralManager *central))block;
 //找到Peripherals的委托
 -(void)setBlockOnDiscoverToPeripheralsOnChannel:(NSString *)channel
                                           block:(void (^)(CBCentralManager *central,CBPeripheral *peripheral,NSDictionary *advertisementData, NSNumber *RSSI))block;
@@ -94,12 +99,12 @@ typedef NS_ENUM(NSInteger, BabyStatus) {
                                             block:(void (^)(CBPeripheral *peripheral,CBDescriptor *descriptorNSError,NSError *error))block;
 
 //设置查找Peripherals的规则
--(void)setDiscoverPeripheralsFilterOnChannel:(NSString *)channel
-                                      filter:(BOOL (^)(NSString *peripheralsFilter))filter;
+-(void)setFilterOnDiscoverPeripheralsOnChannel:(NSString *)channel
+                                      filter:(BOOL (^)(NSString *peripheralName))filter;
 
 //设置连接Peripherals的规则
--(void)setConnectPeripheralsFilterOnChannel:(NSString *)channel
-                                     filter:(BOOL (^)(NSString *peripheralsFilter))filter;
+-(void)setFilterOnConnetToPeripheralsOnChannel:(NSString *)channel
+                                     filter:(BOOL (^)(NSString *peripheralName))filter;
 
 #pragma mark -链式函数
 //查找Peripherals
@@ -136,13 +141,21 @@ typedef NS_ENUM(NSInteger, BabyStatus) {
 //谓词，返回self
 -(BabyBluetooth *) and;
 -(BabyBluetooth *) then;
-
+-(BabyBluetooth *) with;
 
 #pragma mark -工具方法
 
-//更新Characteristics的值
--(BabyBluetooth *(^)(CBPeripheral *peripheral,CBCharacteristic *characteristic)) fetchCharacteristicDetails;
+//断开连接
+-(void)cancelPeripheralConnection:(CBPeripheral *)peripheral;
 
+//断开所有连接
+-(void)cancelAllPeripheralsConnection;
+
+//停止扫描
+-(void)cancelScan;
+
+//更新Characteristics的值
+-(BabyBluetooth *(^)(CBPeripheral *peripheral,CBCharacteristic *characteristic)) characteristicDetails;
 
 //设置characteristic的notify
 -(void)notify:(CBPeripheral *)peripheral

@@ -34,7 +34,7 @@
     //配置ble委托
     [self babyDelegate];
     //读取服务
-    baby.channel(channelOnCharacteristicView).fetchCharacteristicDetails(self.currPeripheral,self.characteristic);
+    baby.channel(channelOnCharacteristicView).characteristicDetails(self.currPeripheral,self.characteristic);
    
 }
 
@@ -134,8 +134,11 @@
         }else{
             [weakSelf.currPeripheral setNotifyValue:YES forCharacteristic:self.characteristic];
             [btn setTitle:@"取消通知" forState:UIControlStateNormal];
-            [baby notify:self.currPeripheral characteristic:self.characteristic block:^(CBPeripheral *peripheral, CBCharacteristic *characteristics, NSError *error) {
+            [baby notify:self.currPeripheral
+          characteristic:self.characteristic
+                   block:^(CBPeripheral *peripheral, CBCharacteristic *characteristics, NSError *error) {
                 NSLog(@"notify block");
+//                NSLog(@"new value %@",characteristics.value);
                 [self insertReadValues:characteristics];
             }];
         }
@@ -290,7 +293,7 @@
                     [self insertReadValues:characteristics];
                 }];
             }
-
+            
             [view addSubview:setNotifiyBtn];
             UIButton *writeBtn = [UIButton buttonWithType:UIButtonTypeCustom];
             [writeBtn setFrame:CGRectMake(200, 0, 100, 30)];

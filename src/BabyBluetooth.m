@@ -1,6 +1,6 @@
 //
-//  GAAT.m
-//  PlantAssistant
+//  BabyBluetooth.m
+//
 //
 //  Created by 刘彦玮 on 15/3/31.
 //  Copyright (c) 2015年 刘彦玮. All rights reserved.
@@ -57,6 +57,11 @@
 
 #pragma mark -委托方法
 
+//设备状态改变的委托
+-(void)setBlockOnCentralManagerDidUpdateState:(void (^)(CBCentralManager *central))block{
+    [[babySpeaker callback]setBlockOnCentralManagerDidUpdateState:block];
+}
+
 //找到Peripherals的委托
 -(void)setBlockOnDiscoverToPeripherals:(void (^)(CBCentralManager *central,CBPeripheral *peripheral,NSDictionary *advertisementData, NSNumber *RSSI))block{
     [[babySpeaker callback]setBlockOnDiscoverPeripherals:block];
@@ -91,17 +96,22 @@
 
 
 //设置查找Peripherals的规则
--(void)setDiscoverPeripheralsFilter:(BOOL (^)(NSString *peripheralsFilter))filter{
+-(void)setFilterOnDiscoverPeripherals:(BOOL (^)(NSString *peripheralName))filter{
     [[babySpeaker callback]setFilterOnDiscoverPeripherals:filter];
 }
 
 //设置连接Peripherals的规则
--(void)setConnectPeripheralsFilter:(BOOL (^)(NSString *peripheralsFilter))filter{
+-(void)setFilterOnConnetToPeripherals:(BOOL (^)(NSString *peripheralName))filter{
     [[babySpeaker callback]setFilterOnConnetToPeripherals:filter];
 }
 
 
 //channel
+//设备状态改变的委托
+-(void)setBlockOnCentralManagerDidUpdateStateOnChannel:(NSString *)channel
+                                                 block:(void (^)(CBCentralManager *central))block{
+    [[babySpeaker callbackOnChnnel:channel createWhenNotExist:YES] setBlockOnCentralManagerDidUpdateState:block];
+}
 //找到Peripherals的委托
 -(void)setBlockOnDiscoverToPeripheralsOnChannel:(NSString *)channel
                                           block:(void (^)(CBCentralManager *central,CBPeripheral *peripheral,NSDictionary *advertisementData, NSNumber *RSSI))block{
@@ -143,14 +153,14 @@
 
 
 //设置查找Peripherals的规则
--(void)setDiscoverPeripheralsFilterOnChannel:(NSString *)channel
-                                      filter:(BOOL (^)(NSString *peripheralsFilter))filter{
+-(void)setFilterOnDiscoverPeripheralsOnChannel:(NSString *)channel
+                                      filter:(BOOL (^)(NSString *peripheralName))filter{
     [[babySpeaker callbackOnChnnel:channel createWhenNotExist:YES] setFilterOnDiscoverPeripherals:filter];
 }
 
 //设置连接Peripherals的规则
--(void)setConnectPeripheralsFilterOnChannel:(NSString *)channel
-                                     filter:(BOOL (^)(NSString *peripheralsFilter))filter{
+-(void)setFilterOnConnetToPeripheralsOnChannel:(NSString *)channel
+                                     filter:(BOOL (^)(NSString *peripheralName))filter{
     [[babySpeaker callbackOnChnnel:channel createWhenNotExist:YES] setFilterOnConnetToPeripherals:filter];
 }
 
@@ -356,13 +366,13 @@
     }
 
     //规则：不执行connectToPeripherals()时，不能执行discoverServices()
-//    if(!babysister->needConnectPeripheral){
-//        if (babysister->needDiscoverServices) {
-//             [faildReason addObject:@"未执行connectToPeripherals()不能执行discoverServices()"];
-//        }
-//    }
+    if(!babysister->needConnectPeripheral){
+        if (babysister->needDiscoverServices) {
+             [faildReason addObject:@"未执行connectToPeripherals()不能执行discoverServices()"];
+        }
+    }
     
-    //规则：不执行needScanForPeripherals，必须执行connectToPeripheral()方法时带入参数peripheral
+    //规则：不执行needScanForPeripherals()，那么执行connectToPeripheral()方法时必须用having(peripheral)传入peripheral实例
     if (!babysister->needScanForPeripherals) {
         CBPeripheral *peripheral = [babysister->pocket valueForKey:NSStringFromClass([CBPeripheral class])];
         if (!peripheral) {
@@ -380,19 +390,34 @@
 
 
 -(BabyBluetooth *) and{
-    NSLog(@"and");
     return self;
 }
 -(BabyBluetooth *) then{
-    NSLog(@"then");
+    return self;
+}
+-(BabyBluetooth *) with{
     return self;
 }
 
-
 #pragma mark -工具方法
 
+//断开连接
+-(void)cancelPeripheralConnection:(CBPeripheral *)peripheral{
+    [babysister->bleManager cancelPeripheralConnection:peripheral];
+}
+
+//断开所有连接
+-(void)cancelAllPeripheralsConnection{
+    [babysister stopConnectAllPerihperals];
+}
+
+//停止扫描
+-(void)cancelScan{
+    [babysister stopScan];
+}
+
 //读取Characteristic的详细信息
--(BabyBluetooth *(^)(CBPeripheral *peripheral,CBCharacteristic *characteristic)) fetchCharacteristicDetails{
+-(BabyBluetooth *(^)(CBPeripheral *peripheral,CBCharacteristic *characteristic)) characteristicDetails{
 
     //切换频道
     [babySpeaker switchChannel:[babysister->pocket valueForKey:@"channel"]];

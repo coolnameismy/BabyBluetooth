@@ -1,6 +1,5 @@
 //
-//  SimpleBLENotifiyHandler.m
-//  PlantAssistant
+//  Babysister.m
 //
 //  Created by 刘彦玮 on 15/7/30.
 //  Copyright (c) 2015年 刘彦玮. All rights reserved.

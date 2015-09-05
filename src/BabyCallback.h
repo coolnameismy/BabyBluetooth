@@ -9,6 +9,9 @@
 #import <UIKit/UIKit.h>
 #import <CoreBluetooth/CoreBluetooth.h>
 
+
+//设备状态改变的委托
+typedef void (^BBcentralManagerDidUpdateStateBlock)(CBCentralManager *central);
 //找到设备的委托
 typedef void (^BBDiscoverPeripheralsBlock)(CBCentralManager *central,CBPeripheral *peripheral,NSDictionary *advertisementData, NSNumber *RSSI);
 //连接设备成功的block
@@ -32,7 +35,8 @@ typedef void (^BBReadValueForDescriptorsBlock)(CBPeripheral *peripheral,CBDescri
 @interface BabyCallback : NSObject
 
 //委托方法 callback block
-
+//设备状态改变的委托
+@property(nonatomic,strong) BBcentralManagerDidUpdateStateBlock blockOnCentralManagerDidUpdateState;
 //发现peripherals
 @property(nonatomic,strong) BBDiscoverPeripheralsBlock blockOnDiscoverPeripherals;
 //连接callback
@@ -50,8 +54,8 @@ typedef void (^BBReadValueForDescriptorsBlock)(CBPeripheral *peripheral,CBDescri
 
 
 //过滤器Filter
-@property(nonatomic,strong)  BOOL (^filterOnConnetToPeripherals)(NSString *peripheralsName);    //发现peripherals规则
-@property(nonatomic,strong)  BOOL (^filterOnDiscoverPeripherals)(NSString *peripheralsName);    //连接peripherals规则
+@property(nonatomic,strong)  BOOL (^filterOnConnetToPeripherals)(NSString *peripheralName);    //发现peripherals规则
+@property(nonatomic,strong)  BOOL (^filterOnDiscoverPeripherals)(NSString *peripheralName);    //连接peripherals规则
 
 
 
