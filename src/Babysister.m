@@ -46,18 +46,18 @@
 
 //开始扫描
 -(void)scanForPeripheralNotifyReceived:(NSNotification *)notify{
-    NSLog(@">>>scanForPeripheralsNotifyReceived");
+//    NSLog(@">>>scanForPeripheralsNotifyReceived");
 }
 
 //扫描到设备
 -(void)didDiscoverPeripheralNotifyReceived:(NSNotification *)notify{
-    CBPeripheral *peripheral =[notify.userInfo objectForKey:@"peripheral"];
-    NSLog(@">>>didDiscoverPeripheralNotifyReceived:%@",peripheral.name);
+//    CBPeripheral *peripheral =[notify.userInfo objectForKey:@"peripheral"];
+//    NSLog(@">>>didDiscoverPeripheralNotifyReceived:%@",peripheral.name);
 }
 
 //开始连接设备
 -(void)connectToPeripheralNotifyReceived:(NSNotification *)notify{
-    NSLog(@">>>connectToPeripheralNotifyReceived");
+//    NSLog(@">>>connectToPeripheralNotifyReceived");
 }
 
 //扫描Peripherals
@@ -115,6 +115,10 @@
             break;
         default:
             break;
+    }
+    //状态改变callback
+    if([currChannel blockOnCentralManagerDidUpdateState]){
+        [currChannel blockOnCentralManagerDidUpdateState](central);
     }
 }
 

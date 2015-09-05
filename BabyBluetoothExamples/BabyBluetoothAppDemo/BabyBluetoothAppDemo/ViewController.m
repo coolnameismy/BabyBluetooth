@@ -32,15 +32,27 @@
     self.tableView = [[UITableView alloc]initWithFrame:self.view.frame];
     self.tableView.dataSource = self;
     self.tableView.delegate = self;
-    
     [self.view addSubview:self.tableView];
+    
+    
     //初始化BabyBluetooth 蓝牙库
+    baby = [BabyBluetooth shareBabyBluetooth];
+    //设置蓝牙委托
+    [self babyDelegate];
+    __weak typeof(baby) weakBaby = baby;
+    //因为蓝牙设备打开需要时间，所以只有监听到蓝牙设备状态打开后才能安全的使用蓝牙
+    [baby setBlockOnCentralManagerDidUpdateState:^(CBCentralManager *central) {
+        if (central.state == CBCentralManagerStatePoweredOn) {
+            //开始扫描设备
+            [SVProgressHUD showInfoWithStatus:@"正在扫描设备"];
+            weakBaby.scanForPeripherals().begin();
 
-    [self pregnancy];
+        }
+    }];
+    
     //初始化其他数据 init other
     peripherals = [[NSMutableArray alloc]init];
     //开始扫描设备
-    [self performSelector:@selector(scanPeripheral) withObject:nil afterDelay:2];
     [SVProgressHUD showInfoWithStatus:@"准备扫描设备"];
 
     //测试方法
@@ -54,12 +66,13 @@
 
 #pragma mark -蓝牙配置和操作
 
-//蓝牙网关初始化和委托方法设置 BabyBluetooth init and config
--(void)pregnancy{
+//蓝牙网关初始化和委托方法设置
+-(void)babyDelegate{
     //初始化BabyBluetooth， BabyBluetooth init
 //    baby = [[BabyBluetooth alloc]init];
-    baby = [BabyBluetooth shareBabyBluetooth];
+    
     __weak typeof(self) weakSelf = self;
+
     
     //设置扫描到设备的委托
     [baby setBlockOnDiscoverToPeripherals:^(CBCentralManager *central, CBPeripheral *peripheral, NSDictionary *advertisementData, NSNumber *RSSI) {
@@ -128,22 +141,6 @@
 //        NSData *data = [NSData dataWithBytes: &@(1) length: 1];
 //        [_testPeripheral writeValue:data forCharacteristic:characteristic type:CBCharacteristicWriteWithResponse];
 //    }
-    
-
-
-//扫描设备,读取服务
--(void)scanPeripheral{
-
-//
-    
-    //扫描设备 然后读取服务,然后读取characteristics名称和值和属性，获取characteristics对应的description的名称和值
-//
-    [SVProgressHUD showInfoWithStatus:@"正在扫描设备"];
-    baby.scanForPeripherals().begin();
-//    baby.scanForPeripherals().connectToPeripherals().discoverServices().discoverCharacteristics().readValueForCharacteristic().discoverDescriptorsForCharacteristic().readValueForDescriptors().begin().stop(30);
-}
-
-
 
 
 
