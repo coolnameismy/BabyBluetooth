@@ -8,7 +8,7 @@ The easiest way to use Bluetooth (BLE )in ios,even bady can use . 一个非常�
 # Contents
 
 * [用法示例](#用法示例)
-    * [Quick Example](#Quick_Example)
+    * [Quick_Example](#Quick_Example)
     * [初始化](#初始化)
     * [搜索设备](#搜索设备)
     * [搜索并连接设备](#搜索并连接设备)
