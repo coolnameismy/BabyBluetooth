@@ -1,14 +1,14 @@
 # BabyBluetooth
-The easiest way to use Bluetooth (BLE )in ios,even bady can use . 一个非常容易使用的蓝牙库。
-当前版本v0.1 
+The easiest way to use Bluetooth (BLE )in ios,even bady can use . 一个非常容易使用的蓝牙库，当前版本v0.1 。
 
-- 基于原生CoreBluetooth框架，极大的简化CoreBluetooth的使用。
-- CoreBluetooth所有方法都是通过委托完成，代码冗余且顺序混乱，而BabyBluetooth使用block设置委托方法，可以重新按照功能和顺序组织代码，并提供许多方法减少蓝牙开发过程中的代码量。
+- 基于原生CoreBluetooth框架封装的轻量级的开源库，可以帮你更简单地使用CoreBluetooth API。
+- CoreBluetooth所有方法都是通过委托完成，代码冗余且顺序凌乱。BabyBluetooth使用block方法，可以重新按照功能和顺序组织代码，并提供许多方法减少蓝牙开发过程中的代码量。
 - 链式方法体，代码更简洁、优雅。
 
 # Contents
 
 * [用法示例](#用法示例)
+    * [Quick_Example](#Quick_Example)
     * [初始化](#初始化)
     * [搜索设备](#搜索设备)
     * [搜索并连接设备](#搜索并连接设备)
@@ -33,6 +33,37 @@ The easiest way to use Bluetooth (BLE )in ios,even bady can use . 一个非常�
 * [期待](#期待)
 
 #用法示例
+
+## Quick_Example
+```objc
+
+-(void)viewDidLoad {
+    [super viewDidLoad];   
+    
+   //初始化BabyBluetooth 蓝牙库
+    baby = [BabyBluetooth shareBabyBluetooth];
+    //设置蓝牙委托
+    [self babyDelegate];
+    __weak typeof(baby) weakBaby = baby;
+    //因为蓝牙设备打开需要时间，所以只有监听到蓝牙设备状态打开后才能安全的使用蓝牙
+    [baby setBlockOnCentralManagerDidUpdateState:^(CBCentralManager *central) {
+        if (central.state == CBCentralManagerStatePoweredOn) {
+            //开始扫描设备
+            weakBaby.scanForPeripherals().begin();
+        }
+    }];
+}
+
+//蓝牙网关初始化和委托方法设置
+-(void)babyDelegate{
+    //设置扫描到设备的委托
+    [baby setBlockOnDiscoverToPeripherals:^(CBCentralManager *central, CBPeripheral *peripheral, NSDictionary *advertisementData, NSNumber *RSSI) {
+        NSLog(@"搜索到了设备:%@",peripheral.name);
+    }];
+}
+  
+```
+
 
 ## 初始化 
 
