@@ -7,9 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "BabyCallback.h"
+#import <CoreBluetooth/CoreBluetooth.h>
 
-
-@class BabyCallback,CBPeripheral,CBCharacteristic;
 
 @interface BabySpeaker : NSObject
 

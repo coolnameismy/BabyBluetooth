@@ -7,8 +7,7 @@
 //
 
 #import "BabySpeaker.h"
-#import "BabyCallback.h"
-#import <CoreBluetooth/CoreBluetooth.h>
+
 
 //找到设备的委托
 typedef void (^BBDiscoverPeripheralsBlock)(CBCentralManager *central,CBPeripheral *peripheral,NSDictionary *advertisementData, NSNumber *RSSI);

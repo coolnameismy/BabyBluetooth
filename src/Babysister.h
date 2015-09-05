@@ -7,7 +7,6 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "BBPeripheral.h"
 #import <CoreBluetooth/CoreBluetooth.h>
 #import "BabyToy.h"
 #import "BabySpeaker.h"

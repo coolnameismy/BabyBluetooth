@@ -6,6 +6,7 @@
 //
 
 #import "Babysister.h"
+#import "BabyCallback.h"
 
 @implementation Babysister
 
@@ -303,7 +304,7 @@
 //characteristic.isNotifying 状态改变
 -(void)peripheral:(CBPeripheral *)peripheral didUpdateNotificationStateForCharacteristic:(CBCharacteristic *)characteristic error:(NSError *)error{
         NSLog(@">>>didUpdateNotificationStateForCharacteristic");
-        NSLog(@">>>uuid:%@,isNotifying:%hhd",characteristic.UUID,characteristic.isNotifying);
+        NSLog(@">>>uuid:%@,isNotifying:%@",characteristic.UUID,characteristic.isNotifying?@"isNotifying":@"Notifying");
 }
 
 -(void)peripheral:(CBPeripheral *)peripheral didWriteValueForCharacteristic:(CBCharacteristic *)characteristic error:(NSError *)error{
@@ -321,9 +322,8 @@
 #pragma mark -设备list管理
 
 -(void)addPeripheral:(CBPeripheral *)peripheral{
-    BBPeripheral *sbPeripheral = [[BBPeripheral alloc]initWithSBPeripheral:peripheral];
     if(![peripherals objectForKey:peripheral.name] && ![peripheral.name isEqualToString:@""] ){
-        [peripherals setObject:sbPeripheral forKey:peripheral.name];
+        [peripherals setObject:peripheral forKey:peripheral.name];
     }
 }
 
@@ -331,7 +331,7 @@
     [peripherals removeObjectForKey:peripheralName];
 }
 
--(BBPeripheral *)findPeripheral:(NSString *)peripheralName{
+-(CBPeripheral *)findPeripheral:(NSString *)peripheralName{
     return [peripherals objectForKey:peripheralName];
 }
 

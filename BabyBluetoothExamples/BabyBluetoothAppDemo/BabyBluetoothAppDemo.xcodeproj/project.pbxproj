@@ -19,8 +19,6 @@
 		E1DEF5171B98857B0005C9F2 /* Babysister.m in Sources */ = {isa = PBXBuildFile; fileRef = E1DEF50C1B98857B0005C9F2 /* Babysister.m */; };
 		E1DEF5181B98857B0005C9F2 /* BabySpeaker.m in Sources */ = {isa = PBXBuildFile; fileRef = E1DEF50E1B98857B0005C9F2 /* BabySpeaker.m */; };
 		E1DEF5191B98857B0005C9F2 /* BabyToy.m in Sources */ = {isa = PBXBuildFile; fileRef = E1DEF5101B98857B0005C9F2 /* BabyToy.m */; };
-		E1DEF51A1B98857B0005C9F2 /* BBCentralManager.m in Sources */ = {isa = PBXBuildFile; fileRef = E1DEF5121B98857B0005C9F2 /* BBCentralManager.m */; };
-		E1DEF51B1B98857B0005C9F2 /* BBPeripheral.m in Sources */ = {isa = PBXBuildFile; fileRef = E1DEF5141B98857B0005C9F2 /* BBPeripheral.m */; };
 		F05F7BA21B70AB0F0051C68A /* PeripheralViewContriller.m in Sources */ = {isa = PBXBuildFile; fileRef = F05F7BA11B70AB0F0051C68A /* PeripheralViewContriller.m */; };
 		F05F7BA61B733A240051C68A /* PeripheralInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = F05F7BA51B733A240051C68A /* PeripheralInfo.m */; };
 		F05F7BAD1B7372300051C68A /* SVIndefiniteAnimatedView.m in Sources */ = {isa = PBXBuildFile; fileRef = F05F7BA91B7372300051C68A /* SVIndefiniteAnimatedView.m */; };
@@ -63,10 +61,6 @@
 		E1DEF50E1B98857B0005C9F2 /* BabySpeaker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BabySpeaker.m; sourceTree = "<group>"; };
 		E1DEF50F1B98857B0005C9F2 /* BabyToy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BabyToy.h; sourceTree = "<group>"; };
 		E1DEF5101B98857B0005C9F2 /* BabyToy.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BabyToy.m; sourceTree = "<group>"; };
-		E1DEF5111B98857B0005C9F2 /* BBCentralManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BBCentralManager.h; sourceTree = "<group>"; };
-		E1DEF5121B98857B0005C9F2 /* BBCentralManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BBCentralManager.m; sourceTree = "<group>"; };
-		E1DEF5131B98857B0005C9F2 /* BBPeripheral.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BBPeripheral.h; sourceTree = "<group>"; };
-		E1DEF5141B98857B0005C9F2 /* BBPeripheral.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BBPeripheral.m; sourceTree = "<group>"; };
 		F05F7BA01B70AB0F0051C68A /* PeripheralViewContriller.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PeripheralViewContriller.h; sourceTree = "<group>"; };
 		F05F7BA11B70AB0F0051C68A /* PeripheralViewContriller.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PeripheralViewContriller.m; sourceTree = "<group>"; };
 		F05F7BA41B733A240051C68A /* PeripheralInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PeripheralInfo.h; sourceTree = "<group>"; };
@@ -187,10 +181,6 @@
 				E1DEF50E1B98857B0005C9F2 /* BabySpeaker.m */,
 				E1DEF50F1B98857B0005C9F2 /* BabyToy.h */,
 				E1DEF5101B98857B0005C9F2 /* BabyToy.m */,
-				E1DEF5111B98857B0005C9F2 /* BBCentralManager.h */,
-				E1DEF5121B98857B0005C9F2 /* BBCentralManager.m */,
-				E1DEF5131B98857B0005C9F2 /* BBPeripheral.h */,
-				E1DEF5141B98857B0005C9F2 /* BBPeripheral.m */,
 			);
 			name = BabyBluetoothLib;
 			path = ../../src;
@@ -322,13 +312,11 @@
 				E1DEF5151B98857B0005C9F2 /* BabyBluetooth.m in Sources */,
 				F05F7BA21B70AB0F0051C68A /* PeripheralViewContriller.m in Sources */,
 				E1807E791B6CA29100E99C63 /* ViewController.m in Sources */,
-				E1DEF51A1B98857B0005C9F2 /* BBCentralManager.m in Sources */,
 				F05F7BA61B733A240051C68A /* PeripheralInfo.m in Sources */,
 				F05F7BAF1B7372300051C68A /* SVProgressHUD.m in Sources */,
 				E1DEF5171B98857B0005C9F2 /* Babysister.m in Sources */,
 				E1807E761B6CA29100E99C63 /* AppDelegate.m in Sources */,
 				E1807E731B6CA29100E99C63 /* main.m in Sources */,
-				E1DEF51B1B98857B0005C9F2 /* BBPeripheral.m in Sources */,
 				F05F7BB21B7442B50051C68A /* CharacteristicViewController.m in Sources */,
 				E1DEF5181B98857B0005C9F2 /* BabySpeaker.m in Sources */,
 				E1DEF5161B98857B0005C9F2 /* BabyCallback.m in Sources */,
