@@ -138,7 +138,7 @@
     //扫描设备 然后读取服务,然后读取characteristics名称和值和属性，获取characteristics对应的description的名称和值
 //
     [SVProgressHUD showInfoWithStatus:@"正在扫描设备"];
-    baby.scanForPeripherals().begin().stop(1000);
+    baby.scanForPeripherals().begin();
 //    baby.scanForPeripherals().connectToPeripherals().discoverServices().discoverCharacteristics().readValueForCharacteristic().discoverDescriptorsForCharacteristic().readValueForDescriptors().begin().stop(30);
  
 }

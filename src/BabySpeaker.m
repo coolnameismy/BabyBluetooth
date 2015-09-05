@@ -7,7 +7,8 @@
 //
 
 #import "BabySpeaker.h"
-
+#import "BabyCallback.h"
+#import <CoreBluetooth/CoreBluetooth.h>
 
 //找到设备的委托
 typedef void (^BBDiscoverPeripheralsBlock)(CBCentralManager *central,CBPeripheral *peripheral,NSDictionary *advertisementData, NSNumber *RSSI);
@@ -49,6 +50,8 @@ typedef NS_ENUM(NSUInteger, BabySpeakerType) {
     NSMutableDictionary *channels;
     //当前委托频道
     NSString *currChannel;
+    //notifyList
+    NSMutableDictionary *notifyList;
     
 }
 
@@ -56,6 +59,7 @@ typedef NS_ENUM(NSUInteger, BabySpeakerType) {
     self = [super init];
     if (self) {
         BabyCallback *defaultCallback = [[BabyCallback alloc]init];
+        notifyList = [[NSMutableDictionary alloc]init];
         channels = [[NSMutableDictionary alloc]init];
         currChannel = defaultChannel;
         [channels setObject:defaultCallback forKey:defaultChannel];
@@ -109,4 +113,24 @@ typedef NS_ENUM(NSUInteger, BabySpeakerType) {
     
 }
 
+//添加到notify list
+-(void)addNotifyCallback:(CBCharacteristic *)c
+           withBlock:(void(^)(CBPeripheral *peripheral, CBCharacteristic *characteristics, NSError *error))block{
+    [notifyList setObject:block forKey:c.UUID.description];
+}
+
+//添加到notify list
+-(void)removeNotifyCallback:(CBCharacteristic *)c{
+    [notifyList removeObjectForKey:c.UUID.description];
+}
+
+//获取notify list
+-(NSMutableDictionary *)notifyCallBackList{
+    return notifyList;
+}
+
+//获取notityBlock
+-(void(^)(CBPeripheral *peripheral, CBCharacteristic *characteristics, NSError *error))notifyCallback:(CBCharacteristic *)c{
+    return [notifyList objectForKey:c.UUID.description];
+}
 @end

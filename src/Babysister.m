@@ -245,6 +245,11 @@
         NSLog(@"error didUpdateValueForCharacteristic %@ with error: %@", characteristic.UUID, [error localizedDescription]);
         return;
     }
+    //查找字段订阅
+    if([babySpeaker notifyCallback:characteristic]){
+        [babySpeaker notifyCallback:characteristic](peripheral,characteristic,error);
+        return;
+    }
     //回叫block
     if ([currChannel blockOnReadValueForCharacteristic]) {
         [currChannel blockOnReadValueForCharacteristic](peripheral,characteristic,error);
@@ -296,26 +301,20 @@
 }
 
 
-#warning notify方法
+//characteristic.isNotifying 状态改变
 -(void)peripheral:(CBPeripheral *)peripheral didUpdateNotificationStateForCharacteristic:(CBCharacteristic *)characteristic error:(NSError *)error{
-   
-    if ([characteristic.UUID.UUIDString isEqualToString:@"FFA1"]) {
-        //plant assistant notify
-        NSLog(@"plant assistant notify");
-        NSLog(@"=value:%@",characteristic.value);
-    }else{
-        //普通的通知
-        NSLog(@"didUpdateNotificationStateForCharacteristic");
-        NSLog(@"=uuid:%@,value:%@",characteristic.UUID,characteristic.value);
-    }
+        NSLog(@">>>didUpdateNotificationStateForCharacteristic");
+        NSLog(@">>>uuid:%@,isNotifying:%hhd",characteristic.UUID,characteristic.isNotifying);
 }
+
 -(void)peripheral:(CBPeripheral *)peripheral didWriteValueForCharacteristic:(CBCharacteristic *)characteristic error:(NSError *)error{
-    NSLog(@"didWriteValueForCharacteristic");
-    NSLog(@"=uuid:%@,new value:%@",characteristic.UUID,characteristic.value);
+    NSLog(@">>>didWriteValueForCharacteristic");
+    NSLog(@">>>uuid:%@,new value:%@",characteristic.UUID,characteristic.value);
 }
+
 -(void)peripheral:(CBPeripheral *)peripheral didWriteValueForDescriptor:(CBDescriptor *)descriptor error:(NSError *)error{
-    NSLog(@"didWriteValueForCharacteristic");
-    NSLog(@"=uuid:%@,new value:%@",descriptor.UUID,descriptor.value);
+    NSLog(@">>>didWriteValueForCharacteristic");
+    NSLog(@">>>uuid:%@,new value:%@",descriptor.UUID,descriptor.value);
 }
 
 #pragma mark -私有方法

@@ -10,7 +10,7 @@
 
 #define width [UIScreen mainScreen].bounds.size.width
 #define height [UIScreen mainScreen].bounds.size.height
-#define channelOnPeropheralView @"peropheralView"
+#define channelOnPeropheralView @"peripheralView"
 
 @interface PeripheralViewContriller ()
 
@@ -50,7 +50,6 @@
 //退出时断开连接
 -(void)viewDidDisappear:(BOOL)animated{
     NSLog(@"viewWillDisappear");
-//        baby.stop(0);
 }
 
 

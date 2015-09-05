@@ -22,14 +22,7 @@ typedef NS_ENUM(NSInteger, BabyStatus) {
 
 
 
-@interface BabyBluetooth : NSObject{
-    
-@private
-    //BabyStatus;
-    BabyStatus babyStatus;
-    BabySpeaker *babySpeaker;
-    
-}
+@interface BabyBluetooth : NSObject
 
 #pragma mark -属性 property
 
@@ -150,6 +143,15 @@ typedef NS_ENUM(NSInteger, BabyStatus) {
 //更新Characteristics的值
 -(BabyBluetooth *(^)(CBPeripheral *peripheral,CBCharacteristic *characteristic)) fetchCharacteristicDetails;
 
+
+//设置characteristic的notify
+-(void)notify:(CBPeripheral *)peripheral
+characteristic:(CBCharacteristic *)characteristic
+         block:(void(^)(CBPeripheral *peripheral, CBCharacteristic *characteristics, NSError *error))block;
+
+//取消characteristic的notify
+-(void)cancelNotify:(CBPeripheral *)peripheral
+     characteristic:(CBCharacteristic *)characteristic;
 
 /**
  * 单例构造方法

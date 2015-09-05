@@ -9,14 +9,6 @@
 #import "BabyBluetooth.h"
 
 
-@interface CBPeripheral ()
-
-
-
-@end
-
-
-
 //BOOL needDiscoverCharacteristics;//是否获取Characteristics
 //BOOL needReadValueForCharacteristic;//是否获取（更新）Characteristics的值
 //BOOL needDiscoverDescriptorsForCharacteristic;//是否获取Characteristics的描述
@@ -31,6 +23,8 @@
 
 @implementation BabyBluetooth{
     Babysister *babysister;
+    BabyStatus babyStatus;
+    BabySpeaker *babySpeaker;
 }
 
 
@@ -395,6 +389,7 @@
 }
 
 
+#pragma mark -工具方法
 
 //读取Characteristic的详细信息
 -(BabyBluetooth *(^)(CBPeripheral *peripheral,CBCharacteristic *characteristic)) fetchCharacteristicDetails{
@@ -418,8 +413,20 @@
 }
 
 
+-(void)notify:(CBPeripheral *)peripheral
+characteristic:(CBCharacteristic *)characteristic
+        block:(void(^)(CBPeripheral *peripheral, CBCharacteristic *characteristics, NSError *error))block{
+    
+    //设置通知
+    [peripheral setNotifyValue:YES forCharacteristic:characteristic];
+    [babySpeaker addNotifyCallback:characteristic withBlock:block];
+}
 
-
+-(void)cancelNotify:(CBPeripheral *)peripheral
+     characteristic:(CBCharacteristic *)characteristic{
+    [peripheral setNotifyValue:NO forCharacteristic:characteristic];
+    [babySpeaker removeNotifyCallback:characteristic];
+}
 #pragma mark -test
 
 

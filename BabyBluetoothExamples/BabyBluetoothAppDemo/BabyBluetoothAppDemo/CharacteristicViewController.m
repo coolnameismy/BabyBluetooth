@@ -7,6 +7,7 @@
 //
 
 #import "CharacteristicViewController.h"
+#import "SVProgressHUD.h"
 
 @interface CharacteristicViewController (){
 
@@ -34,7 +35,7 @@
     [self babyDelegate];
     //读取服务
     baby.channel(channelOnCharacteristicView).fetchCharacteristicDetails(self.currPeripheral,self.characteristic);
-
+   
 }
 
 
@@ -62,7 +63,6 @@
 }
 
 -(void)babyDelegate{
-    
 
     __weak typeof(self)weakSelf = self;
     //设置读取characteristics的委托
@@ -102,10 +102,12 @@
 //插入读取的值
 -(void)insertReadValues:(CBCharacteristic *)characteristics{
     [self->readValueArray addObject:[NSString stringWithFormat:@"%@",characteristics.value]];
-    NSMutableArray *indexPahts = [[NSMutableArray alloc]init];
-    NSIndexPath *indexPaht = [NSIndexPath indexPathForRow:self->readValueArray.count-1 inSection:0];
-    [indexPahts addObject:indexPaht];
-    [self.tableView insertRowsAtIndexPaths:indexPahts withRowAnimation:UITableViewRowAnimationAutomatic];
+    NSMutableArray *indexPaths = [[NSMutableArray alloc]init];
+    NSIndexPath *indexPath = [NSIndexPath indexPathForRow:self->readValueArray.count-1 inSection:0];
+    NSIndexPath *scrollIndexPath = [NSIndexPath indexPathForRow:self->readValueArray.count-1 inSection:0];
+    [indexPaths addObject:indexPath];
+    [self.tableView insertRowsAtIndexPaths:indexPaths withRowAnimation:UITableViewRowAnimationAutomatic];
+    [self.tableView scrollToRowAtIndexPath:scrollIndexPath atScrollPosition:UITableViewScrollPositionMiddle animated:YES];
 }
 
 //写一个值
@@ -116,14 +118,34 @@
     [self.currPeripheral writeValue:data forCharacteristic:self.characteristic type:CBCharacteristicWriteWithResponse];
 }
 //订阅一个值
--(void)setNotifiy{
-    [self.currPeripheral setNotifyValue:YES forCharacteristic:self.characteristic];
+-(void)setNotifiy:(id)sender{
+    
+    __weak typeof(self)weakSelf = self;
+    UIButton *btn = sender;
+    if(self.currPeripheral.state != CBPeripheralStateConnected){
+        [SVProgressHUD showErrorWithStatus:@"peripheral已经断开连接，请重新连接"];
+        return;
+    }
+    if (self.characteristic.properties & CBCharacteristicPropertyNotify ||  self.characteristic.properties & CBCharacteristicPropertyIndicate){
+        
+        if(self.characteristic.isNotifying){
+            [baby cancelNotify:self.currPeripheral characteristic:self.characteristic];
+            [btn setTitle:@"通知" forState:UIControlStateNormal];
+        }else{
+            [weakSelf.currPeripheral setNotifyValue:YES forCharacteristic:self.characteristic];
+            [btn setTitle:@"取消通知" forState:UIControlStateNormal];
+            [baby notify:self.currPeripheral characteristic:self.characteristic block:^(CBPeripheral *peripheral, CBCharacteristic *characteristics, NSError *error) {
+                NSLog(@"notify block");
+                [self insertReadValues:characteristics];
+            }];
+        }
+    }
+    else{
+        [SVProgressHUD showErrorWithStatus:@"这个characteristic没有nofity的权限"];
+        return;
+    }
+    
 }
-//取消通知
--(void)cancelNotifiy{
-    [self.currPeripheral setNotifyValue:NO forCharacteristic:self.characteristic];
-}
-
 
 #pragma mark -Table view data source
 
@@ -250,20 +272,29 @@
             //write value
         {
             UIView *view = [[UIView alloc]initWithFrame:CGRectMake(0, 0, width, 30)];
+            [view setBackgroundColor:[UIColor darkGrayColor]];
+            
             UILabel *title = [[UILabel alloc]initWithFrame:CGRectMake(0, 0, 100, 30)];
             title.text = [sect objectAtIndex:section];
             [title setTextColor:[UIColor whiteColor]];
-            [title setBackgroundColor:[UIColor darkGrayColor]];
             [view addSubview:title];
             UIButton *setNotifiyBtn = [UIButton buttonWithType:UIButtonTypeCustom];
             [setNotifiyBtn setFrame:CGRectMake(100, 0, 100, 30)];
-            [setNotifiyBtn setTitle:@"通知" forState:UIControlStateNormal];
+            [setNotifiyBtn setTitle:self.characteristic.isNotifying?@"取消通知":@"通知" forState:UIControlStateNormal];
             [setNotifiyBtn setBackgroundColor:[UIColor darkGrayColor]];
-            [setNotifiyBtn addTarget:self action:@selector(setNotifiy) forControlEvents:UIControlEventTouchUpInside];
+            [setNotifiyBtn addTarget:self action:@selector(setNotifiy:) forControlEvents:UIControlEventTouchUpInside];
+            //恢复状态
+            if(self.characteristic.isNotifying){
+                [baby notify:self.currPeripheral characteristic:self.characteristic block:^(CBPeripheral *peripheral, CBCharacteristic *characteristics, NSError *error) {
+                    NSLog(@"resume notify block");
+                    [self insertReadValues:characteristics];
+                }];
+            }
+
             [view addSubview:setNotifiyBtn];
             UIButton *writeBtn = [UIButton buttonWithType:UIButtonTypeCustom];
             [writeBtn setFrame:CGRectMake(200, 0, 100, 30)];
-            [writeBtn setTitle:@"写一个新值" forState:UIControlStateNormal];
+            [writeBtn setTitle:@"写(0x01)" forState:UIControlStateNormal];
             [writeBtn setBackgroundColor:[UIColor darkGrayColor]];
             [writeBtn addTarget:self action:@selector(writeValue) forControlEvents:UIControlEventTouchUpInside];
             [view addSubview:writeBtn];
