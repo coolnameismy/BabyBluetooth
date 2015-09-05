@@ -4,6 +4,11 @@
 //  Created by 刘彦玮 on 15/7/30.
 //  Copyright (c) 2015年 刘彦玮. All rights reserved.
 //
+/*
+ 后续更新：
+ 1：补全所有委托转block
+ 2: 每个事件增加对NSNotificationCenter 的支持
+ */
 
 #import "Babysister.h"
 #import "BabyCallback.h"
@@ -37,7 +42,7 @@
 
 
 
-#pragma mark -委托方法
+#pragma mark -接收到通知
 
 //开始扫描
 -(void)scanForPeripheralNotifyReceived:(NSNotification *)notify{
@@ -72,7 +77,7 @@
         [bleManager cancelPeripheralConnection:connectedPeripherals[i]];
     }
     connectedPeripherals = [[NSMutableArray alloc]init];
-    NSLog(@"babyBluetooth stop");
+    NSLog(@">>>babyBluetooth stop");
 }
 //停止扫描
 -(void)stopScan{
@@ -117,7 +122,7 @@
 - (void)centralManager:(CBCentralManager *)central didDiscoverPeripheral:(CBPeripheral *)peripheral advertisementData:(NSDictionary *)advertisementData RSSI:(NSNumber *)RSSI
 {
     //日志
-     NSLog(@"当扫描到设备:%@",peripheral.name);
+    //NSLog(@"当扫描到设备:%@",peripheral.name);
    
     //设备添加到q列表
     [self addPeripheral:peripheral];
@@ -152,7 +157,7 @@
 //连接到Peripherals-成功
 - (void)centralManager:(CBCentralManager *)central didConnectPeripheral:(CBPeripheral *)peripheral
 {
-    NSLog(@">>>连接到名称为（%@）的设备-成功",peripheral.name);
+    //NSLog(@">>>连接到名称为（%@）的设备-成功",peripheral.name);
     [connectTimer invalidate];//停止时钟
     [connectedPeripherals addObject:peripheral];
     
@@ -303,18 +308,19 @@
 
 //characteristic.isNotifying 状态改变
 -(void)peripheral:(CBPeripheral *)peripheral didUpdateNotificationStateForCharacteristic:(CBCharacteristic *)characteristic error:(NSError *)error{
-        NSLog(@">>>didUpdateNotificationStateForCharacteristic");
-        NSLog(@">>>uuid:%@,isNotifying:%@",characteristic.UUID,characteristic.isNotifying?@"isNotifying":@"Notifying");
+//        NSLog(@">>>didUpdateNotificationStateForCharacteristic");
+//        NSLog(@">>>uuid:%@,isNotifying:%@",characteristic.UUID,characteristic.isNotifying?@"isNotifying":@"Notifying");
 }
 
+
 -(void)peripheral:(CBPeripheral *)peripheral didWriteValueForCharacteristic:(CBCharacteristic *)characteristic error:(NSError *)error{
-    NSLog(@">>>didWriteValueForCharacteristic");
-    NSLog(@">>>uuid:%@,new value:%@",characteristic.UUID,characteristic.value);
+//    NSLog(@">>>didWriteValueForCharacteristic");
+//    NSLog(@">>>uuid:%@,new value:%@",characteristic.UUID,characteristic.value);
 }
 
 -(void)peripheral:(CBPeripheral *)peripheral didWriteValueForDescriptor:(CBDescriptor *)descriptor error:(NSError *)error{
-    NSLog(@">>>didWriteValueForCharacteristic");
-    NSLog(@">>>uuid:%@,new value:%@",descriptor.UUID,descriptor.value);
+//    NSLog(@">>>didWriteValueForCharacteristic");
+//    NSLog(@">>>uuid:%@,new value:%@",descriptor.UUID,descriptor.value);
 }
 
 #pragma mark -私有方法
