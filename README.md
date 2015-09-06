@@ -29,6 +29,7 @@ The easiest way to use Bluetooth (BLE )in ios,even bady can use . 一个非常�
 * [如何安装](#如何安装)
 * [示例程序说明](#示例程序说明)
 * [程序结构](#程序结构)
+* [兼容性](#兼容性)
 * [后期更新](#后期更新)
 * [期待](#期待)
 
@@ -36,6 +37,10 @@ The easiest way to use Bluetooth (BLE )in ios,even bady can use . 一个非常�
 
 ## Quick_Example
 ```objc
+
+//导入.h文件和系统蓝牙库的头文件
+#import <CoreBluetooth/CoreBluetooth.h>
+#import "BabyBluetooth.h"
 
 -(void)viewDidLoad {
     [super viewDidLoad];   
@@ -322,7 +327,13 @@ baby.scanForPeripherals().begin();
 # 如何安装
 
 ##1 手动安装
-将项目src文件夹中的文件直接拖入你的项目中即可
+step1:将项目src文件夹中的文件直接拖入你的项目中即可
+step2:导入.h文件和系统蓝牙库的头文件
+````objc
+#import <CoreBluetooth/CoreBluetooth.h>
+#import "BabyBluetooth.h"
+````
+
 ##2 cocoapods
 暂不支持，后续版本会去支持
 
@@ -342,6 +353,11 @@ baby.scanForPeripherals().begin();
 - BabySpeaker chanel切换的实现和处理设置characteristic通知的委托方法
 - BabyCallback 回叫函数的block和filter的model
 - BabyToy 一些工具方法
+
+# 兼容性
+- 蓝牙4.0，也叫做ble，ios6以上可以自由使用。
+- 蓝牙设备相关程序必须使用真机才能运行。
+- 本项目和示例程序是使用ios 8.3开发，使用者可以自行降版本，但必须大于6.0 
 
 # 后期更新
 - 现在block的委托方法还没涉及到CoreBluetooth的全部方法，后续会把全部方法补充进去
