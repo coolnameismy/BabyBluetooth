@@ -15,10 +15,6 @@
 
 @implementation Babysister
 
-//#define blockOnDiscoverPeripherals [[babySpeaker callbackOnCurrChannel] blockOnDiscoverPeripherals]
-//#define  filterOnDiscoverPeripherals [[babySpeaker callbackOnCurrChannel] filterOnDiscoverPeripherals]
-//#define filterOnConnetToPeripherals [[babySpeaker callbackOnCurrChannel]filterOnConnetToPeripherals]
-//#define blockOnConnectedPeripheral [[babySpeaker callbackOnCurrChannel]blockOnConnectedPeripheral]
 #define currChannel [babySpeaker callbackOnCurrChannel]
 
 
@@ -87,13 +83,7 @@
 #pragma mark -CBCentralManagerDelegate委托方法
 
 - (void)centralManagerDidUpdateState:(CBCentralManager *)central{
-
-//    CBCentralManagerStateUnknown = 0,
-//    CBCentralManagerStateResetting,
-//    CBCentralManagerStateUnsupported,
-//    CBCentralManagerStateUnauthorized,
-//    CBCentralManagerStatePoweredOff,
-//    CBCentralManagerStatePoweredOn,
+ 
     switch (central.state) {
         case CBCentralManagerStateUnknown:
             NSLog(@">>>CBCentralManagerStateUnknown");

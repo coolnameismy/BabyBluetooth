@@ -6,7 +6,6 @@
 //  Copyright (c) 2015年 刘彦玮. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
 #import <CoreBluetooth/CoreBluetooth.h>
 
 
