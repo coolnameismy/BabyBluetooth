@@ -8,7 +8,7 @@ The easiest way to use Bluetooth (BLE )in ios,even bady can use . 一个非常�
 # Contents
 
 * [用法示例](#用法示例)
-    * [Quick_Example](#Quick_Example)
+    * [Quick Example](#Quick Example)
     * [初始化](#初始化)
     * [搜索设备](#搜索设备)
     * [搜索并连接设备](#搜索并连接设备)
@@ -33,9 +33,9 @@ The easiest way to use Bluetooth (BLE )in ios,even bady can use . 一个非常�
 * [后期更新](#后期更新)
 * [期待](#期待)
 
-#用法示例
+# 用法示例
 
-## Quick_Example
+## Quick Example
 ```objc
 
 //导入.h文件和系统蓝牙库的头文件
@@ -328,7 +328,9 @@ baby.scanForPeripherals().begin();
 
 ##1 手动安装
 step1:将项目src文件夹中的文件直接拖入你的项目中即可
+
 step2:导入.h文件
+
 ````objc
 #import "BabyBluetooth.h"
 ````
@@ -362,6 +364,7 @@ step2:导入.h文件
 
 # 兼容性
 - 蓝牙4.0，也叫做ble，ios6以上可以自由使用。
+- os和ios通用
 - 蓝牙设备相关程序必须使用真机才能运行。如果不能使用真机调试的情况，可以使用os程序调试蓝牙。可以参考示例程序中的BabyBluetoothOSDemo
 - 本项目和示例程序是使用ios 8.3开发，使用者可以自行降版本，但必须大于6.0 
 
