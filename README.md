@@ -328,9 +328,8 @@ baby.scanForPeripherals().begin();
 
 ##1 手动安装
 step1:将项目src文件夹中的文件直接拖入你的项目中即可
-step2:导入.h文件和系统蓝牙库的头文件
+step2:导入.h文件
 ````objc
-#import <CoreBluetooth/CoreBluetooth.h>
 #import "BabyBluetooth.h"
 ````
 
@@ -339,6 +338,7 @@ step2:导入.h文件和系统蓝牙库的头文件
 
 
 # 示例程序说明
+
 **BabyBluetoothExamples/BabyBluetoothAppDemo** :一个类似lightblue的程序，蓝牙操作全部使用BabyBluetooch完成。
 功能：
 - 1：扫描周围设备
@@ -347,6 +347,12 @@ step2:导入.h文件和系统蓝牙库的头文件
 - 4：写0x01到characteristic
 - 5：订阅/取消订阅 characteristic的notify
 
+**BabyBluetoothExamples/BabyBluetoothOSDemo** :一个mac os程序，因为os和ios的蓝牙底层方法都一样，所以BabyBluetooth可以ios/os通用。但是os程序有个好处就是直接可以在mac上跑蓝牙设备，不像ios，必须要真机才能跑蓝牙设备。所以不能真机调试时可以使用os尝试蓝牙库的使用。
+
+功能：
+- 1：扫描周围设备、连接设备、显示characteristic，读取characteristic的value，和descriptors以及Descriptors对应的value的委托设置，并使用nslog打印信息。
+
+- 
 # 程序结构
 - BabyBluetooth 链式函数实现类，BabyBluetooth库方法调用的入口
 - Babysister 蓝牙操作的实现类，通过它处理了链式函数，已经调用各种filter和block
@@ -356,7 +362,7 @@ step2:导入.h文件和系统蓝牙库的头文件
 
 # 兼容性
 - 蓝牙4.0，也叫做ble，ios6以上可以自由使用。
-- 蓝牙设备相关程序必须使用真机才能运行。
+- 蓝牙设备相关程序必须使用真机才能运行。如果不能使用真机调试的情况，可以使用os程序调试蓝牙。可以参考示例程序中的BabyBluetoothOSDemo
 - 本项目和示例程序是使用ios 8.3开发，使用者可以自行降版本，但必须大于6.0 
 
 # 后期更新
