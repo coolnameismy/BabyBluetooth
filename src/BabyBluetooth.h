@@ -1,10 +1,13 @@
-//
-//  BabyBluetooth.h
-//  
-//
-//  Created by 刘彦玮 on 15/3/31.
-//  Copyright (c) 2015年 刘彦玮. All rights reserved.
-// simple
+/*
+ BabyBluetooth
+ 简单易用的蓝牙ble库，基于CoreBluetooth 作者：刘彦玮
+ https://github.com/coolnameismy/BabyBluetooth
+ */
+
+// Created by 刘彦玮 on 15/3/31.
+// Copyright (c) 2015年 刘彦玮. All rights reserved.
+
+
 
 #import <Foundation/Foundation.h>
 #import <CoreBluetooth/CoreBluetooth.h>

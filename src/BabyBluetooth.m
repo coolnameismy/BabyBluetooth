@@ -1,25 +1,16 @@
-//
-//  BabyBluetooth.m
-//
-//
+/*
+ BabyBluetooth
+ 简单易用的蓝牙ble库，基于CoreBluetooth 作者：刘彦玮
+ https://github.com/coolnameismy/BabyBluetooth
+ */
+
 //  Created by 刘彦玮 on 15/3/31.
 //  Copyright (c) 2015年 刘彦玮. All rights reserved.
-//
+
 
 #import "BabyBluetooth.h"
 
 
-//BOOL needDiscoverCharacteristics;//是否获取Characteristics
-//BOOL needReadValueForCharacteristic;//是否获取（更新）Characteristics的值
-//BOOL needDiscoverDescriptorsForCharacteristic;//是否获取Characteristics的描述
-//BOOL needReadValueForDescriptors;//是否获取Descriptors的值
-
-//typedef NS_OPTIONS(NSUInteger, BBSeriseOption) {
-//    BBSeriseOptionCanScanForPeripherals = 1 << 0,
-//    BBSeriseOptionCanConnectPeripheral = 1 << 1,
-//    BBSeriseOptionCanDiscoverServices = 1 << 2,
-//    BBSeriseOptionCanDiscoverServices = 1 << 3,
-//};
 
 @implementation BabyBluetooth{
     Babysister *babysister;
