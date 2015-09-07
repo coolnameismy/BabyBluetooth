@@ -10,7 +10,7 @@ The easiest way to use Bluetooth (BLE )in ios,even bady can use .  BabyBluetooth
 # Contents
 
 * [用法示例](#用法示例)
-    * [Quick Example](#Quick Example)
+    * [QuickExample](#QuickExample)
     * [初始化](#初始化)
     * [搜索设备](#搜索设备)
     * [搜索并连接设备](#搜索并连接设备)
@@ -37,7 +37,7 @@ The easiest way to use Bluetooth (BLE )in ios,even bady can use .  BabyBluetooth
 
 # 用法示例
 
-## Quick Example
+## QuickExample
 ```objc
 
 //导入.h文件和系统蓝牙库的头文件
@@ -54,7 +54,7 @@ The easiest way to use Bluetooth (BLE )in ios,even bady can use .  BabyBluetooth
     //因为蓝牙设备打开需要时间，所以只有监听到蓝牙设备状态打开后才能安全的使用蓝牙
     [baby setBlockOnCentralManagerDidUpdateState:^(CBCentralManager *central) {
         if (central.state == CBCentralManagerStatePoweredOn) {
-             方法调用：
+             
             //扫描设备 然后读取服务,然后读取characteristics名称和值和属性，获取characteristics对应的description的名称和值
             baby.scanForPeripherals().connectToPeripheral().discoverServices()
               .discoverCharacteristics().readValueForCharacteristic().discoverDescriptorsForCharacteristic()
@@ -67,7 +67,6 @@ The easiest way to use Bluetooth (BLE )in ios,even bady can use .  BabyBluetooth
 //蓝牙网关初始化和委托方法设置
 -(void)babyDelegate{
 
-    委托设置：
     //设置扫描到设备的委托
     [baby setBlockOnDiscoverToPeripherals:^(CBCentralManager *central, CBPeripheral *peripheral, NSDictionary *advertisementData, NSNumber *RSSI) {
         NSLog(@"搜索到了设备:%@",peripheral.name);
@@ -114,6 +113,19 @@ The easiest way to use Bluetooth (BLE )in ios,even bady can use .  BabyBluetooth
         }
         return NO;
     }];
+    
+ 
+    //设置连接的设备的过滤器
+     __block BOOL isFirst = YES;
+    [baby setFilterOnConnetToPeripherals:^BOOL(NSString *peripheralName) {
+        //这里的规则是：连接第一个AAA打头的设备
+        if(isFirst && [peripheralName hasPrefix:@"AAA"]){
+            isFirst = NO;
+            return YES;
+        }
+        return NO;
+    }];
+
 }
   
 ```
