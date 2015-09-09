@@ -33,6 +33,7 @@ The easiest way to use Bluetooth (BLE )in ios,even bady can use .  BabyBluetooth
 * [程序结构](#程序结构)
 * [兼容性](#兼容性)
 * [后期更新](#后期更新)
+* [蓝牙学习资源](#蓝牙学习资源)
 * [期待](#期待)
 
 # 用法示例
@@ -384,7 +385,15 @@ step2:导入.h文件
 
 # 后期更新
 - 现在block的委托方法还没涉及到CoreBluetooth的全部方法，后续会把全部方法补充进去
-- 增加对蓝牙主-主模式使用的支持（目前主要是针对主-从模式）
+- 增加对外设模式使用的支持（目前主要是中心模式）
+
+# 蓝牙学习资源
+- [ios蓝牙开发（一）蓝牙相关基础知识](http://liuyanwei.jumppo.com/2015/07/17/ios-BLE-1.html)
+- [ios蓝牙开发（二）蓝牙中心模式的ios代码实现](http://liuyanwei.jumppo.com/2015/08/14/ios-BLE-2.html)
+- 暂未完成-ios蓝牙开发（三）app作为外设被连接并与中心交互的实现
+- [ios蓝牙开发（四）BabyBluetooth蓝牙库介绍](http://liuyanwei.jumppo.com/2015/09/07/ios-BLE-3.html)
+- 暂未完成-ios蓝牙开发（五）BabyBluetooth实现原理
+- 待定...
 
 # 期待
   - 蓝牙库写起来很辛苦，希望大家可以多多支持，多多star
