@@ -16,13 +16,14 @@
     Babysister *babysister;
     BabyStatus babyStatus;
     BabySpeaker *babySpeaker;
+    int CENTRAL_MANAGER_INIT_WAIT_TIMES;
 }
 
 
 
 //单例模式
 +(instancetype)shareBabyBluetooth{
-    static BabyBluetooth *share = nil;  
+    static BabyBluetooth *share = nil;
     static dispatch_once_t oneToken;
     dispatch_once(&oneToken, ^{
         share = [[BabyBluetooth alloc]init];
@@ -243,44 +244,61 @@
 -(BabyBluetooth *(^)()) begin{
 
     return ^BabyBluetooth *(){
-        //
-        [self resetSeriseParmeter];
-        //处理链式函数缓存的数据
-        if ([[babysister->pocket valueForKey:@"needScanForPeripherals"] isEqualToString:@"YES"]) {
-            babysister->needScanForPeripherals = YES;
-        }
-        if ([[babysister->pocket valueForKey:@"needConnectPeripheral"] isEqualToString:@"YES"]) {
-            babysister->needConnectPeripheral = YES;
-        }
-        if ([[babysister->pocket valueForKey:@"needDiscoverServices"] isEqualToString:@"YES"]) {
-            babysister->needDiscoverServices = YES;
-        }
-        if ([[babysister->pocket valueForKey:@"needDiscoverCharacteristics"] isEqualToString:@"YES"]) {
-            babysister->needDiscoverCharacteristics = YES;
-        }
-        if ([[babysister->pocket valueForKey:@"needReadValueForCharacteristic"] isEqualToString:@"YES"]) {
-            babysister->needReadValueForCharacteristic = YES;
-        }
-        if ([[babysister->pocket valueForKey:@"needDiscoverDescriptorsForCharacteristic"] isEqualToString:@"YES"]) {
-            babysister->needDiscoverDescriptorsForCharacteristic = YES;
-        }
-        if ([[babysister->pocket valueForKey:@"needReadValueForDescriptors"] isEqualToString:@"YES"]) {
-            babysister->needReadValueForDescriptors = YES;
-        }
         
-        //调整委托方法的channel，如果没设置默认为缺省频道
-        NSString *channel = [babysister->pocket valueForKey:@"channel"];
-        [babySpeaker switchChannel:channel];
         
-        //缓存的peripheral
-        CBPeripheral *cachedPeripheral = [babysister->pocket valueForKey:NSStringFromClass([CBPeripheral class])];
-        
-        //校验series合法性
-        [self validateProcess];
-        
-        //清空pocjet
-        babysister->pocket = [[NSMutableDictionary alloc]init];
-        
+        dispatch_sync(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+            
+            [self resetSeriseParmeter];
+            //处理链式函数缓存的数据
+            if ([[babysister->pocket valueForKey:@"needScanForPeripherals"] isEqualToString:@"YES"]) {
+                babysister->needScanForPeripherals = YES;
+            }
+            if ([[babysister->pocket valueForKey:@"needConnectPeripheral"] isEqualToString:@"YES"]) {
+                babysister->needConnectPeripheral = YES;
+            }
+            if ([[babysister->pocket valueForKey:@"needDiscoverServices"] isEqualToString:@"YES"]) {
+                babysister->needDiscoverServices = YES;
+            }
+            if ([[babysister->pocket valueForKey:@"needDiscoverCharacteristics"] isEqualToString:@"YES"]) {
+                babysister->needDiscoverCharacteristics = YES;
+            }
+            if ([[babysister->pocket valueForKey:@"needReadValueForCharacteristic"] isEqualToString:@"YES"]) {
+                babysister->needReadValueForCharacteristic = YES;
+            }
+            if ([[babysister->pocket valueForKey:@"needDiscoverDescriptorsForCharacteristic"] isEqualToString:@"YES"]) {
+                babysister->needDiscoverDescriptorsForCharacteristic = YES;
+            }
+            if ([[babysister->pocket valueForKey:@"needReadValueForDescriptors"] isEqualToString:@"YES"]) {
+                babysister->needReadValueForDescriptors = YES;
+            }
+            
+            //调整委托方法的channel，如果没设置默认为缺省频道
+            NSString *channel = [babysister->pocket valueForKey:@"channel"];
+            [babySpeaker switchChannel:channel];
+            
+            //缓存的peripheral
+            CBPeripheral *cachedPeripheral = [babysister->pocket valueForKey:NSStringFromClass([CBPeripheral class])];
+            
+            //校验series合法性
+            [self validateProcess];
+            
+            //清空pocjet
+            babysister->pocket = [[NSMutableDictionary alloc]init];
+
+            //开始扫描或连接设备
+            [self start:cachedPeripheral];
+           
+        });
+        return self;
+    };
+}
+
+
+//私有方法，扫描或连接设备
+-(void)start:(CBPeripheral *)cachedPeripheral{
+
+    if (babysister->bleManager.state == CBCentralManagerStatePoweredOn) {
+        CENTRAL_MANAGER_INIT_WAIT_TIMES = 0;
         //扫描后连接
         if (babysister->needScanForPeripherals) {
             //开始扫描peripherals
@@ -296,10 +314,21 @@
         }
         //重置状态
         babyStatus = BabyStatusRuning;
-        return self;
-    };
+        return;
+    }
+    //尝试重新等待CBCentralManager打开
+    CENTRAL_MANAGER_INIT_WAIT_TIMES ++;
+    if (CENTRAL_MANAGER_INIT_WAIT_TIMES >=5 ) {
+        NSLog(@">>> 第%d次等待CBCentralManager 打开任然失败，请检查你蓝牙使用权限或检查设备问题。",CENTRAL_MANAGER_INIT_WAIT_TIMES);
+        return;
+        //[NSException raise:@"CBCentralManager打开异常" format:@"尝试等待打开CBCentralManager5次，但任未能打开"];
+    }
     
-    
+    dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, 3.0 * NSEC_PER_SEC);
+    dispatch_after(popTime, dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        [self start:cachedPeripheral];
+    });
+    NSLog(@">>> 第%d次等待CBCentralManager打开",CENTRAL_MANAGER_INIT_WAIT_TIMES);
 }
 
 //sec秒后停止

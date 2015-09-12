@@ -76,7 +76,7 @@
         [bleManager cancelPeripheralConnection:connectedPeripherals[i]];
     }
     connectedPeripherals = [[NSMutableArray alloc]init];
-    NSLog(@">>> stopConnectAllPerihperals");
+//    NSLog(@">>> stopConnectAllPerihperals");
 }
 //停止扫描
 -(void)stopScan{
@@ -177,7 +177,7 @@
 //连接到Peripherals-失败
 -(void)centralManager:(CBCentralManager *)central didFailToConnectPeripheral:(CBPeripheral *)peripheral error:(NSError *)error
 {
-    NSLog(@">>>连接到名称为（%@）的设备-失败,原因:%@",[peripheral name],[error localizedDescription]);
+//    NSLog(@">>>连接到名称为（%@）的设备-失败,原因:%@",[peripheral name],[error localizedDescription]);
     if ([currChannel blockOnFailToConnect]) {
         [currChannel blockOnFailToConnect](central,peripheral,error);
     }
@@ -185,7 +185,7 @@
 
 //Peripherals断开连接
 - (void)centralManager:(CBCentralManager *)central didDisconnectPeripheral:(CBPeripheral *)peripheral error:(NSError *)error{
-    NSLog(@">>>外设连接断开连接 %@: %@\n", [peripheral name], [error localizedDescription]);
+//    NSLog(@">>>外设连接断开连接 %@: %@\n", [peripheral name], [error localizedDescription]);
     [connectedPeripherals removeObject:peripheral];
     if ([currChannel blockOnDisconnect]) {
         [currChannel blockOnDisconnect](central,peripheral,error);

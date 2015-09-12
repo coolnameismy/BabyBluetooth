@@ -1,4 +1,4 @@
-//
+    //
 //  ViewController.m
 //  BabyBluetoothAppDemo
 //
@@ -27,7 +27,9 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-
+    
+    NSLog(@"viewDidLoad");
+    [SVProgressHUD showInfoWithStatus:@"准备打开设备"];
     //初始化table init table
     self.tableView = [[UITableView alloc]initWithFrame:self.view.frame];
     self.tableView.dataSource = self;
@@ -36,33 +38,19 @@
     
     //初始化其他数据 init other
     peripherals = [[NSMutableArray alloc]init];
-    //开始扫描设备
-    [SVProgressHUD showInfoWithStatus:@"准备扫描设备"];
-    
    
     //初始化BabyBluetooth 蓝牙库
     baby = [BabyBluetooth shareBabyBluetooth];
-    NSLog(@"BabyBlueTooth初始化完毕");
     //设置蓝牙委托
     [self babyDelegate];
-    __weak typeof(baby) weakBaby = baby;
-    
-    //因为蓝牙设备打开需要时间，所以只有监听到蓝牙设备状态打开后才能安全的使用蓝牙
-    [baby setBlockOnCentralManagerDidUpdateState:^(CBCentralManager *central) {
-        if (central.state == CBCentralManagerStatePoweredOn) {
-            //开始扫描设备
-            [SVProgressHUD showInfoWithStatus:@"正在扫描设备"];
-            weakBaby.scanForPeripherals().begin();
-
-        }
-    }];
     
 }
 -(void)viewDidAppear:(BOOL)animated{
     NSLog(@"viewDidAppear");
     //停止之前的连接
     [baby cancelAllPeripheralsConnection];
-
+    //设置委托后直接可以使用，无需等待CBCentralManagerStatePoweredOn状态。
+    baby.scanForPeripherals().begin();
 }
 
 -(void)viewWillDisappear:(BOOL)animated{
@@ -74,9 +62,12 @@
 //蓝牙网关初始化和委托方法设置
 -(void)babyDelegate{
     
-    
-    
     __weak typeof(self) weakSelf = self;
+    [baby setBlockOnCentralManagerDidUpdateState:^(CBCentralManager *central) {
+        if (central.state == CBCentralManagerStatePoweredOn) {
+            [SVProgressHUD showInfoWithStatus:@"设备打开成功，开始扫描设备"];
+        }
+    }];
     
     //设置扫描到设备的委托
     [baby setBlockOnDiscoverToPeripherals:^(CBCentralManager *central, CBPeripheral *peripheral, NSDictionary *advertisementData, NSNumber *RSSI) {
@@ -145,35 +136,17 @@
     
 }
 
-
-
-//#warning 设置长连接，测试设备特殊设置
-//    //开启长连接
-//    if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:@"39E1FA06-84A8-11E2-AFBA-0002A5D5C51B"]] ) {
-//        int i = 1;
-//        NSData *data = [NSData dataWithBytes: &@(1) length: 1];
-//        [_testPeripheral writeValue:data forCharacteristic:characteristic type:CBCharacteristicWriteWithResponse];
-//    }
-
-
-
 #pragma mark -UIViewController 方法
 //插入table数据
 -(void)insertTableView:(CBPeripheral *)peripheral{
-    
-    NSMutableArray *indexPaths = [[NSMutableArray alloc] init];
-    NSIndexPath *indexPath = [NSIndexPath indexPathForRow:peripherals.count inSection:0];
-    [indexPaths addObject:indexPath];
-    [peripherals addObject:peripheral];
-    
-    [self.tableView insertRowsAtIndexPaths:indexPaths withRowAnimation:UITableViewRowAnimationAutomatic];
+    if(![peripherals containsObject:peripheral]){
+        NSMutableArray *indexPaths = [[NSMutableArray alloc] init];
+        NSIndexPath *indexPath = [NSIndexPath indexPathForRow:peripherals.count inSection:0];
+        [indexPaths addObject:indexPath];
+        [peripherals addObject:peripheral];
+        [self.tableView insertRowsAtIndexPaths:indexPaths withRowAnimation:UITableViewRowAnimationAutomatic];
+    }
 }
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
-
-
 
 #pragma mark -table委托 table delegate
 
@@ -200,11 +173,15 @@
 }
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    //停止扫描
+    [baby cancelScan];
+    
     [self.tableView deselectRowAtIndexPath:indexPath animated:YES];
     PeripheralViewContriller *vc = [[PeripheralViewContriller alloc]init];
     vc.currPeripheral = [peripherals objectAtIndex:indexPath.row];
     vc->baby = self->baby;
     [self.navigationController pushViewController:vc animated:YES];
+    
 }
 
 
