@@ -7,6 +7,8 @@ The easiest way to use Bluetooth (BLE )in ios,even bady can use .  BabyBluetooth
 - 链式方法体，代码更简洁、优雅。
 - 通过channel切换区分委托调用，并方便切换
 
+当前版本v0.2
+
 # Contents
 
 * [用法示例](#用法示例)
@@ -47,18 +49,12 @@ The easiest way to use Bluetooth (BLE )in ios,even bady can use .  BabyBluetooth
 -(void)viewDidLoad {
     [super viewDidLoad];
 
-   //初始化BabyBluetooth 蓝牙库
+    //初始化BabyBluetooth 蓝牙库
     baby = [BabyBluetooth shareBabyBluetooth];
     //设置蓝牙委托
     [self babyDelegate];
-    __weak typeof(baby) weakBaby = baby;
-    //因为蓝牙设备打开需要时间，所以只有监听到蓝牙设备状态打开后才能安全的使用蓝牙
-    [baby setBlockOnCentralManagerDidUpdateState:^(CBCentralManager *central) {
-        if (central.state == CBCentralManagerStatePoweredOn) {
-            //扫描设备 
-            baby.scanForPeripherals().begin();
-        }
-    }];
+    //设置委托后直接可以使用，无需等待CBCentralManagerStatePoweredOn状态
+    baby.scanForPeripherals().begin();
 }
 
 //设置蓝牙委托
@@ -234,6 +230,10 @@ baby.scanForPeripherals().begin();
 -(void)setBlockOnDiscoverToPeripherals:(void (^)(CBCentralManager *central,CBPeripheral *peripheral,NSDictionary *advertisementData, NSNumber *RSSI))block;
 //连接Peripherals成功的委托
 -(void)setBlockOnConnected:(void (^)(CBCentralManager *central,CBPeripheral *peripheral))block;
+//连接Peripherals失败的委托
+-(void)setBlockOnFailToConnect:(void (^)(CBCentralManager *central,CBPeripheral *peripheral,NSError *error))block;
+//断开Peripherals的连接
+-(void)setBlockOnDisconnect:(void (^)(CBCentralManager *central,CBPeripheral *peripheral,NSError *error))block;
 //设置查找服务回叫
 -(void)setBlockOnDiscoverServices:(void (^)(CBPeripheral *peripheral,NSError *error))block;
 //设置查找到Characteristics的block
@@ -248,39 +248,47 @@ baby.scanForPeripherals().begin();
 //====================================设置对应频道的委托方法======================================
 //channel
 //设备状态改变的委托
--(void)setBlockOnCentralManagerDidUpdateStateOnChannel:(NSString *)channel
+-(void)setBlockOnCentralManagerDidUpdateStateAtChannel:(NSString *)channel
                                                         block:(void (^)(CBCentralManager *central))block;
 //找到Peripherals的委托
--(void)setBlockOnDiscoverToPeripheralsOnChannel:(NSString *)channel
+-(void)setBlockOnDiscoverToPeripheralsAtChannel:(NSString *)channel
                                           block:(void (^)(CBCentralManager *central,CBPeripheral *peripheral,NSDictionary *advertisementData, NSNumber *RSSI))block;
 
 //连接Peripherals成功的委托
--(void)setBlockOnConnectedOnChannel:(NSString *)channel
+-(void)setBlockOnConnectedAtChannel:(NSString *)channel
                               block:(void (^)(CBCentralManager *central,CBPeripheral *peripheral))block;
 
+//连接Peripherals失败的委托
+-(void)setBlockOnFailToConnectAtChannel:(NSString *)channel
+                                       block:(void (^)(CBCentralManager *central,CBPeripheral *peripheral,NSError *error))block;
+
+//断开Peripherals的连接
+-(void)setBlockOnDisconnectAtChannel:(NSString *)channel
+                                    block:(void (^)(CBCentralManager *central,CBPeripheral *peripheral,NSError *error))block;
+
 //设置查找服务回叫
--(void)setBlockOnDiscoverServicesOnChannel:(NSString *)channel
+-(void)setBlockOnDiscoverServicesAtChannel:(NSString *)channel
                                      block:(void (^)(CBPeripheral *peripheral,NSError *error))block;
 
 //设置查找到Characteristics的block
--(void)setBlockOnDiscoverCharacteristicsOnChannel:(NSString *)channel
+-(void)setBlockOnDiscoverCharacteristicsAtChannel:(NSString *)channel
                                             block:(void (^)(CBPeripheral *peripheral,CBService *service,NSError *error))block;
 //设置获取到最新Characteristics值的block
--(void)setBlockOnReadValueForCharacteristicOnChannel:(NSString *)channel
+-(void)setBlockOnReadValueForCharacteristicAtChannel:(NSString *)channel
                                                block:(void (^)(CBPeripheral *peripheral,CBCharacteristic *characteristic,NSError *error))block;
 //设置查找到Characteristics描述的block
--(void)setBlockOnDiscoverDescriptorsForCharacteristicOnChannel:(NSString *)channel
+-(void)setBlockOnDiscoverDescriptorsForCharacteristicAtChannel:(NSString *)channel
                                                          block:(void (^)(CBPeripheral *peripheral,CBCharacteristic *service,NSError *error))block;
 //设置读取到Characteristics描述的值的block
--(void)setBlockOnReadValueForDescriptorsOnChannel:(NSString *)channel
+-(void)setBlockOnReadValueForDescriptorsAtChannel:(NSString *)channel
                                             block:(void (^)(CBPeripheral *peripheral,CBDescriptor *descriptorNSError,NSError *error))block;
 
 //设置查找Peripherals的规则
--(void)setFilterOnDiscoverPeripheralsOnChannel:(NSString *)channel
+-(void)setFilterOnDiscoverPeripheralsAtChannel:(NSString *)channel
                                       filter:(BOOL (^)(NSString *peripheralName))filter;
 
 //设置连接Peripherals的规则
--(void)setFilterOnConnetToPeripheralsOnChannel:(NSString *)channel
+-(void)setFilterOnConnetToPeripheralsAtChannel:(NSString *)channel
                                      filter:(BOOL (^)(NSString *peripheralName))filter;
                                      
 
@@ -290,14 +298,14 @@ baby.scanForPeripherals().begin();
 ## 委托方法的频道channel
 > 委托方法的设置可以通过channel区分开来.
 
-对于项目中多个类需要使用蓝牙这种情况，常规做法是你实例化出多个CBCentralManager,并分别设置CBCentralManager和CBPeripheral的委托，这种用法超级啰嗦和麻烦。不过使用BabyBluetooth,可以仅使用一个BabyBluetooth的实例，通过setBlockOn...OnChannel的方法设置不同channel的委托方法，并使用```` baby.channel(channelName) ````的方法切换到这个channelName的委托。
+对于项目中多个类需要使用蓝牙这种情况，常规做法是你实例化出多个CBCentralManager,并分别设置CBCentralManager和CBPeripheral的委托，这种用法超级啰嗦和麻烦。不过使用BabyBluetooth,可以仅使用一个BabyBluetooth的实例，通过setBlockOn...AtChannel的方法设置不同channel的委托方法，并使用```` baby.channel(channelName) ````的方法切换到这个channelName的委托。
 
 示例：
 ````objc
 
     //设置channel “detailsView” 频道上 ， 扫描到设备的委托
     NSString *channelName = @"detailsChannel";
-    [baby setBlockOnDiscoverToPeripheralsOnChannel:channelName
+    [baby setBlockOnDiscoverToPeripheralsAtChannel:channelName
           block:^(CBCentralManager *central, CBPeripheral *peripheral, NSDictionary *advertisementData, NSNumber *RSSI) {
          NSLog(@"channel(%@) :搜索到了设备:%@",channelName,peripheral.name);
     }];
@@ -387,11 +395,14 @@ step2:导入.h文件
 - 现在block的委托方法还没涉及到CoreBluetooth的全部方法，后续会把全部方法补充进去
 - 增加对外设模式使用的支持（目前主要是中心模式）
 
+已经更新的版本说明，请在wiki中查看
+
+
 # 蓝牙学习资源
 - [ios蓝牙开发（一）蓝牙相关基础知识](http://liuyanwei.jumppo.com/2015/07/17/ios-BLE-1.html)
 - [ios蓝牙开发（二）蓝牙中心模式的ios代码实现](http://liuyanwei.jumppo.com/2015/08/14/ios-BLE-2.html)
-- 暂未完成-ios蓝牙开发（三）app作为外设被连接并与中心交互的实现
-- [ios蓝牙开发（四）BabyBluetooth蓝牙库介绍](http://liuyanwei.jumppo.com/2015/09/07/ios-BLE-3.html)
+- [ios蓝牙开发（三）app作为外设被连接的实现](http://liuyanwei.jumppo.com/2015/08/14/ios-BLE-3.html)
+- [ios蓝牙开发（四）BabyBluetooth蓝牙库介绍](http://liuyanwei.jumppo.com/2015/09/07/ios-BLE-4.html)
 - 暂未完成-ios蓝牙开发（五）BabyBluetooth实现原理
 - 待定...
 
