@@ -42,10 +42,14 @@ typedef void (^BBReadValueForDescriptorsBlock)(CBPeripheral *peripheral,CBDescri
 @property(nonatomic,strong) BBDiscoverPeripheralsBlock blockOnDiscoverPeripherals;
 //连接callback
 @property(nonatomic,strong) BBConnectedPeripheralBlock blockOnConnectedPeripheral;
+//连接设备失败的block
+@property(nonatomic,strong) BBFailToConnectBlock blockOnFailToConnect;
+//断开设备连接的bock
+@property(nonatomic,strong) BBDisconnectBlock blockOnDisconnect;
  //发现services
-@property(nonatomic,strong)  BBDiscoverServicesBlock blockOnDiscoverServices;
+@property(nonatomic,strong) BBDiscoverServicesBlock blockOnDiscoverServices;
 //发现Characteristics
-@property(nonatomic,strong)  BBDiscoverCharacteristicsBlock blockOnDiscoverCharacteristics;
+@property(nonatomic,strong) BBDiscoverCharacteristicsBlock blockOnDiscoverCharacteristics;
 //发现更新Characteristics的
 @property(nonatomic,strong)  BBReadValueForCharacteristicBlock blockOnReadValueForCharacteristic;
 //获取Characteristics的名称

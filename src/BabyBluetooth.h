@@ -52,6 +52,10 @@ typedef NS_ENUM(NSInteger, BabyStatus) {
 -(void)setBlockOnDiscoverToPeripherals:(void (^)(CBCentralManager *central,CBPeripheral *peripheral,NSDictionary *advertisementData, NSNumber *RSSI))block;
 //连接Peripherals成功的委托
 -(void)setBlockOnConnected:(void (^)(CBCentralManager *central,CBPeripheral *peripheral))block;
+//连接Peripherals失败的委托
+-(void)setBlockOnFailToConnect:(void (^)(CBCentralManager *central,CBPeripheral *peripheral,NSError *error))block;
+//断开Peripherals的连接
+-(void)setBlockOnDisconnect:(void (^)(CBCentralManager *central,CBPeripheral *peripheral,NSError *error))block;
 //设置查找服务回叫
 -(void)setBlockOnDiscoverServices:(void (^)(CBPeripheral *peripheral,NSError *error))block;
 //设置查找到Characteristics的block
@@ -73,39 +77,47 @@ typedef NS_ENUM(NSInteger, BabyStatus) {
 
 //channel
 //设备状态改变的委托
--(void)setBlockOnCentralManagerDidUpdateStateOnChannel:(NSString *)channel
+-(void)setBlockOnCentralManagerDidUpdateStateAtChannel:(NSString *)channel
                                                         block:(void (^)(CBCentralManager *central))block;
 //找到Peripherals的委托
--(void)setBlockOnDiscoverToPeripheralsOnChannel:(NSString *)channel
+-(void)setBlockOnDiscoverToPeripheralsAtChannel:(NSString *)channel
                                           block:(void (^)(CBCentralManager *central,CBPeripheral *peripheral,NSDictionary *advertisementData, NSNumber *RSSI))block;
 
 //连接Peripherals成功的委托
--(void)setBlockOnConnectedOnChannel:(NSString *)channel
+-(void)setBlockOnConnectedAtChannel:(NSString *)channel
                               block:(void (^)(CBCentralManager *central,CBPeripheral *peripheral))block;
 
+//连接Peripherals失败的委托
+-(void)setBlockOnFailToConnectAtChannel:(NSString *)channel
+                                       block:(void (^)(CBCentralManager *central,CBPeripheral *peripheral,NSError *error))block;
+
+//断开Peripherals的连接
+-(void)setBlockOnDisconnectAtChannel:(NSString *)channel
+                                    block:(void (^)(CBCentralManager *central,CBPeripheral *peripheral,NSError *error))block;
+
 //设置查找服务回叫
--(void)setBlockOnDiscoverServicesOnChannel:(NSString *)channel
+-(void)setBlockOnDiscoverServicesAtChannel:(NSString *)channel
                                      block:(void (^)(CBPeripheral *peripheral,NSError *error))block;
 
 //设置查找到Characteristics的block
--(void)setBlockOnDiscoverCharacteristicsOnChannel:(NSString *)channel
+-(void)setBlockOnDiscoverCharacteristicsAtChannel:(NSString *)channel
                                             block:(void (^)(CBPeripheral *peripheral,CBService *service,NSError *error))block;
 //设置获取到最新Characteristics值的block
--(void)setBlockOnReadValueForCharacteristicOnChannel:(NSString *)channel
+-(void)setBlockOnReadValueForCharacteristicAtChannel:(NSString *)channel
                                                block:(void (^)(CBPeripheral *peripheral,CBCharacteristic *characteristic,NSError *error))block;
 //设置查找到Characteristics描述的block
--(void)setBlockOnDiscoverDescriptorsForCharacteristicOnChannel:(NSString *)channel
+-(void)setBlockOnDiscoverDescriptorsForCharacteristicAtChannel:(NSString *)channel
                                                          block:(void (^)(CBPeripheral *peripheral,CBCharacteristic *service,NSError *error))block;
 //设置读取到Characteristics描述的值的block
--(void)setBlockOnReadValueForDescriptorsOnChannel:(NSString *)channel
+-(void)setBlockOnReadValueForDescriptorsAtChannel:(NSString *)channel
                                             block:(void (^)(CBPeripheral *peripheral,CBDescriptor *descriptorNSError,NSError *error))block;
 
 //设置查找Peripherals的规则
--(void)setFilterOnDiscoverPeripheralsOnChannel:(NSString *)channel
+-(void)setFilterOnDiscoverPeripheralsAtChannel:(NSString *)channel
                                       filter:(BOOL (^)(NSString *peripheralName))filter;
 
 //设置连接Peripherals的规则
--(void)setFilterOnConnetToPeripheralsOnChannel:(NSString *)channel
+-(void)setFilterOnConnetToPeripheralsAtChannel:(NSString *)channel
                                      filter:(BOOL (^)(NSString *peripheralName))filter;
 
 #pragma mark -链式函数

@@ -34,12 +34,19 @@
     self.tableView.delegate = self;
     [self.view addSubview:self.tableView];
     
+    //初始化其他数据 init other
+    peripherals = [[NSMutableArray alloc]init];
+    //开始扫描设备
+    [SVProgressHUD showInfoWithStatus:@"准备扫描设备"];
     
+   
     //初始化BabyBluetooth 蓝牙库
     baby = [BabyBluetooth shareBabyBluetooth];
+    NSLog(@"BabyBlueTooth初始化完毕");
     //设置蓝牙委托
     [self babyDelegate];
     __weak typeof(baby) weakBaby = baby;
+    
     //因为蓝牙设备打开需要时间，所以只有监听到蓝牙设备状态打开后才能安全的使用蓝牙
     [baby setBlockOnCentralManagerDidUpdateState:^(CBCentralManager *central) {
         if (central.state == CBCentralManagerStatePoweredOn) {
@@ -50,29 +57,26 @@
         }
     }];
     
-    //初始化其他数据 init other
-    peripherals = [[NSMutableArray alloc]init];
-    //开始扫描设备
-    [SVProgressHUD showInfoWithStatus:@"准备扫描设备"];
+}
+-(void)viewDidAppear:(BOOL)animated{
+    NSLog(@"viewDidAppear");
+    //停止之前的连接
+    [baby cancelAllPeripheralsConnection];
 
-    //测试方法
-    //[NSTimer scheduledTimerWithTimeInterval:1.2 target:self selector:@selector(testInsertRow) userInfo:nil repeats:YES];
 }
 
 -(void)viewWillDisappear:(BOOL)animated{
     NSLog(@"viewWillDisappear");
-//    baby.stop(0);
 }
 
 #pragma mark -蓝牙配置和操作
 
 //蓝牙网关初始化和委托方法设置
 -(void)babyDelegate{
-    //初始化BabyBluetooth， BabyBluetooth init
-//    baby = [[BabyBluetooth alloc]init];
+    
+    
     
     __weak typeof(self) weakSelf = self;
-
     
     //设置扫描到设备的委托
     [baby setBlockOnDiscoverToPeripherals:^(CBCentralManager *central, CBPeripheral *peripheral, NSDictionary *advertisementData, NSNumber *RSSI) {
@@ -81,9 +85,17 @@
     }];
     //设置设备连接成功的委托
     [baby setBlockOnConnected:^(CBCentralManager *central, CBPeripheral *peripheral) {
-        //设置连接成功的block
         NSLog(@"设备：%@--连接成功",peripheral.name);
     }];
+    //设置设备连接失败的委托
+    [baby setBlockOnFailToConnect:^(CBCentralManager *central, CBPeripheral *peripheral, NSError *error) {
+        NSLog(@"设备：%@--连接失败",peripheral.name);
+    }];
+    //设置设备断开连接的委托
+    [baby setBlockOnDisconnect:^(CBCentralManager *central, CBPeripheral *peripheral, NSError *error) {
+        NSLog(@"设备：%@--断开连接",peripheral.name);
+    }];
+    
     //设置发现设备的Services的委托
     [baby setBlockOnDiscoverServices:^(CBPeripheral *peripheral, NSError *error) {
         for (CBService *service in peripheral.services) {
@@ -122,6 +134,7 @@
     
     //设置查找设备的过滤器
     [baby setFilterOnDiscoverPeripherals:^BOOL(NSString *peripheralName) {
+        
         //设置查找规则是名称大于1 ， the search rule is peripheral.name length > 2
         if (peripheralName.length >2) {
             return YES;

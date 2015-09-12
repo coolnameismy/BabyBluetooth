@@ -66,12 +66,12 @@
 
     __weak typeof(self)weakSelf = self;
     //设置读取characteristics的委托
-    [baby setBlockOnReadValueForCharacteristicOnChannel:channelOnCharacteristicView block:^(CBPeripheral *peripheral, CBCharacteristic *characteristics, NSError *error) {
+    [baby setBlockOnReadValueForCharacteristicAtChannel:channelOnCharacteristicView block:^(CBPeripheral *peripheral, CBCharacteristic *characteristics, NSError *error) {
 //        NSLog(@"CharacteristicViewController===characteristic name:%@ value is:%@",characteristics.UUID,characteristics.value);
         [weakSelf insertReadValues:characteristics];
     }];
     //设置发现characteristics的descriptors的委托
-    [baby setBlockOnDiscoverDescriptorsForCharacteristicOnChannel:channelOnCharacteristicView block:^(CBPeripheral *peripheral, CBCharacteristic *characteristic, NSError *error) {
+    [baby setBlockOnDiscoverDescriptorsForCharacteristicAtChannel:channelOnCharacteristicView block:^(CBPeripheral *peripheral, CBCharacteristic *characteristic, NSError *error) {
 //        NSLog(@"CharacteristicViewController===characteristic name:%@",characteristic.service.UUID);
         for (CBDescriptor *d in characteristic.descriptors) {
 //            NSLog(@"CharacteristicViewController CBDescriptor name is :%@",d.UUID);
@@ -79,7 +79,7 @@
         }
     }];
     //设置读取Descriptor的委托
-    [baby setBlockOnReadValueForDescriptorsOnChannel:channelOnCharacteristicView block:^(CBPeripheral *peripheral, CBDescriptor *descriptor, NSError *error) {
+    [baby setBlockOnReadValueForDescriptorsAtChannel:channelOnCharacteristicView block:^(CBPeripheral *peripheral, CBDescriptor *descriptor, NSError *error) {
         for (int i =0 ; i<descriptors.count; i++) {
             if (descriptors[i]==descriptor) {
                 UITableViewCell *cell = [weakSelf.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:i inSection:2]];

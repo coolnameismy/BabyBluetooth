@@ -73,7 +73,6 @@ typedef NS_ENUM(NSUInteger, BabySpeakerType) {
 }
 
 -(BabyCallback *)callbackOnCurrChannel {
-//    [self callbackOnChnnel:currChannel];
     return [self callbackOnChnnel:currChannel];
 }
 

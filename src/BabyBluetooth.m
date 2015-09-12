@@ -22,13 +22,12 @@
 
 //单例模式
 +(instancetype)shareBabyBluetooth{
-    static BabyBluetooth *share = nil;
+    static BabyBluetooth *share = nil;  
     static dispatch_once_t oneToken;
     dispatch_once(&oneToken, ^{
         share = [[BabyBluetooth alloc]init];
     });
-    
-    return share;
+   return share;
 }
 
 
@@ -62,6 +61,17 @@
 -(void)setBlockOnConnected:(void (^)(CBCentralManager *central,CBPeripheral *peripheral))block{
     [[babySpeaker callback]setBlockOnConnectedPeripheral:block];
 }
+
+//连接Peripherals失败的委托
+-(void)setBlockOnFailToConnect:(void (^)(CBCentralManager *central,CBPeripheral *peripheral,NSError *error))block{
+    [[babySpeaker callback]setBlockOnFailToConnect:block];
+}
+
+//断开Peripherals的连接
+-(void)setBlockOnDisconnect:(void (^)(CBCentralManager *central,CBPeripheral *peripheral,NSError *error))block{
+    [[babySpeaker callback]setBlockOnDisconnect:block];
+}
+
 
 //设置查找服务回叫
 -(void)setBlockOnDiscoverServices:(void (^)(CBPeripheral *peripheral,NSError *error))block{
@@ -99,58 +109,70 @@
 
 //channel
 //设备状态改变的委托
--(void)setBlockOnCentralManagerDidUpdateStateOnChannel:(NSString *)channel
+-(void)setBlockOnCentralManagerDidUpdateStateAtChannel:(NSString *)channel
                                                  block:(void (^)(CBCentralManager *central))block{
     [[babySpeaker callbackOnChnnel:channel createWhenNotExist:YES] setBlockOnCentralManagerDidUpdateState:block];
 }
 //找到Peripherals的委托
--(void)setBlockOnDiscoverToPeripheralsOnChannel:(NSString *)channel
+-(void)setBlockOnDiscoverToPeripheralsAtChannel:(NSString *)channel
                                           block:(void (^)(CBCentralManager *central,CBPeripheral *peripheral,NSDictionary *advertisementData, NSNumber *RSSI))block{
     [[babySpeaker callbackOnChnnel:channel createWhenNotExist:YES] setBlockOnDiscoverPeripherals:block];
 }
 
 //连接Peripherals成功的委托
--(void)setBlockOnConnectedOnChannel:(NSString *)channel
+-(void)setBlockOnConnectedAtChannel:(NSString *)channel
                               block:(void (^)(CBCentralManager *central,CBPeripheral *peripheral))block{
     [[babySpeaker callbackOnChnnel:channel createWhenNotExist:YES] setBlockOnConnectedPeripheral:block];
 }
 
+//连接Peripherals失败的委托
+-(void)setBlockOnFailToConnectAtChannel:(NSString *)channel
+                                  block:(void (^)(CBCentralManager *central,CBPeripheral *peripheral,NSError *error))block{
+     [[babySpeaker callbackOnChnnel:channel createWhenNotExist:YES] setBlockOnFailToConnect:block];
+}
+
+//断开Peripherals的连接
+-(void)setBlockOnDisconnectAtChannel:(NSString *)channel
+                               block:(void (^)(CBCentralManager *central,CBPeripheral *peripheral,NSError *error))block{
+     [[babySpeaker callbackOnChnnel:channel createWhenNotExist:YES] setBlockOnDisconnect:block];
+}
+
 //设置查找服务回叫
--(void)setBlockOnDiscoverServicesOnChannel:(NSString *)channel
+-(void)setBlockOnDiscoverServicesAtChannel:(NSString *)channel
                                      block:(void (^)(CBPeripheral *peripheral,NSError *error))block{
     [[babySpeaker callbackOnChnnel:channel createWhenNotExist:YES] setBlockOnDiscoverServices:block];
 }
 
 //设置查找到Characteristics的block
--(void)setBlockOnDiscoverCharacteristicsOnChannel:(NSString *)channel
+-(void)setBlockOnDiscoverCharacteristicsAtChannel:(NSString *)channel
                                             block:(void (^)(CBPeripheral *peripheral,CBService *service,NSError *error))block{
     [[babySpeaker callbackOnChnnel:channel createWhenNotExist:YES] setBlockOnDiscoverCharacteristics:block];
 }
 //设置获取到最新Characteristics值的block
--(void)setBlockOnReadValueForCharacteristicOnChannel:(NSString *)channel
+-(void)setBlockOnReadValueForCharacteristicAtChannel:(NSString *)channel
                                                block:(void (^)(CBPeripheral *peripheral,CBCharacteristic *characteristic,NSError *error))block{
     [[babySpeaker callbackOnChnnel:channel createWhenNotExist:YES] setBlockOnReadValueForCharacteristic:block];
 }
 //设置查找到Characteristics描述的block
--(void)setBlockOnDiscoverDescriptorsForCharacteristicOnChannel:(NSString *)channel
+-(void)setBlockOnDiscoverDescriptorsForCharacteristicAtChannel:(NSString *)channel
                                                          block:(void (^)(CBPeripheral *peripheral,CBCharacteristic *service,NSError *error))block{
     [[babySpeaker callbackOnChnnel:channel createWhenNotExist:YES] setBlockOnDiscoverDescriptorsForCharacteristic:block];
 }
 //设置读取到Characteristics描述的值的block
--(void)setBlockOnReadValueForDescriptorsOnChannel:(NSString *)channel
+-(void)setBlockOnReadValueForDescriptorsAtChannel:(NSString *)channel
                                             block:(void (^)(CBPeripheral *peripheral,CBDescriptor *descriptorNSError,NSError *error))block{
     [[babySpeaker callbackOnChnnel:channel createWhenNotExist:YES] setBlockOnReadValueForDescriptors:block];
 }
 
 
 //设置查找Peripherals的规则
--(void)setFilterOnDiscoverPeripheralsOnChannel:(NSString *)channel
+-(void)setFilterOnDiscoverPeripheralsAtChannel:(NSString *)channel
                                       filter:(BOOL (^)(NSString *peripheralName))filter{
     [[babySpeaker callbackOnChnnel:channel createWhenNotExist:YES] setFilterOnDiscoverPeripherals:filter];
 }
 
 //设置连接Peripherals的规则
--(void)setFilterOnConnetToPeripheralsOnChannel:(NSString *)channel
+-(void)setFilterOnConnetToPeripheralsAtChannel:(NSString *)channel
                                      filter:(BOOL (^)(NSString *peripheralName))filter{
     [[babySpeaker callbackOnChnnel:channel createWhenNotExist:YES] setFilterOnConnetToPeripherals:filter];
 }
