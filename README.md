@@ -1,5 +1,7 @@
 
-The easiest way to use Bluetooth (BLE )in ios,even bady can use. 简单易用的蓝牙库，基于CoreBluetooth的封装，并兼容ios和mac osx.[english readme](https://github.com/coolnameismy/BabyBluetooth/blob/master/README_en.md)
+![](http://images.jumppo.com/uploads/BabyBluetooth_logo.png)
+
+The easiest way to use Bluetooth (BLE )in ios,even bady can use. 简单易用的蓝牙库，基于CoreBluetooth的封装，并兼容ios和mac osx.
 
 
 - 基于原生CoreBluetooth框架封装的轻量级的开源库，可以帮你更简单地使用CoreBluetooth API。
@@ -9,11 +11,12 @@ The easiest way to use Bluetooth (BLE )in ios,even bady can use. 简单易用的
 
 当前版本v0.2
 
+# [english readme link](https://github.com/coolnameismy/BabyBluetooth/blob/master/README_en.md)
 
 # Contents
 
 * [用法示例](#用法示例)
-    * [QuickExample](#QuickExample)
+    * [QuickExample](#user-content-QuickExample)
     * [初始化](#初始化)
     * [搜索设备](#搜索设备)
     * [搜索并连接设备](#搜索并连接设备)
