@@ -59,9 +59,12 @@ typedef void (^BBReadValueForDescriptorsBlock)(CBPeripheral *peripheral,CBDescri
 
 
 //过滤器Filter
-@property(nonatomic,strong)  BOOL (^filterOnConnetToPeripherals)(NSString *peripheralName);    //发现peripherals规则
-@property(nonatomic,strong)  BOOL (^filterOnDiscoverPeripherals)(NSString *peripheralName);    //连接peripherals规则
 
+//发现peripherals规则
+@property(nonatomic,strong)  BOOL (^filterOnConnetToPeripherals)(NSString *peripheralName);
+
+//连接peripherals规则
+@property(nonatomic,strong)  BOOL (^filterOnDiscoverPeripherals)(NSString *peripheralName);
 
 
 @end

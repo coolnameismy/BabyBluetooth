@@ -14,7 +14,7 @@
 #import "Babysister.h"
 #import "BabyToy.h"
 #import "BabySpeaker.h"
-
+#import "BabyRhythm.h"
 
 
 typedef NS_ENUM(NSInteger, BabyStatus) {
@@ -66,8 +66,6 @@ typedef NS_ENUM(NSInteger, BabyStatus) {
 -(void)setBlockOnDiscoverDescriptorsForCharacteristic:(void (^)(CBPeripheral *peripheral,CBCharacteristic *characteristic,NSError *error))block;
 //设置读取到Descriptors值的block
 -(void)setBlockOnReadValueForDescriptors:(void (^)(CBPeripheral *peripheral,CBDescriptor *descriptorNSError,NSError *error))block;
-
-
 //设置查找Peripherals的规则
 -(void)setFilterOnDiscoverPeripherals:(BOOL (^)(NSString *peripheralName))filter;
 //设置连接Peripherals的规则
@@ -119,6 +117,9 @@ typedef NS_ENUM(NSInteger, BabyStatus) {
 //设置连接Peripherals的规则
 -(void)setFilterOnConnetToPeripheralsAtChannel:(NSString *)channel
                                      filter:(BOOL (^)(NSString *peripheralName))filter;
+
+
+
 
 #pragma mark -链式函数
 //查找Peripherals
@@ -179,6 +180,10 @@ characteristic:(CBCharacteristic *)characteristic
 //取消characteristic的notify
 -(void)cancelNotify:(CBPeripheral *)peripheral
      characteristic:(CBCharacteristic *)characteristic;
+
+
+
+
 
 /**
  * 单例构造方法

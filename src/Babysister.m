@@ -33,11 +33,10 @@
         [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(scanForPeripheralNotifyReceived:) name:@"scanForPeripherals" object:nil];
         [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(didDiscoverPeripheralNotifyReceived:) name:@"didDiscoverPeripheral" object:nil];
         [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(connectToPeripheralNotifyReceived:) name:@"connectToPeripheral" object:nil];
-        
+
     }
     return  self;
 }
-
 
 
 
@@ -120,6 +119,8 @@
 //扫描到Peripherals
 - (void)centralManager:(CBCentralManager *)central didDiscoverPeripheral:(CBPeripheral *)peripheral advertisementData:(NSDictionary *)advertisementData RSSI:(NSNumber *)RSSI
 {
+
+    
     //日志
     //NSLog(@"当扫描到设备:%@",peripheral.name);
    
@@ -156,6 +157,7 @@
 //连接到Peripherals-成功
 - (void)centralManager:(CBCentralManager *)central didConnectPeripheral:(CBPeripheral *)peripheral
 {
+    
     //NSLog(@">>>连接到名称为（%@）的设备-成功",peripheral.name);
     [connectTimer invalidate];//停止时钟
     [connectedPeripherals addObject:peripheral];
@@ -195,7 +197,8 @@
 //扫描到服务
 - (void)peripheral:(CBPeripheral *)peripheral didDiscoverServices:(NSError *)error
 {
-
+    
+    
 //  NSLog(@">>>扫描到服务：%@",peripheral.services);
     if (error)
     {
@@ -218,6 +221,8 @@
 
 //发现服务的Characteristics
 -(void)peripheral:(CBPeripheral *)peripheral didDiscoverCharacteristicsForService:(CBService *)service error:(NSError *)error{
+    
+    
     if (error)
     {
         NSLog(@"error Discovered characteristics for %@ with error: %@", service.UUID, [error localizedDescription]);
@@ -248,6 +253,7 @@
 //读取Characteristics的值
 -(void)peripheral:(CBPeripheral *)peripheral didUpdateValueForCharacteristic:(CBCharacteristic *)characteristic error:(NSError *)error{
 
+    
     if (error)
     {
         NSLog(@"error didUpdateValueForCharacteristic %@ with error: %@", characteristic.UUID, [error localizedDescription]);
@@ -266,6 +272,8 @@
 }
 //发现Characteristics的Descriptors
 -(void)peripheral:(CBPeripheral *)peripheral didDiscoverDescriptorsForCharacteristic:(CBCharacteristic *)characteristic error:(NSError *)error{
+    
+    
     if (error)
     {
         NSLog(@"error Discovered DescriptorsForCharacteristic for %@ with error: %@", characteristic.UUID, [error localizedDescription]);
@@ -296,6 +304,7 @@
 //读取Characteristics的Descriptors的值
 -(void)peripheral:(CBPeripheral *)peripheral didUpdateValueForDescriptor:(CBDescriptor *)descriptor error:(NSError *)error{
 
+    
     if (error)
     {
         NSLog(@"error didUpdateValueForDescriptor  for %@ with error: %@", descriptor.UUID, [error localizedDescription]);

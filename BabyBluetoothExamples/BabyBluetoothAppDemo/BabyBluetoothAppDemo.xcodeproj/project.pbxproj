@@ -25,6 +25,7 @@
 		F05F7BAE1B7372300051C68A /* SVProgressHUD.bundle in Resources */ = {isa = PBXBuildFile; fileRef = F05F7BAA1B7372300051C68A /* SVProgressHUD.bundle */; };
 		F05F7BAF1B7372300051C68A /* SVProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = F05F7BAC1B7372300051C68A /* SVProgressHUD.m */; };
 		F05F7BB21B7442B50051C68A /* CharacteristicViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F05F7BB11B7442B50051C68A /* CharacteristicViewController.m */; };
+		F0644E511BA7B1C600AA0F9F /* BabyRhythm.m in Sources */ = {isa = PBXBuildFile; fileRef = F0644E501BA7B1C600AA0F9F /* BabyRhythm.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -72,6 +73,8 @@
 		F05F7BAC1B7372300051C68A /* SVProgressHUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SVProgressHUD.m; sourceTree = "<group>"; };
 		F05F7BB01B7442B50051C68A /* CharacteristicViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CharacteristicViewController.h; sourceTree = "<group>"; };
 		F05F7BB11B7442B50051C68A /* CharacteristicViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CharacteristicViewController.m; sourceTree = "<group>"; };
+		F0644E4F1BA7B1C600AA0F9F /* BabyRhythm.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BabyRhythm.h; sourceTree = "<group>"; };
+		F0644E501BA7B1C600AA0F9F /* BabyRhythm.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BabyRhythm.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -181,6 +184,8 @@
 				E1DEF50E1B98857B0005C9F2 /* BabySpeaker.m */,
 				E1DEF50F1B98857B0005C9F2 /* BabyToy.h */,
 				E1DEF5101B98857B0005C9F2 /* BabyToy.m */,
+				F0644E4F1BA7B1C600AA0F9F /* BabyRhythm.h */,
+				F0644E501BA7B1C600AA0F9F /* BabyRhythm.m */,
 			);
 			name = BabyBluetoothLib;
 			path = ../../src;
@@ -320,6 +325,7 @@
 				F05F7BB21B7442B50051C68A /* CharacteristicViewController.m in Sources */,
 				E1DEF5181B98857B0005C9F2 /* BabySpeaker.m in Sources */,
 				E1DEF5161B98857B0005C9F2 /* BabyCallback.m in Sources */,
+				F0644E511BA7B1C600AA0F9F /* BabyRhythm.m in Sources */,
 				E1DEF5191B98857B0005C9F2 /* BabyToy.m in Sources */,
 				F05F7BAD1B7372300051C68A /* SVIndefiniteAnimatedView.m in Sources */,
 			);

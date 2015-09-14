@@ -47,11 +47,8 @@
     
 @private
     NSMutableDictionary *peripherals;
-    
-  
    
 }
-
 
 
 //扫描Peripherals
@@ -62,6 +59,7 @@
 -(void)stopConnectAllPerihperals;
 //停止扫描
 -(void)stopScan;
+
 
 @end
 

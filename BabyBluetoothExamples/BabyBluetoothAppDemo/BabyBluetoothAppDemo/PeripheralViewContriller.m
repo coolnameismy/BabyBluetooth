@@ -57,7 +57,9 @@
 -(void)babyDelegate{
     
     __weak typeof(self)weakSelf = self;
+    BabyRhythm *rhythm = [[BabyRhythm alloc]init];
 
+    
     //设置设备连接成功的委托,同一个baby对象，使用不同的channel切换委托回调
 
     [baby setBlockOnConnectedAtChannel:channelOnPeropheralView block:^(CBCentralManager *central, CBPeripheral *peripheral) {
@@ -70,13 +72,15 @@
             ///插入section到tableview
             [weakSelf insertSectionToTableView:s];
         }
+        
+        [rhythm beats];
     }];
     //设置发现设service的Characteristics的委托
     [baby setBlockOnDiscoverCharacteristicsAtChannel:channelOnPeropheralView block:^(CBPeripheral *peripheral, CBService *service, NSError *error) {
         NSLog(@"===service name:%@",service.UUID);
         //插入row到tableview
         [weakSelf insertRowToTableView:service];
-       
+        
     }];
     //设置读取characteristics的委托
     [baby setBlockOnReadValueForCharacteristicAtChannel:channelOnPeropheralView block:^(CBPeripheral *peripheral, CBCharacteristic *characteristics, NSError *error) {
@@ -93,6 +97,13 @@
     [baby setBlockOnReadValueForDescriptorsAtChannel:channelOnPeropheralView block:^(CBPeripheral *peripheral, CBDescriptor *descriptor, NSError *error) {
         NSLog(@"Descriptor name:%@ value is:%@",descriptor.characteristic.UUID, descriptor.value);
     }];
+    
+    //设置心跳委托
+    [rhythm setBlockOnBeatBreak:^{
+        NSLog(@"setBlockOnBeatsBreak call");
+    }];
+    
+
     
 }
 -(void)loadData{
