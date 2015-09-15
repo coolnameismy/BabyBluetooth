@@ -55,7 +55,7 @@
     [self.beatsTimer setFireDate:[NSDate distantFuture]];
     isOver = YES;
     if (blockOnBeatOver) {
-        blockOnBeatOver();
+        blockOnBeatOver(self);
     }
     
 }
@@ -69,7 +69,7 @@
     blockOnBeatBreak = block;
 }
 
--(void)setBlockOnBeatsOver:(void(^)())(BabyRhythm *bry))block{
+-(void)setBlockOnBeatsOver:(void(^)(BabyRhythm *bry))block{
     blockOnBeatOver = block;
 }
 
