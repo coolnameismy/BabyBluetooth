@@ -50,7 +50,7 @@
     //停止之前的连接
     [baby cancelAllPeripheralsConnection];
     //设置委托后直接可以使用，无需等待CBCentralManagerStatePoweredOn状态。
-    baby.scanForPeripherals().begin();
+    baby.scanForPeripherals().begin().stop(10);
 }
 
 -(void)viewWillDisappear:(BOOL)animated{

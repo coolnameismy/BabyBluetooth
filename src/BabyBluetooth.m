@@ -17,6 +17,7 @@
     BabyStatus babyStatus;
     BabySpeaker *babySpeaker;
     int CENTRAL_MANAGER_INIT_WAIT_TIMES;
+    NSTimer *timerForStop;
 }
 
 
@@ -242,9 +243,11 @@
 
 //开始并执行
 -(BabyBluetooth *(^)()) begin{
-
+   
     return ^BabyBluetooth *(){
         
+        //取消未执行的stop定时任务
+        [timerForStop invalidate];
         
         dispatch_sync(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
             
@@ -335,18 +338,26 @@
 -(BabyBluetooth *(^)(int sec)) stop {
     
     return ^BabyBluetooth *(int sec){
-        NSLog(@"stop in %d sec",sec);
-        dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, sec * NSEC_PER_SEC);
-        dispatch_after(popTime, dispatch_get_main_queue(), ^{
-            
-            [self resetSeriseParmeter];
-            babysister->pocket = [[NSMutableDictionary alloc]init];
-            //停止扫描，断开连接
-            [babysister stopScan];
-            [babysister stopConnectAllPerihperals];
-        });
+        NSLog(@">>> stop in %d sec",sec);
+        
+        //听见定时器执行babyStop
+        timerForStop = [NSTimer timerWithTimeInterval:sec target:self selector:@selector(babyStop) userInfo:nil repeats:NO];
+        [timerForStop setFireDate: [[NSDate date]dateByAddingTimeInterval:sec]];
+        [[NSRunLoop currentRunLoop] addTimer:timerForStop forMode:NSRunLoopCommonModes];
+        
         return self;
     };
+}
+
+//私有方法，停止扫描和断开连接，清空pocket
+-(void)babyStop{
+    NSLog(@">>>did stop");
+    [timerForStop invalidate];
+    [self resetSeriseParmeter];
+    babysister->pocket = [[NSMutableDictionary alloc]init];
+    //停止扫描，断开连接
+    [babysister stopScan];
+    [babysister stopConnectAllPerihperals];
 }
 
 //重置串行方法参数
