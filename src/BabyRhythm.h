@@ -9,18 +9,15 @@
 #import <Foundation/Foundation.h>
 
 
-typedef void (^BBBeatsBreakBlock)();
-typedef void (^BBBeatsOverBlock)();
 
 @interface BabyRhythm : NSObject
 
 
+typedef void (^BBBeatsBreakBlock)(BabyRhythm *bry);
+typedef void (^BBBeatsOverBlock)(BabyRhythm *bry);
+
 //timer for beats
 @property(nonatomic,strong) NSTimer *beatsTimer;
-
-////beats block
-//@property(nonatomic,strong) BBBeatsBreakBlock blockOnBeatBreak;
-//@property(nonatomic,strong) BBBeatsOverBlock blockOnBeatOver;
 
 //beat interval
 @property int beatsInterval;
@@ -32,24 +29,9 @@ typedef void (^BBBeatsOverBlock)();
 -(void)beatsOver;
 -(void)beatsRestart;
 
--(void)setBlockOnBeatBreak:(void(^)())block;
--(void)setBlockOnBeatOver:(void(^)())block;
+-(void)setBlockOnBeatsBreak:(void(^)(BabyRhythm *bry))block;
+-(void)setBlockOnBeatsOver:(void(^)(BabyRhythm *bry))block;
 
-//
-//-(void)beats{
-//    NSLog(@">>>beats at :%@",[NSDate date]);
-//    [serialBeat setFireDate: [[NSDate date]dateByAddingTimeInterval:self.serialBeatInterval]];
-//}
-//
-//-(void)beatsBreak{
-//    NSLog(@">>>beatsBreak :%@",[NSDate date]);
-//    serialBeat = nil;
-//    //回调
-//    if ([currChannel blockOnBeatsBreak]) {
-//        [currChannel blockOnBeatsBreak]
-//        ([bleManager retrieveConnectedPeripheralsWithServices:nil]);
-//    }
-//}
 
 
 @end

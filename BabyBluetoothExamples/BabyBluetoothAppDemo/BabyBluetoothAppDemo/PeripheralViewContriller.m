@@ -98,12 +98,22 @@
         NSLog(@"Descriptor name:%@ value is:%@",descriptor.characteristic.UUID, descriptor.value);
     }];
     
-    //设置心跳委托
-    [rhythm setBlockOnBeatBreak:^{
+    //设置beats break委托
+    [rhythm setBlockOnBeatsBreak:^(BabyRhythm *bry) {
         NSLog(@"setBlockOnBeatsBreak call");
+        
+        //如果完成任务，即可停止beat,返回bry可以省去使用weak rhythm的麻烦
+//        if (<#condition#>) {
+//            [bry beatsOver];
+//        }
+        
     }];
     
-
+    //设置beats over委托
+    [rhythm setBlockOnBeatsOver:^(BabyRhythm *bry) {
+        NSLog(@"setBlockOnBeatsOver call");
+    }];
+    
     
 }
 -(void)loadData{

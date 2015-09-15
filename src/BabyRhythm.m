@@ -47,9 +47,8 @@
      NSLog(@">>>beatsBreak :%@",[NSDate date]);
     [self.beatsTimer setFireDate:[NSDate distantFuture]];
     if (blockOnBeatBreak) {
-        blockOnBeatBreak();
+        blockOnBeatBreak(self);
     }
-    
 }
 -(void)beatsOver{
     NSLog(@">>>beatsOver :%@",[NSDate date]);
@@ -66,10 +65,11 @@
     [self beats];
 }
 
--(void)setBlockOnBeatBreak:(void(^)())block{
+-(void)setBlockOnBeatsBreak:(void(^)(BabyRhythm *bry))block{
     blockOnBeatBreak = block;
 }
--(void)setBlockOnBeatOver:(void(^)())block{
+
+-(void)setBlockOnBeatsOver:(void(^)())(BabyRhythm *bry))block{
     blockOnBeatOver = block;
 }
 
