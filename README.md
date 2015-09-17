@@ -11,7 +11,7 @@ The easiest way to use Bluetooth (BLE )in ios,even bady can use. 简单易用的
 
 当前版本v0.2
 
-# [english readme link](https://github.com/coolnameismy/BabyBluetooth/blob/master/README_en.md)
+# [english readme link,please click it!](https://github.com/coolnameismy/BabyBluetooth/blob/master/README_en.md)
 
 # Contents
 
@@ -34,6 +34,8 @@ The easiest way to use Bluetooth (BLE )in ios,even bady can use. 简单易用的
 * [链式方法](#链式方法) 
     * [谓词](#谓词)
     * [链式方法的顺序](#链式方法的顺序)
+* [辅助方法](#辅助方法) 
+    * [BabyRhythm](#user-content-BabyRhythm)
 * [如何安装](#如何安装)
 * [示例程序说明](#示例程序说明)
 * [程序结构](#程序结构)
@@ -324,6 +326,90 @@ baby.scanForPeripherals().begin();
 ##默认频道
 在 baby.().().()链式函数体中，channel()可以放在.begin()之前的任意位置。若链式函数体中不包含.channel()方法或是channelName为nil时，会切换到默认频道。
 
+#辅助方法
+
+## BabyRhythm 
+程序心跳：可以给peripheral的具体操作加上心跳进行监控，从而达到一些复杂控制的需求。
+
+### 方法
+
+````objc
+//心跳
+-(void)beats;
+//主动中断心跳
+-(void)beatsBreak;
+//结束心跳，结束后会进入BlockOnBeatOver，并且结束后再不会在触发BlockOnBeatBreak
+-(void)beatsOver;
+//恢复心跳，beatsOver操作后可以使用beatsRestart恢复心跳，恢复后又可以进入BlockOnBeatBreak方法
+-(void)beatsRestart;
+
+//心跳中断的委托
+-(void)setBlockOnBeatBreak:(void(^)(BabyRhythm *bry))block;
+//心跳结束的委托
+-(void)setBlockOnBeatOver:(void(^)())block;
+
+//心跳时间间隔，默认是3
+@property int beatsInterval;
+
+````
+
+### example
+因为central读取peripheral的左右操作都是离散的，没有完成状态，但是有的时候我们需要确认相关操作完成才进行下一步操作。例如有如下的需求。先读取c1的值，然后把c2的值设为c1的值，最后开启c3的notify获取数据
+````objc
+
+  @implementation xxxx{
+      //建议新建一个class，用属性保存c1,c2,c3，不然可能会出现黄色的警告。
+      CBCharacteristic *c1;
+      CBCharacteristic *c2;
+      CBCharacteristic *c3;
+  }
+
+  .... //省略中间操作和代码
+
+ BabyRhythm *rhythm = [[BabyRhythm alloc]init];
+
+ [baby setBlockOnDiscoverCharacteristicsAtChannel:channelOfLoadloadHistoryData block:^(CBPeripheral *peripheral, CBService *service, NSError *error) {
+        //心跳
+        [rhythm beats];
+        for (CBCharacteristic *characteristic in service.characteristics) {
+            //c1
+            if ([characteristic.UUID.UUIDString isEqualToString:@"FFA4"]) {
+                c1 = characteristic;
+            }
+            //c2
+            if ([characteristic.UUID.UUIDString isEqualToString:@"FFA3"]) {
+                c2 = characteristic;
+            }
+        }
+    }];
+    
+    [baby setBlockOnReadValueForCharacteristicAtChannel:channelOfLoadloadHistoryData block:^(CBPeripheral *peripheral, CBCharacteristic *characteristic, NSError *error) {
+        //心跳
+        [rhythm beats];
+        //c2值写进c1
+        if ([characteristic.UUID.UUIDString isEqualToString:@"FFA6"]) {
+            [device.peripheral writeValue:c2.value forCharacteristic:c1 type:CBCharacteristicWriteWithResponse];
+        }
+    }];
+
+    [rhythm setBlockOnBeatBreak:^(BabyRhythm *bry) {
+
+        //[self check] 可以具体验证下c1和c2值是否符合条件
+        //若不符合条件继续发送心跳[bry beats];
+        //若符合条件，则关闭心跳，订阅c3
+        if ([self check]) {
+            //关闭beats           
+            [baby notify:device.peripheral characteristic:c3 block:^(CBPeripheral *peripheral, CBCharacteristic *characteristics, NSError *error) {
+               //业务代码
+            }];
+ 
+        }
+        [bry beats];
+    }];
+
+
+````
+
 #链式方法
 
 ## 谓词 
@@ -388,6 +474,7 @@ step2:导入.h文件
 - BabySpeaker chanel切换的实现和处理设置characteristic通知的委托方法
 - BabyCallback 回叫函数的block和filter的model
 - BabyToy 一些工具方法
+- [BabyRhythm](#user-content-BabyRhythm) 辅助方法 
 
 # 兼容性
 - 蓝牙4.0，也叫做ble，ios6以上可以自由使用。

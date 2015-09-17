@@ -1,19 +1,66 @@
-BabyBluetooch
-
-目录：
-1-简单的使用例子和常用业务场景
-2-如何加入到你的项目中
-3-委托方法
-4-过滤器
-5-数据读、写、通知
-6-联系我
-
--下个版本
 
 
+=======================增加对perihpherlManager的支持
+=======================完善代码中英文注释和方法注释
+=======================修改babyBluetooch的子类类名
+=======================计划增加对复杂操作的支持
+> 当一系列操作后执行的方法
+
+````objc
+
+//方法声明
+-(void)until:(void (^)())step
+       then:(void(^)(CBCentralManager *manager,CBPeripheral *peripheral))then;
+-(void)until:(void (^)())step
+        step:(void (^)())step;
+//方法调用
+
+ [baby 
+     until:^() {
+        //获取characteristic
+        fetchC(characteristicc1,"ff01");
+        //characteristic write操作
+        writeC(characteristicc1,"ff01");
+        writeC(characteristicc2,characteristicc1);
+        //检查是否写成功，默认write就会检查是否写成功
+        ckeckValueEqual(characteristicc1,characteristicc2);
+        //check Block检查
+
+        
+     }
+     then:^(CBCentralManager *manager,CBPeripheral *peripheral) {
+        //do when step done
+        notity(c3,c4,onBlock());
+     }
+ ];
+
+ [baby until:^{
+        //
+    } step:^{
+        //
+    } then:^(CBCentralManager *manager, CBPeripheral *peripheral) {
+        
+  }];
+
+````
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+##草稿：
+````objc
 
 方法调用：
 //扫描设备 然后读取服务,然后读取characteristics名称和值和属性，获取characteristics对应的description的名称和值
@@ -67,3 +114,4 @@ baby.scanForPeripherals().connectToPeripheral().discoverServices().discoverChara
     return NO;
 }];
 
+````
