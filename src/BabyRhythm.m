@@ -15,7 +15,7 @@
 }
 
 
-#define beatsDefaultInterval 3;
+
 
 -(instancetype)init{
     self = [super init];
