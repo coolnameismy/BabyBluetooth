@@ -354,7 +354,7 @@ baby.scanForPeripherals().begin();
 ````
 
 ### example
-因为central读取peripheral的左右操作都是离散的，没有完成状态，但是有的时候我们需要确认相关操作完成才进行下一步操作。例如有如下的需求。先读取c1的值，然后把c2的值设为c1的值，最后开启c3的notify获取数据
+因为central对peripheral的操作是离散的，没有完成状态的。有时候我们需要确认相关操作完成才进行下一步操作。例如需求：先读取c1的值，然后将c2的值设为c1的值，最后开启c3的notify获取数据
 ````objc
 
   @implementation xxxx{
@@ -384,7 +384,7 @@ baby.scanForPeripherals().begin();
     }];
     
     [baby setBlockOnReadValueForCharacteristicAtChannel:channelOfLoadloadHistoryData block:^(CBPeripheral *peripheral, CBCharacteristic *characteristic, NSError *error) {
-        //心跳
+        //心跳，没进入方法就跳一次，超过beatsInterval的时间就会进入setBlockOnBeatBreak，我们可以通过它判断数据是否全部读取完毕。
         [rhythm beats];
         //c2值写进c1
         if ([characteristic.UUID.UUIDString isEqualToString:@"FFA6"]) {
