@@ -384,7 +384,7 @@ baby.scanForPeripherals().begin();
     }];
     
     [baby setBlockOnReadValueForCharacteristicAtChannel:channelOfLoadloadHistoryData block:^(CBPeripheral *peripheral, CBCharacteristic *characteristic, NSError *error) {
-        //心跳，没进入方法就跳一次，超过beatsInterval的时间就会进入setBlockOnBeatBreak，我们可以通过它判断数据是否全部读取完毕。
+        //心跳，每进入方法就跳一次，超过beatsInterval的时间就会进入setBlockOnBeatBreak，我们可以通过它判断数据是否全部读取完毕。
         [rhythm beats];
         //c2值写进c1
         if ([characteristic.UUID.UUIDString isEqualToString:@"FFA6"]) {
