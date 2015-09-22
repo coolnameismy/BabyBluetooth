@@ -30,11 +30,6 @@
     
     NSLog(@"viewDidLoad");
     [SVProgressHUD showInfoWithStatus:@"准备打开设备"];
-    //初始化table init table
-    self.tableView = [[UITableView alloc]initWithFrame:self.view.frame];
-    self.tableView.dataSource = self;
-    self.tableView.delegate = self;
-    [self.view addSubview:self.tableView];
     
     //初始化其他数据 init other
     peripherals = [[NSMutableArray alloc]init];
