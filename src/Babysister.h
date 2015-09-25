@@ -55,10 +55,12 @@
 -(void)scanPeripherals;
 //连接Peripherals
 -(void)connectToPeripheral:(CBPeripheral *)peripheral;
-//断开所以已连接的设备
--(void)stopConnectAllPerihperals;
+//断开设备连接
+-(void)cancelPeripheralConnection:(CBPeripheral *)peripheral;
+//断开所有已连接的设备
+-(void)cancelAllPeripheralsConnection;
 //停止扫描
--(void)stopScan;
+-(void)cancelScan;
 
 
 @end

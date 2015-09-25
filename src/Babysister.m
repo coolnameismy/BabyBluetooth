@@ -65,21 +65,41 @@
 //连接Peripherals
 -(void)connectToPeripheral:(CBPeripheral *)peripheral{
     [bleManager connectPeripheral:peripheral options:nil];
-    //
-
+    //停止扫描callback
+    if([currChannel blockOnCancelAllPeripheralsConnection]){
+        [currChannel blockOnCancelAllPeripheralsConnection](bleManager);
+    }
 }
 
-//断开所以已连接的设备
--(void)stopConnectAllPerihperals{
+
+//断开设备连接
+-(void)cancelPeripheralConnection:(CBPeripheral *)peripheral{
+    [bleManager cancelPeripheralConnection:peripheral];
+    if([currChannel blockOnCancelPeripheralConnection]){
+        [currChannel blockOnCancelPeripheralConnection](bleManager,peripheral);
+    }
+}
+
+//断开所有已连接的设备
+-(void)cancelAllPeripheralsConnection{
     for (int i=0;i<connectedPeripherals.count;i++) {
         [bleManager cancelPeripheralConnection:connectedPeripherals[i]];
     }
     connectedPeripherals = [[NSMutableArray alloc]init];
+    //停止扫描callback
+    if([currChannel blockOnCancelAllPeripheralsConnection]){
+        [currChannel blockOnCancelAllPeripheralsConnection](bleManager);
+    }
 //    NSLog(@">>> stopConnectAllPerihperals");
 }
 //停止扫描
--(void)stopScan{
+-(void)cancelScan{
     [bleManager stopScan];
+    //停止扫描callback
+    if([currChannel blockOnCancelScan]){
+        [currChannel blockOnCancelScan](bleManager);
+    }
+
 }
 
 #pragma mark -CBCentralManagerDelegate委托方法

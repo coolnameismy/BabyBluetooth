@@ -31,6 +31,8 @@ typedef void (^BBDiscoverDescriptorsForCharacteristicBlock)(CBPeripheral *periph
 typedef void (^BBReadValueForDescriptorsBlock)(CBPeripheral *peripheral,CBDescriptor *descriptor,NSError *error);
 
 
+
+
 typedef NS_ENUM(NSUInteger, BabySpeakerType) {
     BabySpeakerTypeDiscoverPeripherals,
     BabySpeakerTypeConnectedPeripheral,

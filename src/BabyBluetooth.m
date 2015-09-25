@@ -180,6 +180,38 @@
 }
 
 
+
+//babyBluettooth cancelScan方法调用后的回调
+-(void)setBlockOnCancelScanBlock:(void(^)(CBCentralManager *centralManager))block{
+    [[babySpeaker callback]setBlockOnCancelScan:block];
+}
+//babyBluettooth cancelAllPeripheralsConnectionBlock 方法调用后的回调
+-(void)setBlockOnCancelAllPeripheralsConnectionBlock:(void(^)(CBCentralManager *centralManager))block{
+    [[babySpeaker callback]setBlockOnCancelAllPeripheralsConnection:block];
+}
+//babyBluettooth cancelPeripheralConnection 方法调用后的回调
+-(void)setBlockOnCancelPeripheralConnectionBlock:(void(^)(CBCentralManager *centralManager,CBPeripheral *peripheral))block{
+    [[babySpeaker callback]setBlockOnCancelPeripheralConnection:block];
+}
+//babyBluettooth cancelScan方法调用后的回调
+-(void)setBlockOnCancelScanBlockAtChannel:(NSString *)channel
+                                    block:(void(^)(CBCentralManager *centralManager))block{
+    [[babySpeaker callbackOnChnnel:channel createWhenNotExist:YES] setBlockOnCancelScan:block];
+}
+//babyBluettooth cancelAllPeripheralsConnectionBlock 方法调用后的回调
+-(void)setBlockOnCancelAllPeripheralsConnectionBlockAtChannel:(NSString *)channel
+                                                        block:(void(^)(CBCentralManager *centralManager))block{
+    [[babySpeaker callbackOnChnnel:channel createWhenNotExist:YES] setBlockOnCancelAllPeripheralsConnection:block];
+}
+//babyBluettooth cancelPeripheralConnection 方法调用后的回调
+-(void)setBlockOnCancelPeripheralConnectionBlockAtChannel:(NSString *)channel
+                                                    block:(void(^)(CBCentralManager *centralManager,CBPeripheral *peripheral))block{
+    [[babySpeaker callbackOnChnnel:channel createWhenNotExist:YES] setBlockOnCancelPeripheralConnection:block];
+    
+}
+
+
+
 #pragma mark -链式函数
 //查找Peripherals
 -(BabyBluetooth *(^)()) scanForPeripherals{
@@ -356,8 +388,8 @@
     [self resetSeriseParmeter];
     babysister->pocket = [[NSMutableDictionary alloc]init];
     //停止扫描，断开连接
-    [babysister stopScan];
-    [babysister stopConnectAllPerihperals];
+    [babysister cancelScan];
+    [babysister cancelAllPeripheralsConnection];
 }
 
 //重置串行方法参数
@@ -456,17 +488,17 @@
 
 //断开连接
 -(void)cancelPeripheralConnection:(CBPeripheral *)peripheral{
-    [babysister->bleManager cancelPeripheralConnection:peripheral];
+    [babysister cancelPeripheralConnection:peripheral];
 }
 
 //断开所有连接
 -(void)cancelAllPeripheralsConnection{
-    [babysister stopConnectAllPerihperals];
+    [babysister cancelAllPeripheralsConnection];
 }
 
 //停止扫描
 -(void)cancelScan{
-    [babysister stopScan];
+    [babysister cancelScan];
 }
 
 //读取Characteristic的详细信息

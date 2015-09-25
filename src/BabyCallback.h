@@ -32,10 +32,17 @@ typedef void (^BBDiscoverDescriptorsForCharacteristicBlock)(CBPeripheral *periph
 //获取Descriptors的值
 typedef void (^BBReadValueForDescriptorsBlock)(CBPeripheral *peripheral,CBDescriptor *descriptor,NSError *error);
 
+//babyBluettooth cancelScanBlock方法调用后的回调
+typedef void (^BBCancelScanBlock)(CBCentralManager *centralManager);
+//babyBluettooth cancelAllPeripheralsConnection 方法调用后的回调
+typedef void (^BBCancelAllPeripheralsConnectionBlock)(CBCentralManager *centralManager);
+//babyBluettooth cancelPeripheralConnectionBlock 方法调用后的回调
+typedef void (^BBCancelPeripheralConnectionBlock)(CBCentralManager *centralManager,CBPeripheral *peripheral);
+
 
 @interface BabyCallback : NSObject
 
-//委托方法 callback block
+#pragma mark -callback block
 //设备状态改变的委托
 @property(nonatomic,strong) BBcentralManagerDidUpdateStateBlock blockOnCentralManagerDidUpdateState;
 //发现peripherals
@@ -57,9 +64,15 @@ typedef void (^BBReadValueForDescriptorsBlock)(CBPeripheral *peripheral,CBDescri
 //获取Descriptors的值
 @property(nonatomic,strong)  BBReadValueForDescriptorsBlock blockOnReadValueForDescriptors;
 
+//babyBluettooth stopScan方法调用后的回调
+@property(nonatomic,strong)  BBCancelScanBlock blockOnCancelScan;
+//babyBluettooth stopConnectAllPerihperals 方法调用后的回调
+@property(nonatomic,strong)  BBCancelAllPeripheralsConnectionBlock blockOnCancelAllPeripheralsConnection;
+//babyBluettooth cancelPeripheralConnection 方法调用后的回调
+@property(nonatomic,strong)  BBCancelPeripheralConnectionBlock blockOnCancelPeripheralConnection;
 
-//过滤器Filter
 
+#pragma mark -过滤器Filter
 //发现peripherals规则
 @property(nonatomic,strong)  BOOL (^filterOnConnetToPeripherals)(NSString *peripheralName);
 

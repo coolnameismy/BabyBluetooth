@@ -44,8 +44,10 @@ typedef NS_ENUM(NSInteger, BabyStatus) {
 
 
 
-#pragma mark -设置委托方法
-
+#pragma mark -babybluetooth的委托
+/* 
+    默认频道的委托
+ */
 //设备状态改变的委托
 -(void)setBlockOnCentralManagerDidUpdateState:(void (^)(CBCentralManager *central))block;
 //找到Peripherals的委托
@@ -64,19 +66,13 @@ typedef NS_ENUM(NSInteger, BabyStatus) {
 -(void)setBlockOnReadValueForCharacteristic:(void (^)(CBPeripheral *peripheral,CBCharacteristic *characteristic,NSError *error))block;
 //设置查找到Descriptors名称的block
 -(void)setBlockOnDiscoverDescriptorsForCharacteristic:(void (^)(CBPeripheral *peripheral,CBCharacteristic *characteristic,NSError *error))block;
-//设置读取到Descriptors值的block
--(void)setBlockOnReadValueForDescriptors:(void (^)(CBPeripheral *peripheral,CBDescriptor *descriptorNSError,NSError *error))block;
-//设置查找Peripherals的规则
--(void)setFilterOnDiscoverPeripherals:(BOOL (^)(NSString *peripheralName))filter;
-//设置连接Peripherals的规则
--(void)setFilterOnConnetToPeripherals:(BOOL (^)(NSString *peripheralName))filter;
 
-
-
-//channel
+/*
+ channel的委托
+ */
 //设备状态改变的委托
 -(void)setBlockOnCentralManagerDidUpdateStateAtChannel:(NSString *)channel
-                                                        block:(void (^)(CBCentralManager *central))block;
+                                                 block:(void (^)(CBCentralManager *central))block;
 //找到Peripherals的委托
 -(void)setBlockOnDiscoverToPeripheralsAtChannel:(NSString *)channel
                                           block:(void (^)(CBCentralManager *central,CBPeripheral *peripheral,NSDictionary *advertisementData, NSNumber *RSSI))block;
@@ -87,11 +83,11 @@ typedef NS_ENUM(NSInteger, BabyStatus) {
 
 //连接Peripherals失败的委托
 -(void)setBlockOnFailToConnectAtChannel:(NSString *)channel
-                                       block:(void (^)(CBCentralManager *central,CBPeripheral *peripheral,NSError *error))block;
+                                  block:(void (^)(CBCentralManager *central,CBPeripheral *peripheral,NSError *error))block;
 
 //断开Peripherals的连接
 -(void)setBlockOnDisconnectAtChannel:(NSString *)channel
-                                    block:(void (^)(CBCentralManager *central,CBPeripheral *peripheral,NSError *error))block;
+                               block:(void (^)(CBCentralManager *central,CBPeripheral *peripheral,NSError *error))block;
 
 //设置查找服务回叫
 -(void)setBlockOnDiscoverServicesAtChannel:(NSString *)channel
@@ -110,6 +106,18 @@ typedef NS_ENUM(NSInteger, BabyStatus) {
 -(void)setBlockOnReadValueForDescriptorsAtChannel:(NSString *)channel
                                             block:(void (^)(CBPeripheral *peripheral,CBDescriptor *descriptorNSError,NSError *error))block;
 
+
+//设置读取到Descriptors值的block
+-(void)setBlockOnReadValueForDescriptors:(void (^)(CBPeripheral *peripheral,CBDescriptor *descriptorNSError,NSError *error))block;
+
+
+#pragma mark -babybluetooth filter委托
+//设置查找Peripherals的规则
+-(void)setFilterOnDiscoverPeripherals:(BOOL (^)(NSString *peripheralName))filter;
+//设置连接Peripherals的规则
+-(void)setFilterOnConnetToPeripherals:(BOOL (^)(NSString *peripheralName))filter;
+
+
 //设置查找Peripherals的规则
 -(void)setFilterOnDiscoverPeripheralsAtChannel:(NSString *)channel
                                       filter:(BOOL (^)(NSString *peripheralName))filter;
@@ -119,7 +127,24 @@ typedef NS_ENUM(NSInteger, BabyStatus) {
                                      filter:(BOOL (^)(NSString *peripheralName))filter;
 
 
+#pragma mark -babybluetooth Special
 
+//babyBluettooth cancelScan方法调用后的回调
+-(void)setBlockOnCancelScanBlock:(void(^)(CBCentralManager *centralManager))block;
+//babyBluettooth cancelAllPeripheralsConnectionBlock 方法调用后的回调
+-(void)setBlockOnCancelAllPeripheralsConnectionBlock:(void(^)(CBCentralManager *centralManager))block;
+//babyBluettooth cancelPeripheralConnection 方法调用后的回调
+-(void)setBlockOnCancelPeripheralConnectionBlock:(void(^)(CBCentralManager *centralManager,CBPeripheral *peripheral))block;
+
+//babyBluettooth cancelScan方法调用后的回调
+-(void)setBlockOnCancelScanBlockAtChannel:(NSString *)channel
+                                         block:(void(^)(CBCentralManager *centralManager))block;
+//babyBluettooth cancelAllPeripheralsConnectionBlock 方法调用后的回调
+-(void)setBlockOnCancelAllPeripheralsConnectionBlockAtChannel:(NSString *)channel
+                                                             block:(void(^)(CBCentralManager *centralManager))block;
+//babyBluettooth cancelPeripheralConnection 方法调用后的回调
+-(void)setBlockOnCancelPeripheralConnectionBlockAtChannel:(NSString *)channel
+                                                         block:(void(^)(CBCentralManager *centralManager,CBPeripheral *peripheral))block;
 
 #pragma mark -链式函数
 //查找Peripherals

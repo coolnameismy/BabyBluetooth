@@ -18,7 +18,6 @@
 //    UITableView *tableView;
     NSMutableArray *peripherals;
     BabyBluetooth *baby;
-    
 }
 
 @end
