@@ -17,32 +17,8 @@
 #import "BabyRhythm.h"
 
 
-typedef NS_ENUM(NSInteger, BabyStatus) {
-    BabyStatusStop = 0,
-    BabyStatusRuning
-};
-
-
 
 @interface BabyBluetooth : NSObject
-
-#pragma mark -属性 property
-
-
-
-//从设备数组
-@property (strong, nonatomic) NSMutableDictionary *peripherals;
-
-//通知、委托、block处理
-//@property (strong, nonatomic) Babysister *babysister;
-
-
-
-//超时时间
-#define BLEtTimeout 30
-
-
-
 
 #pragma mark -babybluetooth的委托
 /* 
@@ -128,7 +104,6 @@ typedef NS_ENUM(NSInteger, BabyStatus) {
 
 
 #pragma mark -babybluetooth Special
-
 //babyBluettooth cancelScan方法调用后的回调
 -(void)setBlockOnCancelScanBlock:(void(^)(CBCentralManager *centralManager))block;
 //babyBluettooth cancelAllPeripheralsConnectionBlock 方法调用后的回调
@@ -151,7 +126,6 @@ typedef NS_ENUM(NSInteger, BabyStatus) {
 -(BabyBluetooth *(^)()) scanForPeripherals;
 //连接Peripherals
 -(BabyBluetooth *(^)()) connectToPeripherals;
-
 //发现Services
 -(BabyBluetooth *(^)()) discoverServices;
 //获取Characteristics
@@ -162,52 +136,35 @@ typedef NS_ENUM(NSInteger, BabyStatus) {
 -(BabyBluetooth *(^)()) discoverDescriptorsForCharacteristic;
 //获取Descriptors的值
 -(BabyBluetooth *(^)()) readValueForDescriptors;
-
 //开始执行
 -(BabyBluetooth *(^)()) begin;
-
-//开始并执行sec秒后停止
-//-(BabyBluetooth *(^)()) begin:(int)sec;
-
 //sec秒后停止
 -(BabyBluetooth *(^)(int sec)) stop;
-
 //持有对象
 -(BabyBluetooth *(^)(id obj)) having;
-
 //切换委托的频道
 -(BabyBluetooth *(^)(NSString *channel)) channel;
-
 //谓词，返回self
 -(BabyBluetooth *) and;
 -(BabyBluetooth *) then;
 -(BabyBluetooth *) with;
 
 #pragma mark -工具方法
-
 //断开连接
 -(void)cancelPeripheralConnection:(CBPeripheral *)peripheral;
-
 //断开所有连接
 -(void)cancelAllPeripheralsConnection;
-
 //停止扫描
 -(void)cancelScan;
-
 //更新Characteristics的值
 -(BabyBluetooth *(^)(CBPeripheral *peripheral,CBCharacteristic *characteristic)) characteristicDetails;
-
 //设置characteristic的notify
 -(void)notify:(CBPeripheral *)peripheral
 characteristic:(CBCharacteristic *)characteristic
          block:(void(^)(CBPeripheral *peripheral, CBCharacteristic *characteristics, NSError *error))block;
-
 //取消characteristic的notify
 -(void)cancelNotify:(CBPeripheral *)peripheral
      characteristic:(CBCharacteristic *)characteristic;
-
-
-
 
 
 /**
@@ -215,7 +172,6 @@ characteristic:(CBCharacteristic *)characteristic
  * @return BabyBluetooth共享实例
  */
 +(instancetype)shareBabyBluetooth;
-
 
 @end
 
