@@ -256,7 +256,7 @@
 		E1807E651B6CA29100E99C63 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0630;
+				LastUpgradeCheck = 0700;
 				ORGANIZATIONNAME = "刘彦玮";
 				TargetAttributes = {
 					E1807E6C1B6CA29100E99C63 = {
@@ -390,6 +390,7 @@
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_NO_COMMON_BLOCKS = YES;
@@ -458,6 +459,7 @@
 				INFOPLIST_FILE = BabyBluetoothAppDemo/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.jumppo.app.demo.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = BabyBluetoothAppDemo;
 				PROVISIONING_PROFILE = "";
 			};
@@ -472,6 +474,7 @@
 				INFOPLIST_FILE = BabyBluetoothAppDemo/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.jumppo.app.demo.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = BabyBluetoothAppDemo;
 				PROVISIONING_PROFILE = "";
 			};
@@ -491,6 +494,7 @@
 				);
 				INFOPLIST_FILE = BabyBluetoothAppDemoTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.jumppo.app.demo.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = BabyBluetoothAppDemoTests;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/BabyBluetoothAppDemo.app/BabyBluetoothAppDemo";
 			};
@@ -506,6 +510,7 @@
 				);
 				INFOPLIST_FILE = BabyBluetoothAppDemoTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.jumppo.app.demo.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = BabyBluetoothAppDemoTests;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/BabyBluetoothAppDemo.app/BabyBluetoothAppDemo";
 			};
