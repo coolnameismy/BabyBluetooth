@@ -9,6 +9,7 @@
 //
 
 #import <CoreBluetooth/CoreBluetooth.h>
+#import "BabyOptions.h"
 
 
 //设备状态改变的委托
@@ -38,7 +39,6 @@ typedef void (^BBCancelScanBlock)(CBCentralManager *centralManager);
 typedef void (^BBCancelAllPeripheralsConnectionBlock)(CBCentralManager *centralManager);
 //babyBluettooth cancelPeripheralConnectionBlock 方法调用后的回调
 typedef void (^BBCancelPeripheralConnectionBlock)(CBCentralManager *centralManager,CBPeripheral *peripheral);
-
 
 @interface BabyCallback : NSObject
 
@@ -70,12 +70,12 @@ typedef void (^BBCancelPeripheralConnectionBlock)(CBCentralManager *centralManag
 @property(nonatomic,strong)  BBCancelAllPeripheralsConnectionBlock blockOnCancelAllPeripheralsConnection;
 //babyBluettooth cancelPeripheralConnection 方法调用后的回调
 @property(nonatomic,strong)  BBCancelPeripheralConnectionBlock blockOnCancelPeripheralConnection;
-
+//babyBluettooth 蓝牙使用的参数参数
+@property(nonatomic,strong) BabyOptions *babyOptions;
 
 #pragma mark -过滤器Filter
 //发现peripherals规则
 @property(nonatomic,strong)  BOOL (^filterOnConnetToPeripherals)(NSString *peripheralName);
-
 //连接peripherals规则
 @property(nonatomic,strong)  BOOL (^filterOnDiscoverPeripherals)(NSString *peripheralName);
 

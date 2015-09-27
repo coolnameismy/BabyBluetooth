@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		E13AD4D51BB78EF900D61C84 /* BabyOptions.m in Sources */ = {isa = PBXBuildFile; fileRef = E13AD4D41BB78EF900D61C84 /* BabyOptions.m */; settings = {ASSET_TAGS = (); }; };
 		E1807E731B6CA29100E99C63 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = E1807E721B6CA29100E99C63 /* main.m */; };
 		E1807E761B6CA29100E99C63 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = E1807E751B6CA29100E99C63 /* AppDelegate.m */; };
 		E1807E791B6CA29100E99C63 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E1807E781B6CA29100E99C63 /* ViewController.m */; };
@@ -39,6 +40,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		E13AD4D31BB78EF900D61C84 /* BabyOptions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BabyOptions.h; sourceTree = "<group>"; };
+		E13AD4D41BB78EF900D61C84 /* BabyOptions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BabyOptions.m; sourceTree = "<group>"; };
 		E1807E6D1B6CA29100E99C63 /* BabyBluetoothAppDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BabyBluetoothAppDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E1807E711B6CA29100E99C63 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		E1807E721B6CA29100E99C63 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -186,6 +189,8 @@
 				E1DEF5101B98857B0005C9F2 /* BabyToy.m */,
 				F0644E4F1BA7B1C600AA0F9F /* BabyRhythm.h */,
 				F0644E501BA7B1C600AA0F9F /* BabyRhythm.m */,
+				E13AD4D31BB78EF900D61C84 /* BabyOptions.h */,
+				E13AD4D41BB78EF900D61C84 /* BabyOptions.m */,
 			);
 			name = BabyBluetoothLib;
 			path = ../../src;
@@ -262,6 +267,11 @@
 					E1807E6C1B6CA29100E99C63 = {
 						CreatedOnToolsVersion = 6.3.1;
 						DevelopmentTeam = 9V9UW57Z55;
+						SystemCapabilities = {
+							com.apple.BackgroundModes = {
+								enabled = 0;
+							};
+						};
 					};
 					E1807E851B6CA29100E99C63 = {
 						CreatedOnToolsVersion = 6.3.1;
@@ -323,6 +333,7 @@
 				E1807E761B6CA29100E99C63 /* AppDelegate.m in Sources */,
 				E1807E731B6CA29100E99C63 /* main.m in Sources */,
 				F05F7BB21B7442B50051C68A /* CharacteristicViewController.m in Sources */,
+				E13AD4D51BB78EF900D61C84 /* BabyOptions.m in Sources */,
 				E1DEF5181B98857B0005C9F2 /* BabySpeaker.m in Sources */,
 				E1DEF5161B98857B0005C9F2 /* BabyCallback.m in Sources */,
 				F0644E511BA7B1C600AA0F9F /* BabyRhythm.m in Sources */,

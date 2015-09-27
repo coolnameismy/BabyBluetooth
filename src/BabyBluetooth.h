@@ -42,6 +42,8 @@
 -(void)setBlockOnReadValueForCharacteristic:(void (^)(CBPeripheral *peripheral,CBCharacteristic *characteristic,NSError *error))block;
 //设置查找到Descriptors名称的block
 -(void)setBlockOnDiscoverDescriptorsForCharacteristic:(void (^)(CBPeripheral *peripheral,CBCharacteristic *characteristic,NSError *error))block;
+//设置读取到Descriptors值的block
+-(void)setBlockOnReadValueForDescriptors:(void (^)(CBPeripheral *peripheral,CBDescriptor *descriptorNSError,NSError *error))block;
 
 /*
  channel的委托
@@ -83,10 +85,6 @@
                                             block:(void (^)(CBPeripheral *peripheral,CBDescriptor *descriptorNSError,NSError *error))block;
 
 
-//设置读取到Descriptors值的block
--(void)setBlockOnReadValueForDescriptors:(void (^)(CBPeripheral *peripheral,CBDescriptor *descriptorNSError,NSError *error))block;
-
-
 #pragma mark -babybluetooth filter委托
 //设置查找Peripherals的规则
 -(void)setFilterOnDiscoverPeripherals:(BOOL (^)(NSString *peripheralName))filter;
@@ -120,6 +118,21 @@
 //babyBluettooth cancelPeripheralConnection 方法调用后的回调
 -(void)setBlockOnCancelPeripheralConnectionBlockAtChannel:(NSString *)channel
                                                          block:(void(^)(CBCentralManager *centralManager,CBPeripheral *peripheral))block;
+
+//设置蓝牙运行时的参数
+-(void)setBabyOptionsWithScanForPeripheralsWithOptions:(NSDictionary *) scanForPeripheralsWithOptions
+                          connectPeripheralWithOptions:(NSDictionary *) connectPeripheralWithOptions
+                        scanForPeripheralsWithServices:(NSArray *)scanForPeripheralsWithServices
+                                  discoverWithServices:(NSArray *)discoverWithServices
+                           discoverWithCharacteristics:(NSArray *)discoverWithCharacteristics;
+//设置蓝牙运行时的参数
+-(void)setBabyOptionsAtChannel:(NSString *)channel
+ scanForPeripheralsWithOptions:(NSDictionary *) scanForPeripheralsWithOptions
+  connectPeripheralWithOptions:(NSDictionary *) connectPeripheralWithOptions
+scanForPeripheralsWithServices:(NSArray *)scanForPeripheralsWithServices
+          discoverWithServices:(NSArray *)discoverWithServices
+   discoverWithCharacteristics:(NSArray *)discoverWithCharacteristics;
+
 
 #pragma mark -链式函数
 //查找Peripherals

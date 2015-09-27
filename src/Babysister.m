@@ -7,11 +7,6 @@
 //  Created by 刘彦玮 on 15/7/30.
 //  Copyright (c) 2015年 刘彦玮. All rights reserved.
 //
-/*
- 后续更新：
- 1：补全所有委托转block
- 2: 每个事件增加对NSNotificationCenter 的支持
- */
 
 #import "Babysister.h"
 #import "BabyCallback.h"
@@ -60,11 +55,12 @@
 
 //扫描Peripherals
 -(void)scanPeripherals{
-    [bleManager scanForPeripheralsWithServices:nil options:nil];
+    [bleManager scanForPeripheralsWithServices:[currChannel babyOptions].scanForPeripheralsWithServices options:[currChannel babyOptions].scanForPeripheralsWithOptions];
 }
 //连接Peripherals
 -(void)connectToPeripheral:(CBPeripheral *)peripheral{
-    [bleManager connectPeripheral:peripheral options:nil];
+    
+    [bleManager connectPeripheral:peripheral options:[currChannel babyOptions].connectPeripheralWithOptions];
     //停止扫描callback
     if([currChannel blockOnCancelAllPeripheralsConnection]){
         [currChannel blockOnCancelAllPeripheralsConnection](bleManager);
@@ -162,7 +158,7 @@
     //处理连接设备
     if(needConnectPeripheral){
         if ([currChannel filterOnConnetToPeripherals](peripheral.name)) {
-            [bleManager connectPeripheral:peripheral options:nil];
+            [bleManager connectPeripheral:peripheral options:[currChannel babyOptions].connectPeripheralWithOptions];
             //开一个定时器监控连接超时的情况
             connectTimer = [NSTimer scheduledTimerWithTimeInterval:5.0f target:self selector:@selector(disconnect:) userInfo:peripheral repeats:NO];
         }
@@ -191,7 +187,7 @@
     //扫描外设的服务
     if (needDiscoverServices) {
         [peripheral setDelegate:self];
-        [peripheral discoverServices:nil];
+        [peripheral discoverServices:[currChannel babyOptions].discoverWithServices];
     }
     
 }
@@ -233,7 +229,7 @@
     //discover characteristics
     if (needDiscoverCharacteristics) {
         for (CBService *service in peripheral.services) {
-            [peripheral discoverCharacteristics:nil forService:service];
+            [peripheral discoverCharacteristics:[currChannel babyOptions].discoverWithCharacteristics forService:service];
         }
     }
 }

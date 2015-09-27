@@ -140,6 +140,20 @@
     [baby setBlockOnCancelScanBlock:^(CBCentralManager *centralManager) {
         NSLog(@"setBlockOnCancelScanBlock");
     }];
+    
+    /*设置babyOptions
+        
+        参数分别使用在下面这几个地方，若不使用参数则传nil
+        - [centralManager scanForPeripheralsWithServices:scanForPeripheralsWithServices options:scanForPeripheralsWithOptions];
+        - [centralManager connectPeripheral:peripheral options:connectPeripheralWithOptions];
+        - [peripheral discoverServices:discoverWithServices];
+        - [peripheral discoverCharacteristics:discoverWithCharacteristics forService:service];
+        
+        该方法支持channel版本:
+            [baby setBabyOptionsAtChannel:<#(NSString *)#> scanForPeripheralsWithOptions:<#(NSDictionary *)#> connectPeripheralWithOptions:<#(NSDictionary *)#> scanForPeripheralsWithServices:<#(NSArray *)#> discoverWithServices:<#(NSArray *)#> discoverWithCharacteristics:<#(NSArray *)#>]
+     */
+    [baby setBabyOptionsWithScanForPeripheralsWithOptions:nil connectPeripheralWithOptions:nil scanForPeripheralsWithServices:nil discoverWithServices:nil discoverWithCharacteristics:nil];
+    
 }
 
 #pragma mark -UIViewController 方法

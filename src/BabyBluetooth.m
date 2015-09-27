@@ -84,6 +84,15 @@
 -(void)setBlockOnReadValueForDescriptors:(void (^)(CBPeripheral *peripheral,CBDescriptor *descriptorNSError,NSError *error))block{
     [[babySpeaker callback]setBlockOnReadValueForDescriptors:block];
 }
+//设置蓝牙使用的参数参数
+-(void)setBabyOptionsWithScanForPeripheralsWithOptions:(NSDictionary *) scanForPeripheralsWithOptions
+                          connectPeripheralWithOptions:(NSDictionary *) connectPeripheralWithOptions
+                        scanForPeripheralsWithServices:(NSArray *)scanForPeripheralsWithServices
+                                  discoverWithServices:(NSArray *)discoverWithServices
+                           discoverWithCharacteristics:(NSArray *)discoverWithCharacteristics{
+    BabyOptions *option = [[BabyOptions alloc]initWithscanForPeripheralsWithOptions:scanForPeripheralsWithOptions connectPeripheralWithOptions:connectPeripheralWithOptions scanForPeripheralsWithServices:scanForPeripheralsWithServices discoverWithServices:discoverWithServices discoverWithCharacteristics:discoverWithCharacteristics];
+    [[babySpeaker callback]setBabyOptions:option];
+}
 
 /*
  channel的委托
@@ -144,6 +153,17 @@
     [[babySpeaker callbackOnChnnel:channel createWhenNotExist:YES] setBlockOnReadValueForDescriptors:block];
 }
 
+//设置蓝牙运行时的参数
+-(void)setBabyOptionsAtChannel:(NSString *)channel
+ scanForPeripheralsWithOptions:(NSDictionary *) scanForPeripheralsWithOptions
+  connectPeripheralWithOptions:(NSDictionary *) connectPeripheralWithOptions
+    scanForPeripheralsWithServices:(NSArray *)scanForPeripheralsWithServices
+          discoverWithServices:(NSArray *)discoverWithServices
+   discoverWithCharacteristics:(NSArray *)discoverWithCharacteristics{
+    
+    BabyOptions *option = [[BabyOptions alloc]initWithscanForPeripheralsWithOptions:scanForPeripheralsWithOptions connectPeripheralWithOptions:connectPeripheralWithOptions scanForPeripheralsWithServices:scanForPeripheralsWithServices discoverWithServices:discoverWithServices discoverWithCharacteristics:discoverWithCharacteristics];
+     [[babySpeaker callbackOnChnnel:channel createWhenNotExist:YES]setBabyOptions:option];
+}
 
 #pragma mark -babybluetooth filter委托
 //设置查找Peripherals的规则
