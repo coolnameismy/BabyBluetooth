@@ -22,7 +22,13 @@
         //pocket
         pocket = [[NSMutableDictionary alloc]init];
         connectedPeripherals = [[NSMutableArray alloc]init];
-        bleManager = [[CBCentralManager alloc]initWithDelegate:self queue:dispatch_get_main_queue()];
+        NSDictionary *options = [NSDictionary dictionaryWithObjectsAndKeys:
+                                 //蓝牙power没打开时alert提示框
+                                 [NSNumber numberWithBool:YES],CBCentralManagerOptionShowPowerAlertKey,
+                                 //重设centralManager恢复的IdentifierKey
+                                 @"babyBluetoothRestore",CBCentralManagerOptionRestoreIdentifierKey,
+                                 nil];
+        bleManager = [[CBCentralManager alloc]initWithDelegate:self queue:nil options:options];
         
         //监听通知
         [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(scanForPeripheralNotifyReceived:) name:@"scanForPeripherals" object:nil];
@@ -59,12 +65,7 @@
 }
 //连接Peripherals
 -(void)connectToPeripheral:(CBPeripheral *)peripheral{
-    
     [bleManager connectPeripheral:peripheral options:[currChannel babyOptions].connectPeripheralWithOptions];
-    //停止扫描callback
-    if([currChannel blockOnCancelAllPeripheralsConnection]){
-        [currChannel blockOnCancelAllPeripheralsConnection](bleManager);
-    }
 }
 
 
@@ -130,6 +131,10 @@
     if([currChannel blockOnCentralManagerDidUpdateState]){
         [currChannel blockOnCentralManagerDidUpdateState](central);
     }
+}
+
+- (void)centralManager:(CBCentralManager *)central willRestoreState:(NSDictionary<NSString *, id> *)dict{
+
 }
 
 //扫描到Peripherals

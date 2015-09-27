@@ -114,6 +114,14 @@
         NSLog(@"setBlockOnBeatsOver call");
     }];
     
+    //扫描选项->CBCentralManagerScanOptionAllowDuplicatesKey:忽略同一个Peripheral端的多个发现事件被聚合成一个发现事件
+    NSDictionary *scanForPeripheralsWithOptions = @{CBCentralManagerScanOptionAllowDuplicatesKey:@YES};
+    NSDictionary *connectOptions = @{CBConnectPeripheralOptionNotifyOnConnectionKey:@YES,
+                                     CBConnectPeripheralOptionNotifyOnDisconnectionKey:@YES,
+                                     CBConnectPeripheralOptionNotifyOnNotificationKey:@YES};
+    
+    //连接设备->
+    [baby setBabyOptionsAtChannel:channelOnPeropheralView scanForPeripheralsWithOptions:scanForPeripheralsWithOptions connectPeripheralWithOptions:connectOptions scanForPeripheralsWithServices:nil discoverWithServices:nil discoverWithCharacteristics:nil];
     
 }
 -(void)loadData{
