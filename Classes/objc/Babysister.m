@@ -19,15 +19,26 @@
 -(instancetype)init{
     self = [super init];
     if(self){
-        //pocket
-        pocket = [[NSMutableDictionary alloc]init];
-        connectedPeripherals = [[NSMutableArray alloc]init];
+        
+        
+#if  __IPHONE_OS_VERSION_MIN_REQUIRED > __IPHONE_6_0
         NSDictionary *options = [NSDictionary dictionaryWithObjectsAndKeys:
                                  //蓝牙power没打开时alert提示框
                                  [NSNumber numberWithBool:YES],CBCentralManagerOptionShowPowerAlertKey,
                                  //重设centralManager恢复的IdentifierKey
                                  @"babyBluetoothRestore",CBCentralManagerOptionRestoreIdentifierKey,
                                  nil];
+
+#else
+        NSDictionary *options = [NSDictionary dictionaryWithObjectsAndKeys:
+                                 //蓝牙power没打开时alert提示框
+                                 [NSNumber numberWithBool:YES],CBCentralManagerOptionShowPowerAlertKey,
+                                 nil];
+#endif
+        
+        //pocket
+        pocket = [[NSMutableDictionary alloc]init];
+        connectedPeripherals = [[NSMutableArray alloc]init];
         bleManager = [[CBCentralManager alloc]initWithDelegate:self queue:nil options:options];
         
         //监听通知
