@@ -4,7 +4,57 @@
 =======================完善代码中英文注释和方法注释
 =======================去掉无用的变量
 =======================增加对notify的支持
+
 =======================增加对后台模式的支持
+后台模式：
+app进入background后，任然可以使用蓝牙设备，可以进行数据数据交互，扫描，连接等操作。为了支持后台模式，需要修改Info.plist文件
+Info.plist文件添加Required background modes键，并添加下面2个item
+1：bluetooth-central(App communicates using CoreBluetooth)
+2：bluetooth-peripheral(App shares data using CoreBluetooth)
+
+=======================babyBluetooth连接，扫描参数的支持
+
+==============================================================================
+
+Central Manager Initialization Options
+//注意：只有声明了Bluetooch的background权限后，init才能加上Options，否则会出错。
+NSString *const  CBCentralManagerOptionShowPowerAlertKey :如果蓝牙设备没打开，是否给一个Alert提示
+NSString *const  CBCentralManagerOptionRestoreIdentifierKey：蓝牙设备restore的id
+  
+
+Peripheral Scanning Options
+NSString *const  CBCentralManagerScanOptionAllowDuplicatesKey :忽略同一个Peripheral端的多个发现事件被聚合成一个发现事件
+NSString *const  CBCentralManagerScanOptionSolicitedServiceUUIDsKey: 给一个数组，然后扫描指定数组中的服务???
+-----------------------------http://stackoverflow.com/questions/21785509/purpose-of-cbcentralmanagerscanoptionsolicitedserviceuuidskey---------------------------------
+As I understand, service solicitation means that the peripheral can indicate what services it will want to use on the central when the connection happens. For example, you have an ANCS peripheral (a smart watch or whatever) that advertises itself and adds the ANCS service as solicited service to the advertisement. This will indicate to the central that this peripheral will look for the ANCS service once connected. In case of iOS this results that the user can connect to the peripheral from the Bluetooth devices list without running any apps.
+
+In the current Core Bluetooth implementation this is not really feasible between two iOS devices. But if you initialize a CBPeripheralManager with the solicited services (no need to advertise those) and use a CBCentralManager to scan for peripherals that want to use those solicited services, then in the end the scanned peripheral will probably be able to use the services provided by your CBPeripheralManager once the connection is established. Two iOS devices cannot do this at the moment, as there is no API for it to add the solicited services to the advertisement. (Connecting back from the peripheral side may be possible if the retrieveConnectedPeripheralsWithServices method on the CBCentralManager returned the other end as CBPeripheral if it has its CBPeripheralManager initialized.)
+
+Related SO question: Bluetooth LE and ANCS in iOS 
+Referenced blog post: http://blog.punchthrough.com/post/63658238857/the-apple-notification-center-service-or-wtf-is
+
+Bluetooth spec V4.0 Vol 3. Part C. Section 11.1.9
+
+11.1.9 Service Solicitation
+
+One of the Service Solicitation AD types may be sent to invite other devices that expose one or more of the services specified in the Service Solicitation data to connect. The device should be in the undirected connectable mode and in one of the discoverable modes. This enables a Central providing one or more of these services to connect to this Peripheral, so that the Peripheral can use the services on the Central.
+------------------------------
+
+---------用法示例--------------
+[bleManager scanForPeripheralsWithServices:nil options:@{CBCentralManagerScanOptionAllowDuplicatesKey:@YES}];
+[bleManager scanForPeripheralsWithServices:nil options:@{CBCentralManagerScanOptionAllowDuplicatesKey:@YES,CBCentralManagerScanOptionSolicitedServiceUUIDsKey:services}];
+ ----------------------------
+ 
+Peripheral Connection Options
+NSString *const  CBConnectPeripheralOptionNotifyOnConnectionKey :当应用挂起时，如果有一个连接成功时，如果我们想要系统为指定的peripheral显示一个提示时，就使用这个key值。
+
+NSString *const  CBConnectPeripheralOptionNotifyOnDisconnectionKey :当应用挂起时，如果连接断开时，如果我们想要系统为指定的peripheral显示一个断开连接的提示时，就使用这个key值。
+
+NSString *const  CBConnectPeripheralOptionNotifyOnNotificationKey:
+当应用挂起时，使用该key值表示只要接收到给定peripheral端的通知就显示一个提
+
+
+
 =======================修改babyBluetooch的子类类名
 =======================计划增加对复杂操作的支持
 =======================拆分readme到wiki
