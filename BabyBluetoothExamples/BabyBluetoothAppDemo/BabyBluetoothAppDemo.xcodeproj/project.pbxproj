@@ -193,7 +193,7 @@
 				E13AD4D41BB78EF900D61C84 /* BabyOptions.m */,
 			);
 			name = BabyBluetoothLib;
-			path = ../../src;
+			path = ../../Classes/objc;
 			sourceTree = "<group>";
 		};
 		F05F7BA31B7339E90051C68A /* Model */ = {
