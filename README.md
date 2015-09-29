@@ -18,7 +18,7 @@ The easiest way to use Bluetooth (BLE )in ios,even bady can use. 简单易用的
 
 * [QuickExample](#user-content-QuickExample)
 * [如何安装](#如何安装)
-* [如何使用](/wiki)
+* [如何使用](https://github.com/coolnameismy/BabyBluetooth/wiki)
 * [示例程序说明](#示例程序说明)
 * [兼容性](#兼容性)
 * [后期更新](#后期更新)
@@ -79,7 +79,7 @@ step2:导入.h文件
 coming soon
 
 # 如何使用
-[wiki](/wiki)
+[用法请见wiki](https://github.com/coolnameismy/BabyBluetooth/wiki)
 
 # 示例程序说明
 
@@ -106,8 +106,16 @@ coming soon
 
 
 # 后期更新
-- 现在block的委托方法还没涉及到CoreBluetooth的全部方法，后续会把全部方法补充进去
-- 增加对外设模式使用的支持（目前主要是中心模式）
+- 增加babytooth对notifu的支持
+- 完善代码的中英文注释
+- 添加对后台运行的支持
+- 增加对外设模式使用的支持（app作为蓝牙设备提供服务）
+- 支持pod
+- 优化babyBluetooch的子类类名
+- 蓝牙桩程序 stub app of osx
+- babybluetooth测试程序
+- 支持断线重连
+- 增加对rssi的支持
 
 已经更新的版本说明，请在wiki中查看
 
