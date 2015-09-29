@@ -116,11 +116,16 @@
     
     //扫描选项->CBCentralManagerScanOptionAllowDuplicatesKey:忽略同一个Peripheral端的多个发现事件被聚合成一个发现事件
     NSDictionary *scanForPeripheralsWithOptions = @{CBCentralManagerScanOptionAllowDuplicatesKey:@YES};
-    NSDictionary *connectOptions = @{CBConnectPeripheralOptionNotifyOnConnectionKey:@YES,
-                                     CBConnectPeripheralOptionNotifyOnDisconnectionKey:@YES,
-                                     CBConnectPeripheralOptionNotifyOnNotificationKey:@YES};
-    
-    //连接设备->
+    /*连接选项->
+     CBConnectPeripheralOptionNotifyOnConnectionKey :当应用挂起时，如果有一个连接成功时，如果我们想要系统为指定的peripheral显示一个提示时，就使用这个key值。
+     CBConnectPeripheralOptionNotifyOnDisconnectionKey :当应用挂起时，如果连接断开时，如果我们想要系统为指定的peripheral显示一个断开连接的提示时，就使用这个key值。
+     CBConnectPeripheralOptionNotifyOnNotificationKey:
+     当应用挂起时，使用该key值表示只要接收到给定peripheral端的通知就显示一个提
+    */
+     NSDictionary *connectOptions = @{CBConnectPeripheralOptionNotifyOnConnectionKey:@YES,
+     CBConnectPeripheralOptionNotifyOnDisconnectionKey:@YES,
+     CBConnectPeripheralOptionNotifyOnNotificationKey:@YES};
+     
     [baby setBabyOptionsAtChannel:channelOnPeropheralView scanForPeripheralsWithOptions:scanForPeripheralsWithOptions connectPeripheralWithOptions:connectOptions scanForPeripheralsWithServices:nil discoverWithServices:nil discoverWithCharacteristics:nil];
     
 }
