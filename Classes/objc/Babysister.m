@@ -36,10 +36,19 @@
                                  nil];
 #endif
         
+        NSArray *backgroundModes = [[[NSBundle mainBundle] infoDictionary]objectForKey:@"UIBackgroundModes"];
+        if ([backgroundModes containsObject:@"bluetooth-central"]) {
+           //后台模式
+           bleManager = [[CBCentralManager alloc]initWithDelegate:self queue:nil options:options];
+        }else{
+           //非后台模式
+           bleManager = [[CBCentralManager alloc]initWithDelegate:self queue:nil];
+        }
+        
         //pocket
         pocket = [[NSMutableDictionary alloc]init];
         connectedPeripherals = [[NSMutableArray alloc]init];
-        bleManager = [[CBCentralManager alloc]initWithDelegate:self queue:nil options:options];
+       
         
         //监听通知
         [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(scanForPeripheralNotifyReceived:) name:@"scanForPeripherals" object:nil];
