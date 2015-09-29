@@ -25,7 +25,7 @@ The easiest way to use Bluetooth (BLE )in ios,even bady can use. 简单易用的
 * [蓝牙学习资源](#蓝牙学习资源)
 * [期待](#期待)
 
-## QuickExample
+# QuickExample
 ```objc
 
 //导入.h文件和系统蓝牙库的头文件
@@ -67,7 +67,7 @@ The easiest way to use Bluetooth (BLE )in ios,even bady can use. 简单易用的
 # 如何安装
 
 ##1 手动安装
-step1:将项目src文件夹中的文件直接拖入你的项目中即可
+step1:将项目Classes/objc 文件夹中的文件直接拖入你的项目中即可
 
 step2:导入.h文件
 
@@ -106,7 +106,7 @@ coming soon
 
 
 # 后期更新
-- 增加babytooth对notifu的支持
+- 增加babytooth对notify的支持
 - 完善代码的中英文注释
 - 添加对后台运行的支持
 - 增加对外设模式使用的支持（app作为蓝牙设备提供服务）
