@@ -1,0 +1,279 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		F03BCB8F1BBB8F1500D62A8E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F03BCB8E1BBB8F1500D62A8E /* AppDelegate.swift */; };
+		F03BCB911BBB8F1500D62A8E /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F03BCB901BBB8F1500D62A8E /* ViewController.swift */; };
+		F03BCB931BBB8F1500D62A8E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F03BCB921BBB8F1500D62A8E /* Assets.xcassets */; };
+		F03BCB961BBB8F1500D62A8E /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F03BCB941BBB8F1500D62A8E /* Main.storyboard */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		F03BCB8B1BBB8F1500D62A8E /* BluetoothStubOnOSX.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BluetoothStubOnOSX.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		F03BCB8E1BBB8F1500D62A8E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		F03BCB901BBB8F1500D62A8E /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		F03BCB921BBB8F1500D62A8E /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		F03BCB951BBB8F1500D62A8E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		F03BCB971BBB8F1500D62A8E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		F03BCB881BBB8F1500D62A8E /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		F03BCB821BBB8F1500D62A8E = {
+			isa = PBXGroup;
+			children = (
+				F03BCB8D1BBB8F1500D62A8E /* BluetoothStubOnOSX */,
+				F03BCB8C1BBB8F1500D62A8E /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		F03BCB8C1BBB8F1500D62A8E /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				F03BCB8B1BBB8F1500D62A8E /* BluetoothStubOnOSX.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		F03BCB8D1BBB8F1500D62A8E /* BluetoothStubOnOSX */ = {
+			isa = PBXGroup;
+			children = (
+				F03BCB8E1BBB8F1500D62A8E /* AppDelegate.swift */,
+				F03BCB901BBB8F1500D62A8E /* ViewController.swift */,
+				F03BCB921BBB8F1500D62A8E /* Assets.xcassets */,
+				F03BCB941BBB8F1500D62A8E /* Main.storyboard */,
+				F03BCB971BBB8F1500D62A8E /* Info.plist */,
+			);
+			path = BluetoothStubOnOSX;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		F03BCB8A1BBB8F1500D62A8E /* BluetoothStubOnOSX */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = F03BCB9A1BBB8F1500D62A8E /* Build configuration list for PBXNativeTarget "BluetoothStubOnOSX" */;
+			buildPhases = (
+				F03BCB871BBB8F1500D62A8E /* Sources */,
+				F03BCB881BBB8F1500D62A8E /* Frameworks */,
+				F03BCB891BBB8F1500D62A8E /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = BluetoothStubOnOSX;
+			productName = BluetoothStubOnOSX;
+			productReference = F03BCB8B1BBB8F1500D62A8E /* BluetoothStubOnOSX.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		F03BCB831BBB8F1500D62A8E /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0700;
+				ORGANIZATIONNAME = liuyanwei;
+				TargetAttributes = {
+					F03BCB8A1BBB8F1500D62A8E = {
+						CreatedOnToolsVersion = 7.0;
+					};
+				};
+			};
+			buildConfigurationList = F03BCB861BBB8F1500D62A8E /* Build configuration list for PBXProject "BluetoothStubOnOSX" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = F03BCB821BBB8F1500D62A8E;
+			productRefGroup = F03BCB8C1BBB8F1500D62A8E /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				F03BCB8A1BBB8F1500D62A8E /* BluetoothStubOnOSX */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		F03BCB891BBB8F1500D62A8E /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F03BCB931BBB8F1500D62A8E /* Assets.xcassets in Resources */,
+				F03BCB961BBB8F1500D62A8E /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		F03BCB871BBB8F1500D62A8E /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F03BCB911BBB8F1500D62A8E /* ViewController.swift in Sources */,
+				F03BCB8F1BBB8F1500D62A8E /* AppDelegate.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		F03BCB941BBB8F1500D62A8E /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				F03BCB951BBB8F1500D62A8E /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		F03BCB981BBB8F1500D62A8E /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "-";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.10;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = macosx;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		F03BCB991BBB8F1500D62A8E /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "-";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.10;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = macosx;
+			};
+			name = Release;
+		};
+		F03BCB9B1BBB8F1500D62A8E /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				COMBINE_HIDPI_IMAGES = YES;
+				INFOPLIST_FILE = BluetoothStubOnOSX/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.id4test.liu.BluetoothStubOnOSX;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		F03BCB9C1BBB8F1500D62A8E /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				COMBINE_HIDPI_IMAGES = YES;
+				INFOPLIST_FILE = BluetoothStubOnOSX/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.id4test.liu.BluetoothStubOnOSX;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		F03BCB861BBB8F1500D62A8E /* Build configuration list for PBXProject "BluetoothStubOnOSX" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				F03BCB981BBB8F1500D62A8E /* Debug */,
+				F03BCB991BBB8F1500D62A8E /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		F03BCB9A1BBB8F1500D62A8E /* Build configuration list for PBXNativeTarget "BluetoothStubOnOSX" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				F03BCB9B1BBB8F1500D62A8E /* Debug */,
+				F03BCB9C1BBB8F1500D62A8E /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = F03BCB831BBB8F1500D62A8E /* Project object */;
+}

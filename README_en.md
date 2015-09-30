@@ -102,7 +102,7 @@ functionality
 
 # plan for update
  
-- add support for notifiy event in babyBluetooth
+- add support for NSNotification event in babyBluetooth
 - improve englist code note 
 - add support for app run in background
 - add support for peripheralManager(let app be a peripheral!)

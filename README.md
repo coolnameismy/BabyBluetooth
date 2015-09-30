@@ -106,7 +106,7 @@ coming soon
 
 
 # 后期更新
-- 增加babytooth对notify的支持
+- 增加babytooth对NSNotification事件的支持
 - 完善代码的中英文注释
 - 添加对后台运行的支持
 - 增加对外设模式使用的支持（app作为蓝牙设备提供服务）
