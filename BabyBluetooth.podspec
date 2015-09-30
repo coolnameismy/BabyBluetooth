@@ -16,7 +16,7 @@ Pod::Spec.new do |s|
   #
 
   s.name         = "BabyBluetooth"
-  s.version      = "0.3"
+  s.version      = "0.3.0"
   s.summary      = "bluetooth library on ios/osx"
 
   s.description  = <<-DESC
@@ -29,7 +29,7 @@ Pod::Spec.new do |s|
                    DESC
 
   s.homepage     = "https://github.com/coolnameismy/BabyBluetooth"
-  # s.screenshots  = "http://images.jumppo.com/uploads/BabyBluetooth_logo.png", ""
+  s.screenshots  = "http://images.jumppo.com/uploads/BabyBluetooth_logo.png", ""
 
 
   # ―――  Spec License  ――――――――――――――――――――――――――――――――――――――――――――――――――――――――――― #
@@ -78,7 +78,7 @@ Pod::Spec.new do |s|
   #  Supports git, hg, bzr, svn and HTTP.
   #
 
-  s.source       = { :git => "https://github.com/coolnameismy/BabyBluetooth.git", :tag => "0.3" }
+  s.source       = { :git => "https://github.com/coolnameismy/BabyBluetooth.git", :tag => "0.3.0" }
 
 
   # ――― Source Code ―――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――― #
