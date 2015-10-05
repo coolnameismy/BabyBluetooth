@@ -9,7 +9,7 @@ The easiest way to use Bluetooth (BLE )in ios,even bady can use. 简单易用的
 - 链式方法体，代码更简洁、优雅。
 - 通过channel切换区分委托调用，并方便切换
 
-当前版本v0.2
+当前版本 v0.3.0
 
 详细文档请参考wiki The full documentation of the project is available on its wiki.
 # [english readme link,please click it!](https://github.com/coolnameismy/BabyBluetooth/blob/master/README_en.md)
@@ -18,7 +18,7 @@ The easiest way to use Bluetooth (BLE )in ios,even bady can use. 简单易用的
 
 * [QuickExample](#user-content-QuickExample)
 * [如何安装](#如何安装)
-* [如何使用](https://github.com/coolnameismy/BabyBluetooth/wiki)
+* [如何使用](#如何使用)
 * [示例程序说明](#示例程序说明)
 * [兼容性](#兼容性)
 * [后期更新](#后期更新)
@@ -96,6 +96,11 @@ coming soon
 功能：
 - 1：扫描周围设备、连接设备、显示characteristic，读取characteristic的value，和descriptors以及Descriptors对应的value的委托设置，并使用nslog打印信息。
 
+**BabyBluetoothExamples/BluetoothStubOnOSX** :一个mac os程序，该程序可以作为蓝牙外设使用，解决学习蓝牙时没有外设可用的囧境，并且可以作为peripheral model模式的学习示例。改程序用swift编码。
+
+功能：
+- 1：作为蓝牙外设使用，可以被发现，连接，读写，订阅
+- 2：提供1个service，包含了3个characteristic，分别具有读、读写、订阅功能
 
 # 兼容性
 - 蓝牙4.0，也叫做ble，ios6以上可以自由使用。
@@ -108,7 +113,6 @@ coming soon
 # 后期更新
 - 增加babytooth对NSNotification事件的支持
 - 完善代码的中英文注释
-- 添加对后台运行的支持
 - 增加对外设模式使用的支持（app作为蓝牙设备提供服务）
 - 支持pod
 - 优化babyBluetooch的子类类名

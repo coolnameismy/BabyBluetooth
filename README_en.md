@@ -10,14 +10,14 @@ The easiest way to use Bluetooth (BLE )in ios,even bady can use .  CoreBluetooth
 - call methor in a serial，it's  simple and graceful.
 - using channel switch blcoks in a group.
 
-current verison v0.2
+current verison v0.3.0
 
 # Contents
 
  
 * [QuickExample](#user-content-QuickExample)
 * [how to install](#user-content-how-to-install)
-* [how to use](https://github.com/coolnameismy/BabyBluetooth/wiki)
+* [how to use](#user-content-how-to-use)
 * [demo explain](#user-content-demo-explain)
 * [Compatibility](#user-content-Compatibility)
 * [plan for update](#user-content-plan-for-update)
@@ -95,6 +95,12 @@ functionality
 functionality
 - 1：scanfor peripheral, conncet peripheral 、read characteristic，read characteristic 's value,discover descriptors and descriptors's value，the message all in nslog,this app none UI
 
+**BabyBluetoothExamples/BluetoothStubOnOSX** :mac os app 。it can act a bluetooth peripheral.this app solve that learning Bluetooch but without periphera。and it also can be a demo and learing peripheral model program 。it write by swift
+
+functionality
+- 1：be a bluetooch peripheral，and can be scaned ,connected,writed,readed,subscibe by CBCentralManager
+- 2：provide a service and contian three characteristic,each has one of read,write,subscibe permission
+
 # compatibility
 - Bluetooch 4.0，another name is BLE，ios6 free access
 - both os and ios
@@ -104,7 +110,6 @@ functionality
  
 - add support for NSNotification event in babyBluetooth
 - improve englist code note 
-- add support for app run in background
 - add support for peripheralManager(let app be a peripheral!)
 - pod install
 - add stub application to example,be act as peripheral for test
