@@ -17,6 +17,7 @@
 @interface ViewController (){
 //    UITableView *tableView;
     NSMutableArray *peripherals;
+    NSMutableArray *peripheralsAD;
     BabyBluetooth *baby;
 }
 
@@ -32,6 +33,7 @@
     
     //初始化其他数据 init other
     peripherals = [[NSMutableArray alloc]init];
+    peripheralsAD = [[NSMutableArray alloc]init];
    
     //初始化BabyBluetooth 蓝牙库
     baby = [BabyBluetooth shareBabyBluetooth];
@@ -67,7 +69,7 @@
     //设置扫描到设备的委托
     [baby setBlockOnDiscoverToPeripherals:^(CBCentralManager *central, CBPeripheral *peripheral, NSDictionary *advertisementData, NSNumber *RSSI) {
         NSLog(@"搜索到了设备:%@",peripheral.name);
-        [weakSelf insertTableView:peripheral];
+        [weakSelf insertTableView:peripheral advertisementData:advertisementData];
     }];
     //设置设备连接成功的委托
     [baby setBlockOnConnected:^(CBCentralManager *central, CBPeripheral *peripheral) {
@@ -163,12 +165,13 @@
 
 #pragma mark -UIViewController 方法
 //插入table数据
--(void)insertTableView:(CBPeripheral *)peripheral{
+-(void)insertTableView:(CBPeripheral *)peripheral advertisementData:(NSDictionary *)advertisementData{
     if(![peripherals containsObject:peripheral]){
         NSMutableArray *indexPaths = [[NSMutableArray alloc] init];
         NSIndexPath *indexPath = [NSIndexPath indexPathForRow:peripherals.count inSection:0];
         [indexPaths addObject:indexPath];
         [peripherals addObject:peripheral];
+        [peripheralsAD addObject:advertisementData];
         [self.tableView insertRowsAtIndexPaths:indexPaths withRowAnimation:UITableViewRowAnimationAutomatic];
     }
 }
@@ -184,14 +187,29 @@
 
     UITableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:@"cell"];
     CBPeripheral *peripheral = [peripherals objectAtIndex:indexPath.row];
+    NSDictionary *ad = [peripheralsAD objectAtIndex:indexPath.row];
+    
     if (!cell) {
         cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:@"cell"];
         cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
     }
+
     //peripheral名称 peripheral name
-    cell.textLabel.text = peripheral.name;
+    NSString *localName = [NSString stringWithFormat:@"%@",[ad objectForKey:@"kCBAdvDataLocalName"]];
+    if (!localName) {
+        localName = peripheral.name;
+    }
+    cell.textLabel.text = localName;
     //信号和服务
     cell.detailTextLabel.text = @"读取中...";
+    //找到cell并修改detaisText
+    NSArray *serviceUUIDs = [ad objectForKey:@"kCBAdvDataServiceUUIDs"];
+    if (serviceUUIDs) {
+        cell.detailTextLabel.text = [NSString stringWithFormat:@"%d个service",serviceUUIDs.count];
+    }else{
+        cell.detailTextLabel.text = [NSString stringWithFormat:@"0个service"];
+    }
+    
     //次线程读取RSSI和服务数量
     
     return cell;
