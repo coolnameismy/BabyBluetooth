@@ -3,11 +3,16 @@
 
 The easiest way to use Bluetooth (BLE )in ios,even bady can use. 简单易用的蓝牙库，基于CoreBluetooth的封装，并兼容ios和mac osx.
 
+**为什么使用它？**
 
-- 基于原生CoreBluetooth框架封装的轻量级的开源库，可以帮你更简单地使用CoreBluetooth API。
-- CoreBluetooth所有方法都是通过委托完成，代码冗余且顺序凌乱。BabyBluetooth使用block方法，可以重新按照功能和顺序组织代码，并提供许多方法减少蓝牙开发过程中的代码量。
-- 链式方法体，代码更简洁、优雅。
-- 通过channel切换区分委托调用，并方便切换
+- 1：基于原生CoreBluetooth框架封装的轻量级的开源库，可以帮你更简单地使用CoreBluetooth API。
+- 2：CoreBluetooth所有方法都是通过委托完成，代码冗余且顺序凌乱。BabyBluetooth使用block方法，可以重新按照功能和顺序组织代码，并提供许多方法减少蓝牙开发过程中的代码量。
+- 3:链式方法体，代码更简洁、优雅。
+- 4:通过channel切换区分委托调用，并方便切换
+- 5:便利的工具方法
+- 6:完善的文档，且项目处于活跃状态，不断的更新中
+- 7:github上star最多的纯Bluetooch类库（非PhoneGap和SensorTag项目）
+- 8:包含多种类型的demo和ios蓝牙开发教程
 
 当前版本 v0.3.0
 
@@ -30,6 +35,8 @@ The easiest way to use Bluetooth (BLE )in ios,even bady can use. 简单易用的
 
 //导入.h文件和系统蓝牙库的头文件
 #import "BabyBluetooth.h"
+//定义变量
+BabyBluetooth *baby;
 
 -(void)viewDidLoad {
     [super viewDidLoad];
@@ -52,15 +59,13 @@ The easiest way to use Bluetooth (BLE )in ios,even bady can use. 简单易用的
    
     //过滤器
     //设置查找设备的过滤器
-    [baby setDiscoverPeripheralsFilter:^BOOL(NSString *peripheralsFilter) {
+    [baby setFilterOnDiscoverPeripherals:^BOOL(NSString *peripheralName) {
         //设置查找规则是名称大于1 ， the search rule is peripheral.name length > 1
-        if (peripheralsFilter.length >1) {
+        if (peripheralName.length >1) {
             return YES;
         }
         return NO;
     }];
-    
-
 }
   
 ```
@@ -76,7 +81,15 @@ step2:导入.h文件
 ````
 
 ##2 cocoapods
-coming soon
+step1:add the following line to your Podfile:
+````
+pod 'BabyBluetooth','~> 0.3.0'
+````
+
+step2:导入.h文件
+````objc
+#import "BabyBluetooth.h"
+````
 
 # 如何使用
 [用法请见wiki](https://github.com/coolnameismy/BabyBluetooth/wiki)
@@ -114,12 +127,11 @@ coming soon
 - 增加babytooth对NSNotification事件的支持
 - 完善代码的中英文注释
 - 增加对外设模式使用的支持（app作为蓝牙设备提供服务）
-- 支持pod
 - 优化babyBluetooch的子类类名
-- 蓝牙桩程序 stub app of osx
 - babybluetooth测试程序
 - 支持断线重连
 - 增加对rssi的支持
+- 增加对Carthage Install的支持
 
 已经更新的版本说明，请在wiki中查看
 

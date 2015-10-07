@@ -5,10 +5,14 @@ The easiest way to use Bluetooth (BLE )in ios,even bady can use .  CoreBluetooth
 
 #feature
 
-- CoreBluetooth wrap，simple and eary for use.
-- CoreBluetooth is dependency on delegate ,and most times,call method at delegate then go into delegate,and over and over,it's messy.BabyBluetooth favor to using block.
-- call methor in a serial，it's  simple and graceful.
-- using channel switch blcoks in a group.
+- 1:CoreBluetooth wrap，simple and eary for use.
+- 2:CoreBluetooth is dependency on delegate ,and most times,call method at delegate then go into delegate,and over and over,it's messy.BabyBluetooth favor to using block.
+- 3:call methor in a serial，it's  simple and graceful.
+- 4:using channel switch blcoks in a group.
+- 5:convenience tools class
+- 6:comprehensive documentation and active project
+- 7:more star library for ios bluetooch in github（not PhoneGap and SensorTag）
+- 8:include demo and tutorial
 
 current verison v0.3.0
 
@@ -26,39 +30,39 @@ current verison v0.3.0
 # QuickExample
 ```objc
 
-//import header file
+//导入.h文件和系统蓝牙库的头文件
 #import "BabyBluetooth.h"
+//定义变量
+BabyBluetooth *baby;
 
 -(void)viewDidLoad {
     [super viewDidLoad];
 
-    //get babyBluetooth instance
+    //初始化BabyBluetooth 蓝牙库
     baby = [BabyBluetooth shareBabyBluetooth];
-    //setting delegate
+    //设置蓝牙委托
     [self babyDelegate];
-    //just use it，no need wait CBCentralManagerStatePoweredOn
+    //设置委托后直接可以使用，无需等待CBCentralManagerStatePoweredOn状态
     baby.scanForPeripherals().begin();
 }
 
-//setting delegate
+//设置蓝牙委托
 -(void)babyDelegate{
 
-    //delegate of DiscoverToPeripherals
+    //设置扫描到设备的委托
     [baby setBlockOnDiscoverToPeripherals:^(CBCentralManager *central, CBPeripheral *peripheral, NSDictionary *advertisementData, NSNumber *RSSI) {
-        NSLog(@"discovered peripheral:%@",peripheral.name);
+        NSLog(@"搜索到了设备:%@",peripheral.name);
     }];
    
-    //Filter
-    //setting filter of discoverPeripheral
-    [baby setDiscoverPeripheralsFilter:^BOOL(NSString *peripheralsFilter) {
+    //过滤器
+    //设置查找设备的过滤器
+    [baby setFilterOnDiscoverPeripherals:^BOOL(NSString *peripheralName) {
         //设置查找规则是名称大于1 ， the search rule is peripheral.name length > 1
-        if (peripheralsFilter.length >1) {
+        if (peripheralName.length >1) {
             return YES;
         }
         return NO;
     }];
-    
-
 }
   
 ```
@@ -75,7 +79,15 @@ step2:import .h
 ````
 
 ##2 cocoapods
-to be soon
+step1:add the following line to your Podfile:
+````
+pod 'BabyBluetooth','~> 0.3.0'
+````
+
+step2:导入.h文件
+````objc
+#import "BabyBluetooth.h"
+````
 
 # how to use
 [please see wiki](https://github.com/coolnameismy/BabyBluetooth/wiki)
@@ -111,7 +123,6 @@ functionality
 - add support for NSNotification event in babyBluetooth
 - improve englist code note 
 - add support for peripheralManager(let app be a peripheral!)
-- pod install
 - add stub application to example,be act as peripheral for test
 - babybluetooth test application
 - support rssi to read
