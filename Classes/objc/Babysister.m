@@ -153,7 +153,7 @@
     }
 }
 
-- (void)centralManager:(CBCentralManager *)central willRestoreState:(NSDictionary<NSString *, id> *)dict{
+- (void)centralManager:(CBCentralManager *)central willRestoreState:(NSDictionary *)dict{
 
 }
 

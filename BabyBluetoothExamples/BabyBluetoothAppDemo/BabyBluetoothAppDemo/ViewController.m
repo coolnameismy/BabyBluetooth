@@ -194,18 +194,21 @@
         cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
     }
 
-    //peripheral名称 peripheral name
-    NSString *localName = [NSString stringWithFormat:@"%@",[ad objectForKey:@"kCBAdvDataLocalName"]];
-    if (!localName) {
+    //peripheral的显示名称,优先用kCBAdvDataLocalName的定义，若没有再使用peripheral name
+    NSString *localName;
+    if ([ad objectForKey:@"kCBAdvDataLocalName"]) {
+        localName = [NSString stringWithFormat:@"%@",[ad objectForKey:@"kCBAdvDataLocalName"]];
+    }else{
         localName = peripheral.name;
     }
+    
     cell.textLabel.text = localName;
     //信号和服务
     cell.detailTextLabel.text = @"读取中...";
     //找到cell并修改detaisText
     NSArray *serviceUUIDs = [ad objectForKey:@"kCBAdvDataServiceUUIDs"];
     if (serviceUUIDs) {
-        cell.detailTextLabel.text = [NSString stringWithFormat:@"%d个service",serviceUUIDs.count];
+        cell.detailTextLabel.text = [NSString stringWithFormat:@"%lu个service",(unsigned long)serviceUUIDs.count];
     }else{
         cell.detailTextLabel.text = [NSString stringWithFormat:@"0个service"];
     }

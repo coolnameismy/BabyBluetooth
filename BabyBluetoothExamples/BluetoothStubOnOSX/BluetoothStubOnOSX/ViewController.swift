@@ -15,7 +15,7 @@ class ViewController: NSViewController,CBPeripheralManagerDelegate{
 
 //MARK:- static parameter
 
-    let localNameKey =  "myBluetoothStub";
+    let localNameKey =  "BabyBluetoothStubOnOSX";
     let ServiceUUID =  "FFF0";
     let notiyCharacteristicUUID =  "FFF1";
     let readCharacteristicUUID =  "FFF2";
@@ -81,8 +81,8 @@ class ViewController: NSViewController,CBPeripheralManagerDelegate{
     func peripheralManager(peripheral: CBPeripheralManager, didAddService service: CBService, error: NSError?) {
         peripheralManager.startAdvertising(
             [
-                CBAdvertisementDataServiceUUIDsKey : [CBUUID(string: ServiceUUID)],
-                CBAdvertisementDataLocalNameKey : localNameKey
+                CBAdvertisementDataServiceUUIDsKey : [CBUUID(string: ServiceUUID)]
+                ,CBAdvertisementDataLocalNameKey : localNameKey
             ]
         )
     }

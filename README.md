@@ -142,6 +142,7 @@ step2:导入.h文件
 - [ios蓝牙开发（四）BabyBluetooth蓝牙库介绍](http://liuyanwei.jumppo.com/2015/09/07/ios-BLE-4.html)
 - 暂未完成-ios蓝牙开发（五）BabyBluetooth实现原理
 - 待定...
+- [官方CoreBuetooth支持页](https://developer.apple.com/bluetooth)
 
 qq交流群：426603940
 
