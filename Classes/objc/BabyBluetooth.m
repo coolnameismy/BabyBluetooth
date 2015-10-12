@@ -321,9 +321,7 @@
         //扫描后连接
         if (babysister->needScanForPeripherals) {
             //开始扫描peripherals
-            if(babysister->needScanForPeripherals){
-                [babysister scanPeripherals];
-            }
+            [babysister scanPeripherals];
         }
         //直接连接
         else{

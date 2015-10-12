@@ -75,9 +75,9 @@ typedef void (^BBCancelPeripheralConnectionBlock)(CBCentralManager *centralManag
 
 #pragma mark -过滤器Filter
 //发现peripherals规则
-@property(nonatomic,strong)  BOOL (^filterOnConnetToPeripherals)(NSString *peripheralName);
-//连接peripherals规则
 @property(nonatomic,strong)  BOOL (^filterOnDiscoverPeripherals)(NSString *peripheralName);
+//连接peripherals规则
+@property(nonatomic,strong)  BOOL (^filterOnConnetToPeripherals)(NSString *peripheralName);
 
 
 @end
