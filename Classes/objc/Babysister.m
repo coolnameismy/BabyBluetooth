@@ -57,6 +57,7 @@
 
     }
     return  self;
+    
 }
 
 
@@ -165,14 +166,11 @@
     //日志
     //NSLog(@"当扫描到设备:%@",peripheral.name);
    
-    //设备添加到q列表
-    [self addPeripheral:peripheral];
     //发出通知
     [[NSNotificationCenter defaultCenter]postNotificationName:@"didDiscoverPeripheral"
                                                        object:nil
                                                      userInfo:@{@"central":central,@"peripheral":peripheral,@"advertisementData":advertisementData,@"RSSI":RSSI}];
 
-    
     //扫描到设备callback
     if([currChannel blockOnDiscoverPeripherals]){
         if ([currChannel filterOnDiscoverPeripherals](peripheral.name)) {
@@ -201,7 +199,7 @@
     
     //NSLog(@">>>连接到名称为（%@）的设备-成功",peripheral.name);
     [connectTimer invalidate];//停止时钟
-    [connectedPeripherals addObject:peripheral];
+    [self addPeripheral:peripheral];
     
     //执行回叫
     //扫描到设备callback
@@ -229,7 +227,7 @@
 //Peripherals断开连接
 - (void)centralManager:(CBCentralManager *)central didDisconnectPeripheral:(CBPeripheral *)peripheral error:(NSError *)error{
 //    NSLog(@">>>外设连接断开连接 %@: %@\n", [peripheral name], [error localizedDescription]);
-    [connectedPeripherals removeObject:peripheral];
+    [self deletePeripheral:peripheral];
     if ([currChannel blockOnDisconnect]) {
         [currChannel blockOnDisconnect](central,peripheral,error);
     }
@@ -381,21 +379,26 @@
 #pragma mark -设备list管理
 
 -(void)addPeripheral:(CBPeripheral *)peripheral{
-    if(![peripherals objectForKey:peripheral.name] && ![peripheral.name isEqualToString:@""] ){
-        [peripherals setObject:peripheral forKey:peripheral.name];
+   if (![connectedPeripherals containsObject:peripheral]) {
+       [connectedPeripherals addObject:peripheral];
     }
 }
 
--(void)deletePeripheral:(NSString *)peripheralName{
-    [peripherals removeObjectForKey:peripheralName];
+-(void)deletePeripheral:(CBPeripheral *)peripheral{
+    [connectedPeripherals removeObject:peripheral];
 }
 
--(CBPeripheral *)findPeripheral:(NSString *)peripheralName{
-    return [peripherals objectForKey:peripheralName];
+-(CBPeripheral *)findConnectedPeripheral:(NSString *)peripheralName{
+    for (CBPeripheral *p in connectedPeripherals) {
+        if (p.name == peripheralName) {
+            return p;
+        }
+    }
+    return nil;
 }
 
--(NSMutableDictionary *)findPeripherals{
-    return peripherals;
+-(NSArray *)findConnectedPeripherals{
+    return connectedPeripherals;
 }
 
 

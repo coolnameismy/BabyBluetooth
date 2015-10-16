@@ -179,6 +179,11 @@ characteristic:(CBCharacteristic *)characteristic
 -(void)cancelNotify:(CBPeripheral *)peripheral
      characteristic:(CBCharacteristic *)characteristic;
 
+//获取当前连接的peripherals
+-(NSArray *)findConnectedPeripherals;
+
+//获取当前连接的peripheral
+-(CBPeripheral *)findConnectedPeripheral:(NSString *)peripheralName;
 
 /**
  * 单例构造方法

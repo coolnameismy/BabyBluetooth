@@ -508,6 +508,16 @@ characteristic:(CBCharacteristic *)characteristic
 }
 
 
+//获取当前连接的peripherals
+-(NSArray *)findConnectedPeripherals{
+     return [babysister findConnectedPeripherals];
+}
+
+//获取当前连接的peripheral
+-(CBPeripheral *)findConnectedPeripheral:(NSString *)peripheralName{
+     return [babysister findConnectedPeripheral:peripheralName];
+}
+
 
 @end
 

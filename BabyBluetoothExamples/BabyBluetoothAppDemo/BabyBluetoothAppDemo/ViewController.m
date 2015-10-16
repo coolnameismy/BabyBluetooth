@@ -71,18 +71,6 @@
         NSLog(@"搜索到了设备:%@",peripheral.name);
         [weakSelf insertTableView:peripheral advertisementData:advertisementData];
     }];
-    //设置设备连接成功的委托
-    [baby setBlockOnConnected:^(CBCentralManager *central, CBPeripheral *peripheral) {
-        NSLog(@"设备：%@--连接成功",peripheral.name);
-    }];
-    //设置设备连接失败的委托
-    [baby setBlockOnFailToConnect:^(CBCentralManager *central, CBPeripheral *peripheral, NSError *error) {
-        NSLog(@"设备：%@--连接失败",peripheral.name);
-    }];
-    //设置设备断开连接的委托
-    [baby setBlockOnDisconnect:^(CBCentralManager *central, CBPeripheral *peripheral, NSError *error) {
-        NSLog(@"设备：%@--断开连接",peripheral.name);
-    }];
     
     //设置发现设备的Services的委托
     [baby setBlockOnDiscoverServices:^(CBPeripheral *peripheral, NSError *error) {
@@ -161,6 +149,8 @@
     //连接设备->
 //    [baby setBabyOptionsWithScanForPeripheralsWithOptions:scanForPeripheralsWithOptions connectPeripheralWithOptions:nil scanForPeripheralsWithServices:nil discoverWithServices:nil discoverWithCharacteristics:nil];
     
+    
+
 }
 
 #pragma mark -UIViewController 方法

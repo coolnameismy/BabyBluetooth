@@ -46,7 +46,7 @@
     BabySpeaker *babySpeaker;
     
 @private
-    NSMutableDictionary *peripherals;
+ 
    
 }
 
@@ -62,6 +62,11 @@
 //停止扫描
 -(void)cancelScan;
 
+//获取当前连接的peripherals
+-(NSArray *)findConnectedPeripherals;
+
+//获取当前连接的peripheral
+-(CBPeripheral *)findConnectedPeripheral:(NSString *)peripheralName;
 
 @end
 

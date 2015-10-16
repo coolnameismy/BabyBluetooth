@@ -33,7 +33,7 @@
     //导航右侧菜单
     UIButton *navRightBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     [navRightBtn setFrame:CGRectMake(0, 0, 30, 30)];
-    [navRightBtn setTitle:@"刷新" forState:UIControlStateNormal];
+    [navRightBtn setTitle:@"😸" forState:UIControlStateNormal];
     [navRightBtn.titleLabel setTextColor:[UIColor blackColor]];
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]initWithCustomView:navRightBtn];
     [navRightBtn addTarget:self action:@selector(navRightBtnClick:) forControlEvents:UIControlEventTouchUpInside];
@@ -44,7 +44,9 @@
 -(void)navRightBtnClick:(id)sender{
     NSLog(@"navRightBtnClick");
 //    [self.tableView reloadData];
-    [self readPlantAssistantData];
+//    [self readPlantAssistantData];
+    NSArray *peripherals = [baby findConnectedPeripherals];
+    NSLog(@"peripherals is :%@",peripherals);
 }
 
 //退出时断开连接
@@ -61,9 +63,20 @@
 
     
     //设置设备连接成功的委托,同一个baby对象，使用不同的channel切换委托回调
-
     [baby setBlockOnConnectedAtChannel:channelOnPeropheralView block:^(CBCentralManager *central, CBPeripheral *peripheral) {
         [SVProgressHUD showInfoWithStatus:[NSString stringWithFormat:@"设备：%@--连接成功",peripheral.name]];
+    }];
+    
+    //设置设备连接失败的委托
+    [baby setBlockOnFailToConnectAtChannel:channelOnPeropheralView block:^(CBCentralManager *central, CBPeripheral *peripheral, NSError *error) {
+        NSLog(@"设备：%@--连接失败",peripheral.name);
+        [SVProgressHUD showInfoWithStatus:[NSString stringWithFormat:@"设备：%@--连接失败",peripheral.name]];
+    }];
+
+    //设置设备断开连接的委托
+    [baby setBlockOnDisconnectAtChannel:channelOnPeropheralView block:^(CBCentralManager *central, CBPeripheral *peripheral, NSError *error) {
+        NSLog(@"设备：%@--断开连接",peripheral.name);
+        [SVProgressHUD showInfoWithStatus:[NSString stringWithFormat:@"设备：%@--断开失败",peripheral.name]];
     }];
     
     //设置发现设备的Services的委托
@@ -97,6 +110,7 @@
     [baby setBlockOnReadValueForDescriptorsAtChannel:channelOnPeropheralView block:^(CBPeripheral *peripheral, CBDescriptor *descriptor, NSError *error) {
         NSLog(@"Descriptor name:%@ value is:%@",descriptor.characteristic.UUID, descriptor.value);
     }];
+    
     
     //设置beats break委托
     [rhythm setBlockOnBeatsBreak:^(BabyRhythm *bry) {
