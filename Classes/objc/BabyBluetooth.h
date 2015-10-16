@@ -185,6 +185,9 @@ characteristic:(CBCharacteristic *)characteristic
 //获取当前连接的peripheral
 -(CBPeripheral *)findConnectedPeripheral:(NSString *)peripheralName;
 
+//获取当前corebluetooth的centralManager对象
+-(CBCentralManager *)centralManager;
+
 /**
  * 单例构造方法
  * @return BabyBluetooth共享实例

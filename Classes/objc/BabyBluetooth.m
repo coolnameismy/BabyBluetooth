@@ -518,6 +518,11 @@ characteristic:(CBCharacteristic *)characteristic
      return [babysister findConnectedPeripheral:peripheralName];
 }
 
+//获取当前corebluetooth的centralManager对象
+-(CBCentralManager *)centralManager{
+    return babysister->bleManager;
+}
+
 
 @end
 
