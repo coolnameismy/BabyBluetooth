@@ -37,8 +37,6 @@ typedef void (^BBReadValueForDescriptorsBlock)(CBPeripheral *peripheral,CBDescri
 typedef void (^BBCancelScanBlock)(CBCentralManager *centralManager);
 //babyBluettooth cancelAllPeripheralsConnection 方法调用后的回调
 typedef void (^BBCancelAllPeripheralsConnectionBlock)(CBCentralManager *centralManager);
-//babyBluettooth cancelPeripheralConnectionBlock 方法调用后的回调
-typedef void (^BBCancelPeripheralConnectionBlock)(CBCentralManager *centralManager,CBPeripheral *peripheral);
 
 @interface BabyCallback : NSObject
 
@@ -68,8 +66,6 @@ typedef void (^BBCancelPeripheralConnectionBlock)(CBCentralManager *centralManag
 @property(nonatomic,strong)  BBCancelScanBlock blockOnCancelScan;
 //babyBluettooth stopConnectAllPerihperals 方法调用后的回调
 @property(nonatomic,strong)  BBCancelAllPeripheralsConnectionBlock blockOnCancelAllPeripheralsConnection;
-//babyBluettooth cancelPeripheralConnection 方法调用后的回调
-@property(nonatomic,strong)  BBCancelPeripheralConnectionBlock blockOnCancelPeripheralConnection;
 //babyBluettooth 蓝牙使用的参数参数
 @property(nonatomic,strong) BabyOptions *babyOptions;
 

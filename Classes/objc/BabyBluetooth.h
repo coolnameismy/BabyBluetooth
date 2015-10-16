@@ -24,17 +24,17 @@
 /* 
     默认频道的委托
  */
-//设备状态改变的委托
+//设备状态改变的block
 -(void)setBlockOnCentralManagerDidUpdateState:(void (^)(CBCentralManager *central))block;
-//找到Peripherals的委托
+//找到Peripherals的block
 -(void)setBlockOnDiscoverToPeripherals:(void (^)(CBCentralManager *central,CBPeripheral *peripheral,NSDictionary *advertisementData, NSNumber *RSSI))block;
-//连接Peripherals成功的委托
+//连接Peripherals成功的block
 -(void)setBlockOnConnected:(void (^)(CBCentralManager *central,CBPeripheral *peripheral))block;
-//连接Peripherals失败的委托
+//连接Peripherals失败的block
 -(void)setBlockOnFailToConnect:(void (^)(CBCentralManager *central,CBPeripheral *peripheral,NSError *error))block;
-//断开Peripherals的连接
+//断开Peripherals的连接的block
 -(void)setBlockOnDisconnect:(void (^)(CBCentralManager *central,CBPeripheral *peripheral,NSError *error))block;
-//设置查找服务回叫
+//设置查找服务的block
 -(void)setBlockOnDiscoverServices:(void (^)(CBPeripheral *peripheral,NSError *error))block;
 //设置查找到Characteristics的block
 -(void)setBlockOnDiscoverCharacteristics:(void (^)(CBPeripheral *peripheral,CBService *service,NSError *error))block;
@@ -48,26 +48,26 @@
 /*
  channel的委托
  */
-//设备状态改变的委托
+//设备状态改变的block
 -(void)setBlockOnCentralManagerDidUpdateStateAtChannel:(NSString *)channel
                                                  block:(void (^)(CBCentralManager *central))block;
-//找到Peripherals的委托
+//找到Peripherals的block
 -(void)setBlockOnDiscoverToPeripheralsAtChannel:(NSString *)channel
                                           block:(void (^)(CBCentralManager *central,CBPeripheral *peripheral,NSDictionary *advertisementData, NSNumber *RSSI))block;
 
-//连接Peripherals成功的委托
+//连接Peripherals成功的block
 -(void)setBlockOnConnectedAtChannel:(NSString *)channel
                               block:(void (^)(CBCentralManager *central,CBPeripheral *peripheral))block;
 
-//连接Peripherals失败的委托
+//连接Peripherals失败的block
 -(void)setBlockOnFailToConnectAtChannel:(NSString *)channel
                                   block:(void (^)(CBCentralManager *central,CBPeripheral *peripheral,NSError *error))block;
 
-//断开Peripherals的连接
+//断开Peripherals的连接的block
 -(void)setBlockOnDisconnectAtChannel:(NSString *)channel
                                block:(void (^)(CBCentralManager *central,CBPeripheral *peripheral,NSError *error))block;
 
-//设置查找服务回叫
+//设置查找服务的block
 -(void)setBlockOnDiscoverServicesAtChannel:(NSString *)channel
                                      block:(void (^)(CBPeripheral *peripheral,NSError *error))block;
 
@@ -104,20 +104,15 @@
 #pragma mark -babybluetooth Special
 //babyBluettooth cancelScan方法调用后的回调
 -(void)setBlockOnCancelScanBlock:(void(^)(CBCentralManager *centralManager))block;
-//babyBluettooth cancelAllPeripheralsConnectionBlock 方法调用后的回调
+//babyBluettooth cancelAllPeripheralsConnectionBlock 方法执行后并且全部设备断开后的回调
 -(void)setBlockOnCancelAllPeripheralsConnectionBlock:(void(^)(CBCentralManager *centralManager))block;
-//babyBluettooth cancelPeripheralConnection 方法调用后的回调
--(void)setBlockOnCancelPeripheralConnectionBlock:(void(^)(CBCentralManager *centralManager,CBPeripheral *peripheral))block;
 
 //babyBluettooth cancelScan方法调用后的回调
 -(void)setBlockOnCancelScanBlockAtChannel:(NSString *)channel
                                          block:(void(^)(CBCentralManager *centralManager))block;
-//babyBluettooth cancelAllPeripheralsConnectionBlock 方法调用后的回调
+//babyBluettooth cancelAllPeripheralsConnectionBlock 方法执行后并且全部设备断开后的回调
 -(void)setBlockOnCancelAllPeripheralsConnectionBlockAtChannel:(NSString *)channel
                                                              block:(void(^)(CBCentralManager *centralManager))block;
-//babyBluettooth cancelPeripheralConnection 方法调用后的回调
--(void)setBlockOnCancelPeripheralConnectionBlockAtChannel:(NSString *)channel
-                                                         block:(void(^)(CBCentralManager *centralManager,CBPeripheral *peripheral))block;
 
 //设置蓝牙运行时的参数
 -(void)setBabyOptionsWithScanForPeripheralsWithOptions:(NSDictionary *) scanForPeripheralsWithOptions

@@ -194,10 +194,6 @@
 -(void)setBlockOnCancelAllPeripheralsConnectionBlock:(void(^)(CBCentralManager *centralManager))block{
     [[babySpeaker callback]setBlockOnCancelAllPeripheralsConnection:block];
 }
-//babyBluettooth cancelPeripheralConnection 方法调用后的回调
--(void)setBlockOnCancelPeripheralConnectionBlock:(void(^)(CBCentralManager *centralManager,CBPeripheral *peripheral))block{
-    [[babySpeaker callback]setBlockOnCancelPeripheralConnection:block];
-}
 //babyBluettooth cancelScan方法调用后的回调
 -(void)setBlockOnCancelScanBlockAtChannel:(NSString *)channel
                                     block:(void(^)(CBCentralManager *centralManager))block{
@@ -207,12 +203,6 @@
 -(void)setBlockOnCancelAllPeripheralsConnectionBlockAtChannel:(NSString *)channel
                                                         block:(void(^)(CBCentralManager *centralManager))block{
     [[babySpeaker callbackOnChnnel:channel createWhenNotExist:YES] setBlockOnCancelAllPeripheralsConnection:block];
-}
-//babyBluettooth cancelPeripheralConnection 方法调用后的回调
--(void)setBlockOnCancelPeripheralConnectionBlockAtChannel:(NSString *)channel
-                                                    block:(void(^)(CBCentralManager *centralManager,CBPeripheral *peripheral))block{
-    [[babySpeaker callbackOnChnnel:channel createWhenNotExist:YES] setBlockOnCancelPeripheralConnection:block];
-    
 }
 
 #pragma mark -链式函数
