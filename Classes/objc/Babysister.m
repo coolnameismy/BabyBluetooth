@@ -202,6 +202,7 @@
     if (needDiscoverServices) {
         [peripheral setDelegate:self];
         [peripheral discoverServices:[currChannel babyOptions].discoverWithServices];
+        //discoverIncludedServices
     }
     
 }
@@ -265,7 +266,6 @@
 
 //发现服务的Characteristics
 -(void)peripheral:(CBPeripheral *)peripheral didDiscoverCharacteristicsForService:(CBService *)service error:(NSError *)error{
-    
     
     if (error)
     {
@@ -361,23 +361,68 @@
 
 }
 
-
-//characteristic.isNotifying 状态改变
--(void)peripheral:(CBPeripheral *)peripheral didUpdateNotificationStateForCharacteristic:(CBCharacteristic *)characteristic error:(NSError *)error{
-//        NSLog(@">>>didUpdateNotificationStateForCharacteristic");
-//        NSLog(@">>>uuid:%@,isNotifying:%@",characteristic.UUID,characteristic.isNotifying?@"isNotifying":@"Notifying");
-}
-
-
 -(void)peripheral:(CBPeripheral *)peripheral didWriteValueForCharacteristic:(CBCharacteristic *)characteristic error:(NSError *)error{
-//    NSLog(@">>>didWriteValueForCharacteristic");
-//    NSLog(@">>>uuid:%@,new value:%@",characteristic.UUID,characteristic.value);
+    NSLog(@">>>didWriteValueForCharacteristic");
+    NSLog(@">>>uuid:%@,new value:%@",characteristic.UUID,characteristic.value);
+    if ([currChannel blockOnDidWriteValueForCharacteristic]) {
+        [currChannel blockOnDidWriteValueForCharacteristic](characteristic,error);
+    }
 }
 
 -(void)peripheral:(CBPeripheral *)peripheral didWriteValueForDescriptor:(CBDescriptor *)descriptor error:(NSError *)error{
-//    NSLog(@">>>didWriteValueForCharacteristic");
-//    NSLog(@">>>uuid:%@,new value:%@",descriptor.UUID,descriptor.value);
+    NSLog(@">>>didWriteValueForCharacteristic");
+    NSLog(@">>>uuid:%@,new value:%@",descriptor.UUID,descriptor.value);
+    if ([currChannel blockOnDidWriteValueForDescriptor]) {
+        [currChannel blockOnDidWriteValueForDescriptor](descriptor,error);
+    }
 }
+
+//characteristic.isNotifying 状态改变
+-(void)peripheral:(CBPeripheral *)peripheral didUpdateNotificationStateForCharacteristic:(CBCharacteristic *)characteristic error:(NSError *)error{
+    NSLog(@">>>didUpdateNotificationStateForCharacteristic");
+    NSLog(@">>>uuid:%@,isNotifying:%@",characteristic.UUID,characteristic.isNotifying?@"isNotifying":@"Notifying");
+    if ([currChannel blockOnDidUpdateNotificationStateForCharacteristic]) {
+        [currChannel blockOnDidUpdateNotificationStateForCharacteristic](characteristic,error);
+    }
+}
+
+-(void)peripheral:(CBPeripheral *)peripheral didDiscoverIncludedServicesForService:(CBService *)service error:(NSError *)error{
+    if ([currChannel blockOnDidDiscoverIncludedServicesForService]) {
+        [currChannel blockOnDidDiscoverIncludedServicesForService](service,error);
+    }
+}
+
+
+#if  __IPHONE_OS_VERSION_MIN_REQUIRED < __IPHONE_8_0
+
+- (void)peripheralDidUpdateRSSI:(CBPeripheral *)peripheral error:(nullable NSError *)error{
+    if ([currChannel blockOnDidReadRSSI]) {
+        [currChannel blockOnDidReadRSSI](peripheral.RSSI,error);
+    }
+}
+#else
+-(void)peripheral:(CBPeripheral *)peripheral didReadRSSI:(NSNumber *)RSSI error:(NSError *)error{
+    if ([currChannel blockOnDidReadRSSI]) {
+        [currChannel blockOnDidReadRSSI](RSSI,error);
+    }
+}
+#endif
+
+-(void)peripheralDidUpdateName:(CBPeripheral *)peripheral{
+    if ([currChannel blockOnDidUpdateName]) {
+        [currChannel blockOnDidUpdateName](peripheral);
+    }
+}
+
+-(void)peripheral:(CBPeripheral *)peripheral didModifyServices:(NSArray<CBService *> *)invalidatedServices{
+    if ([currChannel blockOnDidModifyServices]) {
+        [currChannel blockOnDidModifyServices](peripheral,invalidatedServices);
+    }
+}
+
+
+
+
 
 #pragma mark -私有方法
 

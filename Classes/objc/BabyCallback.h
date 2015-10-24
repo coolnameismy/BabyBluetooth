@@ -38,6 +38,22 @@ typedef void (^BBCancelScanBlock)(CBCentralManager *centralManager);
 //babyBluettooth cancelAllPeripheralsConnection 方法调用后的回调
 typedef void (^BBCancelAllPeripheralsConnectionBlock)(CBCentralManager *centralManager);
 
+
+typedef void (^BBDidWriteValueForCharacteristic)(CBCharacteristic *characteristic,NSError *error);
+
+typedef void (^BBDidWriteValueForDescriptor)(CBDescriptor *descriptor,NSError *error);
+
+typedef void (^BBDidUpdateNotificationStateForCharacteristic)(CBCharacteristic *characteristic,NSError *error);
+
+typedef void (^BBDidReadRSSI)(NSNumber *RSSI,NSError *error);
+
+typedef void (^BBDidDiscoverIncludedServicesForService)(CBService *service,NSError *error);
+
+typedef void (^BBDidUpdateName)(CBPeripheral *peripheral);
+
+typedef void (^BBDidModifyServices)(CBPeripheral *peripheral,NSArray *invalidatedServices);
+
+
 @interface BabyCallback : NSObject
 
 #pragma mark -callback block
@@ -60,7 +76,24 @@ typedef void (^BBCancelAllPeripheralsConnectionBlock)(CBCentralManager *centralM
 //获取Characteristics的名称
 @property(nonatomic,strong)  BBDiscoverDescriptorsForCharacteristicBlock blockOnDiscoverDescriptorsForCharacteristic;
 //获取Descriptors的值
+
+
 @property(nonatomic,strong)  BBReadValueForDescriptorsBlock blockOnReadValueForDescriptors;
+
+@property(nonatomic,strong)  BBDidWriteValueForCharacteristic blockOnDidWriteValueForCharacteristic;
+
+@property(nonatomic,strong)  BBDidWriteValueForDescriptor blockOnDidWriteValueForDescriptor;
+
+@property(nonatomic,strong)  BBDidUpdateNotificationStateForCharacteristic blockOnDidUpdateNotificationStateForCharacteristic;
+
+@property(nonatomic,strong)  BBDidReadRSSI blockOnDidReadRSSI;
+
+@property(nonatomic,strong)  BBDidDiscoverIncludedServicesForService blockOnDidDiscoverIncludedServicesForService;
+
+@property(nonatomic,strong)  BBDidUpdateName blockOnDidUpdateName;
+
+@property(nonatomic,strong)  BBDidModifyServices blockOnDidModifyServices;
+
 
 //babyBluettooth stopScan方法调用后的回调
 @property(nonatomic,strong)  BBCancelScanBlock blockOnCancelScan;
@@ -68,6 +101,7 @@ typedef void (^BBCancelAllPeripheralsConnectionBlock)(CBCentralManager *centralM
 @property(nonatomic,strong)  BBCancelAllPeripheralsConnectionBlock blockOnCancelAllPeripheralsConnection;
 //babyBluettooth 蓝牙使用的参数参数
 @property(nonatomic,strong) BabyOptions *babyOptions;
+
 
 #pragma mark -过滤器Filter
 //发现peripherals规则

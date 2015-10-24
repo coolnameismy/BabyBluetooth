@@ -149,57 +149,6 @@
     //    baby.connectToPeripheral(self.currPeripheral).begin();
 }
 
-#warning 测试数据
-//个性化，读取设备养护数据
--(void)readPlantAssistantData{
-    //写入当前系统时间
-    
-    CBCharacteristic *currentTime = [BabyToy findCharacteristicFormServices:self.services UUIDString:@"FFA8"];
-    
-    if (currentTime) {
-        NSMutableData *data = [NSMutableData data];
-        NSDateFormatter *df = [[NSDateFormatter alloc]init];
-        [df setDateFormat:@"yyyy/MM/dd/hh/mm"];
-        NSArray *dateArray = [[df stringFromDate:[NSDate date]] componentsSeparatedByString:@"/"];
-        for (NSString *item in dateArray) {
-            int intItem = [item intValue];
-            if (intItem > 1000) {
-                int hPart = intItem/100;
-                int lPart = intItem%2000;
-                [data appendData:[NSData dataWithBytes:&hPart length:1]];
-                [data appendData:[NSData dataWithBytes:&lPart length:1]];
-            }
-            else{
-                [data appendData:[NSData dataWithBytes:&intItem length:1]];
-            }
-            
-        }
-
-        [self.currPeripheral writeValue:data forCharacteristic:currentTime type:CBCharacteristicWriteWithResponse];
-    }
-
-    //读取当前RecordStartTime（FFA2）RecordPeriod(FFAB) CurrentTime(FFA8)，ReadID（FFA4），ReadOT(FFA5)
-    
-    //设置ReadID,ReadOT
-    
-    //TransferStatus(FFA9) 写1
-    CBCharacteristic *transferStatus = [BabyToy findCharacteristicFormServices:self.services UUIDString:@"FFA9"];
-
-    if (transferStatus) {
-        int i = 1;
-        NSData *value = [NSData dataWithBytes:&i length:sizeof(i)];
-        [self.currPeripheral writeValue:value forCharacteristic:transferStatus type:CBCharacteristicWriteWithResponse];
-    }
-    //订阅RecordBuf(FFA1)数据
-    CBCharacteristic *recordBuf =  [BabyToy findCharacteristicFormServices:self.services UUIDString:@"FFA1"];
-
-    if (recordBuf) {
-        [self.currPeripheral setNotifyValue:YES forCharacteristic:recordBuf];
-    }
-
-}
-
-
 
 #pragma mark -插入table数据
 -(void)insertSectionToTableView:(CBService *)service{

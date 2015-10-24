@@ -84,6 +84,36 @@
 -(void)setBlockOnReadValueForDescriptors:(void (^)(CBPeripheral *peripheral,CBDescriptor *descriptorNSError,NSError *error))block{
     [[babySpeaker callback]setBlockOnReadValueForDescriptors:block];
 }
+
+//写Characteristic成功后的block
+-(void)setBlockOnDidWriteValueForCharacteristic:(void (^)(CBCharacteristic *characteristic,NSError *error))block{
+    [[babySpeaker callback]setBlockOnDidWriteValueForCharacteristic:block];
+}
+//写descriptor成功后的block
+-(void)setBlockOnDidWriteValueForDescriptor:(void (^)(CBDescriptor *descriptor,NSError *error))block{
+    [[babySpeaker callback]setBlockOnDidWriteValueForDescriptor:block];
+}
+//characteristic订阅状态改变的block
+-(void)setBlockOnDidUpdateNotificationStateForCharacteristic:(void (^)(CBCharacteristic *characteristic,NSError *error))block{
+    [[babySpeaker callback]setBlockOnDidUpdateNotificationStateForCharacteristic:block];
+}
+//读取RSSI的委托
+-(void)setBlockOnDidReadRSSI:(void (^)(NSNumber *RSSI,NSError *error))block{
+    [[babySpeaker callback]setBlockOnDidReadRSSI:block];
+}
+//discoverIncludedServices的回调，暂时在babybluetooth中无作用
+-(void)setBlockOnDidDiscoverIncludedServicesForService:(void (^)(CBService *service,NSError *error))block{
+    [[babySpeaker callback]setBlockOnDidDiscoverIncludedServicesForService:block];
+}
+//外设更新名字后的block
+-(void)setBlockOnDidUpdateName:(void (^)(CBPeripheral *peripheral))block{
+    [[babySpeaker callback]setBlockOnDidUpdateName:block];
+}
+//外设更新服务后的block
+-(void)setBlockOnDidModifyServices:(void (^)(CBPeripheral *peripheral,NSArray *invalidatedServices))block{
+    [[babySpeaker callback]setBlockOnDidModifyServices:block];
+}
+
 //设置蓝牙使用的参数参数
 -(void)setBabyOptionsWithScanForPeripheralsWithOptions:(NSDictionary *) scanForPeripheralsWithOptions
                           connectPeripheralWithOptions:(NSDictionary *) connectPeripheralWithOptions
@@ -152,6 +182,43 @@
                                             block:(void (^)(CBPeripheral *peripheral,CBDescriptor *descriptorNSError,NSError *error))block{
     [[babySpeaker callbackOnChnnel:channel createWhenNotExist:YES] setBlockOnReadValueForDescriptors:block];
 }
+
+//写Characteristic成功后的block
+-(void)setBlockOnDidWriteValueForCharacteristicAtChannel:(NSString *)channel
+                                                        block:(void (^)(CBCharacteristic *characteristic,NSError *error))block{
+    [[babySpeaker callback]setBlockOnDidWriteValueForCharacteristic:block];
+}
+//写descriptor成功后的block
+-(void)setBlockOnDidWriteValueForDescriptorAtChannel:(NSString *)channel
+                                      block:(void (^)(CBDescriptor *descriptor,NSError *error))block{
+    [[babySpeaker callback]setBlockOnDidWriteValueForDescriptor:block];
+}
+//characteristic订阅状态改变的block
+-(void)setBlockOnDidUpdateNotificationStateForCharacteristicAtChannel:(NSString *)channel
+                                                                     block:(void (^)(CBCharacteristic *characteristic,NSError *error))block{
+    [[babySpeaker callback]setBlockOnDidUpdateNotificationStateForCharacteristic:block];
+}
+//读取RSSI的委托
+-(void)setBlockOnDidReadRSSIAtChannel:(NSString *)channel
+                                block:(void (^)(NSNumber *RSSI,NSError *error))block{
+    [[babySpeaker callback]setBlockOnDidReadRSSI:block];
+}
+//discoverIncludedServices的回调，暂时在babybluetooth中无作用
+-(void)setBlockOnDidDiscoverIncludedServicesForServiceAtChannel:(NSString *)channel
+                                                          block:(void (^)(CBService *service,NSError *error))block{
+    [[babySpeaker callback]setBlockOnDidDiscoverIncludedServicesForService:block];
+}
+//外设更新名字后的block
+-(void)setBlockOnDidUpdateNameAtChannel:(NSString *)channel
+                                  block:(void (^)(CBPeripheral *peripheral))block{
+    [[babySpeaker callback]setBlockOnDidUpdateName:block];
+}
+//外设更新服务后的block
+-(void)setBlockOnDidModifyServicesAtChannel:(NSString *)channel
+                                      block:(void (^)(CBPeripheral *peripheral,NSArray *invalidatedServices))block{
+    [[babySpeaker callback]setBlockOnDidModifyServices:block];
+}
+
 
 //设置蓝牙运行时的参数
 -(void)setBabyOptionsAtChannel:(NSString *)channel

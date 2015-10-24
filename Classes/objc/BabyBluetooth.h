@@ -45,6 +45,23 @@
 //设置读取到Descriptors值的block
 -(void)setBlockOnReadValueForDescriptors:(void (^)(CBPeripheral *peripheral,CBDescriptor *descriptorNSError,NSError *error))block;
 
+//写Characteristic成功后的block
+-(void)setBlockOnDidWriteValueForCharacteristic:(void (^)(CBCharacteristic *characteristic,NSError *error))block;
+//写descriptor成功后的block
+-(void)setBlockOnDidWriteValueForDescriptor:(void (^)(CBDescriptor *descriptor,NSError *error))block;
+//characteristic订阅状态改变的block
+-(void)setBlockOnDidUpdateNotificationStateForCharacteristic:(void (^)(CBCharacteristic *characteristic,NSError *error))block;
+//读取RSSI的委托
+-(void)setBlockOnDidReadRSSI:(void (^)(NSNumber *RSSI,NSError *error))block;
+//discoverIncludedServices的回调，暂时在babybluetooth中无作用
+-(void)setBlockOnDidDiscoverIncludedServicesForService:(void (^)(CBService *service,NSError *error))block;
+//外设更新名字后的block
+-(void)setBlockOnDidUpdateName:(void (^)(CBPeripheral *peripheral))block;
+//外设更新服务后的block
+-(void)setBlockOnDidModifyServices:(void (^)(CBPeripheral *peripheral,NSArray *invalidatedServices))block;
+
+
+
 /*
  channel的委托
  */
@@ -84,6 +101,27 @@
 -(void)setBlockOnReadValueForDescriptorsAtChannel:(NSString *)channel
                                             block:(void (^)(CBPeripheral *peripheral,CBDescriptor *descriptorNSError,NSError *error))block;
 
+//写Characteristic成功后的block
+-(void)setBlockOnDidWriteValueForCharacteristicAtChannel:(NSString *)channel
+                                                   block:(void (^)(CBCharacteristic *characteristic,NSError *error))block;
+//写descriptor成功后的block
+-(void)setBlockOnDidWriteValueForDescriptorAtChannel:(NSString *)channel
+                                               block:(void (^)(CBDescriptor *descriptor,NSError *error))block;
+//characteristic订阅状态改变的block
+-(void)setBlockOnDidUpdateNotificationStateForCharacteristicAtChannel:(NSString *)channel
+                                                                block:(void (^)(CBCharacteristic *characteristic,NSError *error))block;
+//读取RSSI的委托
+-(void)setBlockOnDidReadRSSIAtChannel:(NSString *)channel
+                                block:(void (^)(NSNumber *RSSI,NSError *error))block;
+//discoverIncludedServices的回调，暂时在babybluetooth中无作用
+-(void)setBlockOnDidDiscoverIncludedServicesForServiceAtChannel:(NSString *)channel
+                                                          block:(void (^)(CBService *service,NSError *error))block;
+//外设更新名字后的block
+-(void)setBlockOnDidUpdateNameAtChannel:(NSString *)channel
+                                  block:(void (^)(CBPeripheral *peripheral))block;
+//外设更新服务后的block
+-(void)setBlockOnDidModifyServicesAtChannel:(NSString *)channel
+                                      block:(void (^)(CBPeripheral *peripheral,NSArray *invalidatedServices))block;
 
 #pragma mark -babybluetooth filter委托
 //设置查找Peripherals的规则
