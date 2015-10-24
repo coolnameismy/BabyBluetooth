@@ -38,8 +38,14 @@
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]initWithCustomView:navRightBtn];
     [navRightBtn addTarget:self action:@selector(navRightBtnClick:) forControlEvents:UIControlEventTouchUpInside];
 
-                                      
+    [NSTimer scheduledTimerWithTimeInterval:5 target:self selector:@selector(timerTask) userInfo:nil repeats:YES];
 }
+
+-(void)timerTask{
+    //    NSLog(@"timerTask");
+//    [self.currPeripheral readRSSI];
+}
+
 //导航右侧按钮点击
 -(void)navRightBtnClick:(id)sender{
     NSLog(@"navRightBtnClick");
@@ -109,6 +115,11 @@
     //设置读取Descriptor的委托
     [baby setBlockOnReadValueForDescriptorsAtChannel:channelOnPeropheralView block:^(CBPeripheral *peripheral, CBDescriptor *descriptor, NSError *error) {
         NSLog(@"Descriptor name:%@ value is:%@",descriptor.characteristic.UUID, descriptor.value);
+    }];
+    
+    //读取rssi的委托
+    [baby setBlockOnDidReadRSSI:^(NSNumber *RSSI, NSError *error) {
+        NSLog(@"setBlockOnDidReadRSSI:RSSI:%@",RSSI);
     }];
     
     

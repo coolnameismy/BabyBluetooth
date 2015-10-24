@@ -40,7 +40,15 @@
     //设置蓝牙委托
     [self babyDelegate];
     
+    //启动一个定时任务
+    [NSTimer scheduledTimerWithTimeInterval:5 target:self selector:@selector(timerTask) userInfo:nil repeats:YES];
 }
+
+-(void)timerTask{
+//    NSLog(@"timerTask");
+
+}
+
 -(void)viewDidAppear:(BOOL)animated{
     NSLog(@"viewDidAppear");
     //停止之前的连接
@@ -108,6 +116,7 @@
         NSLog(@"Descriptor name:%@ value is:%@",descriptor.characteristic.UUID, descriptor.value);
     }];
     
+
     //设置查找设备的过滤器
     [baby setFilterOnDiscoverPeripherals:^BOOL(NSString *peripheralName) {
         
@@ -117,7 +126,7 @@
         }
         return NO;
     }];
-    
+
     
     [baby setBlockOnCancelAllPeripheralsConnectionBlock:^(CBCentralManager *centralManager) {
         NSLog(@"setBlockOnCancelAllPeripheralsConnectionBlock");
@@ -126,6 +135,7 @@
     [baby setBlockOnCancelScanBlock:^(CBCentralManager *centralManager) {
         NSLog(@"setBlockOnCancelScanBlock");
     }];
+    
     
     /*设置babyOptions
         
@@ -141,10 +151,9 @@
     
     //示例:
     //扫描选项->CBCentralManagerScanOptionAllowDuplicatesKey:忽略同一个Peripheral端的多个发现事件被聚合成一个发现事件
-//    NSDictionary *scanForPeripheralsWithOptions = @{CBCentralManagerScanOptionAllowDuplicatesKey:@YES};
+    NSDictionary *scanForPeripheralsWithOptions = @{CBCentralManagerScanOptionAllowDuplicatesKey:@YES};
     //连接设备->
-//    [baby setBabyOptionsWithScanForPeripheralsWithOptions:scanForPeripheralsWithOptions connectPeripheralWithOptions:nil scanForPeripheralsWithServices:nil discoverWithServices:nil discoverWithCharacteristics:nil];
-    
+    [baby setBabyOptionsWithScanForPeripheralsWithOptions:scanForPeripheralsWithOptions connectPeripheralWithOptions:nil scanForPeripheralsWithServices:nil discoverWithServices:nil discoverWithCharacteristics:nil];
     
 
 }
@@ -174,11 +183,13 @@
     UITableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:@"cell"];
     CBPeripheral *peripheral = [peripherals objectAtIndex:indexPath.row];
     NSDictionary *ad = [peripheralsAD objectAtIndex:indexPath.row];
-    
+
     if (!cell) {
         cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:@"cell"];
         cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
     }
+    
+    cell.selectionStyle = UITableViewCellSelectionStyleNone;
 
     //peripheral的显示名称,优先用kCBAdvDataLocalName的定义，若没有再使用peripheral name
     NSString *localName;

@@ -156,7 +156,7 @@
     
     //日志
     //NSLog(@"当扫描到设备:%@",peripheral.name);
-   
+    
     //发出通知
     [[NSNotificationCenter defaultCenter]postNotificationName:@"didDiscoverPeripheral"
                                                        object:nil
@@ -188,6 +188,9 @@
 - (void)centralManager:(CBCentralManager *)central didConnectPeripheral:(CBPeripheral *)peripheral
 {
     
+    //设置委托
+    [peripheral setDelegate:self];
+    
     //NSLog(@">>>连接到名称为（%@）的设备-成功",peripheral.name);
     [connectTimer invalidate];//停止时钟
     [self addPeripheral:peripheral];
@@ -200,7 +203,6 @@
     
     //扫描外设的服务
     if (needDiscoverServices) {
-        [peripheral setDelegate:self];
         [peripheral discoverServices:[currChannel babyOptions].discoverWithServices];
         //discoverIncludedServices
     }
@@ -362,16 +364,16 @@
 }
 
 -(void)peripheral:(CBPeripheral *)peripheral didWriteValueForCharacteristic:(CBCharacteristic *)characteristic error:(NSError *)error{
-    NSLog(@">>>didWriteValueForCharacteristic");
-    NSLog(@">>>uuid:%@,new value:%@",characteristic.UUID,characteristic.value);
+//    NSLog(@">>>didWriteValueForCharacteristic");
+//    NSLog(@">>>uuid:%@,new value:%@",characteristic.UUID,characteristic.value);
     if ([currChannel blockOnDidWriteValueForCharacteristic]) {
         [currChannel blockOnDidWriteValueForCharacteristic](characteristic,error);
     }
 }
 
 -(void)peripheral:(CBPeripheral *)peripheral didWriteValueForDescriptor:(CBDescriptor *)descriptor error:(NSError *)error{
-    NSLog(@">>>didWriteValueForCharacteristic");
-    NSLog(@">>>uuid:%@,new value:%@",descriptor.UUID,descriptor.value);
+//    NSLog(@">>>didWriteValueForCharacteristic");
+//    NSLog(@">>>uuid:%@,new value:%@",descriptor.UUID,descriptor.value);
     if ([currChannel blockOnDidWriteValueForDescriptor]) {
         [currChannel blockOnDidWriteValueForDescriptor](descriptor,error);
     }
@@ -392,16 +394,32 @@
     }
 }
 
+//-(void)peripheral:(CBPeripheral *)peripheral didReadRSSI:(NSNumber *)RSSI error:(NSError *)error{
+//    NSLog(@"peripheralDidUpdateRSSI -> RSSI:%@",RSSI);
+//    if ([currChannel blockOnDidReadRSSI]) {
+//        [currChannel blockOnDidReadRSSI](RSSI,error);
+//    }
+//}
+
+
+
+//- (void)peripheralDidUpdateRSSI:(CBPeripheral *)peripheral error:(NSError *)error{
+//    NSLog(@"peripheralDidUpdateRSSI -> RSSI:%@",peripheral.RSSI);
+//        if ([currChannel blockOnDidReadRSSI]) {
+//            [currChannel blockOnDidReadRSSI](peripheral.RSSI,error);
+//        }
+//}
 
 #if  __IPHONE_OS_VERSION_MIN_REQUIRED < __IPHONE_8_0
-
 - (void)peripheralDidUpdateRSSI:(CBPeripheral *)peripheral error:(nullable NSError *)error{
+    NSLog(@">>>peripheralDidUpdateRSSI -> RSSI:%@",peripheral.RSSI);
     if ([currChannel blockOnDidReadRSSI]) {
         [currChannel blockOnDidReadRSSI](peripheral.RSSI,error);
     }
 }
 #else
 -(void)peripheral:(CBPeripheral *)peripheral didReadRSSI:(NSNumber *)RSSI error:(NSError *)error{
+    NSLog(@">>>peripheralDidUpdateRSSI -> RSSI:%@",RSSI);
     if ([currChannel blockOnDidReadRSSI]) {
         [currChannel blockOnDidReadRSSI](RSSI,error);
     }
