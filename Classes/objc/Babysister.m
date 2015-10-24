@@ -218,6 +218,11 @@
 //Peripherals断开连接
 - (void)centralManager:(CBCentralManager *)central didDisconnectPeripheral:(CBPeripheral *)peripheral error:(NSError *)error{
 //    NSLog(@">>>外设连接断开连接 %@: %@\n", [peripheral name], [error localizedDescription]);
+    if (error)
+    {
+        NSLog(@">>> didDisconnectPeripheral for %@ with error: %@", peripheral.name, [error localizedDescription]);
+    }
+    
     [self deletePeripheral:peripheral];
     if ([currChannel blockOnDisconnect]) {
         [currChannel blockOnDisconnect](central,peripheral,error);
@@ -241,8 +246,8 @@
 //  NSLog(@">>>扫描到服务：%@",peripheral.services);
     if (error)
     {
-        NSLog(@">>>Discovered services for %@ with error: %@", peripheral.name, [error localizedDescription]);
-        return;
+        NSLog(@">>>didDiscoverServices for %@ with error: %@", peripheral.name, [error localizedDescription]);
+//        return;
     }
     //回叫block
     if ([currChannel blockOnDiscoverServices]) {
@@ -264,8 +269,8 @@
     
     if (error)
     {
-        NSLog(@"error Discovered characteristics for %@ with error: %@", service.UUID, [error localizedDescription]);
-        return;
+        NSLog(@"error didDiscoverCharacteristicsForService for %@ with error: %@", service.UUID, [error localizedDescription]);
+//        return;
     }
     //回叫block
     if ([currChannel blockOnDiscoverCharacteristics]) {
@@ -296,7 +301,7 @@
     if (error)
     {
         NSLog(@"error didUpdateValueForCharacteristic %@ with error: %@", characteristic.UUID, [error localizedDescription]);
-        return;
+//        return;
     }
     //查找字段订阅
     if([babySpeaker notifyCallback:characteristic]){
@@ -316,7 +321,7 @@
     if (error)
     {
         NSLog(@"error Discovered DescriptorsForCharacteristic for %@ with error: %@", characteristic.UUID, [error localizedDescription]);
-        return;
+//        return;
     }
     //回叫block
     if ([currChannel blockOnDiscoverDescriptorsForCharacteristic]) {
@@ -347,7 +352,7 @@
     if (error)
     {
         NSLog(@"error didUpdateValueForDescriptor  for %@ with error: %@", descriptor.UUID, [error localizedDescription]);
-        return;
+//        return;
     }
     //回叫block
     if ([currChannel blockOnReadValueForDescriptors]) {
