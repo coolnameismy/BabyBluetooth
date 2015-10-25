@@ -14,7 +14,7 @@ The easiest way to use Bluetooth (BLE )in ios,even bady can use. 简单易用的
 - 7:github上star最多的纯Bluetooch类库（非PhoneGap和SensorTag项目）
 - 8:包含多种类型的demo和ios蓝牙开发教程
 
-当前版本 v0.3.0
+当前版本 v0.4.0
 
 详细文档请参考wiki The full documentation of the project is available on its wiki.
 # [english readme link,please click it!](https://github.com/coolnameismy/BabyBluetooth/blob/master/README_en.md)
@@ -83,7 +83,7 @@ step2:导入.h文件
 ##2 cocoapods
 step1:add the following line to your Podfile:
 ````
-pod 'BabyBluetooth','~> 0.3.0'
+pod 'BabyBluetooth','~> 0.4.0'
 ````
 
 step2:导入.h文件
@@ -128,10 +128,8 @@ step2:导入.h文件
 - 完善代码的中英文注释
 - 增加对外设模式使用的支持（app作为蓝牙设备提供服务）
 - 优化babyBluetooch的子类类名
-- babybluetooth测试程序
-- 支持断线重连
-- 增加对rssi的支持
 - 增加对Carthage Install的支持
+- swift版本开发
 
 已经更新的版本说明，请在wiki中查看
 
@@ -150,5 +148,6 @@ qq交流群：426603940
   - 蓝牙库写起来很辛苦，希望大家可以多多支持，多多star
   - 如果在使用过程中遇到BUG，或发现功能不够用，希望你能Issues我，谢谢
   - 期待大家也能一起为BabyBluetooth输出代码，这里我只是给BabyBluetooth开了个头，他可以增加和优化的地方还是非常多。也期待和大家在Pull Requests一起学习，交流，成长。
+  - 谁知道ios使用蓝牙进行固件升级的解决方法，请联系我。
 
  

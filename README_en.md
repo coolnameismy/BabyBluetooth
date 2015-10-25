@@ -14,7 +14,7 @@ The easiest way to use Bluetooth (BLE )in ios,even bady can use .  CoreBluetooth
 - 7:more star library for ios bluetooch in github（not PhoneGap and SensorTag）
 - 8:include demo and tutorial
 
-current verison v0.3.0
+current verison v0.4.0
 
 # Contents
 
@@ -25,37 +25,38 @@ current verison v0.3.0
 * [demo explain](#user-content-demo-explain)
 * [Compatibility](#user-content-Compatibility)
 * [plan for update](#user-content-plan-for-update)
+* [Community with US](#user-content-community with us)
 * [wish](#user-content-wish)
  
 # QuickExample
 ```objc
 
-//导入.h文件和系统蓝牙库的头文件
+//import head files
 #import "BabyBluetooth.h"
-//定义变量
+//define var
 BabyBluetooth *baby;
 
 -(void)viewDidLoad {
     [super viewDidLoad];
 
-    //初始化BabyBluetooth 蓝牙库
+    //init BabyBluetooth
     baby = [BabyBluetooth shareBabyBluetooth];
-    //设置蓝牙委托
+    //set delegate
     [self babyDelegate];
-    //设置委托后直接可以使用，无需等待CBCentralManagerStatePoweredOn状态
+    //direct use，no longer wait for status Of CBCentralManagerStatePoweredOn
     baby.scanForPeripherals().begin();
 }
 
-//设置蓝牙委托
+//set babybluetooth delegate
 -(void)babyDelegate{
 
-    //设置扫描到设备的委托
+    //when scanfor perihpheral
     [baby setBlockOnDiscoverToPeripherals:^(CBCentralManager *central, CBPeripheral *peripheral, NSDictionary *advertisementData, NSNumber *RSSI) {
         NSLog(@"搜索到了设备:%@",peripheral.name);
     }];
    
-    //过滤器
-    //设置查找设备的过滤器
+    //filter
+    //discover peripherals filter
     [baby setFilterOnDiscoverPeripherals:^BOOL(NSString *peripheralName) {
         //设置查找规则是名称大于1 ， the search rule is peripheral.name length > 1
         if (peripheralName.length >1) {
@@ -81,10 +82,10 @@ step2:import .h
 ##2 cocoapods
 step1:add the following line to your Podfile:
 ````
-pod 'BabyBluetooth','~> 0.3.0'
+pod 'BabyBluetooth','~> 0.4.0'
 ````
 
-step2:导入.h文件
+step2:import header files
 ````objc
 #import "BabyBluetooth.h"
 ````
@@ -123,12 +124,15 @@ functionality
 - add support for NSNotification event in babyBluetooth
 - improve englist code note 
 - add support for peripheralManager(let app be a peripheral!)
-- add stub application to example,be act as peripheral for test
 - babybluetooth test application
-- support rssi to read
-
+- swift babybluetooth develop
 
 history verison，see wiki
+
+# Community with US
+QQ Group Number:168756967. [QQ is a IM from china](http://im.qq.com/)
+
+Or Mail me:coolnameismy@hotmail.com
 
 
 # wish
