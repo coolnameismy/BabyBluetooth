@@ -25,39 +25,71 @@
     默认频道的委托
  */
 //设备状态改变的block
+//when CentralManager state changed
 -(void)setBlockOnCentralManagerDidUpdateState:(void (^)(CBCentralManager *central))block;
+
 //找到Peripherals的block
+//when find peripheral
 -(void)setBlockOnDiscoverToPeripherals:(void (^)(CBCentralManager *central,CBPeripheral *peripheral,NSDictionary *advertisementData, NSNumber *RSSI))block;
+
 //连接Peripherals成功的block
+//when connected peripheral
 -(void)setBlockOnConnected:(void (^)(CBCentralManager *central,CBPeripheral *peripheral))block;
+
 //连接Peripherals失败的block
+//when fail to connect peripheral
 -(void)setBlockOnFailToConnect:(void (^)(CBCentralManager *central,CBPeripheral *peripheral,NSError *error))block;
+
 //断开Peripherals的连接的block
+//when disconnected peripheral
 -(void)setBlockOnDisconnect:(void (^)(CBCentralManager *central,CBPeripheral *peripheral,NSError *error))block;
+
 //设置查找服务的block
+//when discover services of peripheral
 -(void)setBlockOnDiscoverServices:(void (^)(CBPeripheral *peripheral,NSError *error))block;
+
 //设置查找到Characteristics的block
+//when discovered Characteristics
 -(void)setBlockOnDiscoverCharacteristics:(void (^)(CBPeripheral *peripheral,CBService *service,NSError *error))block;
+
 //设置获取到最新Characteristics值的block
+//when read new characteristics value  or notiy a characteristics value
 -(void)setBlockOnReadValueForCharacteristic:(void (^)(CBPeripheral *peripheral,CBCharacteristic *characteristic,NSError *error))block;
+
 //设置查找到Descriptors名称的block
+//when discover descriptors for characteristic
 -(void)setBlockOnDiscoverDescriptorsForCharacteristic:(void (^)(CBPeripheral *peripheral,CBCharacteristic *characteristic,NSError *error))block;
+
 //设置读取到Descriptors值的block
+//when read descriptors for characteristic
 -(void)setBlockOnReadValueForDescriptors:(void (^)(CBPeripheral *peripheral,CBDescriptor *descriptorNSError,NSError *error))block;
 
 //写Characteristic成功后的block
+//when did write value for characteristic successed
 -(void)setBlockOnDidWriteValueForCharacteristic:(void (^)(CBCharacteristic *characteristic,NSError *error))block;
+
 //写descriptor成功后的block
+//when did write value for descriptor successed
 -(void)setBlockOnDidWriteValueForDescriptor:(void (^)(CBDescriptor *descriptor,NSError *error))block;
+
 //characteristic订阅状态改变的block
+//when characteristic notification state changed
 -(void)setBlockOnDidUpdateNotificationStateForCharacteristic:(void (^)(CBCharacteristic *characteristic,NSError *error))block;
+
 //读取RSSI的委托
+//when did read RSSI
 -(void)setBlockOnDidReadRSSI:(void (^)(NSNumber *RSSI,NSError *error))block;
+
 //discoverIncludedServices的回调，暂时在babybluetooth中无作用
+//no used in babybluetooth
 -(void)setBlockOnDidDiscoverIncludedServicesForService:(void (^)(CBService *service,NSError *error))block;
+
 //外设更新名字后的block
+//when peripheral update name
 -(void)setBlockOnDidUpdateName:(void (^)(CBPeripheral *peripheral))block;
+
 //外设更新服务后的block
+//when peripheral update services
 -(void)setBlockOnDidModifyServices:(void (^)(CBPeripheral *peripheral,NSArray *invalidatedServices))block;
 
 
@@ -66,75 +98,113 @@
  channel的委托
  */
 //设备状态改变的block
+//when CentralManager state changed
 -(void)setBlockOnCentralManagerDidUpdateStateAtChannel:(NSString *)channel
                                                  block:(void (^)(CBCentralManager *central))block;
+
 //找到Peripherals的block
+//when find peripheral
 -(void)setBlockOnDiscoverToPeripheralsAtChannel:(NSString *)channel
                                           block:(void (^)(CBCentralManager *central,CBPeripheral *peripheral,NSDictionary *advertisementData, NSNumber *RSSI))block;
 
+
 //连接Peripherals成功的block
+//when connected peripheral
 -(void)setBlockOnConnectedAtChannel:(NSString *)channel
                               block:(void (^)(CBCentralManager *central,CBPeripheral *peripheral))block;
 
+
 //连接Peripherals失败的block
+//when fail to connect peripheral
 -(void)setBlockOnFailToConnectAtChannel:(NSString *)channel
                                   block:(void (^)(CBCentralManager *central,CBPeripheral *peripheral,NSError *error))block;
 
 //断开Peripherals的连接的block
+//when disconnected peripheral
 -(void)setBlockOnDisconnectAtChannel:(NSString *)channel
                                block:(void (^)(CBCentralManager *central,CBPeripheral *peripheral,NSError *error))block;
 
+
 //设置查找服务的block
+//when discover services of peripheral
 -(void)setBlockOnDiscoverServicesAtChannel:(NSString *)channel
                                      block:(void (^)(CBPeripheral *peripheral,NSError *error))block;
 
 //设置查找到Characteristics的block
+//when discovered Characteristics
 -(void)setBlockOnDiscoverCharacteristicsAtChannel:(NSString *)channel
                                             block:(void (^)(CBPeripheral *peripheral,CBService *service,NSError *error))block;
+
 //设置获取到最新Characteristics值的block
+//when read new characteristics value  or notiy a characteristics value
 -(void)setBlockOnReadValueForCharacteristicAtChannel:(NSString *)channel
                                                block:(void (^)(CBPeripheral *peripheral,CBCharacteristic *characteristic,NSError *error))block;
+
 //设置查找到Characteristics描述的block
+//when discover descriptors for characteristic
 -(void)setBlockOnDiscoverDescriptorsForCharacteristicAtChannel:(NSString *)channel
                                                          block:(void (^)(CBPeripheral *peripheral,CBCharacteristic *service,NSError *error))block;
+
 //设置读取到Characteristics描述的值的block
+//when read descriptors for characteristic
 -(void)setBlockOnReadValueForDescriptorsAtChannel:(NSString *)channel
                                             block:(void (^)(CBPeripheral *peripheral,CBDescriptor *descriptorNSError,NSError *error))block;
 
+
 //写Characteristic成功后的block
+//when did write value for characteristic successed
 -(void)setBlockOnDidWriteValueForCharacteristicAtChannel:(NSString *)channel
                                                    block:(void (^)(CBCharacteristic *characteristic,NSError *error))block;
+
 //写descriptor成功后的block
+//when did write value for descriptor successed
 -(void)setBlockOnDidWriteValueForDescriptorAtChannel:(NSString *)channel
                                                block:(void (^)(CBDescriptor *descriptor,NSError *error))block;
+
+
 //characteristic订阅状态改变的block
+//when characteristic notification state changed
 -(void)setBlockOnDidUpdateNotificationStateForCharacteristicAtChannel:(NSString *)channel
                                                                 block:(void (^)(CBCharacteristic *characteristic,NSError *error))block;
+
 //读取RSSI的委托
+//when did read RSSI
 -(void)setBlockOnDidReadRSSIAtChannel:(NSString *)channel
                                 block:(void (^)(NSNumber *RSSI,NSError *error))block;
+
 //discoverIncludedServices的回调，暂时在babybluetooth中无作用
+//no used in babybluetooth
 -(void)setBlockOnDidDiscoverIncludedServicesForServiceAtChannel:(NSString *)channel
                                                           block:(void (^)(CBService *service,NSError *error))block;
 //外设更新名字后的block
+//when peripheral update name
 -(void)setBlockOnDidUpdateNameAtChannel:(NSString *)channel
                                   block:(void (^)(CBPeripheral *peripheral))block;
+
 //外设更新服务后的block
+//when peripheral update services
 -(void)setBlockOnDidModifyServicesAtChannel:(NSString *)channel
                                       block:(void (^)(CBPeripheral *peripheral,NSArray *invalidatedServices))block;
 
-#pragma mark -babybluetooth filter委托
+
+#pragma mark -babybluetooth filter
+
 //设置查找Peripherals的规则
+//filter of discover peripherals
 -(void)setFilterOnDiscoverPeripherals:(BOOL (^)(NSString *peripheralName))filter;
+
 //设置连接Peripherals的规则
+//setting filter of connect to peripherals  peripherals
 -(void)setFilterOnConnetToPeripherals:(BOOL (^)(NSString *peripheralName))filter;
 
 
 //设置查找Peripherals的规则
+//filter of discover peripherals
 -(void)setFilterOnDiscoverPeripheralsAtChannel:(NSString *)channel
                                       filter:(BOOL (^)(NSString *peripheralName))filter;
 
 //设置连接Peripherals的规则
+//setting filter of connect to peripherals  peripherals
 -(void)setFilterOnConnetToPeripheralsAtChannel:(NSString *)channel
                                      filter:(BOOL (^)(NSString *peripheralName))filter;
 
