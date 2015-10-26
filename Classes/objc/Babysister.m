@@ -432,12 +432,11 @@
     }
 }
 
--(void)peripheral:(CBPeripheral *)peripheral didModifyServices:(NSArray<CBService *> *)invalidatedServices{
+-(void)peripheral:(CBPeripheral *)peripheral didModifyServices:(NSArray *)invalidatedServices{
     if ([currChannel blockOnDidModifyServices]) {
         [currChannel blockOnDidModifyServices](peripheral,invalidatedServices);
     }
 }
-
 
 
 
