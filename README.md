@@ -136,8 +136,8 @@ step2:导入.h文件
 # 蓝牙学习资源
 - [ios蓝牙开发（一）蓝牙相关基础知识](http://liuyanwei.jumppo.com/2015/07/17/ios-BLE-1.html)
 - [ios蓝牙开发（二）蓝牙中心模式的ios代码实现](http://liuyanwei.jumppo.com/2015/08/14/ios-BLE-2.html)
-- [ios蓝牙开发（三）app作为外设被连接的实现](http://liuyanwei.jumppo.com/2015/08/14/ios-BLE-3.html)
-- [ios蓝牙开发（四）BabyBluetooth蓝牙库介绍](http://liuyanwei.jumppo.com/2015/09/07/ios-BLE-4.html)
+- [ios蓝牙开发（三）app作为外设被连接的实现](http://liuyanwei.jumppo.com/2015/09/07/ios-BLE-3.html)
+- [ios蓝牙开发（四）BabyBluetooth蓝牙库介绍](http://liuyanwei.jumppo.com/2015/09/11/ios-BLE-4.html)
 - 暂未完成-ios蓝牙开发（五）BabyBluetooth实现原理
 - 待定...
 - [官方CoreBuetooth支持页](https://developer.apple.com/bluetooth)
