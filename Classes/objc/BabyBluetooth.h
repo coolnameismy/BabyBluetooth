@@ -210,25 +210,35 @@
 
 
 #pragma mark -babybluetooth Special
+
 //babyBluettooth cancelScan方法调用后的回调
+//when after call cancelScan
 -(void)setBlockOnCancelScanBlock:(void(^)(CBCentralManager *centralManager))block;
+
 //babyBluettooth cancelAllPeripheralsConnectionBlock 方法执行后并且全部设备断开后的回调
+//when did all peripheral disConnect
 -(void)setBlockOnCancelAllPeripheralsConnectionBlock:(void(^)(CBCentralManager *centralManager))block;
 
 //babyBluettooth cancelScan方法调用后的回调
+//when after call cancelScan
 -(void)setBlockOnCancelScanBlockAtChannel:(NSString *)channel
                                          block:(void(^)(CBCentralManager *centralManager))block;
+
 //babyBluettooth cancelAllPeripheralsConnectionBlock 方法执行后并且全部设备断开后的回调
+//when did all peripheral disConnect
 -(void)setBlockOnCancelAllPeripheralsConnectionBlockAtChannel:(NSString *)channel
                                                              block:(void(^)(CBCentralManager *centralManager))block;
 
 //设置蓝牙运行时的参数
+//set ble runtime parameters
 -(void)setBabyOptionsWithScanForPeripheralsWithOptions:(NSDictionary *) scanForPeripheralsWithOptions
                           connectPeripheralWithOptions:(NSDictionary *) connectPeripheralWithOptions
                         scanForPeripheralsWithServices:(NSArray *)scanForPeripheralsWithServices
                                   discoverWithServices:(NSArray *)discoverWithServices
                            discoverWithCharacteristics:(NSArray *)discoverWithCharacteristics;
+
 //设置蓝牙运行时的参数
+//set ble runtime parameters
 -(void)setBabyOptionsAtChannel:(NSString *)channel
  scanForPeripheralsWithOptions:(NSDictionary *) scanForPeripheralsWithOptions
   connectPeripheralWithOptions:(NSDictionary *) connectPeripheralWithOptions
