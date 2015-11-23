@@ -142,7 +142,8 @@ step2:导入.h文件
 - 待定...
 - [官方CoreBuetooth支持页](https://developer.apple.com/bluetooth)
 
-qq交流群：426603940
+qq交流群1：426603940(满)
+qq交流群2：168756967(满)
 
 # 期待
   - 蓝牙库写起来很辛苦，不要忘记点击右上角小星星star支持一下~
