@@ -7,7 +7,7 @@ The easiest way to use Bluetooth (BLE )in ios,even bady can use .  CoreBluetooth
 
 - 1:CoreBluetooth wrap，simple and eary for use.
 - 2:CoreBluetooth is dependency on delegate ,and most times,call method at delegate then go into delegate,and over and over,it's messy.BabyBluetooth favor to using block.
-- 3:call methor in a serial，it's  simple and graceful.
+- 3:call methor in a serial，it's  simple and elegant syntax.
 - 4:using channel switch blcoks in a group.
 - 5:convenience tools class
 - 6:comprehensive documentation and active project
