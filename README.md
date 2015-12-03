@@ -143,11 +143,11 @@ step2:导入.h文件
 - [官方CoreBuetooth支持页](https://developer.apple.com/bluetooth)
 
 qq交流群1：426603940(满)
-qq交流群2：168756967(满)
+qq交流群2：168756967
 
 # 期待
   - 蓝牙库写起来很辛苦，不要忘记点击右上角小星星star支持一下~
   - 如果在使用过程中遇到BUG，或发现功能不够用，希望你能Issues我，谢谢
   - 期待大家也能一起为BabyBluetooth输出代码，这里我只是给BabyBluetooth开了个头，他可以增加和优化的地方还是非常多。也期待和大家在Pull Requests一起学习，交流，成长。
 
- 
+
