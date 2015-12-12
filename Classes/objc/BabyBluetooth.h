@@ -463,7 +463,8 @@ characteristic:(CBCharacteristic *)characteristic
 +(instancetype)shareBabyBluetooth;
 
 
-#pragma mark -peripheral moudle
+#pragma mark -peripheral model
+
 
 @end
 
