@@ -1,0 +1,356 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		E1D0BC281C1B189B00F46E04 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = E1D0BC271C1B189B00F46E04 /* main.m */; };
+		E1D0BC2B1C1B189B00F46E04 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = E1D0BC2A1C1B189B00F46E04 /* AppDelegate.m */; };
+		E1D0BC2E1C1B189B00F46E04 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E1D0BC2D1C1B189B00F46E04 /* ViewController.m */; };
+		E1D0BC311C1B189B00F46E04 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E1D0BC2F1C1B189B00F46E04 /* Main.storyboard */; };
+		E1D0BC331C1B189B00F46E04 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E1D0BC321C1B189B00F46E04 /* Assets.xcassets */; };
+		E1D0BC361C1B189B00F46E04 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E1D0BC341C1B189B00F46E04 /* LaunchScreen.storyboard */; };
+		E1D0BC4D1C1C433000F46E04 /* BabyBluetooth.m in Sources */ = {isa = PBXBuildFile; fileRef = E1D0BC401C1C433000F46E04 /* BabyBluetooth.m */; settings = {ASSET_TAGS = (); }; };
+		E1D0BC4E1C1C433000F46E04 /* BabyCallback.m in Sources */ = {isa = PBXBuildFile; fileRef = E1D0BC421C1C433000F46E04 /* BabyCallback.m */; settings = {ASSET_TAGS = (); }; };
+		E1D0BC4F1C1C433000F46E04 /* BabyOptions.m in Sources */ = {isa = PBXBuildFile; fileRef = E1D0BC441C1C433000F46E04 /* BabyOptions.m */; settings = {ASSET_TAGS = (); }; };
+		E1D0BC501C1C433000F46E04 /* BabyRhythm.m in Sources */ = {isa = PBXBuildFile; fileRef = E1D0BC461C1C433000F46E04 /* BabyRhythm.m */; settings = {ASSET_TAGS = (); }; };
+		E1D0BC511C1C433000F46E04 /* Babysister.m in Sources */ = {isa = PBXBuildFile; fileRef = E1D0BC481C1C433000F46E04 /* Babysister.m */; settings = {ASSET_TAGS = (); }; };
+		E1D0BC521C1C433000F46E04 /* BabySpeaker.m in Sources */ = {isa = PBXBuildFile; fileRef = E1D0BC4A1C1C433000F46E04 /* BabySpeaker.m */; settings = {ASSET_TAGS = (); }; };
+		E1D0BC531C1C433000F46E04 /* BabyToy.m in Sources */ = {isa = PBXBuildFile; fileRef = E1D0BC4C1C1C433000F46E04 /* BabyToy.m */; settings = {ASSET_TAGS = (); }; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		E1D0BC231C1B189B00F46E04 /* BluetoothStubOnIOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BluetoothStubOnIOS.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		E1D0BC271C1B189B00F46E04 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		E1D0BC291C1B189B00F46E04 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		E1D0BC2A1C1B189B00F46E04 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		E1D0BC2C1C1B189B00F46E04 /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
+		E1D0BC2D1C1B189B00F46E04 /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
+		E1D0BC301C1B189B00F46E04 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		E1D0BC321C1B189B00F46E04 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		E1D0BC351C1B189B00F46E04 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		E1D0BC371C1B189B00F46E04 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		E1D0BC3F1C1C433000F46E04 /* BabyBluetooth.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BabyBluetooth.h; path = objc/BabyBluetooth.h; sourceTree = "<group>"; };
+		E1D0BC401C1C433000F46E04 /* BabyBluetooth.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BabyBluetooth.m; path = objc/BabyBluetooth.m; sourceTree = "<group>"; };
+		E1D0BC411C1C433000F46E04 /* BabyCallback.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BabyCallback.h; path = objc/BabyCallback.h; sourceTree = "<group>"; };
+		E1D0BC421C1C433000F46E04 /* BabyCallback.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BabyCallback.m; path = objc/BabyCallback.m; sourceTree = "<group>"; };
+		E1D0BC431C1C433000F46E04 /* BabyOptions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BabyOptions.h; path = objc/BabyOptions.h; sourceTree = "<group>"; };
+		E1D0BC441C1C433000F46E04 /* BabyOptions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BabyOptions.m; path = objc/BabyOptions.m; sourceTree = "<group>"; };
+		E1D0BC451C1C433000F46E04 /* BabyRhythm.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BabyRhythm.h; path = objc/BabyRhythm.h; sourceTree = "<group>"; };
+		E1D0BC461C1C433000F46E04 /* BabyRhythm.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BabyRhythm.m; path = objc/BabyRhythm.m; sourceTree = "<group>"; };
+		E1D0BC471C1C433000F46E04 /* Babysister.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Babysister.h; path = objc/Babysister.h; sourceTree = "<group>"; };
+		E1D0BC481C1C433000F46E04 /* Babysister.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Babysister.m; path = objc/Babysister.m; sourceTree = "<group>"; };
+		E1D0BC491C1C433000F46E04 /* BabySpeaker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BabySpeaker.h; path = objc/BabySpeaker.h; sourceTree = "<group>"; };
+		E1D0BC4A1C1C433000F46E04 /* BabySpeaker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BabySpeaker.m; path = objc/BabySpeaker.m; sourceTree = "<group>"; };
+		E1D0BC4B1C1C433000F46E04 /* BabyToy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BabyToy.h; path = objc/BabyToy.h; sourceTree = "<group>"; };
+		E1D0BC4C1C1C433000F46E04 /* BabyToy.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BabyToy.m; path = objc/BabyToy.m; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		E1D0BC201C1B189B00F46E04 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		E1D0BC1A1C1B189B00F46E04 = {
+			isa = PBXGroup;
+			children = (
+				E1D0BC251C1B189B00F46E04 /* BluetoothStubOnIOS */,
+				E1D0BC241C1B189B00F46E04 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		E1D0BC241C1B189B00F46E04 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				E1D0BC231C1B189B00F46E04 /* BluetoothStubOnIOS.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		E1D0BC251C1B189B00F46E04 /* BluetoothStubOnIOS */ = {
+			isa = PBXGroup;
+			children = (
+				E1D0BC3D1C1C433000F46E04 /* Babybluetooth */,
+				E1D0BC291C1B189B00F46E04 /* AppDelegate.h */,
+				E1D0BC2A1C1B189B00F46E04 /* AppDelegate.m */,
+				E1D0BC2C1C1B189B00F46E04 /* ViewController.h */,
+				E1D0BC2D1C1B189B00F46E04 /* ViewController.m */,
+				E1D0BC2F1C1B189B00F46E04 /* Main.storyboard */,
+				E1D0BC321C1B189B00F46E04 /* Assets.xcassets */,
+				E1D0BC341C1B189B00F46E04 /* LaunchScreen.storyboard */,
+				E1D0BC371C1B189B00F46E04 /* Info.plist */,
+				E1D0BC261C1B189B00F46E04 /* Supporting Files */,
+			);
+			path = BluetoothStubOnIOS;
+			sourceTree = "<group>";
+		};
+		E1D0BC261C1B189B00F46E04 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				E1D0BC271C1B189B00F46E04 /* main.m */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		E1D0BC3D1C1C433000F46E04 /* Babybluetooth */ = {
+			isa = PBXGroup;
+			children = (
+				E1D0BC3F1C1C433000F46E04 /* BabyBluetooth.h */,
+				E1D0BC401C1C433000F46E04 /* BabyBluetooth.m */,
+				E1D0BC411C1C433000F46E04 /* BabyCallback.h */,
+				E1D0BC421C1C433000F46E04 /* BabyCallback.m */,
+				E1D0BC431C1C433000F46E04 /* BabyOptions.h */,
+				E1D0BC441C1C433000F46E04 /* BabyOptions.m */,
+				E1D0BC451C1C433000F46E04 /* BabyRhythm.h */,
+				E1D0BC461C1C433000F46E04 /* BabyRhythm.m */,
+				E1D0BC471C1C433000F46E04 /* Babysister.h */,
+				E1D0BC481C1C433000F46E04 /* Babysister.m */,
+				E1D0BC491C1C433000F46E04 /* BabySpeaker.h */,
+				E1D0BC4A1C1C433000F46E04 /* BabySpeaker.m */,
+				E1D0BC4B1C1C433000F46E04 /* BabyToy.h */,
+				E1D0BC4C1C1C433000F46E04 /* BabyToy.m */,
+			);
+			name = Babybluetooth;
+			path = ../../../Classes;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		E1D0BC221C1B189B00F46E04 /* BluetoothStubOnIOS */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = E1D0BC3A1C1B189B00F46E04 /* Build configuration list for PBXNativeTarget "BluetoothStubOnIOS" */;
+			buildPhases = (
+				E1D0BC1F1C1B189B00F46E04 /* Sources */,
+				E1D0BC201C1B189B00F46E04 /* Frameworks */,
+				E1D0BC211C1B189B00F46E04 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = BluetoothStubOnIOS;
+			productName = BluetoothStubOnIOS;
+			productReference = E1D0BC231C1B189B00F46E04 /* BluetoothStubOnIOS.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		E1D0BC1B1C1B189B00F46E04 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0700;
+				ORGANIZATIONNAME = "刘彦玮";
+				TargetAttributes = {
+					E1D0BC221C1B189B00F46E04 = {
+						CreatedOnToolsVersion = 7.0;
+					};
+				};
+			};
+			buildConfigurationList = E1D0BC1E1C1B189B00F46E04 /* Build configuration list for PBXProject "BluetoothStubOnIOS" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = E1D0BC1A1C1B189B00F46E04;
+			productRefGroup = E1D0BC241C1B189B00F46E04 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				E1D0BC221C1B189B00F46E04 /* BluetoothStubOnIOS */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		E1D0BC211C1B189B00F46E04 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E1D0BC361C1B189B00F46E04 /* LaunchScreen.storyboard in Resources */,
+				E1D0BC331C1B189B00F46E04 /* Assets.xcassets in Resources */,
+				E1D0BC311C1B189B00F46E04 /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		E1D0BC1F1C1B189B00F46E04 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E1D0BC531C1C433000F46E04 /* BabyToy.m in Sources */,
+				E1D0BC2E1C1B189B00F46E04 /* ViewController.m in Sources */,
+				E1D0BC2B1C1B189B00F46E04 /* AppDelegate.m in Sources */,
+				E1D0BC4D1C1C433000F46E04 /* BabyBluetooth.m in Sources */,
+				E1D0BC521C1C433000F46E04 /* BabySpeaker.m in Sources */,
+				E1D0BC4E1C1C433000F46E04 /* BabyCallback.m in Sources */,
+				E1D0BC501C1C433000F46E04 /* BabyRhythm.m in Sources */,
+				E1D0BC4F1C1C433000F46E04 /* BabyOptions.m in Sources */,
+				E1D0BC281C1B189B00F46E04 /* main.m in Sources */,
+				E1D0BC511C1C433000F46E04 /* Babysister.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		E1D0BC2F1C1B189B00F46E04 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				E1D0BC301C1B189B00F46E04 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		E1D0BC341C1B189B00F46E04 /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				E1D0BC351C1B189B00F46E04 /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		E1D0BC381C1B189B00F46E04 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+			};
+			name = Debug;
+		};
+		E1D0BC391C1B189B00F46E04 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		E1D0BC3B1C1B189B00F46E04 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				INFOPLIST_FILE = BluetoothStubOnIOS/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.jumppo.app.bluetoothStubOnIOS.BluetoothStubOnIOS;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		E1D0BC3C1C1B189B00F46E04 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				INFOPLIST_FILE = BluetoothStubOnIOS/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.jumppo.app.bluetoothStubOnIOS.BluetoothStubOnIOS;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		E1D0BC1E1C1B189B00F46E04 /* Build configuration list for PBXProject "BluetoothStubOnIOS" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				E1D0BC381C1B189B00F46E04 /* Debug */,
+				E1D0BC391C1B189B00F46E04 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		E1D0BC3A1C1B189B00F46E04 /* Build configuration list for PBXNativeTarget "BluetoothStubOnIOS" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				E1D0BC3B1C1B189B00F46E04 /* Debug */,
+				E1D0BC3C1C1B189B00F46E04 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = E1D0BC1B1C1B189B00F46E04 /* Project object */;
+}
