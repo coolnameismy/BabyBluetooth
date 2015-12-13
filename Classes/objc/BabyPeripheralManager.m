@@ -148,10 +148,14 @@
     NSLog(@"didAddServices number:%d",didAddServices);
 }
 
+#warning 实现全部委托
+#warning 优化等待流程
+
 
 @end
 
 
+#warning 实现参数设置
 void addCharacteristicToService(CBMutableService *service,NSString *UUID,NSString *value,NSString *descriptors,NSString *permissions,NSString *descriptor)
 {
     CBMutableCharacteristic *c = [[CBMutableCharacteristic alloc]initWithType:[CBUUID UUIDWithString:UUID] properties:CBCharacteristicPropertyRead  value:nil permissions:CBAttributePermissionsReadable];
