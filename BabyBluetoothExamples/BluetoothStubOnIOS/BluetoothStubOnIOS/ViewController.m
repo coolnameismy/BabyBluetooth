@@ -18,15 +18,19 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+
     BabyBluetooth *baby = [BabyBluetooth shareBabyBluetooth];
 
+    CBMutableService *s1 = CBServiceMake(@"FFF0");
+    addCharacteristicToService(s1,@"FFF1", @"", @"r", @"r", @"hello1");
+    addCharacteristicToService(s1,@"FFF2", @"", @"r", @"r", @"hello2");
     
-    // Do any additional setup after loading the view, typically from a nib.
+//    baby.bePeripheral().addService(s1).startAdvertising();
+    baby.bePeripheral().addServices(@[s1]).startAdvertising();
+    
+
 }
 
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
 
 @end

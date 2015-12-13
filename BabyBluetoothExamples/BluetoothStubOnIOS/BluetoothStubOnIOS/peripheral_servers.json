@@ -1,0 +1,46 @@
+{
+    "services": [
+                 {
+                 "UUID":"services1",
+                 "charateristics":[
+                                   {
+                                   "UUID":"charateristics1",
+                                   "value":"",
+                                   "properties":"",
+                                   "permissions":"",
+                                   "descriptors":""
+                                   },
+                                   {
+                                   "UUID":"charateristics2",
+                                   "value":"",
+                                   "properties":"",
+                                   "permissions":"",
+                                   "descriptors":""
+                                   }
+                                   ]
+                 },
+                 {
+                 "UUID":"services2",
+                 "charateristics":[
+                                   {
+                                   "UUID":"charateristics1",
+                                   "value":"",
+                                   "properties":"",
+                                   "permissions":"",
+                                   "descriptors":""
+                                   },
+                                   {
+                                   "UUID":"charateristics2",
+                                   "value":"",
+                                   "properties":"",
+                                   "permissions":"",
+                                   "descriptors":""
+                                   }
+                                   ]
+                 }
+                 ],
+    "advertising":{
+        "UUIDs":[],
+        "LocalName":""
+    }
+}

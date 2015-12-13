@@ -14,6 +14,7 @@
 
 @implementation BabyBluetooth{
     Babysister *babysister;
+    BabyPeripheralManager *babyPeripheralManager;
     BabySpeaker *babySpeaker;
     int CENTRAL_MANAGER_INIT_WAIT_TIMES;
     NSTimer *timerForStop;
@@ -27,14 +28,17 @@
     });
    return share;
 }
+
 -(instancetype)init{
     self = [super init];
     if (self) {
+#warning !!!
         //初始化对象
-        babysister = [[Babysister alloc]init];
+//        babysister = [[Babysister alloc]init];
         babySpeaker = [[BabySpeaker alloc]init];
-        babysister->babySpeaker = babySpeaker;
+//        babysister->babySpeaker = babySpeaker;
         
+        babyPeripheralManager = [[BabyPeripheralManager alloc]init];
     }
     return self;
     
@@ -580,6 +584,21 @@ characteristic:(CBCharacteristic *)characteristic
     return babysister->bleManager;
 }
 
+
+#pragma mark -peripheral model
+
+//进入外设模式
+-(BabyPeripheralManager *(^)()) bePeripheral{
+    return ^BabyPeripheralManager* (){
+        return babyPeripheralManager;
+    };
+}
+-(BabyPeripheralManager *(^)(NSString *localName)) bePeripheralWithName{
+    return ^BabyPeripheralManager* (NSString *localName){
+        babyPeripheralManager.localName = localName;
+        return babyPeripheralManager;
+    };
+}
 
 @end
 

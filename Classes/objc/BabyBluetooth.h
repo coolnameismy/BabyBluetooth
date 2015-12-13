@@ -12,6 +12,7 @@
 #import <Foundation/Foundation.h>
 #import <CoreBluetooth/CoreBluetooth.h>
 #import "Babysister.h"
+#import "BabyPeripheralManager.h"
 #import "BabyToy.h"
 #import "BabySpeaker.h"
 #import "BabyRhythm.h"
@@ -465,6 +466,9 @@ characteristic:(CBCharacteristic *)characteristic
 
 #pragma mark -peripheral model
 
+//进入外设模式
+-(BabyPeripheralManager *(^)()) bePeripheral;
+-(BabyPeripheralManager *(^)(NSString *localName)) bePeripheralWithName;
 
 @end
 
