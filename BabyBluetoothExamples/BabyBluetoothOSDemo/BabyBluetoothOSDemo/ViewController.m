@@ -20,15 +20,8 @@
     baby = [BabyBluetooth shareBabyBluetooth];
     //设置蓝牙委托
     [self babyDelegate];
-    __weak typeof(baby) weakBaby = baby;
-    //因为蓝牙设备打开需要时间，所以只有监听到蓝牙设备状态打开后才能安全的使用蓝牙
-    [baby setBlockOnCentralManagerDidUpdateState:^(CBCentralManager *central) {
-        if (central.state == CBCentralManagerStatePoweredOn) {
-            //设置peripheral 然后读取services,然后读取characteristics名称和值和属性，获取characteristics对应的description的名称和值
-            weakBaby.scanForPeripherals().connectToPeripherals().discoverServices().discoverCharacteristics()
-            .readValueForCharacteristic().discoverDescriptorsForCharacteristic().readValueForDescriptors().begin();
-        }
-    }];
+    baby.scanForPeripherals().connectToPeripherals().discoverServices().discoverCharacteristics()
+    .readValueForCharacteristic().discoverDescriptorsForCharacteristic().readValueForDescriptors().begin();
 }
 
 
@@ -55,7 +48,7 @@
     __block BOOL isFirst = YES;
     [baby setFilterOnConnetToPeripherals:^BOOL(NSString *peripheralName) {
         //这里的规则是：连接第一个P打头的设备
-        if(isFirst && [peripheralName hasPrefix:@"P"]){
+        if(isFirst && [peripheralName hasPrefix:@"“刘彦玮”"]){
             isFirst = NO;
             return YES;
         }

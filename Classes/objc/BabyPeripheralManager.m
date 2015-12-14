@@ -7,6 +7,7 @@
 //
 
 #import "BabyPeripheralManager.h"
+#import "BabyToy.h"
 
 
 @implementation BabyPeripheralManager{
@@ -58,6 +59,9 @@
              }];
         }else{
             PERIPHERAL_MANAGER_INIT_WAIT_TIMES++;
+            if (PERIPHERAL_MANAGER_INIT_WAIT_TIMES > 5) {
+                NSLog(@">>>error： 第%d次等待peripheralManager打开任然失败，请检查蓝牙设备是否可用",PERIPHERAL_MANAGER_INIT_WAIT_TIMES);
+            }
             dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, 3.0 * NSEC_PER_SEC);
             dispatch_after(popTime, dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
                 self.startAdvertising();
@@ -148,6 +152,32 @@
     NSLog(@"didAddServices number:%d",didAddServices);
 }
 
+-(void)peripheralManager:(CBPeripheralManager *)peripheral central:(CBCentral *)central didSubscribeToCharacteristic:(CBCharacteristic *)characteristic{
+    
+}
+
+-(void)peripheralManager:(CBPeripheralManager *)peripheral central:(CBCentral *)central didUnsubscribeFromCharacteristic:(CBCharacteristic *)characteristic{
+    
+}
+
+-(void)peripheralManager:(CBPeripheralManager *)peripheral didReceiveReadRequest:(CBATTRequest *)request{
+    
+}
+
+-(void)peripheralManager:(CBPeripheralManager *)peripheral didReceiveWriteRequests:(NSArray *)requests{
+    
+    
+}
+
+-(void)peripheralManagerDidStartAdvertising:(CBPeripheralManager *)peripheral error:(NSError *)error{
+    
+    
+}
+
+-(void)peripheralManagerIsReadyToUpdateSubscribers:(CBPeripheralManager *)peripheral{
+    
+}
+
 #warning 实现全部委托
 #warning 优化等待流程
 
@@ -155,10 +185,68 @@
 @end
 
 
-#warning 实现参数设置
-void addCharacteristicToService(CBMutableService *service,NSString *UUID,NSString *value,NSString *descriptors,NSString *permissions,NSString *descriptor)
+/*
+ *  paramter for properties
+ *	r                       CBCharacteristicPropertyRead
+ *	w                       CBCharacteristicPropertyWrite
+ *	n                       CBCharacteristicPropertyNotify
+ *  default value is rw     Read-Write
+ 
+ *  paramter for permissions:
+ *	r                       Read-only.
+ *	w                       Write-only.
+ *	R                       Readable by trusted devices.
+ *	W                       Writeable by trusted devices.
+ *  default value is rw     Read-Write
+ */
+void addCharacteristicToService(CBMutableService *service,NSString *UUID,NSString *value,NSString *properties,NSString *permissions,NSString *descriptor)
 {
-    CBMutableCharacteristic *c = [[CBMutableCharacteristic alloc]initWithType:[CBUUID UUIDWithString:UUID] properties:CBCharacteristicPropertyRead  value:nil permissions:CBAttributePermissionsReadable];
+    //paramter for value
+    NSData* data = [value dataUsingEncoding:NSUTF8StringEncoding];
+    //paramter for permissions
+    CBCharacteristicProperties prop = 0x00;
+    if([properties containsString:@"r"]){
+        prop =  prop | CBCharacteristicPropertyRead;
+    }
+    if([properties containsString:@"w"]){
+        prop =  prop | CBCharacteristicPropertyWrite;
+    }
+    if([properties containsString:@"n"]){
+        prop =  prop | CBCharacteristicPropertyNotify;
+    }
+    if (properties == nil || [properties isEqualToString:@""]) {
+        prop = CBCharacteristicPropertyRead | CBCharacteristicPropertyWrite;
+    }
+    
+    //paramter for properties
+    CBAttributePermissions perm = 0x00;
+    if([permissions containsString:@"r"]){
+        perm =  perm | CBAttributePermissionsReadable;
+    }
+    if([properties containsString:@"w"]){
+        perm =  perm | CBAttributePermissionsWriteable;
+    }
+    if([permissions containsString:@"R"]){
+        perm =  perm | CBAttributePermissionsReadEncryptionRequired;
+    }
+    if([properties containsString:@"W"]){
+        perm =  perm | CBAttributePermissionsWriteEncryptionRequired;
+    }
+    if (permissions == nil || [permissions isEqualToString:@""]) {
+        perm = CBAttributePermissionsReadable | CBAttributePermissionsWriteable;
+    }
+    
+    
+    CBMutableCharacteristic *c = [[CBMutableCharacteristic alloc]initWithType:[CBUUID UUIDWithString:UUID] properties:prop  value:nil permissions:perm];
+    
+    //paramter for descriptor
+    if (!(descriptor == nil || [descriptor isEqualToString:@""]) ) {
+        //c设置description对应的haracteristics字段描述
+        CBUUID *CBUUIDCharacteristicUserDescriptionStringUUID = [CBUUID UUIDWithString:CBUUIDCharacteristicUserDescriptionString];
+        CBMutableDescriptor *desc = [[CBMutableDescriptor alloc]initWithType: CBUUIDCharacteristicUserDescriptionStringUUID value:descriptor];
+        [c setDescriptors:@[desc]];
+    }
+    
     if (!service.characteristics) {
         service.characteristics = @[];
     }

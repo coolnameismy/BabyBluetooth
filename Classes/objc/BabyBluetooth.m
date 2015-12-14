@@ -32,11 +32,10 @@
 -(instancetype)init{
     self = [super init];
     if (self) {
-#warning !!!
         //初始化对象
-//        babysister = [[Babysister alloc]init];
+        babysister = [[Babysister alloc]init];
         babySpeaker = [[BabySpeaker alloc]init];
-//        babysister->babySpeaker = babySpeaker;
+        babysister->babySpeaker = babySpeaker;
         
         babyPeripheralManager = [[BabyPeripheralManager alloc]init];
     }
