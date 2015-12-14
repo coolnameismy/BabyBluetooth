@@ -29,21 +29,6 @@
 
 -(BabyPeripheralManager *(^)())startAdvertising{
     return ^BabyPeripheralManager *(){
-        
-//        NSMutableArray *servicesUUIDforAD = [NSMutableArray array];
-
-        
-//        for (NSObject *item in servicesUUID) {
-//            //如果servicesUUID内是UUID
-//            if([servicesUUID firstObject] && [[servicesUUID firstObject] isKindOfClass:[NSUUID class]]){
-//                [servicesUUIDforAD addObject:item];
-//            }
-//            //如果servicesUUID内是string
-//            if([servicesUUID firstObject] && [[servicesUUID firstObject] isKindOfClass:[NSString class]]){
-//                NSUUID *uuid = [[NSUUID alloc]initWithUUIDString:(NSString *)item];
-//                if (uuid) {  [servicesUUIDforAD addObject:item]; }
-//            }
-//        }
 
         if ([self canStartAdvertising]) {
             PERIPHERAL_MANAGER_INIT_WAIT_TIMES = 0;
@@ -149,7 +134,7 @@
 
 -(void)peripheralManager:(CBPeripheralManager *)peripheral didAddService:(CBService *)service error:(NSError *)error{
     didAddServices++;
-    NSLog(@"didAddServices number:%d",didAddServices);
+//    NSLog(@"didAddServices number:%d",didAddServices);
 }
 
 -(void)peripheralManager:(CBPeripheralManager *)peripheral central:(CBCentral *)central didSubscribeToCharacteristic:(CBCharacteristic *)characteristic{
@@ -202,7 +187,7 @@
 void addCharacteristicToService(CBMutableService *service,NSString *UUID,NSString *value,NSString *properties,NSString *permissions,NSString *descriptor)
 {
     //paramter for value
-    NSData* data = [value dataUsingEncoding:NSUTF8StringEncoding];
+//    NSData* data = [value dataUsingEncoding:NSUTF8StringEncoding];
     //paramter for permissions
     CBCharacteristicProperties prop = 0x00;
     if([properties containsString:@"r"]){
