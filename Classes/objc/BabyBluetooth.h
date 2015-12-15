@@ -470,6 +470,24 @@ characteristic:(CBCharacteristic *)characteristic
 -(BabyPeripheralManager *(^)()) bePeripheral;
 -(BabyPeripheralManager *(^)(NSString *localName)) bePeripheralWithName;
 
+@property(nonatomic,readonly)CBPeripheralManager *peripheralManager;
+
+//peripheral model block
+
+/**
+
+ |
+ */
+
+-(void)peripheralModelBlockOnPeripheralManagerDidUpdateState:(void(^)(CBPeripheralManager *peripheral))block;
+-(void)peripheralModelBlockOnDidAddService:(void(^)(CBPeripheralManager *peripheral,CBService *service,NSError *error))block;
+-(void)peripheralModelBlockOnDidStartAdvertising:(void(^)(CBPeripheralManager *peripheral,NSError *error))block;
+-(void)peripheralModelBlockOnDidReceiveReadRequest:(void(^)(CBPeripheralManager *peripheral,CBATTRequest *request))block;
+-(void)peripheralModelBlockOnDidReceiveWriteRequests:(void(^)(CBPeripheralManager *peripheral,NSArray *requests))block;
+
+-(void)peripheralModelBlockOnDidSubscribeToCharacteristic:(void(^)(CBPeripheralManager *peripheral,CBCentral *central,CBCharacteristic *characteristic))block;
+-(void)peripheralModelBlockOnDidUnSubscribeToCharacteristic:(void(^)(CBPeripheralManager *peripheral,CBCentral *central,CBCharacteristic *characteristic))block;
+
 @end
 
 

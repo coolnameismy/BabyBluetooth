@@ -21,7 +21,6 @@ class ViewController: NSViewController,CBPeripheralManagerDelegate{
     let readCharacteristicUUID =  "FFF2";
     let readwriteCharacteristicUUID =  "FFE3";
     
-    
     var peripheralManager:CBPeripheralManager!
     var timer:NSTimer!
     
@@ -139,10 +138,5 @@ class ViewController: NSViewController,CBPeripheralManagerDelegate{
     func peripheralManagerIsReadyToUpdateSubscribers(peripheral: CBPeripheralManager) {
             NSLog("peripheralManagerIsReadyToUpdateSubscribers")
     }
-    
-    
-    
-    
-    
 }
 

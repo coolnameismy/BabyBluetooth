@@ -38,6 +38,7 @@
         babysister->babySpeaker = babySpeaker;
         
         babyPeripheralManager = [[BabyPeripheralManager alloc]init];
+        babyPeripheralManager->babySpeaker = babySpeaker;
     }
     return self;
     
@@ -587,6 +588,11 @@ characteristic:(CBCharacteristic *)characteristic
 #pragma mark -peripheral model
 
 //进入外设模式
+
+-(CBPeripheralManager *)peripheralManager{
+    return babyPeripheralManager.peripheralManager;
+}
+
 -(BabyPeripheralManager *(^)()) bePeripheral{
     return ^BabyPeripheralManager* (){
         return babyPeripheralManager;
@@ -597,6 +603,28 @@ characteristic:(CBCharacteristic *)characteristic
         babyPeripheralManager.localName = localName;
         return babyPeripheralManager;
     };
+}
+
+-(void)peripheralModelBlockOnPeripheralManagerDidUpdateState:(void(^)(CBPeripheralManager *peripheral))block{
+    [[babySpeaker callback]setBlockOnPeripheralModelDidUpdateState:block];
+}
+-(void)peripheralModelBlockOnDidAddService:(void(^)(CBPeripheralManager *peripheral,CBService *service,NSError *error))block{
+    [[babySpeaker callback]setBlockOnPeripheralModelDidAddService:block];
+}
+-(void)peripheralModelBlockOnDidStartAdvertising:(void(^)(CBPeripheralManager *peripheral,NSError *error))block{
+    [[babySpeaker callback]setBlockOnPeripheralModelDidStartAdvertising:block];
+}
+-(void)peripheralModelBlockOnDidReceiveReadRequest:(void(^)(CBPeripheralManager *peripheral,CBATTRequest *request))block{
+    [[babySpeaker callback]setBlockOnPeripheralModelDidReceiveReadRequest:block];
+}
+-(void)peripheralModelBlockOnDidReceiveWriteRequests:(void(^)(CBPeripheralManager *peripheral,NSArray *requests))block{
+    [[babySpeaker callback]setBlockOnPeripheralModelDidReceiveWriteRequests:block];
+}
+-(void)peripheralModelBlockOnDidSubscribeToCharacteristic:(void(^)(CBPeripheralManager *peripheral,CBCentral *central,CBCharacteristic *characteristic))block{
+    [[babySpeaker callback]setBlockOnPeripheralModelDidSubscribeToCharacteristic:block];
+}
+-(void)peripheralModelBlockOnDidUnSubscribeToCharacteristic:(void(^)(CBPeripheralManager *peripheral,CBCentral *central,CBCharacteristic *characteristic))block{
+    [[babySpeaker callback]setBlockOnPeripheralModelDidUnSubscribeToCharacteristic:block];
 }
 
 @end

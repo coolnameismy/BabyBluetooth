@@ -84,7 +84,7 @@
 		E1D0BC251C1B189B00F46E04 /* BluetoothStubOnIOS */ = {
 			isa = PBXGroup;
 			children = (
-				E1D0BC591C1DACE100F46E04 /* objc */,
+				E1D0BC591C1DACE100F46E04 /* BabyBluetooth */,
 				E1D0BC291C1B189B00F46E04 /* AppDelegate.h */,
 				E1D0BC2A1C1B189B00F46E04 /* AppDelegate.m */,
 				E1D0BC2C1C1B189B00F46E04 /* ViewController.h */,
@@ -107,7 +107,7 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
-		E1D0BC591C1DACE100F46E04 /* objc */ = {
+		E1D0BC591C1DACE100F46E04 /* BabyBluetooth */ = {
 			isa = PBXGroup;
 			children = (
 				E1D0BC5A1C1DACE100F46E04 /* BabyBluetooth.h */,
@@ -127,7 +127,7 @@
 				E1D0BC681C1DACE100F46E04 /* BabyToy.h */,
 				E1D0BC691C1DACE100F46E04 /* BabyToy.m */,
 			);
-			name = objc;
+			name = BabyBluetooth;
 			path = ../../../Classes/objc;
 			sourceTree = "<group>";
 		};
@@ -162,6 +162,7 @@
 				TargetAttributes = {
 					E1D0BC221C1B189B00F46E04 = {
 						CreatedOnToolsVersion = 7.0;
+						DevelopmentTeam = 9V9UW57Z55;
 					};
 				};
 			};
@@ -322,7 +323,9 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				INFOPLIST_FILE = BluetoothStubOnIOS/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.jumppo.app.bluetoothStubOnIOS.BluetoothStubOnIOS;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -333,7 +336,9 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				INFOPLIST_FILE = BluetoothStubOnIOS/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.jumppo.app.bluetoothStubOnIOS.BluetoothStubOnIOS;
 				PRODUCT_NAME = "$(TARGET_NAME)";

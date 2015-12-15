@@ -54,6 +54,17 @@ typedef void (^BBDidUpdateName)(CBPeripheral *peripheral);
 typedef void (^BBDidModifyServices)(CBPeripheral *peripheral,NSArray *invalidatedServices);
 
 
+//peripheral model
+typedef void (^BBPeripheralModelDidUpdateState)(CBPeripheralManager *peripheral);
+typedef void (^BBPeripheralModelDidAddService)(CBPeripheralManager *peripheral,CBService *service,NSError *error);
+typedef void (^BBPeripheralModelDidStartAdvertising)(CBPeripheralManager *peripheral,NSError *error);
+typedef void (^BBPeripheralModelDidReceiveReadRequest)(CBPeripheralManager *peripheral,CBATTRequest *request);
+typedef void (^BBPeripheralModelDidReceiveWriteRequests)(CBPeripheralManager *peripheral,NSArray *requests);
+typedef void (^BBPeripheralModelDidSubscribeToCharacteristic)(CBPeripheralManager *peripheral,CBCentral *central,CBCharacteristic *characteristic);
+typedef void (^BBPeripheralModelDidUnSubscribeToCharacteristic)(CBPeripheralManager *peripheral,CBCentral *central,CBCharacteristic *characteristic);
+
+
+
 @interface BabyCallback : NSObject
 
 #pragma mark -callback block
@@ -109,5 +120,17 @@ typedef void (^BBDidModifyServices)(CBPeripheral *peripheral,NSArray *invalidate
 //连接peripherals规则
 @property(nonatomic,strong)  BOOL (^filterOnConnetToPeripherals)(NSString *peripheralName);
 
+
+#pragma mark -peripheral model
+
+//peripheral model
+
+@property(nonatomic,strong) BBPeripheralModelDidUpdateState blockOnPeripheralModelDidUpdateState;
+@property(nonatomic,strong) BBPeripheralModelDidAddService blockOnPeripheralModelDidAddService;
+@property(nonatomic,strong) BBPeripheralModelDidStartAdvertising blockOnPeripheralModelDidStartAdvertising;
+@property(nonatomic,strong) BBPeripheralModelDidReceiveReadRequest blockOnPeripheralModelDidReceiveReadRequest;
+@property(nonatomic,strong) BBPeripheralModelDidReceiveWriteRequests blockOnPeripheralModelDidReceiveWriteRequests;
+@property(nonatomic,strong) BBPeripheralModelDidSubscribeToCharacteristic blockOnPeripheralModelDidSubscribeToCharacteristic;
+@property(nonatomic,strong) BBPeripheralModelDidUnSubscribeToCharacteristic blockOnPeripheralModelDidUnSubscribeToCharacteristic;
 
 @end

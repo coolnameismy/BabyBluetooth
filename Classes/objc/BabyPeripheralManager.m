@@ -7,8 +7,9 @@
 //
 
 #import "BabyPeripheralManager.h"
-#import "BabyToy.h"
 
+
+#define callback if ([babySpeaker callback]) [babySpeaker callback]
 
 @implementation BabyPeripheralManager{
     int PERIPHERAL_MANAGER_INIT_WAIT_TIMES;
@@ -23,13 +24,12 @@
         self.peripheralManager = [[CBPeripheralManager alloc]initWithDelegate:self queue:nil options:nil];
     }
     return  self;    
-    
 }
 
 
 -(BabyPeripheralManager *(^)())startAdvertising{
     return ^BabyPeripheralManager *(){
-
+        
         if ([self canStartAdvertising]) {
             PERIPHERAL_MANAGER_INIT_WAIT_TIMES = 0;
             NSMutableArray *UUIDS = [NSMutableArray array];
@@ -129,61 +129,42 @@
         default:
             break;
     }
+    
+    callback.blockOnPeripheralModelDidUpdateState(peripheral);
 }
 
 
 -(void)peripheralManager:(CBPeripheralManager *)peripheral didAddService:(CBService *)service error:(NSError *)error{
     didAddServices++;
-//    NSLog(@"didAddServices number:%d",didAddServices);
-}
-
--(void)peripheralManager:(CBPeripheralManager *)peripheral central:(CBCentral *)central didSubscribeToCharacteristic:(CBCharacteristic *)characteristic{
-    
-}
-
--(void)peripheralManager:(CBPeripheralManager *)peripheral central:(CBCentral *)central didUnsubscribeFromCharacteristic:(CBCharacteristic *)characteristic{
-    
-}
-
--(void)peripheralManager:(CBPeripheralManager *)peripheral didReceiveReadRequest:(CBATTRequest *)request{
-    
-}
-
--(void)peripheralManager:(CBPeripheralManager *)peripheral didReceiveWriteRequests:(NSArray *)requests{
-    
-    
+    callback.blockOnPeripheralModelDidAddService(peripheral,service,error);
 }
 
 -(void)peripheralManagerDidStartAdvertising:(CBPeripheralManager *)peripheral error:(NSError *)error{
-    
-    
+    callback.blockOnPeripheralModelDidStartAdvertising(peripheral,error);
 }
 
--(void)peripheralManagerIsReadyToUpdateSubscribers:(CBPeripheralManager *)peripheral{
-    
+-(void)peripheralManager:(CBPeripheralManager *)peripheral didReceiveReadRequest:(CBATTRequest *)request{
+    callback.blockOnPeripheralModelDidReceiveReadRequest(peripheral, request);
 }
 
-#warning 实现全部委托
+-(void)peripheralManager:(CBPeripheralManager *)peripheral didReceiveWriteRequests:(NSArray *)requests{
+    callback.blockOnPeripheralModelDidReceiveWriteRequests(peripheral,requests);
+}
+
+-(void)peripheralManager:(CBPeripheralManager *)peripheral central:(CBCentral *)central didSubscribeToCharacteristic:(CBCharacteristic *)characteristic{
+    callback.blockOnPeripheralModelDidSubscribeToCharacteristic(peripheral,central,characteristic);
+}
+
+-(void)peripheralManager:(CBPeripheralManager *)peripheral central:(CBCentral *)central didUnsubscribeFromCharacteristic:(CBCharacteristic *)characteristic{
+    callback.blockOnPeripheralModelDidUnSubscribeToCharacteristic(peripheral,central,characteristic);
+}
+
 #warning 优化等待流程
-
 
 @end
 
 
-/*
- *  paramter for properties
- *	r                       CBCharacteristicPropertyRead
- *	w                       CBCharacteristicPropertyWrite
- *	n                       CBCharacteristicPropertyNotify
- *  default value is rw     Read-Write
- 
- *  paramter for permissions:
- *	r                       Read-only.
- *	w                       Write-only.
- *	R                       Readable by trusted devices.
- *	W                       Writeable by trusted devices.
- *  default value is rw     Read-Write
- */
+
 void addCharacteristicToService(CBMutableService *service,NSString *UUID,NSString *value,NSString *properties,NSString *permissions,NSString *descriptor)
 {
     //paramter for value
@@ -244,5 +225,17 @@ CBMutableService* CBServiceMake(NSString *UUID)
 {
     CBMutableService *s = [[CBMutableService alloc]initWithType:[CBUUID UUIDWithString:UUID] primary:YES];
     return s;
+}
+
+NSString * genUUID()
+{
+    CFUUIDRef uuid_ref = CFUUIDCreate(NULL);
+    CFStringRef uuid_string_ref= CFUUIDCreateString(NULL, uuid_ref);
+    
+    CFRelease(uuid_ref);
+    NSString *uuid = [NSString stringWithString:(__bridge NSString*)uuid_string_ref];
+    
+    CFRelease(uuid_string_ref);
+    return uuid;
 }
 
