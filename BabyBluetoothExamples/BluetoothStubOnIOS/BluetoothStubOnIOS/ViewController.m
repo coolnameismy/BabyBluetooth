@@ -22,18 +22,22 @@
     [super viewDidLoad];
     
     //配置第一个服务s1
-    CBMutableService *s1 = CBServiceMake(@"FFF0");
+    CBMutableService *s1 = makeCBService(@"FFF0");
     //配置s1的3个characteristic
-    addCharacteristicToService(s1,@"FFF1", @"test1", @"rw", @"r", @"hello1");//可读写
-    addCharacteristicToService(s1,@"FFF2", @"test2", @"r", @"R", @"hello2");//可读写，信任设备可读
-    addCharacteristicToService(s1,genUUID(), @"test3", @"n", @"", @"hello3");//可通知，可读写
-    
+    makeCharacteristicToService(s1, @"FFF1", @"r", @"hello1");//读
+    makeCharacteristicToService(s1, @"FFF2", @"w", @"hello2");//写
+    makeCharacteristicToService(s1, genUUID(), @"rw", @"hello3");//读写,自动生成uuid
+    makeCharacteristicToService(s1, @"FFF4", nil, @"hello4");//默认读写字段
+    makeCharacteristicToService(s1, @"FFF5", @"n", @"hello5");//notify字段
+    //配置第一个服务s2
+    CBMutableService *s2 = makeCBService(@"FFE0");
+    makeStaticCharacteristicToService(s2, genUUID(), @"hello6", [@"a" dataUsingEncoding:NSUTF8StringEncoding]);//一个含初值的字段，该字段权限只能是只读
     //实例化baby
     baby = [BabyBluetooth shareBabyBluetooth];
     //配置委托
     [self babyDelegate];
     //启动外设
-    baby.bePeripheral().addServices(@[s1]).startAdvertising();
+    baby.bePeripheral().addServices(@[s1,s2]).startAdvertising();
     
 }
 

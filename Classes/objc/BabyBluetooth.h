@@ -475,17 +475,32 @@ characteristic:(CBCharacteristic *)characteristic
 //peripheral model block
 
 /**
-
- |
+ PeripheralManager did update state block
  */
-
 -(void)peripheralModelBlockOnPeripheralManagerDidUpdateState:(void(^)(CBPeripheralManager *peripheral))block;
+/**
+ PeripheralManager did add service block
+ */
 -(void)peripheralModelBlockOnDidAddService:(void(^)(CBPeripheralManager *peripheral,CBService *service,NSError *error))block;
+/**
+ PeripheralManager did start advertising block
+ */
 -(void)peripheralModelBlockOnDidStartAdvertising:(void(^)(CBPeripheralManager *peripheral,NSError *error))block;
+/**
+ peripheralManager did receive read request block
+ */
 -(void)peripheralModelBlockOnDidReceiveReadRequest:(void(^)(CBPeripheralManager *peripheral,CBATTRequest *request))block;
+/**
+ peripheralManager did receive write request block
+ */
 -(void)peripheralModelBlockOnDidReceiveWriteRequests:(void(^)(CBPeripheralManager *peripheral,NSArray *requests))block;
-
+/**
+ peripheralManager did subscribe to characteristic block
+ */
 -(void)peripheralModelBlockOnDidSubscribeToCharacteristic:(void(^)(CBPeripheralManager *peripheral,CBCentral *central,CBCharacteristic *characteristic))block;
+/**
+peripheralManager did subscribe to characteristic block
+*/
 -(void)peripheralModelBlockOnDidUnSubscribeToCharacteristic:(void(^)(CBPeripheralManager *peripheral,CBCentral *central,CBCharacteristic *characteristic))block;
 
 @end

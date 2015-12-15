@@ -163,13 +163,9 @@
 
 @end
 
+void makeCharacteristicToService(CBMutableService *service,NSString *UUID,NSString *properties,NSString *descriptor){
 
-
-void addCharacteristicToService(CBMutableService *service,NSString *UUID,NSString *value,NSString *properties,NSString *permissions,NSString *descriptor)
-{
-    //paramter for value
-//    NSData* data = [value dataUsingEncoding:NSUTF8StringEncoding];
-    //paramter for permissions
+    //paramter for properties
     CBCharacteristicProperties prop = 0x00;
     if([properties containsString:@"r"]){
         prop =  prop | CBCharacteristicPropertyRead;
@@ -183,27 +179,27 @@ void addCharacteristicToService(CBMutableService *service,NSString *UUID,NSStrin
     if (properties == nil || [properties isEqualToString:@""]) {
         prop = CBCharacteristicPropertyRead | CBCharacteristicPropertyWrite;
     }
+
+    CBMutableCharacteristic *c = [[CBMutableCharacteristic alloc]initWithType:[CBUUID UUIDWithString:UUID] properties:prop  value:nil permissions:CBAttributePermissionsReadable | CBAttributePermissionsWriteable];
     
-    //paramter for properties
-    CBAttributePermissions perm = 0x00;
-    if([permissions containsString:@"r"]){
-        perm =  perm | CBAttributePermissionsReadable;
-    }
-    if([properties containsString:@"w"]){
-        perm =  perm | CBAttributePermissionsWriteable;
-    }
-    if([permissions containsString:@"R"]){
-        perm =  perm | CBAttributePermissionsReadEncryptionRequired;
-    }
-    if([properties containsString:@"W"]){
-        perm =  perm | CBAttributePermissionsWriteEncryptionRequired;
-    }
-    if (permissions == nil || [permissions isEqualToString:@""]) {
-        perm = CBAttributePermissionsReadable | CBAttributePermissionsWriteable;
+    //paramter for descriptor
+    if (!(descriptor == nil || [descriptor isEqualToString:@""]) ) {
+        //c设置description对应的haracteristics字段描述
+        CBUUID *CBUUIDCharacteristicUserDescriptionStringUUID = [CBUUID UUIDWithString:CBUUIDCharacteristicUserDescriptionString];
+        CBMutableDescriptor *desc = [[CBMutableDescriptor alloc]initWithType: CBUUIDCharacteristicUserDescriptionStringUUID value:descriptor];
+        [c setDescriptors:@[desc]];
     }
     
+    if (!service.characteristics) {
+        service.characteristics = @[];
+    }
+    NSMutableArray *cs = [service.characteristics mutableCopy];
+    [cs addObject:c];
+    service.characteristics = [cs copy];
+}
+void makeStaticCharacteristicToService(CBMutableService *service,NSString *UUID,NSString *descriptor,NSData *data){
     
-    CBMutableCharacteristic *c = [[CBMutableCharacteristic alloc]initWithType:[CBUUID UUIDWithString:UUID] properties:prop  value:nil permissions:perm];
+    CBMutableCharacteristic *c = [[CBMutableCharacteristic alloc]initWithType:[CBUUID UUIDWithString:UUID] properties:CBCharacteristicPropertyRead  value:data permissions:CBAttributePermissionsReadable];
     
     //paramter for descriptor
     if (!(descriptor == nil || [descriptor isEqualToString:@""]) ) {
@@ -221,7 +217,8 @@ void addCharacteristicToService(CBMutableService *service,NSString *UUID,NSStrin
     service.characteristics = [cs copy];
 }
 
-CBMutableService* CBServiceMake(NSString *UUID)
+
+CBMutableService* makeCBService(NSString *UUID)
 {
     CBMutableService *s = [[CBMutableService alloc]initWithType:[CBUUID UUIDWithString:UUID] primary:YES];
     return s;
