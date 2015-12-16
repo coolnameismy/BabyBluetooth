@@ -44,9 +44,9 @@
 - (void)babyDelegate{
 
     //设置添加service委托 | set didAddService block
-//    [baby peripheralModelBlockOnPeripheralManagerDidUpdateState:^(CBPeripheralManager *peripheral) {
-//        NSLog(@"PeripheralManager trun status code: %ld",(long)peripheral.state);
-//    }];
+    [baby peripheralModelBlockOnPeripheralManagerDidUpdateState:^(CBPeripheralManager *peripheral) {
+        NSLog(@"PeripheralManager trun status code: %ld",(long)peripheral.state);
+    }];
     
     //设置添加service委托 | set didAddService block
     [baby peripheralModelBlockOnDidStartAdvertising:^(CBPeripheralManager *peripheral, NSError *error) {
