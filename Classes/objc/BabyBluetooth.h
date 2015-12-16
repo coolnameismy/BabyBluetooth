@@ -11,7 +11,7 @@
 
 #import <Foundation/Foundation.h>
 #import <CoreBluetooth/CoreBluetooth.h>
-#import "Babysister.h"
+#import "BabyCentralManager.h"
 #import "BabyPeripheralManager.h"
 #import "BabyToy.h"
 #import "BabySpeaker.h"

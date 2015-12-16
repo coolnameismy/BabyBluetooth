@@ -16,7 +16,7 @@
 
 
 
-@interface Babysister : NSObject<CBCentralManagerDelegate,CBPeripheralDelegate>{
+@interface BabyCentralManager : NSObject<CBCentralManagerDelegate,CBPeripheralDelegate>{
 
 @public
 

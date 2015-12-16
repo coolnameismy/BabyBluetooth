@@ -9,7 +9,7 @@
 #import "BabyPeripheralManager.h"
 
 
-#define callback if ([babySpeaker callback]) [babySpeaker callback]
+#define callbackBlock(...) if ([[babySpeaker callback] __VA_ARGS__])   [[babySpeaker callback] __VA_ARGS__ ]
 
 @implementation BabyPeripheralManager{
     int PERIPHERAL_MANAGER_INIT_WAIT_TIMES;
@@ -129,34 +129,37 @@
         default:
             break;
     }
-    
-    callback.blockOnPeripheralModelDidUpdateState(peripheral);
+
+//    if([babySpeaker callback] blockOnPeripheralModelDidUpdateState){
+//        [currChannel blockOnCancelScan](centralManager);
+//    }
+    callbackBlock(blockOnPeripheralModelDidUpdateState)(peripheral);
 }
 
 
 -(void)peripheralManager:(CBPeripheralManager *)peripheral didAddService:(CBService *)service error:(NSError *)error{
     didAddServices++;
-    callback.blockOnPeripheralModelDidAddService(peripheral,service,error);
+    callbackBlock(blockOnPeripheralModelDidAddService)(peripheral,service,error);
 }
 
 -(void)peripheralManagerDidStartAdvertising:(CBPeripheralManager *)peripheral error:(NSError *)error{
-    callback.blockOnPeripheralModelDidStartAdvertising(peripheral,error);
+    callbackBlock(blockOnPeripheralModelDidStartAdvertising)(peripheral,error);
 }
 
 -(void)peripheralManager:(CBPeripheralManager *)peripheral didReceiveReadRequest:(CBATTRequest *)request{
-    callback.blockOnPeripheralModelDidReceiveReadRequest(peripheral, request);
+    callbackBlock(blockOnPeripheralModelDidReceiveReadRequest)(peripheral, request);
 }
 
 -(void)peripheralManager:(CBPeripheralManager *)peripheral didReceiveWriteRequests:(NSArray *)requests{
-    callback.blockOnPeripheralModelDidReceiveWriteRequests(peripheral,requests);
+    callbackBlock(blockOnPeripheralModelDidReceiveWriteRequests)(peripheral,requests);
 }
 
 -(void)peripheralManager:(CBPeripheralManager *)peripheral central:(CBCentral *)central didSubscribeToCharacteristic:(CBCharacteristic *)characteristic{
-    callback.blockOnPeripheralModelDidSubscribeToCharacteristic(peripheral,central,characteristic);
+    callbackBlock(blockOnPeripheralModelDidSubscribeToCharacteristic)(peripheral,central,characteristic);
 }
 
 -(void)peripheralManager:(CBPeripheralManager *)peripheral central:(CBCentral *)central didUnsubscribeFromCharacteristic:(CBCharacteristic *)characteristic{
-    callback.blockOnPeripheralModelDidUnSubscribeToCharacteristic(peripheral,central,characteristic);
+    callbackBlock(blockOnPeripheralModelDidUnSubscribeToCharacteristic)(peripheral,central,characteristic);
 }
 
 

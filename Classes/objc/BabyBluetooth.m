@@ -13,7 +13,7 @@
 
 
 @implementation BabyBluetooth{
-    Babysister *babysister;
+    BabyCentralManager *babysister;
     BabyPeripheralManager *babyPeripheralManager;
     BabySpeaker *babySpeaker;
     int CENTRAL_MANAGER_INIT_WAIT_TIMES;
@@ -33,7 +33,7 @@
     self = [super init];
     if (self) {
         //初始化对象
-        babysister = [[Babysister alloc]init];
+        babysister = [[BabyCentralManager alloc]init];
         babySpeaker = [[BabySpeaker alloc]init];
         babysister->babySpeaker = babySpeaker;
         

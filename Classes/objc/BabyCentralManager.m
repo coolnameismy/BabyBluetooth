@@ -8,10 +8,10 @@
 //  Copyright (c) 2015年 刘彦玮. All rights reserved.
 //
 
-#import "Babysister.h"
+#import "BabyCentralManager.h"
 #import "BabyCallback.h"
 
-@implementation Babysister
+@implementation BabyCentralManager
 
 #define currChannel [babySpeaker callbackOnCurrChannel]
 
