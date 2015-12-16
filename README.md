@@ -104,12 +104,18 @@ step2:导入.h文件
 - 4：写0x01到characteristic
 - 5：订阅/取消订阅 characteristic的notify
 
+**BabyBluetoothExamples/BluetoothStubOnIOS** : 一个iOS程序，启动后会用手机模拟一个外设，提供2个服务和若干characteristic。
+该程序作为Babybluetooth 外设模式使用的示例程序
+
 **BabyBluetoothExamples/BabyBluetoothOSDemo** :一个mac os程序，因为os和ios的蓝牙底层方法都一样，所以BabyBluetooth可以ios/os通用。但是os程序有个好处就是直接可以在mac上跑蓝牙设备，不像ios，必须要真机才能跑蓝牙设备。所以不能真机调试时可以使用os尝试蓝牙库的使用。
 
 功能：
 - 1：扫描周围设备、连接设备、显示characteristic，读取characteristic的value，和descriptors以及Descriptors对应的value的委托设置，并使用nslog打印信息。
 
 **BabyBluetoothExamples/BluetoothStubOnOSX** :一个mac os程序，该程序可以作为蓝牙外设使用，解决学习蓝牙时没有外设可用的囧境，并且可以作为peripheral model模式的学习示例。改程序用swift编码。
+
+
+
 
 功能：
 - 1：作为蓝牙外设使用，可以被发现，连接，读写，订阅
@@ -124,9 +130,7 @@ step2:导入.h文件
 
 
 # 后期更新
-- 增加babytooth对NSNotification事件的支持
-- 完善代码的中英文注释
-- 增加对外设模式使用的支持（app作为蓝牙设备提供服务）
+
 - 优化babyBluetooch的子类类名
 - 增加对Carthage Install的支持
 - swift版本开发
@@ -142,11 +146,12 @@ step2:导入.h文件
 - 待定...
 - [官方CoreBuetooth支持页](https://developer.apple.com/bluetooth)
 
-qq交流群1：426603940(满)
 qq交流群2：168756967
+qq交流群1：426603940(满)
 
 # 期待
-  - 蓝牙库写起来很辛苦，不要忘记点击右上角小星星star支持一下~
+
+  - 蓝牙库写起来很辛苦，不要忘记点击右上角小星星star和[follow](https://github.com/coolnameismy)支持一下~
   - 如果在使用过程中遇到BUG，或发现功能不够用，希望你能Issues我，谢谢
   - 期待大家也能一起为BabyBluetooth输出代码，这里我只是给BabyBluetooth开了个头，他可以增加和优化的地方还是非常多。也期待和大家在Pull Requests一起学习，交流，成长。
 

@@ -36,9 +36,8 @@
     baby = [BabyBluetooth shareBabyBluetooth];
     //配置委托
     [self babyDelegate];
-    //启动外设
+    //添加服务和启动外设
     baby.bePeripheral().addServices(@[s1,s2]).startAdvertising();
-    
 }
 
 //配置委托
@@ -46,7 +45,7 @@
 
     //设置添加service委托 | set didAddService block
     [baby peripheralModelBlockOnPeripheralManagerDidUpdateState:^(CBPeripheralManager *peripheral) {
-        NSLog(@"PeripheralManager trun status code: %d",peripheral.state);
+        NSLog(@"PeripheralManager trun status code: %ld",(long)peripheral.state);
     }];
     
     //设置添加service委托 | set didAddService block
