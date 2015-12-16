@@ -159,7 +159,6 @@
     callback.blockOnPeripheralModelDidUnSubscribeToCharacteristic(peripheral,central,characteristic);
 }
 
-#warning 优化等待流程
 
 @end
 

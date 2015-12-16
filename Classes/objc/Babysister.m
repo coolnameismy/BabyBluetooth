@@ -39,10 +39,10 @@
         NSArray *backgroundModes = [[[NSBundle mainBundle] infoDictionary]objectForKey:@"UIBackgroundModes"];
         if ([backgroundModes containsObject:@"bluetooth-central"]) {
            //后台模式
-           bleManager = [[CBCentralManager alloc]initWithDelegate:self queue:nil options:options];
+           centralManager = [[CBCentralManager alloc]initWithDelegate:self queue:nil options:options];
         }else{
            //非后台模式
-           bleManager = [[CBCentralManager alloc]initWithDelegate:self queue:nil];
+           centralManager = [[CBCentralManager alloc]initWithDelegate:self queue:nil];
         }
         
         //pocket
@@ -82,31 +82,31 @@
 
 //扫描Peripherals
 -(void)scanPeripherals{
-    [bleManager scanForPeripheralsWithServices:[currChannel babyOptions].scanForPeripheralsWithServices options:[currChannel babyOptions].scanForPeripheralsWithOptions];
+    [centralManager scanForPeripheralsWithServices:[currChannel babyOptions].scanForPeripheralsWithServices options:[currChannel babyOptions].scanForPeripheralsWithOptions];
 }
 //连接Peripherals
 -(void)connectToPeripheral:(CBPeripheral *)peripheral{
-    [bleManager connectPeripheral:peripheral options:[currChannel babyOptions].connectPeripheralWithOptions];
+    [centralManager connectPeripheral:peripheral options:[currChannel babyOptions].connectPeripheralWithOptions];
 }
 
 
 //断开设备连接
 -(void)cancelPeripheralConnection:(CBPeripheral *)peripheral{
-    [bleManager cancelPeripheralConnection:peripheral];
+    [centralManager cancelPeripheralConnection:peripheral];
 }
 
 //断开所有已连接的设备
 -(void)cancelAllPeripheralsConnection{
     for (int i=0;i<connectedPeripherals.count;i++) {
-        [bleManager cancelPeripheralConnection:connectedPeripherals[i]];
+        [centralManager cancelPeripheralConnection:connectedPeripherals[i]];
     }
 }
 //停止扫描
 -(void)cancelScan{
-    [bleManager stopScan];
+    [centralManager stopScan];
     //停止扫描callback
     if([currChannel blockOnCancelScan]){
-        [currChannel blockOnCancelScan](bleManager);
+        [currChannel blockOnCancelScan](centralManager);
     }
 
 }
@@ -172,7 +172,7 @@
     //处理连接设备
     if(needConnectPeripheral){
         if ([currChannel filterOnConnetToPeripherals](peripheral.name)) {
-            [bleManager connectPeripheral:peripheral options:[currChannel babyOptions].connectPeripheralWithOptions];
+            [centralManager connectPeripheral:peripheral options:[currChannel babyOptions].connectPeripheralWithOptions];
             //开一个定时器监控连接超时的情况
             connectTimer = [NSTimer scheduledTimerWithTimeInterval:5.0f target:self selector:@selector(disconnect:) userInfo:peripheral repeats:NO];
         }
@@ -181,7 +181,7 @@
 
 //停止扫描
 -(void)disconnect:(id)sender{
-    [bleManager stopScan];
+    [centralManager stopScan];
 }
 
 //连接到Peripherals-成功
@@ -235,7 +235,7 @@
     if ([self findConnectedPeripherals].count == 0) {
         //停止扫描callback
         if([currChannel blockOnCancelAllPeripheralsConnection]){
-            [currChannel blockOnCancelAllPeripheralsConnection](bleManager);
+            [currChannel blockOnCancelAllPeripheralsConnection](centralManager);
         }
         //    NSLog(@">>> stopConnectAllPerihperals");
     }

@@ -377,7 +377,7 @@
 
 //私有方法，扫描或连接设备
 -(void)start:(CBPeripheral *)cachedPeripheral{
-    if (babysister->bleManager.state == CBCentralManagerStatePoweredOn) {
+    if (babysister->centralManager.state == CBCentralManagerStatePoweredOn) {
         CENTRAL_MANAGER_INIT_WAIT_TIMES = 0;
         //扫描后连接
         if (babysister->needScanForPeripherals) {
@@ -581,7 +581,7 @@ characteristic:(CBCharacteristic *)characteristic
 
 //获取当前corebluetooth的centralManager对象
 -(CBCentralManager *)centralManager{
-    return babysister->bleManager;
+    return babysister->centralManager;
 }
 
 

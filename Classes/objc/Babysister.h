@@ -41,7 +41,7 @@
     NSMutableArray *connectedPeripherals;
     
     //主设备
-    CBCentralManager *bleManager;
+    CBCentralManager *centralManager;
     //回叫方法
     BabySpeaker *babySpeaker;
     
