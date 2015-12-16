@@ -14,7 +14,7 @@ Pod::Spec.new do |s|
 
   s.license      = "MIT" 
   s.author             = { "liuyanwei" => "coolnameismy@hotmail.com" }
-  s.source       = { :git => "https://github.com/coolnameismy/BabyBluetooth.git", :tag => "0.4.0" }
+  s.source       = { :git => "https://github.com/coolnameismy/BabyBluetooth.git", :tag => "0.5.0" }
 
   s.platform     = :ios, "7.0"
   s.requires_arc = true
