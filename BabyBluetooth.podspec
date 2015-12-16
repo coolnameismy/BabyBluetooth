@@ -2,7 +2,7 @@ Pod::Spec.new do |s|
 
 
   s.name         = "BabyBluetooth"
-  s.version      = "0.4.0"
+  s.version      = "0.5.0"
   s.summary      = "bluetooth library on ios/osx"
 
   s.description  = <<-DESC
