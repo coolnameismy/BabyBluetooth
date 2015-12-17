@@ -13,12 +13,12 @@ The easiest way to use Bluetooth (BLE )in ios,even bady can use .  CoreBluetooth
 - 6:comprehensive documentation and active project
 - 7:more star library for ios bluetooch in github（not PhoneGap and SensorTag）
 - 8:include demo and tutorial
+- 9:works with both central model and peripheral model
 
-current verison v0.4.0
+current verison 0.5.0
 
 # Contents
 
- 
 * [QuickExample](#user-content-QuickExample)
 * [how to install](#user-content-how-to-install)
 * [how to use](#user-content-how-to-use)
@@ -29,6 +29,10 @@ current verison v0.4.0
 * [wish](#user-content-wish)
  
 # QuickExample
+
+## central model 
+>  let you apps be Central and cotact other BLE4.0 peripheral 
+
 ```objc
 
 //import head files
@@ -67,6 +71,73 @@ BabyBluetooth *baby;
 }
   
 ```
+more method and delegate please see : [wiki](https://github.com/coolnameismy/BabyBluetooth/wiki)
+
+Central model deme see:[BabyBluetoothAppDemo](https://github.com/coolnameismy//BabyBluetoothExamples/BabyBluetoothAppDemo)
+
+
+## peripheral model 
+>  let you apps be a BLE4.0 peripheral
+
+
+mock a peripheral which has 2 service and 6 characteristic together
+
+````objc
+//import head files
+#import "BabyBluetooth.h"
+//define var
+BabyBluetooth *baby;
+
+-(void)viewDidLoad {
+    [super viewDidLoad];
+
+    //config first service
+    CBMutableService *s1 = makeCBService(@"FFF0");
+    //config s1‘s characteristic
+    makeCharacteristicToService(s1, @"FFF1", @"r", @"hello1");//can read
+    makeCharacteristicToService(s1, @"FFF2", @"w", @"hello2");//can write
+    makeCharacteristicToService(s1, genUUID(), @"rw", @"hello3");//can read,write ,uuid be automatically generate
+    makeCharacteristicToService(s1, @"FFF4", nil, @"hello4");//default property is rw
+    makeCharacteristicToService(s1, @"FFF5", @"n", @"hello5");//can notiy
+    //config seconed service s2
+    CBMutableService *s2 = makeCBService(@"FFE0");
+    //a static characteristic and has cached vuale ,it must be only can read.
+    makeStaticCharacteristicToService(s2, genUUID(), @"hello6", [@"a" dataUsingEncoding:NSUTF8StringEncoding]);
+   
+    //init BabyBluetooth
+    baby = [BabyBluetooth shareBabyBluetooth];
+    //config delegate
+    [self babyDelegate];
+    //let peripheral add services and start advertising
+    baby.bePeripheral().addServices(@[s1,s2]).startAdvertising();
+}
+
+//set baby peripheral model delegate
+-(void)babyDelegate{
+
+     //设置添加service委托 | set didAddService block
+    [baby peripheralModelBlockOnPeripheralManagerDidUpdateState:^(CBPeripheralManager *peripheral) {
+        NSLog(@"PeripheralManager trun status code: %ld",(long)peripheral.state);
+    }];
+    
+    //设置添加service委托 | set didAddService block
+    [baby peripheralModelBlockOnDidStartAdvertising:^(CBPeripheralManager *peripheral, NSError *error) {
+        NSLog(@"didStartAdvertising !!!");
+    }];
+    
+    //设置添加service委托 | set didAddService block
+    [baby peripheralModelBlockOnDidAddService:^(CBPeripheralManager *peripheral, CBService *service, NSError *error) {
+        NSLog(@"Did Add Service uuid: %@ ",service.UUID);
+    }];
+
+    //.....
+}
+
+````
+  
+more method and delegate please see : [wiki](https://github.com/coolnameismy/BabyBluetooth/wiki)
+
+peripheral model demo see :[BluetoothStubOnIOS](https://github.com/coolnameismy//BabyBluetoothExamples/BluetoothStubOnIOS)
 
 # how to install
 
@@ -82,7 +153,8 @@ step2:import .h
 ##2 cocoapods
 step1:add the following line to your Podfile:
 ````
-pod 'BabyBluetooth','~> 0.4.0'
+pod 'BabyBluetooth','~> 0.5.0'
+
 ````
 
 step2:import header files
@@ -104,6 +176,9 @@ functionality
 - 4：write 0x01 to characteristic
 - 5：subscription/unsubscription characteristic
 
+**BabyBluetoothExamples/BluetoothStubOnIOS** : a iOS apps， when they launch, they will start a BLE4,0 peripheral and privide two services and together six charactistic . it's Babybluetooth peripheral model develope example
+
+
 **BabyBluetoothExamples/BabyBluetoothOSDemo** :mac osx app，osx and ios is not diffent on CoreBluetooth，so BabyBluetooth can use in both ios and osx 。
 functionality
 - 1：scanfor peripheral, conncet peripheral 、read characteristic，read characteristic 's value,discover descriptors and descriptors's value，the message all in nslog,this app none UI
@@ -121,9 +196,7 @@ functionality
 
 # plan for update
  
-- add support for NSNotification event in babyBluetooth
 - improve englist code note 
-- add support for peripheralManager(let app be a peripheral!)
 - babybluetooth test application
 - swift babybluetooth develop
 
@@ -133,6 +206,8 @@ history verison，see wiki
 QQ Group Number:168756967. [QQ is a IM from china](http://im.qq.com/)
 
 Or Mail me:coolnameismy@hotmail.com
+
+*nearst update：* be support for BLE peripheral model 
 
 
 # wish

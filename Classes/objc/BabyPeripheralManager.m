@@ -94,14 +94,6 @@
     }
 }
 
--(BabyPeripheralManager *(^)(CBMutableService *server))addService{
-    return ^BabyPeripheralManager*(CBMutableService *server){
-        return  self;
-    };
-}
-
-
-
 #pragma mark- peripheralManager delegate
 
 -(void)peripheralManagerDidUpdateState:(CBPeripheralManager *)peripheral{

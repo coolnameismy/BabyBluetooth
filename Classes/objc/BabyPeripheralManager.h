@@ -23,7 +23,6 @@
  添加服务
  */
 -(BabyPeripheralManager *(^)(NSArray *array))addServices;
--(BabyPeripheralManager *(^)(CBMutableService *server))addService;
 
 /**
 启动广播
