@@ -170,7 +170,7 @@ step2:导入.h文件
 
 # 示例程序说明
 
-**BabyBluetoothExamples/BabyBluetoothAppDemo** :一个类似lightblue的程序，蓝牙操作全部使用BabyBluetooch完成。
+**BabyBluetoothExamples/BabyBluetoothAppDemo** :一个类似lightblue的程序，蓝牙操作全部使用BabyBluetooth完成。
 功能：
 - 1：扫描周围设备
 - 2：连接设备，扫描设备的全部services和characteristic
