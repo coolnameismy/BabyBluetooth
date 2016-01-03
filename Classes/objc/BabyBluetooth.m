@@ -325,7 +325,7 @@
 //设置读取到Descriptors值的block
 -(BabyBluetooth *(^)()) readValueForDescriptors{
     return ^BabyBluetooth *(){
-        [babysister->pocket setObject:@"YES" forKey:@"needDiscoverDescriptorsForCharacteristic"];
+        [babysister->pocket setObject:@"YES" forKey:@"needReadValueForDescriptors"];
         return self;
     };
 }
