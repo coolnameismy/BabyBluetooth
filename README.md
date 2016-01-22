@@ -221,6 +221,8 @@ step2:导入.h文件
 - 暂未完成-ios蓝牙开发（五）BabyBluetooth实现原理
 - 待定...
 - [官方CoreBuetooth支持页](https://developer.apple.com/bluetooth)
+- [Bluetooth Accessory Design Guidelines for Apple Products](https://developer.apple.com/hardwaredrivers/BluetoothDesignGuidelines.pdf)
+
 
 qq交流群3：530142592
 qq交流群2：168756967(满）
