@@ -1,7 +1,7 @@
 
 ![](http://images.jumppo.com/uploads/BabyBluetooth_logo.png)
 
-The easiest way to use Bluetooth (BLE )in ios,even bady can use .  CoreBluetooth wrap.
+The easiest way to use Bluetooth (BLE )in ios,even baby can use .  CoreBluetooth wrap.
 
 #feature
 
