@@ -10,9 +10,9 @@
 
 @implementation BabyOptions
 
--(instancetype)init{
+- (instancetype)init{
     self = [super init];
-    if(self){
+    if (self) {
         [self setScanForPeripheralsWithOptions:nil];
         [self setConnectPeripheralWithOptions:nil];
         [self setScanForPeripheralsWithServices:nil];
@@ -22,25 +22,25 @@
     return self;
 }
 
--(instancetype)initWithscanForPeripheralsWithOptions:(NSDictionary *)scanForPeripheralsWithOptions
+- (instancetype)initWithscanForPeripheralsWithOptions:(NSDictionary *)scanForPeripheralsWithOptions
         connectPeripheralWithOptions:(NSDictionary *)connectPeripheralWithOptions
 {
     self = [super init];
-    if(self){
+    if (self) {
         [self setScanForPeripheralsWithOptions:scanForPeripheralsWithOptions];
         [self setConnectPeripheralWithOptions:connectPeripheralWithOptions];
     }
     return self;
 }
 
--(instancetype)initWithscanForPeripheralsWithOptions:(NSDictionary *)scanForPeripheralsWithOptions
+- (instancetype)initWithscanForPeripheralsWithOptions:(NSDictionary *)scanForPeripheralsWithOptions
                         connectPeripheralWithOptions:(NSDictionary *)connectPeripheralWithOptions
                       scanForPeripheralsWithServices:(NSArray *)scanForPeripheralsWithServices
                       discoverWithServices:(NSArray *)discoverWithServices
                       discoverWithCharacteristics:(NSArray *)discoverWithCharacteristics
 {
     self = [self initWithscanForPeripheralsWithOptions:scanForPeripheralsWithOptions connectPeripheralWithOptions:connectPeripheralWithOptions];
-    if(self){
+    if (self) {
         [self setScanForPeripheralsWithServices:scanForPeripheralsWithServices];
         [self setDiscoverWithServices:discoverWithServices];
         [self setDiscoverWithCharacteristics:discoverWithCharacteristics];

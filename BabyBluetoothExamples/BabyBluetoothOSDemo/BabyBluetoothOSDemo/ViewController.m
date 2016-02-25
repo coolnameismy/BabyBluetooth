@@ -26,7 +26,7 @@
 
 
 //蓝牙网关初始化和委托方法设置
--(void)babyDelegate{
+- (void)babyDelegate{
     
     __weak typeof(baby) weakBaby = baby;
     

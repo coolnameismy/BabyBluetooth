@@ -50,10 +50,10 @@
 
 
 #pragma mark -构造方法
--(instancetype)initWithscanForPeripheralsWithOptions:(NSDictionary *)scanForPeripheralsWithOptions
+- (instancetype)initWithscanForPeripheralsWithOptions:(NSDictionary *)scanForPeripheralsWithOptions
                         connectPeripheralWithOptions:(NSDictionary *)connectPeripheralWithOptions;
 
--(instancetype)initWithscanForPeripheralsWithOptions:(NSDictionary *)scanForPeripheralsWithOptions
+- (instancetype)initWithscanForPeripheralsWithOptions:(NSDictionary *)scanForPeripheralsWithOptions
                         connectPeripheralWithOptions:(NSDictionary *)connectPeripheralWithOptions
                       scanForPeripheralsWithServices:(NSArray *)scanForPeripheralsWithServices
                                 discoverWithServices:(NSArray *)discoverWithServices
