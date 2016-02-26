@@ -20,7 +20,7 @@ typedef void (^BBBeatsOverBlock)(BabyRhythm *bry);
 @property(nonatomic,strong) NSTimer *beatsTimer;
 
 //beat interval
-@property int beatsInterval;
+@property NSInteger beatsInterval;
 
 //心跳时间间隔，默认是3
 //defalut interval

@@ -19,7 +19,7 @@
  *  @seealso            CBCentralManagerScanOptionAllowDuplicatesKey :忽略同一个Peripheral端的多个发现事件被聚合成一个发现事件
  *	@seealso			CBCentralManagerScanOptionSolicitedServiceUUIDsKey
  */
-@property(nonatomic,strong) NSDictionary *scanForPeripheralsWithOptions;
+@property(nonatomic,copy) NSDictionary *scanForPeripheralsWithOptions;
 
 /*!
 *  连接设备的参数
@@ -31,7 +31,7 @@
 *  @seealso            CBConnectPeripheralOptionNotifyOnDisconnectionKey
 *  @seealso            CBConnectPeripheralOptionNotifyOnNotificationKey
 */
-@property(nonatomic,strong) NSDictionary *connectPeripheralWithOptions;
+@property(nonatomic,copy) NSDictionary *connectPeripheralWithOptions;
 
 
 
@@ -40,13 +40,13 @@
  *@param serviceUUIDs A list of <code>CBUUID</code> objects representing the service(s) to scan for.
  *@see                centralManager:scanForPeripheralsWithServices
  */
-@property(nonatomic,strong) NSArray *scanForPeripheralsWithServices;
+@property(nonatomic,copy) NSArray *scanForPeripheralsWithServices;
 
 // [peripheral discoverServices:self.discoverWithServices];
-@property(nonatomic,strong) NSArray *discoverWithServices;
+@property(nonatomic,copy) NSArray *discoverWithServices;
 
 // [peripheral discoverCharacteristics:self.discoverWithCharacteristics forService:service];
-@property(nonatomic,strong) NSArray *discoverWithCharacteristics;
+@property(nonatomic,copy) NSArray *discoverWithCharacteristics;
 
 
 #pragma mark -构造方法
