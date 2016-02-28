@@ -588,10 +588,10 @@ static const CGFloat SVProgressHUDUndefinedProgress = -1;
 #pragma mark - Master show/dismiss methods
 
 - (void)showProgress:(float)progress status:(NSString*)string maskType:(SVProgressHUDMaskType)hudMaskType {
-    if(!self.overlayView.superview){
+    if(!self.overlayView.superview) {
 #if !defined(SV_APP_EXTENSIONS)
         NSEnumerator *frontToBackWindows = [UIApplication.sharedApplication.windows reverseObjectEnumerator];
-        for (UIWindow *window in frontToBackWindows){
+        for (UIWindow *window in frontToBackWindows) {
             BOOL windowOnMainScreen = window.screen == UIScreen.mainScreen;
             BOOL windowIsVisible = !window.hidden && window.alpha > 0;
             BOOL windowLevelNormal = window.windowLevel == UIWindowLevelNormal;
@@ -602,7 +602,7 @@ static const CGFloat SVProgressHUDUndefinedProgress = -1;
             }
         }
 #else
-        if(SVProgressHUDExtensionView){
+        if(SVProgressHUDExtensionView) {
             [SVProgressHUDExtensionView addSubview:self.overlayView];
         }
 #endif
@@ -676,7 +676,7 @@ static const CGFloat SVProgressHUDUndefinedProgress = -1;
                              else
                                  self.alpha = 1;
                          }
-                         completion:^(BOOL finished){
+                         completion:^(BOOL finished) {
                              [[NSNotificationCenter defaultCenter] postNotificationName:SVProgressHUDDidAppearNotification
                                                                                  object:nil
                                                                                userInfo:userInfo];
@@ -756,7 +756,7 @@ static const CGFloat SVProgressHUDUndefinedProgress = -1;
                          else
                              self.alpha = 0.0f;
                      }
-                     completion:^(BOOL finished){
+                     completion:^(BOOL finished) {
                          if(self.alpha == 0.0f || self.hudView.alpha == 0.0f) {
                              self.alpha = 0.0f;
                              self.hudView.alpha = 0.0f;

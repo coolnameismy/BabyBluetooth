@@ -15,7 +15,7 @@
 
 - (instancetype)init{
     self = [super init];
-    if (self){
+    if (self) {
         [self setFilterOnDiscoverPeripherals:^BOOL(NSString *peripheralName) {
             if (![peripheralName isEqualToString:@""]) {
                 return YES;
@@ -23,7 +23,7 @@
             return NO;
         }];
         [self setFilterOnConnetToPeripherals:^BOOL(NSString *peripheralName) {
-            if (![peripheralName isEqualToString:@""]){
+            if (![peripheralName isEqualToString:@""]) {
                 return YES;
             }
             return NO;

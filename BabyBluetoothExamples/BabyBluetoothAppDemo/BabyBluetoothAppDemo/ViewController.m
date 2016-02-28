@@ -161,7 +161,7 @@
 #pragma mark -UIViewController 方法
 //插入table数据
 -(void)insertTableView:(CBPeripheral *)peripheral advertisementData:(NSDictionary *)advertisementData{
-    if(![peripherals containsObject:peripheral]){
+    if(![peripherals containsObject:peripheral]) {
         NSMutableArray *indexPaths = [[NSMutableArray alloc] init];
         NSIndexPath *indexPath = [NSIndexPath indexPathForRow:peripherals.count inSection:0];
         [indexPaths addObject:indexPath];

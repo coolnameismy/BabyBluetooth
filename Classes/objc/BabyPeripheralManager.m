@@ -28,7 +28,7 @@
 
 
 - (BabyPeripheralManager *(^)())startAdvertising{
-    return ^BabyPeripheralManager *(){
+    return ^BabyPeripheralManager *() {
         
         if ([self canStartAdvertising]) {
             PERIPHERAL_MANAGER_INIT_WAIT_TIMES = 0;
@@ -77,7 +77,7 @@
 }
 
 - (BabyPeripheralManager *(^)(NSArray *array))addServices{
-    return ^BabyPeripheralManager*(NSArray *array){
+    return ^BabyPeripheralManager*(NSArray *array) {
         _services = [NSMutableArray arrayWithArray:array];
         [self addServicesToPeripheral];
         return  self;
@@ -124,7 +124,7 @@
             break;
     }
 
-//    if([babySpeaker callback] blockOnPeripheralModelDidUpdateState){
+//    if([babySpeaker callback] blockOnPeripheralModelDidUpdateState) {
 //        [currChannel blockOnCancelScan](centralManager);
 //    }
     callbackBlock(blockOnPeripheralModelDidUpdateState)(peripheral);
@@ -159,7 +159,7 @@
 
 @end
 
-void makeCharacteristicToService(CBMutableService *service,NSString *UUID,NSString *properties,NSString *descriptor){
+void makeCharacteristicToService(CBMutableService *service,NSString *UUID,NSString *properties,NSString *descriptor) {
 
     //paramter for properties
     CBCharacteristicProperties prop = 0x00;
@@ -193,7 +193,7 @@ void makeCharacteristicToService(CBMutableService *service,NSString *UUID,NSStri
     [cs addObject:c];
     service.characteristics = [cs copy];
 }
-void makeStaticCharacteristicToService(CBMutableService *service,NSString *UUID,NSString *descriptor,NSData *data){
+void makeStaticCharacteristicToService(CBMutableService *service,NSString *UUID,NSString *descriptor,NSData *data) {
     
     CBMutableCharacteristic *c = [[CBMutableCharacteristic alloc]initWithType:[CBUUID UUIDWithString:UUID] properties:CBCharacteristicPropertyRead  value:data permissions:CBAttributePermissionsReadable];
     

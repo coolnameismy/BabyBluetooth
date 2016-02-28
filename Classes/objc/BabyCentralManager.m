@@ -106,7 +106,7 @@
 - (void)cancelScan{
     [centralManager stopScan];
     //停止扫描callback
-    if([currChannel blockOnCancelScan]){
+    if([currChannel blockOnCancelScan]) {
         [currChannel blockOnCancelScan](centralManager);
     }
 
@@ -248,7 +248,7 @@
     
     
 //  NSLog(@">>>扫描到服务：%@",peripheral.services);
-    if (error){
+    if (error) {
         NSLog(@">>>didDiscoverServices for %@ with error: %@", peripheral.name, [error localizedDescription]);
 //        return;
     }
@@ -269,7 +269,7 @@
 //发现服务的Characteristics
 - (void)peripheral:(CBPeripheral *)peripheral didDiscoverCharacteristicsForService:(CBService *)service error:(NSError *)error{
     
-    if (error){
+    if (error) {
         NSLog(@"error didDiscoverCharacteristicsForService for %@ with error: %@", service.UUID, [error localizedDescription]);
 //        return;
     }
@@ -280,14 +280,14 @@
     
     //如果需要更新Characteristic的值
     if (needReadValueForCharacteristic) {
-        for (CBCharacteristic *characteristic in service.characteristics){
+        for (CBCharacteristic *characteristic in service.characteristics) {
             [peripheral readValueForCharacteristic:characteristic];
         }
     }
     
     //如果搜索Characteristic的Descriptors
     if (needDiscoverDescriptorsForCharacteristic) {
-        for (CBCharacteristic *characteristic in service.characteristics){
+        for (CBCharacteristic *characteristic in service.characteristics) {
             [peripheral discoverDescriptorsForCharacteristic:characteristic];
         }
     }
@@ -296,7 +296,7 @@
 //读取Characteristics的值
 - (void)peripheral:(CBPeripheral *)peripheral didUpdateValueForCharacteristic:(CBCharacteristic *)characteristic error:(NSError *)error{
 
-    if (error){
+    if (error) {
         NSLog(@"error didUpdateValueForCharacteristic %@ with error: %@", characteristic.UUID, [error localizedDescription]);
 //        return;
     }
@@ -325,7 +325,7 @@
     }
     //如果需要更新Characteristic的Descriptors
     if (needReadValueForDescriptors) {
-        for (CBDescriptor *d in characteristic.descriptors){
+        for (CBDescriptor *d in characteristic.descriptors) {
             [peripheral readValueForDescriptor:d];
         }
     }
