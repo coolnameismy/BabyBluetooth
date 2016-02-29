@@ -21,7 +21,7 @@
     self = [super init];
     if (self) {
         _localName = @"";
-        self.peripheralManager = [[CBPeripheralManager alloc]initWithDelegate:self queue:nil options:nil];
+        _peripheralManager = [[CBPeripheralManager alloc]initWithDelegate:self queue:nil options:nil];
     }
     return  self;    
 }

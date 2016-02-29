@@ -13,11 +13,11 @@
 - (instancetype)init{
     self = [super init];
     if (self) {
-        [self setScanForPeripheralsWithOptions:nil];
-        [self setConnectPeripheralWithOptions:nil];
-        [self setScanForPeripheralsWithServices:nil];
-        [self setDiscoverWithCharacteristics:nil];
-        [self setDiscoverWithServices:nil];
+      _scanForPeripheralsWithOptions = nil;
+      _connectPeripheralWithOptions = nil;
+      _scanForPeripheralsWithServices = nil;
+      _discoverWithServices = nil;
+      _discoverWithCharacteristics = nil;
     }
     return self;
 }

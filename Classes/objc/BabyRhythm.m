@@ -14,14 +14,11 @@
     BBBeatsOverBlock blockOnBeatOver;
 }
 
-
-
-
 - (instancetype)init{
     self = [super init];
     if (self) {
         //beatsInterval
-        self.beatsInterval = beatsDefaultInterval;
+        _beatsInterval = beatsDefaultInterval;
     }
     return  self;
 }
