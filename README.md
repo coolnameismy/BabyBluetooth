@@ -65,6 +65,11 @@ BabyBluetooth *baby;
     //过滤器
     //设置查找设备的过滤器
     [baby setFilterOnDiscoverPeripherals:^BOOL(NSString *peripheralName) {
+        //最常用的场景是查找某一个前缀开头的设备 most common usage is discover for peripheral that name has common prefix
+        //if ([peripheralName hasPrefix:@"Pxxxx"] ) {
+        //    return YES;
+        //}
+        //return NO;
         //设置查找规则是名称大于1 ， the search rule is peripheral.name length > 1
         if (peripheralName.length >1) {
             return YES;

@@ -13,15 +13,15 @@
 		E1D0BC311C1B189B00F46E04 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E1D0BC2F1C1B189B00F46E04 /* Main.storyboard */; };
 		E1D0BC331C1B189B00F46E04 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E1D0BC321C1B189B00F46E04 /* Assets.xcassets */; };
 		E1D0BC361C1B189B00F46E04 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E1D0BC341C1B189B00F46E04 /* LaunchScreen.storyboard */; };
-		E1D0BC581C1D61AB00F46E04 /* peripheral_servers.json in Resources */ = {isa = PBXBuildFile; fileRef = E1D0BC571C1D61AB00F46E04 /* peripheral_servers.json */; settings = {ASSET_TAGS = (); }; };
-		E1D0BC6A1C1DACE100F46E04 /* BabyBluetooth.m in Sources */ = {isa = PBXBuildFile; fileRef = E1D0BC5B1C1DACE100F46E04 /* BabyBluetooth.m */; settings = {ASSET_TAGS = (); }; };
-		E1D0BC6B1C1DACE100F46E04 /* BabyCallback.m in Sources */ = {isa = PBXBuildFile; fileRef = E1D0BC5D1C1DACE100F46E04 /* BabyCallback.m */; settings = {ASSET_TAGS = (); }; };
-		E1D0BC6C1C1DACE100F46E04 /* BabyOptions.m in Sources */ = {isa = PBXBuildFile; fileRef = E1D0BC5F1C1DACE100F46E04 /* BabyOptions.m */; settings = {ASSET_TAGS = (); }; };
-		E1D0BC6D1C1DACE100F46E04 /* BabyPeripheralManager.m in Sources */ = {isa = PBXBuildFile; fileRef = E1D0BC611C1DACE100F46E04 /* BabyPeripheralManager.m */; settings = {ASSET_TAGS = (); }; };
-		E1D0BC6E1C1DACE100F46E04 /* BabyRhythm.m in Sources */ = {isa = PBXBuildFile; fileRef = E1D0BC631C1DACE100F46E04 /* BabyRhythm.m */; settings = {ASSET_TAGS = (); }; };
-		E1D0BC6F1C1DACE100F46E04 /* BabyCentralManager.m in Sources */ = {isa = PBXBuildFile; fileRef = E1D0BC651C1DACE100F46E04 /* BabyCentralManager.m */; settings = {ASSET_TAGS = (); }; };
-		E1D0BC701C1DACE100F46E04 /* BabySpeaker.m in Sources */ = {isa = PBXBuildFile; fileRef = E1D0BC671C1DACE100F46E04 /* BabySpeaker.m */; settings = {ASSET_TAGS = (); }; };
-		E1D0BC711C1DACE100F46E04 /* BabyToy.m in Sources */ = {isa = PBXBuildFile; fileRef = E1D0BC691C1DACE100F46E04 /* BabyToy.m */; settings = {ASSET_TAGS = (); }; };
+		E1D0BC581C1D61AB00F46E04 /* peripheral_servers.json in Resources */ = {isa = PBXBuildFile; fileRef = E1D0BC571C1D61AB00F46E04 /* peripheral_servers.json */; };
+		E1D0BC6A1C1DACE100F46E04 /* BabyBluetooth.m in Sources */ = {isa = PBXBuildFile; fileRef = E1D0BC5B1C1DACE100F46E04 /* BabyBluetooth.m */; };
+		E1D0BC6B1C1DACE100F46E04 /* BabyCallback.m in Sources */ = {isa = PBXBuildFile; fileRef = E1D0BC5D1C1DACE100F46E04 /* BabyCallback.m */; };
+		E1D0BC6C1C1DACE100F46E04 /* BabyOptions.m in Sources */ = {isa = PBXBuildFile; fileRef = E1D0BC5F1C1DACE100F46E04 /* BabyOptions.m */; };
+		E1D0BC6D1C1DACE100F46E04 /* BabyPeripheralManager.m in Sources */ = {isa = PBXBuildFile; fileRef = E1D0BC611C1DACE100F46E04 /* BabyPeripheralManager.m */; };
+		E1D0BC6E1C1DACE100F46E04 /* BabyRhythm.m in Sources */ = {isa = PBXBuildFile; fileRef = E1D0BC631C1DACE100F46E04 /* BabyRhythm.m */; };
+		E1D0BC6F1C1DACE100F46E04 /* BabyCentralManager.m in Sources */ = {isa = PBXBuildFile; fileRef = E1D0BC651C1DACE100F46E04 /* BabyCentralManager.m */; };
+		E1D0BC701C1DACE100F46E04 /* BabySpeaker.m in Sources */ = {isa = PBXBuildFile; fileRef = E1D0BC671C1DACE100F46E04 /* BabySpeaker.m */; };
+		E1D0BC711C1DACE100F46E04 /* BabyToy.m in Sources */ = {isa = PBXBuildFile; fileRef = E1D0BC691C1DACE100F46E04 /* BabyToy.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -37,9 +37,9 @@
 		E1D0BC371C1B189B00F46E04 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		E1D0BC571C1D61AB00F46E04 /* peripheral_servers.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = peripheral_servers.json; sourceTree = "<group>"; };
 		E1D0BC5A1C1DACE100F46E04 /* BabyBluetooth.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BabyBluetooth.h; sourceTree = "<group>"; };
-		E1D0BC5B1C1DACE100F46E04 /* BabyBluetooth.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BabyBluetooth.m; sourceTree = "<group>"; };
-		E1D0BC5C1C1DACE100F46E04 /* BabyCallback.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BabyCallback.h; sourceTree = "<group>"; };
-		E1D0BC5D1C1DACE100F46E04 /* BabyCallback.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BabyCallback.m; sourceTree = "<group>"; };
+		E1D0BC5B1C1DACE100F46E04 /* BabyBluetooth.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = BabyBluetooth.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
+		E1D0BC5C1C1DACE100F46E04 /* BabyCallback.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = BabyCallback.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
+		E1D0BC5D1C1DACE100F46E04 /* BabyCallback.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = BabyCallback.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		E1D0BC5E1C1DACE100F46E04 /* BabyOptions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BabyOptions.h; sourceTree = "<group>"; };
 		E1D0BC5F1C1DACE100F46E04 /* BabyOptions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BabyOptions.m; sourceTree = "<group>"; };
 		E1D0BC601C1DACE100F46E04 /* BabyPeripheralManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BabyPeripheralManager.h; sourceTree = "<group>"; };
@@ -47,7 +47,7 @@
 		E1D0BC621C1DACE100F46E04 /* BabyRhythm.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BabyRhythm.h; sourceTree = "<group>"; };
 		E1D0BC631C1DACE100F46E04 /* BabyRhythm.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BabyRhythm.m; sourceTree = "<group>"; };
 		E1D0BC641C1DACE100F46E04 /* BabyCentralManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BabyCentralManager.h; sourceTree = "<group>"; };
-		E1D0BC651C1DACE100F46E04 /* BabyCentralManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BabyCentralManager.m; sourceTree = "<group>"; };
+		E1D0BC651C1DACE100F46E04 /* BabyCentralManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = BabyCentralManager.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		E1D0BC661C1DACE100F46E04 /* BabySpeaker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BabySpeaker.h; sourceTree = "<group>"; };
 		E1D0BC671C1DACE100F46E04 /* BabySpeaker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BabySpeaker.m; sourceTree = "<group>"; };
 		E1D0BC681C1DACE100F46E04 /* BabyToy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BabyToy.h; sourceTree = "<group>"; };
