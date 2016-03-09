@@ -20,7 +20,7 @@
 - (instancetype)init{
     self = [super init];
     if (self) {
-        _localName = @"";
+        _localName = @"baby-default-name";
         _peripheralManager = [[CBPeripheralManager alloc]initWithDelegate:self queue:nil options:nil];
     }
     return  self;    
