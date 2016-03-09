@@ -1,7 +1,13 @@
-//
-//  BabyPeripheralManager.h
-//  BluetoothStubOnIOS
-//
+/*
+ BabyBluetooth
+ 简单易用的蓝牙ble库，基于CoreBluetooth 作者：刘彦玮
+ https://github.com/coolnameismy/BabyBluetooth
+ 
+ @brief  蓝牙外设模式实现类
+ 
+ */
+
+
 //  Created by 刘彦玮 on 15/12/12.
 //  Copyright © 2015年 刘彦玮. All rights reserved.
 //

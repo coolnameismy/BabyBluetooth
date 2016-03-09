@@ -1,7 +1,12 @@
-//
-//  BabyClothes.h
-//  BabyBluetoothAppDemo
-//
+/*
+ BabyBluetooth
+ 简单易用的蓝牙ble库，基于CoreBluetooth 作者：刘彦玮
+ https://github.com/coolnameismy/BabyBluetooth
+ 
+ @brief  babybluetooth 封装蓝牙外设模式的运行时参数，可以实现后台模式，重复接收广播，查找service参数，查找characteristic参数
+ 
+ */
+
 //  Created by 刘彦玮 on 15/9/27.
 //  Copyright © 2015年 刘彦玮. All rights reserved.
 //

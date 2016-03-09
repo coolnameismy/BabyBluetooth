@@ -2,6 +2,9 @@
  BabyBluetooth
  简单易用的蓝牙ble库，基于CoreBluetooth 作者：刘彦玮
  https://github.com/coolnameismy/BabyBluetooth
+ 
+ @brief  babybluetooth block查找和channel切换
+
  */
 
 //  Created by 刘彦玮 on 15/9/2.

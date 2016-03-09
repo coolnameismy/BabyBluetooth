@@ -1,6 +1,11 @@
-//
-//  BabyBeats.h
-//  BabyBluetoothAppDemo
+/*
+ BabyBluetooth
+ 简单易用的蓝牙ble库，基于CoreBluetooth 作者：刘彦玮
+ https://github.com/coolnameismy/BabyBluetooth
+ 
+ @brief  babybluetooth Rhythm用于检测蓝牙的任务执行情况，处理复杂的蓝牙流程操作
+ 
+ */
 //
 //  Created by ZTELiuyw on 15/9/15.
 //  Copyright (c) 2015年 刘彦玮. All rights reserved.
