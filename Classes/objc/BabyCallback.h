@@ -120,7 +120,7 @@ typedef void (^BBPeripheralModelDidUnSubscribeToCharacteristic)(CBPeripheralMana
 //发现peripherals规则
 @property(nonatomic,copy)  BOOL (^filterOnDiscoverPeripherals)(NSString *peripheralName);
 //连接peripherals规则
-@property(nonatomic,copy)  BOOL (^filterOnConnetToPeripherals)(NSString *peripheralName);
+@property(nonatomic,copy)  BOOL (^filterOnconnectToPeripherals)(NSString *peripheralName);
 
 
 #pragma mark -peripheral model

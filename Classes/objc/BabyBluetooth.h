@@ -265,7 +265,7 @@ discoverIncludedServices的回调，暂时在babybluetooth中无作用
 设置连接Peripherals的规则
 |  setting filter of connect to peripherals  peripherals 
 */
-- (void)setFilterOnConnetToPeripherals:(BOOL (^)(NSString *peripheralName))filter;
+- (void)setFilterOnConnectToPeripherals:(BOOL (^)(NSString *peripheralName))filter;
 
 
 /**
@@ -279,7 +279,7 @@ discoverIncludedServices的回调，暂时在babybluetooth中无作用
 设置连接Peripherals的规则
 |  setting filter of connect to peripherals  peripherals 
 */
-- (void)setFilterOnConnetToPeripheralsAtChannel:(NSString *)channel
+- (void)setFilterOnConnectToPeripheralsAtChannel:(NSString *)channel
                                      filter:(BOOL (^)(NSString *peripheralName))filter;
 
 

@@ -242,8 +242,8 @@
     [[babySpeaker callback]setFilterOnDiscoverPeripherals:filter];
 }
 //设置连接Peripherals的规则
-- (void)setFilterOnConnetToPeripherals:(BOOL (^)(NSString *peripheralName))filter{
-    [[babySpeaker callback]setFilterOnConnetToPeripherals:filter];
+- (void)setFilterOnConnectToPeripherals:(BOOL (^)(NSString *peripheralName))filter{
+    [[babySpeaker callback]setFilterOnconnectToPeripherals:filter];
 }
 //设置查找Peripherals的规则
 - (void)setFilterOnDiscoverPeripheralsAtChannel:(NSString *)channel
@@ -251,9 +251,9 @@
     [[babySpeaker callbackOnChnnel:channel createWhenNotExist:YES] setFilterOnDiscoverPeripherals:filter];
 }
 //设置连接Peripherals的规则
-- (void)setFilterOnConnetToPeripheralsAtChannel:(NSString *)channel
+- (void)setFilterOnConnectToPeripheralsAtChannel:(NSString *)channel
                                      filter:(BOOL (^)(NSString *peripheralName))filter{
-    [[babySpeaker callbackOnChnnel:channel createWhenNotExist:YES] setFilterOnConnetToPeripherals:filter];
+    [[babySpeaker callbackOnChnnel:channel createWhenNotExist:YES] setFilterOnconnectToPeripherals:filter];
 }
 
 #pragma mark -babybluetooth Special
