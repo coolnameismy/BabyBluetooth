@@ -11,7 +11,7 @@ The easiest way to use Bluetooth (BLE )in ios,even bady can use. 简单易用的
 - 4:通过channel切换区分委托调用，并方便切换
 - 5:便利的工具方法
 - 6:完善的文档，且项目处于活跃状态，不断的更新中
-- 7:github上star最多的纯Bluetooch类库
+- 7:github上star最多的纯Bluetooth类库
 - 8:包含多种类型的demo和ios蓝牙开发教程
 - 9:同时支持蓝牙设备中心模式和外设模式（central model and peripheral model）
 
@@ -196,7 +196,7 @@ step2:导入.h文件
 - 2：提供1个service，包含了3个characteristic，分别具有读、读写、订阅功能
 
 # 兼容性
-- 蓝牙4.0，也叫做ble，ios6以上可以自由使用。
+- 蓝牙4.0，也叫做ble，ios6以上和iPhone4s以上可以自由使用
 - os和ios通用
 - 蓝牙设备相关程序必须使用真机才能运行。如果不能使用真机调试的情况，可以使用os程序调试蓝牙。可以参考示例程序中的BabyBluetoothOSDemo
 - 本项目和示例程序是使用ios 8.3开发，使用者可以自行降版本，但必须大于6.0 
