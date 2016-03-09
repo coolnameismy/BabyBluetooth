@@ -135,13 +135,13 @@
     
     __weak typeof(self)weakSelf = self;
     UIButton *btn = sender;
-    if(self.currPeripheral.state != CBPeripheralStateConnected){
+    if(self.currPeripheral.state != CBPeripheralStateConnected) {
         [SVProgressHUD showErrorWithStatus:@"peripheral已经断开连接，请重新连接"];
         return;
     }
-    if (self.characteristic.properties & CBCharacteristicPropertyNotify ||  self.characteristic.properties & CBCharacteristicPropertyIndicate){
+    if (self.characteristic.properties & CBCharacteristicPropertyNotify ||  self.characteristic.properties & CBCharacteristicPropertyIndicate) {
         
-        if(self.characteristic.isNotifying){
+        if(self.characteristic.isNotifying) {
             [baby cancelNotify:self.currPeripheral characteristic:self.characteristic];
             [btn setTitle:@"通知" forState:UIControlStateNormal];
         }else{
@@ -300,7 +300,7 @@
             [setNotifiyBtn setBackgroundColor:[UIColor darkGrayColor]];
             [setNotifiyBtn addTarget:self action:@selector(setNotifiy:) forControlEvents:UIControlEventTouchUpInside];
             //恢复状态
-            if(self.characteristic.isNotifying){
+            if(self.characteristic.isNotifying) {
                 [baby notify:self.currPeripheral characteristic:self.characteristic block:^(CBPeripheral *peripheral, CBCharacteristic *characteristics, NSError *error) {
                     NSLog(@"resume notify block");
                     [self insertReadValues:characteristics];

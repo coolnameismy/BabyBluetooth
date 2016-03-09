@@ -21,8 +21,7 @@
 }
 
 @property (nonatomic,strong)UITableView *tableView;
-@property (nonatomic,strong)CBCharacteristic *characteristic;
+@property (nonatomic,copy)CBCharacteristic *characteristic;
 @property (nonatomic,strong)CBPeripheral *currPeripheral;
-
 
 @end

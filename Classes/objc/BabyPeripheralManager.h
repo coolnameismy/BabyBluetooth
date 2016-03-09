@@ -22,16 +22,16 @@
 /**
  添加服务
  */
--(BabyPeripheralManager *(^)(NSArray *array))addServices;
+- (BabyPeripheralManager *(^)(NSArray *array))addServices;
 
 /**
 启动广播
  */
--(BabyPeripheralManager *(^)())startAdvertising;
+- (BabyPeripheralManager *(^)())startAdvertising;
 
 //外设管理器
 @property (nonatomic,strong) CBPeripheralManager *peripheralManager;
-@property (nonatomic,strong) NSString *localName;
+@property (nonatomic,copy) NSString *localName;
 @property (nonatomic,strong) NSMutableArray *services;
 
 @end

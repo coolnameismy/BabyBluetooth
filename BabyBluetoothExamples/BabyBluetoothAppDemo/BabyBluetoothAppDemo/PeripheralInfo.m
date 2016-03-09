@@ -13,7 +13,7 @@
 -(instancetype)init{
     self = [super init];
     if (self) {
-        self.characteristics = [[NSMutableArray alloc]init];
+        _characteristics = [[NSMutableArray alloc]init];
     }
     return self;
 }
