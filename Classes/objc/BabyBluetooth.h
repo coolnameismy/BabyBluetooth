@@ -2,6 +2,8 @@
  BabyBluetooth
  简单易用的蓝牙ble库，基于CoreBluetooth 作者：刘彦玮
  https://github.com/coolnameismy/BabyBluetooth
+ 
+ version:0.5.0+
  */
 
 // Created by 刘彦玮 on 15/3/31.
