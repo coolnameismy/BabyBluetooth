@@ -113,7 +113,7 @@ typedef void (^BBPeripheralModelDidUnSubscribeToCharacteristic)(CBPeripheralMana
 //babyBluettooth stopConnectAllPerihperals 方法调用后的回调
 @property(nonatomic,copy)  BBCancelAllPeripheralsConnectionBlock blockOnCancelAllPeripheralsConnection;
 //babyBluettooth 蓝牙使用的参数参数
-@property(nonatomic,copy) BabyOptions *babyOptions;
+@property(nonatomic,strong) BabyOptions *babyOptions;
 
 
 #pragma mark -过滤器Filter
