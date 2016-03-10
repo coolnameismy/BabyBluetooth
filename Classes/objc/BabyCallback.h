@@ -16,7 +16,7 @@
 
 
 //设备状态改变的委托
-typedef void (^BBcentralManagerDidUpdateStateBlock)(CBCentralManager *central);
+typedef void (^BBCentralManagerDidUpdateStateBlock)(CBCentralManager *central);
 //找到设备的委托
 typedef void (^BBDiscoverPeripheralsBlock)(CBCentralManager *central,CBPeripheral *peripheral,NSDictionary *advertisementData, NSNumber *RSSI);
 //连接设备成功的block
@@ -72,7 +72,7 @@ typedef void (^BBPeripheralModelDidUnSubscribeToCharacteristic)(CBPeripheralMana
 
 #pragma mark -callback block
 //设备状态改变的委托
-@property(nonatomic,copy) BBcentralManagerDidUpdateStateBlock blockOnCentralManagerDidUpdateState;
+@property(nonatomic,copy) BBCentralManagerDidUpdateStateBlock blockOnCentralManagerDidUpdateState;
 //发现peripherals
 @property(nonatomic,copy) BBDiscoverPeripheralsBlock blockOnDiscoverPeripherals;
 //连接callback
