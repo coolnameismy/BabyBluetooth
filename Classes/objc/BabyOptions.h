@@ -16,7 +16,7 @@
 
 @interface BabyOptions : NSObject
 
-#pragma mark -属性
+#pragma mark - 属性
 /*!
  * 扫描参数,centralManager:scanForPeripheralsWithServices:self.scanForPeripheralsWithServices options:self.scanForPeripheralsWithOptions
  * @param An optional dictionary specifying options for the scan.

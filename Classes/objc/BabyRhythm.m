@@ -8,13 +8,13 @@
 
 #import "BabyRhythm.h"
 
-@implementation BabyRhythm{
+@implementation BabyRhythm {
     BOOL isOver;
     BBBeatsBreakBlock blockOnBeatBreak;
     BBBeatsOverBlock blockOnBeatOver;
 }
 
-- (instancetype)init{
+- (instancetype)init {
     self = [super init];
     if (self) {
         //beatsInterval
@@ -23,7 +23,7 @@
     return  self;
 }
 
-- (void)beats{
+- (void)beats {
     
     if (isOver) {
         NSLog(@">>>beats isOver");
@@ -41,14 +41,15 @@
     }
 }
 
-- (void)beatsBreak{
+- (void)beatsBreak {
      NSLog(@">>>beatsBreak :%@",[NSDate date]);
     [self.beatsTimer setFireDate:[NSDate distantFuture]];
     if (blockOnBeatBreak) {
         blockOnBeatBreak(self);
     }
 }
-- (void)beatsOver{
+
+- (void)beatsOver {
     NSLog(@">>>beatsOver :%@",[NSDate date]);
     [self.beatsTimer setFireDate:[NSDate distantFuture]];
     isOver = YES;
@@ -57,17 +58,18 @@
     }
     
 }
-- (void)beatsRestart{
+
+- (void)beatsRestart {
     NSLog(@">>>beatsRestart :%@",[NSDate date]);
     isOver = NO;
     [self beats];
 }
 
-- (void)setBlockOnBeatsBreak:(void(^)(BabyRhythm *bry))block{
+- (void)setBlockOnBeatsBreak:(void(^)(BabyRhythm *bry))block {
     blockOnBeatBreak = block;
 }
 
-- (void)setBlockOnBeatsOver:(void(^)(BabyRhythm *bry))block{
+- (void)setBlockOnBeatsOver:(void(^)(BabyRhythm *bry))block {
     blockOnBeatOver = block;
 }
 

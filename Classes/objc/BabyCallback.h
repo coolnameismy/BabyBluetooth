@@ -86,47 +86,47 @@ typedef void (^BBPeripheralModelDidUnSubscribeToCharacteristic)(CBPeripheralMana
 //发现Characteristics
 @property(nonatomic,copy) BBDiscoverCharacteristicsBlock blockOnDiscoverCharacteristics;
 //发现更新Characteristics的
-@property(nonatomic,copy)  BBReadValueForCharacteristicBlock blockOnReadValueForCharacteristic;
+@property(nonatomic,copy) BBReadValueForCharacteristicBlock blockOnReadValueForCharacteristic;
 //获取Characteristics的名称
-@property(nonatomic,copy)  BBDiscoverDescriptorsForCharacteristicBlock blockOnDiscoverDescriptorsForCharacteristic;
+@property(nonatomic,copy) BBDiscoverDescriptorsForCharacteristicBlock blockOnDiscoverDescriptorsForCharacteristic;
 //获取Descriptors的值
 
 
 
-@property(nonatomic,copy)  BBReadValueForDescriptorsBlock blockOnReadValueForDescriptors;
+@property(nonatomic,copy) BBReadValueForDescriptorsBlock blockOnReadValueForDescriptors;
 
 #warning fix 委托后面加上block的后缀
-@property(nonatomic,copy)  BBDidWriteValueForCharacteristic blockOnDidWriteValueForCharacteristic;
+@property(nonatomic,copy) BBDidWriteValueForCharacteristic blockOnDidWriteValueForCharacteristic;
 
-@property(nonatomic,copy)  BBDidWriteValueForDescriptor blockOnDidWriteValueForDescriptor;
+@property(nonatomic,copy) BBDidWriteValueForDescriptor blockOnDidWriteValueForDescriptor;
 
-@property(nonatomic,copy)  BBDidUpdateNotificationStateForCharacteristic blockOnDidUpdateNotificationStateForCharacteristic;
+@property(nonatomic,copy) BBDidUpdateNotificationStateForCharacteristic blockOnDidUpdateNotificationStateForCharacteristic;
 
-@property(nonatomic,copy)  BBDidReadRSSI blockOnDidReadRSSI;
+@property(nonatomic,copy) BBDidReadRSSI blockOnDidReadRSSI;
 
-@property(nonatomic,copy)  BBDidDiscoverIncludedServicesForService blockOnDidDiscoverIncludedServicesForService;
+@property(nonatomic,copy) BBDidDiscoverIncludedServicesForService blockOnDidDiscoverIncludedServicesForService;
 
-@property(nonatomic,copy)  BBDidUpdateName blockOnDidUpdateName;
+@property(nonatomic,copy) BBDidUpdateName blockOnDidUpdateName;
 
-@property(nonatomic,copy)  BBDidModifyServices blockOnDidModifyServices;
+@property(nonatomic,copy) BBDidModifyServices blockOnDidModifyServices;
 
 
 //babyBluettooth stopScan方法调用后的回调
-@property(nonatomic,copy)  BBCancelScanBlock blockOnCancelScan;
+@property(nonatomic,copy) BBCancelScanBlock blockOnCancelScan;
 //babyBluettooth stopConnectAllPerihperals 方法调用后的回调
-@property(nonatomic,copy)  BBCancelAllPeripheralsConnectionBlock blockOnCancelAllPeripheralsConnection;
+@property(nonatomic,copy) BBCancelAllPeripheralsConnectionBlock blockOnCancelAllPeripheralsConnection;
 //babyBluettooth 蓝牙使用的参数参数
 @property(nonatomic,strong) BabyOptions *babyOptions;
 
 
-#pragma mark -过滤器Filter
+#pragma mark - 过滤器Filter
 //发现peripherals规则
-@property(nonatomic,copy)  BOOL (^filterOnDiscoverPeripherals)(NSString *peripheralName);
+@property(nonatomic,copy) BOOL (^filterOnDiscoverPeripherals)(NSString *peripheralName);
 //连接peripherals规则
-@property(nonatomic,copy)  BOOL (^filterOnconnectToPeripherals)(NSString *peripheralName);
+@property(nonatomic,copy) BOOL (^filterOnconnectToPeripherals)(NSString *peripheralName);
 
 
-#pragma mark -peripheral model
+#pragma mark - peripheral model
 
 //peripheral model
 

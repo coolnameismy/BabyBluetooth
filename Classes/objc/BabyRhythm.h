@@ -48,6 +48,4 @@ typedef void (^BBBeatsOverBlock)(BabyRhythm *bry);
 //心跳结束的委托
 - (void)setBlockOnBeatsOver:(void(^)(BabyRhythm *bry))block;
 
-
-
 @end

@@ -23,7 +23,7 @@
 
 @interface BabyBluetooth : NSObject
 
-#pragma mark -babybluetooth的委托
+#pragma mark - babybluetooth的委托
 
 //默认频道的委托
 
@@ -255,7 +255,7 @@ discoverIncludedServices的回调，暂时在babybluetooth中无作用
                                       block:(void (^)(CBPeripheral *peripheral,NSArray *invalidatedServices))block;
 
 
-#pragma mark -babybluetooth filter
+#pragma mark - babybluetooth filter
 
 /**
 设置查找Peripherals的规则
@@ -285,7 +285,7 @@ discoverIncludedServices的回调，暂时在babybluetooth中无作用
                                      filter:(BOOL (^)(NSString *peripheralName))filter;
 
 
-#pragma mark -babybluetooth Special
+#pragma mark - babybluetooth Special
 
 /**
 babyBluettooth cancelScan方法调用后的回调
@@ -335,7 +335,7 @@ scanForPeripheralsWithServices:(NSArray *)scanForPeripheralsWithServices
    discoverWithCharacteristics:(NSArray *)discoverWithCharacteristics;
 
 
-#pragma mark -链式函数
+#pragma mark - 链式函数
 
 /**
 查找Peripherals
@@ -405,7 +405,7 @@ sec秒后停止
  */
 - (BabyBluetooth *) with;
 
-#pragma mark -工具方法
+#pragma mark - 工具方法
 
 /**
 断开连接
@@ -463,10 +463,10 @@ characteristic:(CBCharacteristic *)characteristic
  * 单例构造方法
  * @return BabyBluetooth共享实例
  */
-+(instancetype)shareBabyBluetooth;
++ (instancetype)shareBabyBluetooth;
 
 
-#pragma mark -peripheral model
+#pragma mark - peripheral model
 
 //进入外设模式
 - (BabyPeripheralManager *(^)()) bePeripheral;

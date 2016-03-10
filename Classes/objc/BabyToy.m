@@ -31,7 +31,7 @@
 }
 
 //普通字符串转换为十六进制
-+ (NSString *)ConvertStringToHexString:(NSString *)string{
++ (NSString *)ConvertStringToHexString:(NSString *)string {
     NSData *myD = [string dataUsingEncoding:NSUTF8StringEncoding];
     Byte *bytes = (Byte *)[myD bytes];
     //下面是Byte 转换为16进制。
@@ -52,15 +52,14 @@
 
 
 //int转data
-+(NSData *)ConvertIntToData:(int)i
-{
++ (NSData *)ConvertIntToData:(int)i {
 
     NSData *data = [NSData dataWithBytes: &i length: sizeof(i)];
     return data;
 }
 
 //data转int
-+(int)ConvertDataToInt:(NSData *)data{
++ (int)ConvertDataToInt:(NSData *)data {
     int i;
     [data getBytes:&i length:sizeof(i)];
     return i;
@@ -75,8 +74,8 @@
 
 
 //根据UUIDString查找CBCharacteristic
-+(CBCharacteristic *)findCharacteristicFormServices:(NSMutableArray *)services
-                                         UUIDString:(NSString *)UUIDString{
++ (CBCharacteristic *)findCharacteristicFormServices:(NSMutableArray *)services
+                                         UUIDString:(NSString *)UUIDString {
     for (CBService *s in services) {
         for (CBCharacteristic *c in s.characteristics) {
             if ([c.UUID.UUIDString isEqualToString:UUIDString]) {
@@ -86,8 +85,6 @@
     }
     return nil;
 }
-
-
 
 @end
 

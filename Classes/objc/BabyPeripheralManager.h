@@ -18,7 +18,7 @@
 #import "BabySpeaker.h"
 
 
-@interface BabyPeripheralManager : NSObject<CBPeripheralManagerDelegate>{
+@interface BabyPeripheralManager : NSObject<CBPeripheralManagerDelegate> {
 
 @public
     //回叫方法
