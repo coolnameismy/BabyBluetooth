@@ -10,7 +10,7 @@
 
 @implementation BabyOptions
 
-- (instancetype)init{
+- (instancetype)init {
     self = [super init];
     if (self) {
       _scanForPeripheralsWithOptions = nil;
@@ -47,7 +47,5 @@
     }
     return self;
 }
-
-
 
 @end

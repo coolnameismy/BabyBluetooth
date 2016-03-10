@@ -19,7 +19,7 @@
 
 
 
-@interface BabyCentralManager : NSObject<CBCentralManagerDelegate,CBPeripheralDelegate>{
+@interface BabyCentralManager : NSObject<CBCentralManagerDelegate,CBPeripheralDelegate> {
 
 @public
 

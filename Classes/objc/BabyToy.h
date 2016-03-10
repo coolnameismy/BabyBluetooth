@@ -18,8 +18,6 @@
 
 @interface BabyToy : NSObject
 
-
-
 //十六进制转换为普通字符串的。
 + (NSString *)ConvertHexStringToString:(NSString *)hexString;
 //普通字符串转换为十六进制
@@ -33,5 +31,4 @@
 //根据UUIDString查找CBCharacteristic
 +(CBCharacteristic *)findCharacteristicFormServices:(NSMutableArray *)services
                                          UUIDString:(NSString *)UUIDString;
-
 @end

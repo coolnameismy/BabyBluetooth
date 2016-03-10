@@ -13,7 +13,7 @@
 @implementation BabyCallback
 
 
-- (instancetype)init{
+- (instancetype)init {
     self = [super init];
     if (self) {
         [self setFilterOnDiscoverPeripherals:^BOOL(NSString *peripheralName) {

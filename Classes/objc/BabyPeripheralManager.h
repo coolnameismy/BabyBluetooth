@@ -18,7 +18,7 @@
 #import "BabySpeaker.h"
 
 
-@interface BabyPeripheralManager : NSObject<CBPeripheralManagerDelegate>{
+@interface BabyPeripheralManager : NSObject<CBPeripheralManagerDelegate> {
 
 @public
     //回叫方法
@@ -36,9 +36,9 @@
 - (BabyPeripheralManager *(^)())startAdvertising;
 
 //外设管理器
-@property (nonatomic,strong) CBPeripheralManager *peripheralManager;
-@property (nonatomic,copy) NSString *localName;
-@property (nonatomic,strong) NSMutableArray *services;
+@property (nonatomic, strong) CBPeripheralManager *peripheralManager;
+@property (nonatomic, copy) NSString *localName;
+@property (nonatomic, strong) NSMutableArray *services;
 
 @end
 

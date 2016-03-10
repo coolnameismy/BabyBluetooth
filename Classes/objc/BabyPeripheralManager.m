@@ -11,13 +11,13 @@
 
 #define callbackBlock(...) if ([[babySpeaker callback] __VA_ARGS__])   [[babySpeaker callback] __VA_ARGS__ ]
 
-@implementation BabyPeripheralManager{
+@implementation BabyPeripheralManager {
     int PERIPHERAL_MANAGER_INIT_WAIT_TIMES;
     int didAddServices;
     NSTimer *addServiceTask;
 }
 
-- (instancetype)init{
+- (instancetype)init {
     self = [super init];
     if (self) {
         _localName = @"baby-default-name";
@@ -27,7 +27,7 @@
 }
 
 
-- (BabyPeripheralManager *(^)())startAdvertising{
+- (BabyPeripheralManager *(^)())startAdvertising {
     return ^BabyPeripheralManager *() {
         
         if ([self canStartAdvertising]) {
@@ -59,7 +59,7 @@
     };
 }
 
-- (BOOL)canStartAdvertising{
+- (BOOL)canStartAdvertising {
     if (_peripheralManager.state != CBPeripheralManagerStatePoweredOn) {
         return NO;
     }
@@ -69,14 +69,14 @@
     return YES;
 }
 
-- (BOOL)isPoweredOn{
+- (BOOL)isPoweredOn {
     if (_peripheralManager.state != CBPeripheralManagerStatePoweredOn) {
         return NO;
     }
     return YES;
 }
 
-- (BabyPeripheralManager *(^)(NSArray *array))addServices{
+- (BabyPeripheralManager *(^)(NSArray *array))addServices {
     return ^BabyPeripheralManager*(NSArray *array) {
         _services = [NSMutableArray arrayWithArray:array];
         [self addServicesToPeripheral];
@@ -84,7 +84,7 @@
     };
 }
 
-- (void)addServicesToPeripheral{
+- (void)addServicesToPeripheral {
     if ([self isPoweredOn]) {
         for (CBMutableService *s in _services) {
             [_peripheralManager addService:s];
@@ -96,9 +96,9 @@
     }
 }
 
-#pragma mark- peripheralManager delegate
+#pragma mark - peripheralManager delegate
 
-- (void)peripheralManagerDidUpdateState:(CBPeripheralManager *)peripheral{
+- (void)peripheralManagerDidUpdateState:(CBPeripheralManager *)peripheral {
     switch (peripheral.state) {
         case CBPeripheralManagerStateUnknown:
             NSLog(@">>>CBPeripheralManagerStateUnknown");
@@ -131,28 +131,28 @@
 }
 
 
-- (void)peripheralManager:(CBPeripheralManager *)peripheral didAddService:(CBService *)service error:(NSError *)error{
+- (void)peripheralManager:(CBPeripheralManager *)peripheral didAddService:(CBService *)service error:(NSError *)error {
     didAddServices++;
     callbackBlock(blockOnPeripheralModelDidAddService)(peripheral,service,error);
 }
 
-- (void)peripheralManagerDidStartAdvertising:(CBPeripheralManager *)peripheral error:(NSError *)error{
+- (void)peripheralManagerDidStartAdvertising:(CBPeripheralManager *)peripheral error:(NSError *)error {
     callbackBlock(blockOnPeripheralModelDidStartAdvertising)(peripheral,error);
 }
 
-- (void)peripheralManager:(CBPeripheralManager *)peripheral didReceiveReadRequest:(CBATTRequest *)request{
+- (void)peripheralManager:(CBPeripheralManager *)peripheral didReceiveReadRequest:(CBATTRequest *)request {
     callbackBlock(blockOnPeripheralModelDidReceiveReadRequest)(peripheral, request);
 }
 
-- (void)peripheralManager:(CBPeripheralManager *)peripheral didReceiveWriteRequests:(NSArray *)requests{
+- (void)peripheralManager:(CBPeripheralManager *)peripheral didReceiveWriteRequests:(NSArray *)requests {
     callbackBlock(blockOnPeripheralModelDidReceiveWriteRequests)(peripheral,requests);
 }
 
-- (void)peripheralManager:(CBPeripheralManager *)peripheral central:(CBCentral *)central didSubscribeToCharacteristic:(CBCharacteristic *)characteristic{
+- (void)peripheralManager:(CBPeripheralManager *)peripheral central:(CBCentral *)central didSubscribeToCharacteristic:(CBCharacteristic *)characteristic {
     callbackBlock(blockOnPeripheralModelDidSubscribeToCharacteristic)(peripheral,central,characteristic);
 }
 
-- (void)peripheralManager:(CBPeripheralManager *)peripheral central:(CBCentral *)central didUnsubscribeFromCharacteristic:(CBCharacteristic *)characteristic{
+- (void)peripheralManager:(CBPeripheralManager *)peripheral central:(CBCentral *)central didUnsubscribeFromCharacteristic:(CBCharacteristic *)characteristic {
     callbackBlock(blockOnPeripheralModelDidUnSubscribeToCharacteristic)(peripheral,central,characteristic);
 }
 
