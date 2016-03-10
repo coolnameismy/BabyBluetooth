@@ -472,7 +472,7 @@ characteristic:(CBCharacteristic *)characteristic
 - (BabyPeripheralManager *(^)()) bePeripheral;
 - (BabyPeripheralManager *(^)(NSString *localName)) bePeripheralWithName;
 
-@property(nonatomic,readonly)CBPeripheralManager *peripheralManager;
+@property (nonatomic, readonly) CBPeripheralManager *peripheralManager;
 
 //peripheral model block
 

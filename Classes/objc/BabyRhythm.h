@@ -22,7 +22,7 @@ typedef void (^BBBeatsBreakBlock)(BabyRhythm *bry);
 typedef void (^BBBeatsOverBlock)(BabyRhythm *bry);
 
 //timer for beats
-@property(nonatomic,strong) NSTimer *beatsTimer;
+@property (nonatomic, strong) NSTimer *beatsTimer;
 
 //beat interval
 @property NSInteger beatsInterval;
