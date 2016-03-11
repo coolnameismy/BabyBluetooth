@@ -121,10 +121,10 @@
     [baby setFilterOnDiscoverPeripherals:^BOOL(NSString *peripheralName) {
         
         //最常用的场景是查找某一个前缀开头的设备
-        if ([peripheralName hasPrefix:@"Pxxxx"] ) {
-            return YES;
-        }
-        return NO;
+//        if ([peripheralName hasPrefix:@"Pxxxx"] ) {
+//            return YES;
+//        }
+//        return NO;
         
         //设置查找规则是名称大于0 ， the search rule is peripheral.name length > 0
         if (peripheralName.length >0) {

@@ -20,13 +20,13 @@
 - (void)setUp {
     [super setUp];
     self.baby = [BabyBluetooth shareBabyBluetooth];
-    // Put setup code here. This method is called before the invocation of each test method in the class.
 }
 
 - (void)tearDown {
-    // Put teardown code here. This method is called after the invocation of each test method in the class.
     [super tearDown];
 }
+
+#pragma mark - unit test
 
 /**
  test centralManager and peripheralManager can power on
@@ -59,6 +59,16 @@
     
 }
 
+/**
+ 测试链式方法中心模式下的block
+ */
+- (void)testCentralModelDelegate{
+    
+    self 
+}
+ 
+ 
+ 
 //- (void)testPerformanceExample {
 //    // This is an example of a performance test case.
 //    [self measureBlock:^{
