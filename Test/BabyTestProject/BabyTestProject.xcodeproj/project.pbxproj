@@ -1,0 +1,491 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		F0AF1DC41C92A4D100FD1717 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = F0AF1DC31C92A4D100FD1717 /* main.m */; };
+		F0AF1DC71C92A4D100FD1717 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = F0AF1DC61C92A4D100FD1717 /* AppDelegate.m */; };
+		F0AF1DCA1C92A4D100FD1717 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F0AF1DC91C92A4D100FD1717 /* ViewController.m */; };
+		F0AF1DCD1C92A4D100FD1717 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F0AF1DCB1C92A4D100FD1717 /* Main.storyboard */; };
+		F0AF1DCF1C92A4D100FD1717 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F0AF1DCE1C92A4D100FD1717 /* Assets.xcassets */; };
+		F0AF1DD21C92A4D100FD1717 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F0AF1DD01C92A4D100FD1717 /* LaunchScreen.storyboard */; };
+		F0AF1DDD1C92A4D100FD1717 /* BabyTestProjectTests.m in Sources */ = {isa = PBXBuildFile; fileRef = F0AF1DDC1C92A4D100FD1717 /* BabyTestProjectTests.m */; };
+		F0AF1E1F1C92B03A00FD1717 /* BabyBluetooth.m in Sources */ = {isa = PBXBuildFile; fileRef = F0AF1E101C92B03A00FD1717 /* BabyBluetooth.m */; };
+		F0AF1E201C92B03A00FD1717 /* BabyCallback.m in Sources */ = {isa = PBXBuildFile; fileRef = F0AF1E121C92B03A00FD1717 /* BabyCallback.m */; };
+		F0AF1E211C92B03A00FD1717 /* BabyCentralManager.m in Sources */ = {isa = PBXBuildFile; fileRef = F0AF1E141C92B03A00FD1717 /* BabyCentralManager.m */; };
+		F0AF1E221C92B03A00FD1717 /* BabyOptions.m in Sources */ = {isa = PBXBuildFile; fileRef = F0AF1E161C92B03A00FD1717 /* BabyOptions.m */; };
+		F0AF1E231C92B03A00FD1717 /* BabyPeripheralManager.m in Sources */ = {isa = PBXBuildFile; fileRef = F0AF1E181C92B03A00FD1717 /* BabyPeripheralManager.m */; };
+		F0AF1E241C92B03A00FD1717 /* BabyRhythm.m in Sources */ = {isa = PBXBuildFile; fileRef = F0AF1E1A1C92B03A00FD1717 /* BabyRhythm.m */; };
+		F0AF1E251C92B03A00FD1717 /* BabySpeaker.m in Sources */ = {isa = PBXBuildFile; fileRef = F0AF1E1C1C92B03A00FD1717 /* BabySpeaker.m */; };
+		F0AF1E261C92B03A00FD1717 /* BabyToy.m in Sources */ = {isa = PBXBuildFile; fileRef = F0AF1E1E1C92B03A00FD1717 /* BabyToy.m */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		F0AF1DD91C92A4D100FD1717 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = F0AF1DB71C92A4D100FD1717 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = F0AF1DBE1C92A4D100FD1717;
+			remoteInfo = BabyTestProject;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		F0AF1DBF1C92A4D100FD1717 /* BabyTestProject.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BabyTestProject.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		F0AF1DC31C92A4D100FD1717 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		F0AF1DC51C92A4D100FD1717 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		F0AF1DC61C92A4D100FD1717 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		F0AF1DC81C92A4D100FD1717 /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
+		F0AF1DC91C92A4D100FD1717 /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
+		F0AF1DCC1C92A4D100FD1717 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		F0AF1DCE1C92A4D100FD1717 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		F0AF1DD11C92A4D100FD1717 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		F0AF1DD31C92A4D100FD1717 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		F0AF1DD81C92A4D100FD1717 /* BabyTestProjectTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = BabyTestProjectTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		F0AF1DDC1C92A4D100FD1717 /* BabyTestProjectTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BabyTestProjectTests.m; sourceTree = "<group>"; };
+		F0AF1DDE1C92A4D100FD1717 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		F0AF1DE71C92A4D100FD1717 /* BabyTestProjectUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BabyTestProjectUITests.m; sourceTree = "<group>"; };
+		F0AF1DE91C92A4D100FD1717 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		F0AF1E0F1C92B03A00FD1717 /* BabyBluetooth.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BabyBluetooth.h; sourceTree = "<group>"; };
+		F0AF1E101C92B03A00FD1717 /* BabyBluetooth.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BabyBluetooth.m; sourceTree = "<group>"; };
+		F0AF1E111C92B03A00FD1717 /* BabyCallback.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BabyCallback.h; sourceTree = "<group>"; };
+		F0AF1E121C92B03A00FD1717 /* BabyCallback.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BabyCallback.m; sourceTree = "<group>"; };
+		F0AF1E131C92B03A00FD1717 /* BabyCentralManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BabyCentralManager.h; sourceTree = "<group>"; };
+		F0AF1E141C92B03A00FD1717 /* BabyCentralManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BabyCentralManager.m; sourceTree = "<group>"; };
+		F0AF1E151C92B03A00FD1717 /* BabyOptions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BabyOptions.h; sourceTree = "<group>"; };
+		F0AF1E161C92B03A00FD1717 /* BabyOptions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BabyOptions.m; sourceTree = "<group>"; };
+		F0AF1E171C92B03A00FD1717 /* BabyPeripheralManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BabyPeripheralManager.h; sourceTree = "<group>"; };
+		F0AF1E181C92B03A00FD1717 /* BabyPeripheralManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BabyPeripheralManager.m; sourceTree = "<group>"; };
+		F0AF1E191C92B03A00FD1717 /* BabyRhythm.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BabyRhythm.h; sourceTree = "<group>"; };
+		F0AF1E1A1C92B03A00FD1717 /* BabyRhythm.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BabyRhythm.m; sourceTree = "<group>"; };
+		F0AF1E1B1C92B03A00FD1717 /* BabySpeaker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BabySpeaker.h; sourceTree = "<group>"; };
+		F0AF1E1C1C92B03A00FD1717 /* BabySpeaker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BabySpeaker.m; sourceTree = "<group>"; };
+		F0AF1E1D1C92B03A00FD1717 /* BabyToy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BabyToy.h; sourceTree = "<group>"; };
+		F0AF1E1E1C92B03A00FD1717 /* BabyToy.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BabyToy.m; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		F0AF1DBC1C92A4D100FD1717 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F0AF1DD51C92A4D100FD1717 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		F0AF1DB61C92A4D100FD1717 = {
+			isa = PBXGroup;
+			children = (
+				F0AF1E0E1C92B03A00FD1717 /* BabyBluetooth */,
+				F0AF1DC11C92A4D100FD1717 /* BabyTestProject */,
+				F0AF1DDB1C92A4D100FD1717 /* BabyTestProjectTests */,
+				F0AF1DE61C92A4D100FD1717 /* BabyTestProjectUITests */,
+				F0AF1DC01C92A4D100FD1717 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		F0AF1DC01C92A4D100FD1717 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				F0AF1DBF1C92A4D100FD1717 /* BabyTestProject.app */,
+				F0AF1DD81C92A4D100FD1717 /* BabyTestProjectTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		F0AF1DC11C92A4D100FD1717 /* BabyTestProject */ = {
+			isa = PBXGroup;
+			children = (
+				F0AF1DC51C92A4D100FD1717 /* AppDelegate.h */,
+				F0AF1DC61C92A4D100FD1717 /* AppDelegate.m */,
+				F0AF1DC81C92A4D100FD1717 /* ViewController.h */,
+				F0AF1DC91C92A4D100FD1717 /* ViewController.m */,
+				F0AF1DCB1C92A4D100FD1717 /* Main.storyboard */,
+				F0AF1DCE1C92A4D100FD1717 /* Assets.xcassets */,
+				F0AF1DD01C92A4D100FD1717 /* LaunchScreen.storyboard */,
+				F0AF1DD31C92A4D100FD1717 /* Info.plist */,
+				F0AF1DC21C92A4D100FD1717 /* Supporting Files */,
+			);
+			path = BabyTestProject;
+			sourceTree = "<group>";
+		};
+		F0AF1DC21C92A4D100FD1717 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				F0AF1DC31C92A4D100FD1717 /* main.m */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		F0AF1DDB1C92A4D100FD1717 /* BabyTestProjectTests */ = {
+			isa = PBXGroup;
+			children = (
+				F0AF1DDC1C92A4D100FD1717 /* BabyTestProjectTests.m */,
+				F0AF1DDE1C92A4D100FD1717 /* Info.plist */,
+			);
+			path = BabyTestProjectTests;
+			sourceTree = "<group>";
+		};
+		F0AF1DE61C92A4D100FD1717 /* BabyTestProjectUITests */ = {
+			isa = PBXGroup;
+			children = (
+				F0AF1DE71C92A4D100FD1717 /* BabyTestProjectUITests.m */,
+				F0AF1DE91C92A4D100FD1717 /* Info.plist */,
+			);
+			path = BabyTestProjectUITests;
+			sourceTree = "<group>";
+		};
+		F0AF1E0E1C92B03A00FD1717 /* BabyBluetooth */ = {
+			isa = PBXGroup;
+			children = (
+				F0AF1E0F1C92B03A00FD1717 /* BabyBluetooth.h */,
+				F0AF1E101C92B03A00FD1717 /* BabyBluetooth.m */,
+				F0AF1E111C92B03A00FD1717 /* BabyCallback.h */,
+				F0AF1E121C92B03A00FD1717 /* BabyCallback.m */,
+				F0AF1E131C92B03A00FD1717 /* BabyCentralManager.h */,
+				F0AF1E141C92B03A00FD1717 /* BabyCentralManager.m */,
+				F0AF1E151C92B03A00FD1717 /* BabyOptions.h */,
+				F0AF1E161C92B03A00FD1717 /* BabyOptions.m */,
+				F0AF1E171C92B03A00FD1717 /* BabyPeripheralManager.h */,
+				F0AF1E181C92B03A00FD1717 /* BabyPeripheralManager.m */,
+				F0AF1E191C92B03A00FD1717 /* BabyRhythm.h */,
+				F0AF1E1A1C92B03A00FD1717 /* BabyRhythm.m */,
+				F0AF1E1B1C92B03A00FD1717 /* BabySpeaker.h */,
+				F0AF1E1C1C92B03A00FD1717 /* BabySpeaker.m */,
+				F0AF1E1D1C92B03A00FD1717 /* BabyToy.h */,
+				F0AF1E1E1C92B03A00FD1717 /* BabyToy.m */,
+			);
+			name = BabyBluetooth;
+			path = ../../Classes/objc;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		F0AF1DBE1C92A4D100FD1717 /* BabyTestProject */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = F0AF1DEC1C92A4D100FD1717 /* Build configuration list for PBXNativeTarget "BabyTestProject" */;
+			buildPhases = (
+				F0AF1DBB1C92A4D100FD1717 /* Sources */,
+				F0AF1DBC1C92A4D100FD1717 /* Frameworks */,
+				F0AF1DBD1C92A4D100FD1717 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = BabyTestProject;
+			productName = BabyTestProject;
+			productReference = F0AF1DBF1C92A4D100FD1717 /* BabyTestProject.app */;
+			productType = "com.apple.product-type.application";
+		};
+		F0AF1DD71C92A4D100FD1717 /* BabyTestProjectTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = F0AF1DEF1C92A4D100FD1717 /* Build configuration list for PBXNativeTarget "BabyTestProjectTests" */;
+			buildPhases = (
+				F0AF1DD41C92A4D100FD1717 /* Sources */,
+				F0AF1DD51C92A4D100FD1717 /* Frameworks */,
+				F0AF1DD61C92A4D100FD1717 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				F0AF1DDA1C92A4D100FD1717 /* PBXTargetDependency */,
+			);
+			name = BabyTestProjectTests;
+			productName = BabyTestProjectTests;
+			productReference = F0AF1DD81C92A4D100FD1717 /* BabyTestProjectTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		F0AF1DB71C92A4D100FD1717 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0720;
+				ORGANIZATIONNAME = liuyanwei;
+				TargetAttributes = {
+					F0AF1DBE1C92A4D100FD1717 = {
+						CreatedOnToolsVersion = 7.2.1;
+						DevelopmentTeam = 9V9UW57Z55;
+					};
+					F0AF1DD71C92A4D100FD1717 = {
+						CreatedOnToolsVersion = 7.2.1;
+						TestTargetID = F0AF1DBE1C92A4D100FD1717;
+					};
+				};
+			};
+			buildConfigurationList = F0AF1DBA1C92A4D100FD1717 /* Build configuration list for PBXProject "BabyTestProject" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = F0AF1DB61C92A4D100FD1717;
+			productRefGroup = F0AF1DC01C92A4D100FD1717 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				F0AF1DBE1C92A4D100FD1717 /* BabyTestProject */,
+				F0AF1DD71C92A4D100FD1717 /* BabyTestProjectTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		F0AF1DBD1C92A4D100FD1717 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F0AF1DD21C92A4D100FD1717 /* LaunchScreen.storyboard in Resources */,
+				F0AF1DCF1C92A4D100FD1717 /* Assets.xcassets in Resources */,
+				F0AF1DCD1C92A4D100FD1717 /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F0AF1DD61C92A4D100FD1717 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		F0AF1DBB1C92A4D100FD1717 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F0AF1DCA1C92A4D100FD1717 /* ViewController.m in Sources */,
+				F0AF1E261C92B03A00FD1717 /* BabyToy.m in Sources */,
+				F0AF1DC71C92A4D100FD1717 /* AppDelegate.m in Sources */,
+				F0AF1E221C92B03A00FD1717 /* BabyOptions.m in Sources */,
+				F0AF1E1F1C92B03A00FD1717 /* BabyBluetooth.m in Sources */,
+				F0AF1E211C92B03A00FD1717 /* BabyCentralManager.m in Sources */,
+				F0AF1E201C92B03A00FD1717 /* BabyCallback.m in Sources */,
+				F0AF1DC41C92A4D100FD1717 /* main.m in Sources */,
+				F0AF1E251C92B03A00FD1717 /* BabySpeaker.m in Sources */,
+				F0AF1E241C92B03A00FD1717 /* BabyRhythm.m in Sources */,
+				F0AF1E231C92B03A00FD1717 /* BabyPeripheralManager.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F0AF1DD41C92A4D100FD1717 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F0AF1DDD1C92A4D100FD1717 /* BabyTestProjectTests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		F0AF1DDA1C92A4D100FD1717 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = F0AF1DBE1C92A4D100FD1717 /* BabyTestProject */;
+			targetProxy = F0AF1DD91C92A4D100FD1717 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		F0AF1DCB1C92A4D100FD1717 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				F0AF1DCC1C92A4D100FD1717 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		F0AF1DD01C92A4D100FD1717 /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				F0AF1DD11C92A4D100FD1717 /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		F0AF1DEA1C92A4D100FD1717 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+			};
+			name = Debug;
+		};
+		F0AF1DEB1C92A4D100FD1717 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		F0AF1DED1C92A4D100FD1717 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				INFOPLIST_FILE = BabyTestProject/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.jumppo.app.BabyTestProject.BabyTestProject;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		F0AF1DEE1C92A4D100FD1717 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				INFOPLIST_FILE = BabyTestProject/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.jumppo.app.BabyTestProject.BabyTestProject;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+		F0AF1DF01C92A4D100FD1717 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				INFOPLIST_FILE = BabyTestProjectTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.jumppo.app.BabyTestProject.BabyTestProjectTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/BabyTestProject.app/BabyTestProject";
+			};
+			name = Debug;
+		};
+		F0AF1DF11C92A4D100FD1717 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				INFOPLIST_FILE = BabyTestProjectTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.jumppo.app.BabyTestProject.BabyTestProjectTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/BabyTestProject.app/BabyTestProject";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		F0AF1DBA1C92A4D100FD1717 /* Build configuration list for PBXProject "BabyTestProject" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				F0AF1DEA1C92A4D100FD1717 /* Debug */,
+				F0AF1DEB1C92A4D100FD1717 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		F0AF1DEC1C92A4D100FD1717 /* Build configuration list for PBXNativeTarget "BabyTestProject" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				F0AF1DED1C92A4D100FD1717 /* Debug */,
+				F0AF1DEE1C92A4D100FD1717 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		F0AF1DEF1C92A4D100FD1717 /* Build configuration list for PBXNativeTarget "BabyTestProjectTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				F0AF1DF01C92A4D100FD1717 /* Debug */,
+				F0AF1DF11C92A4D100FD1717 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = F0AF1DB71C92A4D100FD1717 /* Project object */;
+}
