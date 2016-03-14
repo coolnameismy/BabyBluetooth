@@ -275,7 +275,10 @@
     //如果需要更新Characteristic的值
     if (needReadValueForCharacteristic) {
         for (CBCharacteristic *characteristic in service.characteristics) {
-            [peripheral readValueForCharacteristic:characteristic];
+            //判断读写权限
+            if (characteristic.properties & CBCharacteristicPropertyRead ) {
+                [peripheral readValueForCharacteristic:characteristic];
+            }
         }
     }
     
