@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		E1FAF0521C96F76900BD7054 /* BabyTestExpretaion.m in Sources */ = {isa = PBXBuildFile; fileRef = E1FAF0511C96F76900BD7054 /* BabyTestExpretaion.m */; };
 		F0AF1DC41C92A4D100FD1717 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = F0AF1DC31C92A4D100FD1717 /* main.m */; };
 		F0AF1DC71C92A4D100FD1717 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = F0AF1DC61C92A4D100FD1717 /* AppDelegate.m */; };
 		F0AF1DCA1C92A4D100FD1717 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F0AF1DC91C92A4D100FD1717 /* ViewController.m */; };
@@ -35,6 +36,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		E1FAF0501C96F76900BD7054 /* BabyTestExpretaion.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BabyTestExpretaion.h; sourceTree = "<group>"; };
+		E1FAF0511C96F76900BD7054 /* BabyTestExpretaion.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BabyTestExpretaion.m; sourceTree = "<group>"; };
 		F0AF1DBF1C92A4D100FD1717 /* BabyTestProject.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BabyTestProject.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F0AF1DC31C92A4D100FD1717 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		F0AF1DC51C92A4D100FD1717 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -135,6 +138,8 @@
 			children = (
 				F0AF1DDC1C92A4D100FD1717 /* BabyTestProjectTests.m */,
 				F0AF1DDE1C92A4D100FD1717 /* Info.plist */,
+				E1FAF0501C96F76900BD7054 /* BabyTestExpretaion.h */,
+				E1FAF0511C96F76900BD7054 /* BabyTestExpretaion.m */,
 			);
 			path = BabyTestProjectTests;
 			sourceTree = "<group>";
@@ -291,6 +296,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E1FAF0521C96F76900BD7054 /* BabyTestExpretaion.m in Sources */,
 				F0AF1DDD1C92A4D100FD1717 /* BabyTestProjectTests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -8,6 +8,7 @@
 
 #import <XCTest/XCTest.h>
 #import "BabyBluetooth.h"
+#import "BabyTestExpretaion.h"
 
 @interface BabyTestProjectTests : XCTestCase
 
@@ -66,26 +67,25 @@ NSString * const testPeripleralName = @"BabyBluetoothTestStub";
  测试链式方法中心模式主要的委托和过滤器
  ！！测试前必须先启动BabyTestStub项目
  
- 执行顺序：启动->过滤扫描->扫描->过滤连接->连接->发现服务
+ 执行顺序：启动->过滤扫描->扫描->过滤连接->连接->发现服务->发现特征->读取特征->读取特征的描述->读取Rssi->->->
  */
 - (void)testCentralModelMainOfDelegateAndFilter {
     
     __weak __typeof(self) weakSelf = self;
     
-    XCTestExpectation *filterOnDiscoverPeripheralsExp = [self expectationWithDescription:@"filterOnDiscoverPeripherals not execute"];
-    XCTestExpectation *blockOnDiscoverToPeripheralsExp = [self expectationWithDescription:@"blockOnDiscoverToPeripheralsExp not execute"];
+    BabyTestExpretaion *filterOnDiscoverPeripheralsExp = [self expWithDescription:@"filterOnDiscoverPeripherals not execute"];
+    BabyTestExpretaion *blockOnDiscoverToPeripheralsExp = [self expWithDescription:@"blockOnDiscoverToPeripheralsExp not execute"];
 
-    XCTestExpectation *filterOnConnectToPeripheralsExp = [self expectationWithDescription:@"filterOnConnectToPeripherals not execute"];
-    XCTestExpectation *blockOnConnectedExp = [self expectationWithDescription:@"blockOnConnectedExp not execute"];
+    BabyTestExpretaion *filterOnConnectToPeripheralsExp = [self expWithDescription:@"filterOnConnectToPeripherals not execute"];
+    BabyTestExpretaion *blockOnConnectedExp = [self expWithDescription:@"blockOnConnectedExp not execute"];
 
-    XCTestExpectation *blockOnDiscoverServicesExp = [self expectationWithDescription:@"blockOnDiscoverServicesExp not execute"];
-    XCTestExpectation *blockOnDiscoverCharacteristicsExp = [self expectationWithDescription:@"blockOnDiscoverCharacteristics not execute"];
-    XCTestExpectation *blockOnReadValueForCharacteristicExp = [self expectationWithDescription:@"blockOnReadValueForCharacteristic not execute"];
-//    XCTestExpectation *blockOnDiscoverDescriptorsForCharacteristicExp = [self expectationWithDescription:@"blockOnDiscoverDescriptorsForCharacteristic not execute"];
-
-
-    
-//    XCTestExpectation *blockOnReadValueForDescriptorsExp = [self expectationWithDescription:@"blockOnReadValueForDescriptors not execute"];
+    BabyTestExpretaion *blockOnDiscoverServicesExp = [self expWithDescription:@"blockOnDiscoverServicesExp not execute"];
+    BabyTestExpretaion *blockOnDiscoverCharacteristicsExp = [self expWithDescription:@"blockOnDiscoverCharacteristics not execute"];
+    BabyTestExpretaion *blockOnReadValueForCharacteristicExp = [self expWithDescription:@"blockOnReadValueForCharacteristic not execute"];
+  
+    BabyTestExpretaion *blockOnDiscoverDescriptorsForCharacteristicExp = [self expWithDescription:@"blockOnDiscoverDescriptorsForCharacteristic not execute"];
+    BabyTestExpretaion *blockOnReadValueForDescriptorsExp = [self expWithDescription:@"blockOnReadValueForDescriptors not execute"];
+  
 //    XCTestExpectation *blockOnReadRSSIExp = [self expectationWithDescription:@"blockOnReadRSSI not execute"];
 //    XCTestExpectation *blockOnFailToConnectExp = [self expectationWithDescription:@"blockOnFailToConnect not execute"];
 
@@ -148,27 +148,32 @@ NSString * const testPeripleralName = @"BabyBluetoothTestStub";
     [self.baby setBlockOnDiscoverCharacteristics:^(CBPeripheral *peripheral, CBService *service, NSError *error) {
         [blockOnDiscoverCharacteristicsExp fulfill];
     }];
- 
+
     //设置读取characteristics的委托
     [self.baby setBlockOnReadValueForCharacteristic:^(CBPeripheral *peripheral, CBCharacteristic *characteristics, NSError *error) {
         NSLog(@"characteristic name:%@ value is:%@",characteristics.UUID,characteristics.value);
         [blockOnReadValueForCharacteristicExp fulfill];
     }];
-//
-//    //设置发现characteristics的descriptors的委托
-//    [self.baby setBlockOnDiscoverDescriptorsForCharacteristic:^(CBPeripheral *peripheral, CBCharacteristic *characteristic, NSError *error) {
-//        NSLog(@"===characteristic name:%@",characteristic.service.UUID);
-//        for (CBDescriptor *d in characteristic.descriptors) {
-//            NSLog(@"CBDescriptor name is :%@",d.UUID);
-//        }
-//        [blockOnDiscoverDescriptorsForCharacteristicExp fulfill];
-//    }];
-//
-//    //设置读取Descriptor的委托
-//    [self.baby setBlockOnReadValueForDescriptors:^(CBPeripheral *peripheral, CBDescriptor *descriptor, NSError *error) {
-//        NSLog(@"Descriptor name:%@ value is:%@",descriptor.characteristic.UUID, descriptor.value);
-//        [blockOnReadValueForDescriptorsExp fulfill];
-//    }];
+  
+  
+
+    //设置发现characteristics的descriptors的委托
+    [self.baby setBlockOnDiscoverDescriptorsForCharacteristic:^(CBPeripheral *peripheral, CBCharacteristic *characteristic, NSError *error) {
+        NSLog(@"===characteristic name:%@",characteristic.service.UUID);
+        for (CBDescriptor *d in characteristic.descriptors) {
+            NSLog(@"CBDescriptor name is :%@",d.UUID);
+        }
+        [blockOnDiscoverDescriptorsForCharacteristicExp fulfill];
+    }];
+
+    //设置读取Descriptor的委托
+    [self.baby setBlockOnReadValueForDescriptors:^(CBPeripheral *peripheral, CBDescriptor *descriptor, NSError *error) {
+        NSLog(@"Descriptor name:%@ value is:%@",descriptor.characteristic.UUID, descriptor.value);
+        [blockOnReadValueForDescriptorsExp fulfill];
+    }];
+  
+  
+  
 //
 //    //读取rssi的委托
 //    [self.baby setBlockOnDidReadRSSI:^(NSNumber *RSSI, NSError *error) {
@@ -237,8 +242,13 @@ NSString * const testPeripleralName = @"BabyBluetoothTestStub";
 //}
 
 
-- (void) failOnTest:(NSString *)msg {
+- (void)failOnTest:(NSString *)msg {
     XCTFail(@"%@",msg);
+}
+
+- (BabyTestExpretaion *)expWithDescription:(NSString *)description {
+  BabyTestExpretaion *babyExp = [[BabyTestExpretaion alloc]initWithExp:[self expectationWithDescription:description]];
+  return babyExp;
 }
 
 @end
