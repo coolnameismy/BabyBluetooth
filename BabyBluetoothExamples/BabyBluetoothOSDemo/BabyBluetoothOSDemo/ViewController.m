@@ -36,7 +36,7 @@
     }];
     
     //设置查找设备的过滤器
-    [baby setFilterOnDiscoverPeripherals:^BOOL(NSString *peripheralName) {
+    [baby setFilterOnDiscoverPeripherals:^BOOL(NSString *peripheralName, NSDictionary *advertisementData, NSNumber *RSSI) {
         //设置查找规则是名称大于1 ， the search rule is peripheral.name length > 2
         if (peripheralName.length >1) {
             return YES;
@@ -46,7 +46,7 @@
     
     //连接过滤器
     __block BOOL isFirst = YES;
-    [baby setFilterOnConnetToPeripherals:^BOOL(NSString *peripheralName) {
+    [baby setFilterOnConnectToPeripherals:^BOOL(NSString *peripheralName, NSDictionary *advertisementData, NSNumber *RSSI) {
        //这里的规则是：连接第一个设备
         isFirst = NO;
         return YES;

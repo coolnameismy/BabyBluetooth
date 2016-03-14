@@ -238,21 +238,21 @@
 
 #pragma mark - babybluetooth filter委托
 //设置查找Peripherals的规则
-- (void)setFilterOnDiscoverPeripherals:(BOOL (^)(NSString *peripheralName))filter {
+- (void)setFilterOnDiscoverPeripherals:(BOOL (^)(NSString *peripheralName, NSDictionary *advertisementData, NSNumber *RSSI))filter {
     [[babySpeaker callback]setFilterOnDiscoverPeripherals:filter];
 }
 //设置连接Peripherals的规则
-- (void)setFilterOnConnectToPeripherals:(BOOL (^)(NSString *peripheralName))filter {
+- (void)setFilterOnConnectToPeripherals:(BOOL (^)(NSString *peripheralName, NSDictionary *advertisementData, NSNumber *RSSI))filter {
     [[babySpeaker callback]setFilterOnconnectToPeripherals:filter];
 }
 //设置查找Peripherals的规则
 - (void)setFilterOnDiscoverPeripheralsAtChannel:(NSString *)channel
-                                      filter:(BOOL (^)(NSString *peripheralName))filter {
+                                      filter:(BOOL (^)(NSString *peripheralName, NSDictionary *advertisementData, NSNumber *RSSI))filter {
     [[babySpeaker callbackOnChnnel:channel createWhenNotExist:YES] setFilterOnDiscoverPeripherals:filter];
 }
 //设置连接Peripherals的规则
 - (void)setFilterOnConnectToPeripheralsAtChannel:(NSString *)channel
-                                     filter:(BOOL (^)(NSString *peripheralName))filter {
+                                     filter:(BOOL (^)(NSString *peripheralName, NSDictionary *advertisementData, NSNumber *RSSI))filter {
     [[babySpeaker callbackOnChnnel:channel createWhenNotExist:YES] setFilterOnconnectToPeripherals:filter];
 }
 

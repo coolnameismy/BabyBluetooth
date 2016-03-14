@@ -261,13 +261,13 @@ discoverIncludedServices的回调，暂时在babybluetooth中无作用
 设置查找Peripherals的规则
 |  filter of discover peripherals 
 */
-- (void)setFilterOnDiscoverPeripherals:(BOOL (^)(NSString *peripheralName))filter;
+- (void)setFilterOnDiscoverPeripherals:(BOOL (^)(NSString *peripheralName, NSDictionary *advertisementData, NSNumber *RSSI))filter;
 
 /**
 设置连接Peripherals的规则
 |  setting filter of connect to peripherals  peripherals 
 */
-- (void)setFilterOnConnectToPeripherals:(BOOL (^)(NSString *peripheralName))filter;
+- (void)setFilterOnConnectToPeripherals:(BOOL (^)(NSString *peripheralName, NSDictionary *advertisementData, NSNumber *RSSI))filter;
 
 
 /**
@@ -275,14 +275,14 @@ discoverIncludedServices的回调，暂时在babybluetooth中无作用
 |  filter of discover peripherals 
 */
 - (void)setFilterOnDiscoverPeripheralsAtChannel:(NSString *)channel
-                                      filter:(BOOL (^)(NSString *peripheralName))filter;
+                                      filter:(BOOL (^)(NSString *peripheralName, NSDictionary *advertisementData, NSNumber *RSSI))filter;
 
 /**
 设置连接Peripherals的规则
 |  setting filter of connect to peripherals  peripherals 
 */
 - (void)setFilterOnConnectToPeripheralsAtChannel:(NSString *)channel
-                                     filter:(BOOL (^)(NSString *peripheralName))filter;
+                                     filter:(BOOL (^)(NSString *peripheralName, NSDictionary *advertisementData, NSNumber *RSSI))filter;
 
 
 #pragma mark - babybluetooth Special

@@ -118,7 +118,7 @@
     
 
     //设置查找设备的过滤器
-    [baby setFilterOnDiscoverPeripherals:^BOOL(NSString *peripheralName) {
+    [baby setFilterOnDiscoverPeripherals:^BOOL(NSString *peripheralName, NSDictionary *advertisementData, NSNumber *RSSI) {
         
         //最常用的场景是查找某一个前缀开头的设备
 //        if ([peripheralName hasPrefix:@"Pxxxx"] ) {

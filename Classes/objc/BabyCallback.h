@@ -121,9 +121,9 @@ typedef void (^BBPeripheralModelDidUnSubscribeToCharacteristic)(CBPeripheralMana
 
 #pragma mark - 过滤器Filter
 //发现peripherals规则
-@property (nonatomic, copy) BOOL (^filterOnDiscoverPeripherals)(NSString *peripheralName);
+@property (nonatomic, copy) BOOL (^filterOnDiscoverPeripherals)(NSString *peripheralName, NSDictionary *advertisementData, NSNumber *RSSI);
 //连接peripherals规则
-@property (nonatomic, copy) BOOL (^filterOnconnectToPeripherals)(NSString *peripheralName);
+@property (nonatomic, copy) BOOL (^filterOnconnectToPeripherals)(NSString *peripheralName, NSDictionary *advertisementData, NSNumber *RSSI);
 
 
 #pragma mark - peripheral model
