@@ -67,7 +67,7 @@ NSString * const testPeripleralName = @"BabyBluetoothTestStub";
  测试链式方法中心模式主要的委托和过滤器
  ！！测试前必须先启动BabyTestStub项目
  
- 执行顺序：启动->过滤扫描->扫描->过滤连接->连接->发现服务->发现特征->读取特征->读取特征的描述->读取Rssi->->->
+ 执行顺序：启动->过滤扫描->扫描->过滤连接->连接->发现服务->发现特征->读取特征->读取特征的描述->读取Rssi->取消扫描->断开连接->结束
  */
 - (void)testCentralModelMainOfDelegateAndFilter {
     
@@ -86,12 +86,12 @@ NSString * const testPeripleralName = @"BabyBluetoothTestStub";
     BabyTestExpretaion *blockOnDiscoverDescriptorsForCharacteristicExp = [self expWithDescription:@"blockOnDiscoverDescriptorsForCharacteristic not execute"];
     BabyTestExpretaion *blockOnReadValueForDescriptorsExp = [self expWithDescription:@"blockOnReadValueForDescriptors not execute"];
   
-//    XCTestExpectation *blockOnReadRSSIExp = [self expectationWithDescription:@"blockOnReadRSSI not execute"];
-//    XCTestExpectation *blockOnFailToConnectExp = [self expectationWithDescription:@"blockOnFailToConnect not execute"];
+    BabyTestExpretaion *blockOnReadRSSIExp = [self expWithDescription:@"blockOnReadRSSI not execute"];
 
-    //    XCTestExpectation *blockOnDisconnectExp = [self expectationWithDescription:@"blockOnDisconnect block not execute"];
-    
-    
+    BabyTestExpretaion *blockOnDisconnectExp = [self expWithDescription:@"blockOnDisconnect block not execute"];
+    BabyTestExpretaion *blockOnCancelScanExp = [self expWithDescription:@"blockOnCancelScan block not execute"];
+    BabyTestExpretaion *blockOnCancelAllPeripheralsConnectionExp = [self expWithDescription:@"blockOnCancelAllPeripheralsConnection block not execute"];
+
     //设置查找设备的过滤器
     //只放过测试peripheral名称相等的设备
     [self.baby setFilterOnDiscoverPeripherals:^BOOL(NSString *peripheralName, NSDictionary *advertisementData, NSNumber *RSSI) {
@@ -133,6 +133,8 @@ NSString * const testPeripleralName = @"BabyBluetoothTestStub";
         NSLog(@"搜索到了设备:%@",peripheral.name);
         if (self.testPeripheral == peripheral) {
             [blockOnConnectedExp fulfill];
+            //读取RSSI测试
+            [self.testPeripheral readRSSI];
         } else {
             //如果出现非测试程序的设备则出错
             [weakSelf failOnTest:@"setBlockOnConnected 方法未进行有效的过滤"];
@@ -155,8 +157,6 @@ NSString * const testPeripleralName = @"BabyBluetoothTestStub";
         [blockOnReadValueForCharacteristicExp fulfill];
     }];
   
-  
-
     //设置发现characteristics的descriptors的委托
     [self.baby setBlockOnDiscoverDescriptorsForCharacteristic:^(CBPeripheral *peripheral, CBCharacteristic *characteristic, NSError *error) {
         NSLog(@"===characteristic name:%@",characteristic.service.UUID);
@@ -171,49 +171,44 @@ NSString * const testPeripleralName = @"BabyBluetoothTestStub";
         NSLog(@"Descriptor name:%@ value is:%@",descriptor.characteristic.UUID, descriptor.value);
         [blockOnReadValueForDescriptorsExp fulfill];
     }];
-  
-  
-  
-//
-//    //读取rssi的委托
-//    [self.baby setBlockOnDidReadRSSI:^(NSNumber *RSSI, NSError *error) {
-//        NSLog(@"setBlockOnDidReadRSSI:RSSI:%@",RSSI);
-//        [blockOnReadRSSIExp fulfill];
-//    }];
-//    
-//    //设置设备连接失败的委托
-//    [self.baby setBlockOnFailToConnect:^(CBCentralManager *central, CBPeripheral *peripheral, NSError *error) {
-//        NSLog(@"设备：%@--连接失败",peripheral.name);
-//        [blockOnFailToConnectExp fulfill];
-//        
-//    }];
-//    
-//    //设置设备断开连接的委托
-//    [self.baby setBlockOnDisconnect:^(CBCentralManager *central, CBPeripheral *peripheral, NSError *error) {
-//        NSLog(@"设备：%@--断开连接",peripheral.name);
-//        [blockOnDisconnectExp fulfill];
-//    }];
-    
 
-    
-    
-    //启动中心设备
-    self.baby.scanForPeripherals().connectToPeripherals().discoverServices().discoverCharacteristics().readValueForCharacteristic().discoverDescriptorsForCharacteristic().readValueForDescriptors().begin();
-    
+    //读取rssi的委托
+    [self.baby setBlockOnDidReadRSSI:^(NSNumber *RSSI, NSError *error) {
+        NSLog(@"setBlockOnDidReadRSSI:RSSI:%@",RSSI);
+        [blockOnReadRSSIExp fulfill];
+    }];
+
     //断开设备测试，读取rssi测试
-    
-    
+    [self.baby setBlockOnCancelScanBlock:^(CBCentralManager *centralManager) {
+        NSLog(@"setBlockOnCancelScanBlock");
+        [blockOnCancelScanExp fulfill];
+    }];
+
+    [self.baby setBlockOnDisconnect:^(CBCentralManager *central, CBPeripheral *peripheral, NSError *error) {
+        NSLog(@"设备：%@--断开连接",peripheral.name);
+        [blockOnDisconnectExp fulfill];
+    }];
+  
+    [self.baby setBlockOnCancelAllPeripheralsConnectionBlock:^(CBCentralManager *centralManager) {
+        NSLog(@"setBlockOnCancelAllPeripheralsConnectionBlock");
+        [blockOnCancelAllPeripheralsConnectionExp fulfill];
+    }];
+  
+    //启动中心设备
+    self.baby.scanForPeripherals().connectToPeripherals().discoverServices().discoverCharacteristics().readValueForCharacteristic().discoverDescriptorsForCharacteristic().readValueForDescriptors().begin().stop(15);
+  
     //预期
     [self waitForExpectationsWithTimeout:20 handler:nil];
-    
-//    [self.baby setBlockOnCancelAllPeripheralsConnectionBlock:^(CBCentralManager *centralManager) {
-//        NSLog(@"setBlockOnCancelAllPeripheralsConnectionBlock");
-//    }];
-//    
-//    [self.baby setBlockOnCancelScanBlock:^(CBCentralManager *centralManager) {
-//        NSLog(@"setBlockOnCancelScanBlock");
-//    }];
-    
+  
+    //无法模拟测试
+    //
+    //    //设置设备连接失败的委托
+    //    [self.baby setBlockOnFailToConnect:^(CBCentralManager *central, CBPeripheral *peripheral, NSError *error) {
+    //        NSLog(@"设备：%@--连接失败",peripheral.name);
+    //        [blockOnFailToConnectExp fulfill];
+    //
+    //    }];
+    //
 }
 
 
