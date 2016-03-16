@@ -10,7 +10,7 @@
 
 @interface BabyTestExpretaion()
 
-@property (nonatomic, assign) BOOL hasFulfill;
+
 @property (nonatomic, strong) XCTestExpectation *exp;
 
 @end

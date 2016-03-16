@@ -10,6 +10,7 @@
 
 @interface BabyTestExpretaion : NSObject
 
+@property (nonatomic, assign) BOOL hasFulfill;
 
 - (instancetype) initWithExp:(XCTestExpectation *)exp;
 

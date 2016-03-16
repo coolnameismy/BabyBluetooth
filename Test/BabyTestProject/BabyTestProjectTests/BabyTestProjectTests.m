@@ -134,7 +134,7 @@ NSString * const testPeripleralName = @"BabyBluetoothTestStub";
         if (self.testPeripheral == peripheral) {
             [blockOnConnectedExp fulfill];
             //读取RSSI测试
-            [self.testPeripheral readRSSI];
+            [weakSelf.testPeripheral readRSSI];
         } else {
             //如果出现非测试程序的设备则出错
             [weakSelf failOnTest:@"setBlockOnConnected 方法未进行有效的过滤"];
@@ -184,6 +184,7 @@ NSString * const testPeripleralName = @"BabyBluetoothTestStub";
         [blockOnCancelScanExp fulfill];
     }];
 
+    //断开连接委托
     [self.baby setBlockOnDisconnect:^(CBCentralManager *central, CBPeripheral *peripheral, NSError *error) {
         NSLog(@"设备：%@--断开连接",peripheral.name);
         [blockOnDisconnectExp fulfill];
@@ -213,9 +214,71 @@ NSString * const testPeripleralName = @"BabyBluetoothTestStub";
 
 
 /**
+ 测试Peripheral断开后自动重连方法
+ 
+ @method: (void)AutoReconnect:(CBPeripheral *)peripheral;//添加断开自动重连的外设
+*/
+
+- (void)testAutoReConnect {
+    
+    __weak __typeof(self) weakSelf = self;
+    BabyTestExpretaion *blockOnDisconnectExp = [self expWithDescription:@"first disconnect block not execute"];
+    BabyTestExpretaion *blockOnReConnectExp = [self expWithDescription:@"secend reconnect block not execute"];
+    
+    //设置扫描到设备的委托
+    [self.baby setBlockOnDiscoverToPeripherals:^(CBCentralManager *central, CBPeripheral *peripheral, NSDictionary *advertisementData, NSNumber *RSSI) {
+        NSLog(@"%@",peripheral.identifier);
+        NSString *localName = [NSString stringWithFormat:@"%@",[advertisementData objectForKey:@"kCBAdvDataLocalName"]];
+        if ([localName isEqualToString:testPeripleralName]) {
+            NSLog(@"搜索到了设备:%@",peripheral.name);
+        }
+        
+    }];
+    //设置连接设备的过滤器
+    [self.baby setFilterOnConnectToPeripherals:^BOOL(NSString *peripheralName, NSDictionary *advertisementData, NSNumber *RSSI) {
+        NSString *localName = [NSString stringWithFormat:@"%@",[advertisementData objectForKey:@"kCBAdvDataLocalName"]];
+        NSLog(@"连接设备的过滤器,设备:%@",localName);
+        if ([localName isEqualToString:testPeripleralName]) {
+            return YES;
+        }
+        return NO;
+    }];
+    
+    //设置连接的委托
+    [self.baby setBlockOnConnected:^(CBCentralManager *central, CBPeripheral *peripheral) {
+        if (blockOnDisconnectExp.hasFulfill) {
+            NSLog(@"设备：%@--已重新连接，测试成功",peripheral.name);
+            [blockOnReConnectExp fulfill];
+            //清除自动重连接的状态
+            [weakSelf.baby AutoReconnectDelete:peripheral];
+        } else {
+            NSLog(@"设备：%@--已连接",peripheral.name);
+            //设置重新连接的设备
+            [weakSelf.baby AutoReconnect:peripheral];
+            NSLog(@"设备：--开始断开连接，测试重连功能");
+            [weakSelf.baby cancelAllPeripheralsConnection];
+        }
+    }];
+    
+    //断开连接的委托
+    [self.baby setBlockOnDisconnect:^(CBCentralManager *central, CBPeripheral *peripheral, NSError *error) {
+        NSLog(@"设备：%@--断开连接",peripheral.name);
+        [blockOnDisconnectExp fulfill];
+//        [weakSelf.baby.centralManager connectPeripheral:peripheral options:nil];
+//        NSArray *array = [weakSelf.baby.centralManager retrievePeripheralsWithIdentifiers:@[peripheral.identifier]];
+//        [weakSelf.baby.centralManager retrieveConnectedPeripheralsWithServices:nil];
+    }];
+    
+    //启动中心设备
+    self.baby.scanForPeripherals().connectToPeripherals().begin();
+    
+    [self waitForExpectationsWithTimeout:20 handler:nil];
+}
+
+/**
  测试Peripheral操作的委托
  */
-- (void)testPeripheralOperationOfDelegate {
+//- (void)testPeripheralOperationOfDelegate {
     //设置写数据成功的block
     //    [baby setBlockOnDidWriteValueForCharacteristic:^(CBCharacteristic *characteristic, NSError *error) {
     //        NSLog(@"setBlockOnDidWriteValueForCharacteristicAtChannel characteristic:%@ and new value:%@",characteristic.UUID, characteristic.value);
@@ -226,8 +289,8 @@ NSString * const testPeripleralName = @"BabyBluetoothTestStub";
     //        NSLog(@"uid:%@,isNotifying:%@",characteristic.UUID,characteristic.isNotifying?@"on":@"off");
     //    }];
     
-}
- 
+//}
+
 
 //- (void)testPerformanceExample {
 //    // This is an example of a performance test case.
