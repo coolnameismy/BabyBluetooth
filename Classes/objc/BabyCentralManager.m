@@ -11,6 +11,7 @@
 #import "BabyCentralManager.h"
 #import "BabyCallback.h"
 
+
 @implementation BabyCentralManager
 
 #define currChannel [babySpeaker callbackOnCurrChannel]
@@ -49,7 +50,7 @@
         //pocket
         pocket = [[NSMutableDictionary alloc]init];
         connectedPeripherals = [[NSMutableArray alloc]init];
-       
+        discoverPeripherals = [[NSMutableArray alloc]init];
         
         //监听通知
         [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(scanForPeripheralNotifyReceived:) name:@"scanForPeripherals" object:nil];
@@ -156,6 +157,7 @@
     
     //日志
     //NSLog(@"当扫描到设备:%@",peripheral.name);
+    [self addDiscoverPeripheral:peripheral];
     
     //发出通知
     [[NSNotificationCenter defaultCenter]postNotificationName:@"didDiscoverPeripheral"
@@ -433,8 +435,14 @@
 
 #pragma mark - 设备list管理
 
+- (void)addDiscoverPeripheral:(CBPeripheral *)peripheral{
+    if (![discoverPeripherals containsObject:peripheral]) {
+        [discoverPeripherals addObject:peripheral];
+    }
+}
+
 - (void)addPeripheral:(CBPeripheral *)peripheral {
-   if (![connectedPeripherals containsObject:peripheral]) {
+    if (![connectedPeripherals containsObject:peripheral]) {
        [connectedPeripherals addObject:peripheral];
     }
 }

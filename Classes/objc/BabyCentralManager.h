@@ -40,18 +40,20 @@
     NSTimer *connectTimer;
     //pocket
     NSMutableDictionary *pocket;
-    //已经连接的设备
-    NSMutableArray *connectedPeripherals;
-    
+
     //主设备
     CBCentralManager *centralManager;
     //回叫方法
     BabySpeaker *babySpeaker;
     
 @private
- 
-   
+    //已经连接的设备
+    NSMutableArray *connectedPeripherals;
+    //已经连接的设备
+    NSMutableArray *discoverPeripherals;
 }
+
+
 
 
 //扫描Peripherals
