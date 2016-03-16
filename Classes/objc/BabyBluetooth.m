@@ -587,6 +587,20 @@ characteristic:(CBCharacteristic *)characteristic
     return babyCentralManager->centralManager;
 }
 
+/**
+ 添加断开自动重连的外设
+ */
+- (void)AutoReconnect:(CBPeripheral *)peripheral{
+    [babyCentralManager sometimes_ever:peripheral];
+}
+
+/**
+ 删除断开自动重连的外设
+ */
+- (void)AutoReconnectDelete:(CBPeripheral *)peripheral{
+    [babyCentralManager sometimes_never:peripheral];
+}
+ 
 
 #pragma mark - peripheral model
 

@@ -408,10 +408,15 @@ sec秒后停止
 #pragma mark - 工具方法
 
 /**
+ * 单例构造方法
+ * @return BabyBluetooth共享实例
+ */
++ (instancetype)shareBabyBluetooth;
+
+/**
 断开连接
  */
 - (void)cancelPeripheralConnection:(CBPeripheral *)peripheral;
-
 
 /**
 断开所有连接
@@ -441,18 +446,15 @@ characteristic:(CBCharacteristic *)characteristic
 - (void)cancelNotify:(CBPeripheral *)peripheral
      characteristic:(CBCharacteristic *)characteristic;
 
-
 /**
 获取当前连接的peripherals
  */
 - (NSArray *)findConnectedPeripherals;
 
-
 /**
 获取当前连接的peripheral
  */
 - (CBPeripheral *)findConnectedPeripheral:(NSString *)peripheralName;
-
 
 /**
 获取当前corebluetooth的centralManager对象
@@ -460,12 +462,15 @@ characteristic:(CBCharacteristic *)characteristic
 - (CBCentralManager *)centralManager;
 
 /**
- * 单例构造方法
- * @return BabyBluetooth共享实例
+ 添加断开自动重连的外设
  */
-+ (instancetype)shareBabyBluetooth;
+- (void)AutoReconnect:(CBPeripheral *)peripheral;
 
-
+/**
+ 删除断开自动重连的外设
+ */
+- (void)AutoReconnectDelete:(CBPeripheral *)peripheral;
+ 
 #pragma mark - peripheral model
 
 //进入外设模式

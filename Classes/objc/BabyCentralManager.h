@@ -51,6 +51,8 @@
     NSMutableArray *connectedPeripherals;
     //已经连接的设备
     NSMutableArray *discoverPeripherals;
+    //需要自动重连的外设
+    NSMutableArray *reConnectPeripherals;
 }
 
 
@@ -72,6 +74,17 @@
 
 //获取当前连接的peripheral
 - (CBPeripheral *)findConnectedPeripheral:(NSString *)peripheralName;
+
+/**
+ sometimes ever，sometimes never.  相聚有时，后会无期
+ 
+ this is center with peripheral's story
+ **/
+
+//sometimes ever：添加断开重连接的设备
+-  (void)sometimes_ever:(CBPeripheral *)peripheral ;
+//sometimes never：删除需要重连接的设备
+-  (void)sometimes_never:(CBPeripheral *)peripheral ;
 
 @end
 

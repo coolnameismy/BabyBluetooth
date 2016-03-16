@@ -51,6 +51,7 @@
         pocket = [[NSMutableDictionary alloc]init];
         connectedPeripherals = [[NSMutableArray alloc]init];
         discoverPeripherals = [[NSMutableArray alloc]init];
+        reConnectPeripherals = [[NSMutableArray alloc]init];
         
         //监听通知
         [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(scanForPeripheralNotifyReceived:) name:@"scanForPeripherals" object:nil];
@@ -231,13 +232,18 @@
         [currChannel blockOnDisconnect](central,peripheral,error);
     }
     
-    //判断是否全部链接都已经段开
+    //判断是否全部链接都已经段开,调用blockOnCancelAllPeripheralsConnection委托
     if ([self findConnectedPeripherals].count == 0) {
         //停止扫描callback
         if ([currChannel blockOnCancelAllPeripheralsConnection]) {
             [currChannel blockOnCancelAllPeripheralsConnection](centralManager);
         }
         //    NSLog(@">>> stopConnectAllPerihperals");
+    }
+    
+    //检查并重新连接需要重连的设备
+    if ([reConnectPeripherals containsObject:peripheral]) {
+        [self connectToPeripheral:peripheral];
     }
 }
 
@@ -428,8 +434,22 @@
     }
 }
 
+/**
+ sometimes ever，sometimes never.  相聚有时，后会无期
+ 
+ this is center with peripheral's story
+ **/
 
-
+//sometimes ever：添加断开重连接的设备
+-  (void)sometimes_ever:(CBPeripheral *)peripheral {
+    if (![reConnectPeripherals containsObject:peripheral]) {
+        [reConnectPeripherals addObject:peripheral];
+    }
+}
+//sometimes never：删除需要重连接的设备
+-  (void)sometimes_never:(CBPeripheral *)peripheral {
+    [reConnectPeripherals removeObject:peripheral];
+}
 
 #pragma mark - 私有方法
 
