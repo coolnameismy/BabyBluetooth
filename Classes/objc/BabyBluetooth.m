@@ -597,7 +597,7 @@ characteristic:(CBCharacteristic *)characteristic
 /**
  删除断开自动重连的外设
  */
-- (void)AutoReconnectDelete:(CBPeripheral *)peripheral{
+- (void)AutoReconnectCancel:(CBPeripheral *)peripheral{
     [babyCentralManager sometimes_never:peripheral];
 }
  

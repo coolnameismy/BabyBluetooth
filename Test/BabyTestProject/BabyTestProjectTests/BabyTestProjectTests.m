@@ -250,7 +250,7 @@ NSString * const testPeripleralName = @"BabyBluetoothTestStub";
             NSLog(@"设备：%@--已重新连接，测试成功",peripheral.name);
             [blockOnReConnectExp fulfill];
             //清除自动重连接的状态
-            [weakSelf.baby AutoReconnectDelete:peripheral];
+            [weakSelf.baby AutoReconnectCancel:peripheral];
         } else {
             NSLog(@"设备：%@--已连接",peripheral.name);
             //设置重新连接的设备
