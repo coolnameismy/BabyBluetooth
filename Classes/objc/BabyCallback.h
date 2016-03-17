@@ -42,19 +42,19 @@ typedef void (^BBCancelScanBlock)(CBCentralManager *centralManager);
 typedef void (^BBCancelAllPeripheralsConnectionBlock)(CBCentralManager *centralManager);
 
 
-typedef void (^BBDidWriteValueForCharacteristic)(CBCharacteristic *characteristic,NSError *error);
+typedef void (^BBDidWriteValueForCharacteristicBlock)(CBCharacteristic *characteristic,NSError *error);
 
-typedef void (^BBDidWriteValueForDescriptor)(CBDescriptor *descriptor,NSError *error);
+typedef void (^BBDidWriteValueForDescriptorBlock)(CBDescriptor *descriptor,NSError *error);
 
-typedef void (^BBDidUpdateNotificationStateForCharacteristic)(CBCharacteristic *characteristic,NSError *error);
+typedef void (^BBDidUpdateNotificationStateForCharacteristicBlock)(CBCharacteristic *characteristic,NSError *error);
 
-typedef void (^BBDidReadRSSI)(NSNumber *RSSI,NSError *error);
+typedef void (^BBDidReadRSSIBlock)(NSNumber *RSSI,NSError *error);
 
-typedef void (^BBDidDiscoverIncludedServicesForService)(CBService *service,NSError *error);
+typedef void (^BBDidDiscoverIncludedServicesForServiceBlock)(CBService *service,NSError *error);
 
-typedef void (^BBDidUpdateName)(CBPeripheral *peripheral);
+typedef void (^BBDidUpdateNameBlock)(CBPeripheral *peripheral);
 
-typedef void (^BBDidModifyServices)(CBPeripheral *peripheral,NSArray *invalidatedServices);
+typedef void (^BBDidModifyServicesBlock)(CBPeripheral *peripheral,NSArray *invalidatedServices);
 
 
 //peripheral model
@@ -90,25 +90,21 @@ typedef void (^BBPeripheralModelDidUnSubscribeToCharacteristic)(CBPeripheralMana
 //获取Characteristics的名称
 @property (nonatomic, copy) BBDiscoverDescriptorsForCharacteristicBlock blockOnDiscoverDescriptorsForCharacteristic;
 //获取Descriptors的值
-
-
-
 @property (nonatomic,copy) BBReadValueForDescriptorsBlock blockOnReadValueForDescriptors;
 
-#warning fix 委托后面加上block的后缀
-@property (nonatomic, copy) BBDidWriteValueForCharacteristic blockOnDidWriteValueForCharacteristic;
+@property (nonatomic, copy) BBDidWriteValueForCharacteristicBlock blockOnDidWriteValueForCharacteristic;
 
-@property (nonatomic, copy) BBDidWriteValueForDescriptor blockOnDidWriteValueForDescriptor;
+@property (nonatomic, copy) BBDidWriteValueForDescriptorBlock blockOnDidWriteValueForDescriptor;
 
-@property (nonatomic, copy) BBDidUpdateNotificationStateForCharacteristic blockOnDidUpdateNotificationStateForCharacteristic;
+@property (nonatomic, copy) BBDidUpdateNotificationStateForCharacteristicBlock blockOnDidUpdateNotificationStateForCharacteristic;
 
-@property (nonatomic, copy) BBDidReadRSSI blockOnDidReadRSSI;
+@property (nonatomic, copy) BBDidReadRSSIBlock blockOnDidReadRSSI;
 
-@property (nonatomic, copy) BBDidDiscoverIncludedServicesForService blockOnDidDiscoverIncludedServicesForService;
+@property (nonatomic, copy) BBDidDiscoverIncludedServicesForServiceBlock blockOnDidDiscoverIncludedServicesForService;
 
-@property (nonatomic, copy) BBDidUpdateName blockOnDidUpdateName;
+@property (nonatomic, copy) BBDidUpdateNameBlock blockOnDidUpdateName;
 
-@property (nonatomic, copy) BBDidModifyServices blockOnDidModifyServices;
+@property (nonatomic, copy) BBDidModifyServicesBlock blockOnDidModifyServices;
 
 
 //babyBluettooth stopScan方法调用后的回调
