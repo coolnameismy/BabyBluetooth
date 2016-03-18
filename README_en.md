@@ -15,7 +15,7 @@ The easiest way to use Bluetooth (BLE )in ios,even baby can use .  CoreBluetooth
 - 8:include demo and tutorial
 - 9:works with both central model and peripheral model
 
-current verison 0.5.0
+current verison 0.6.0
 
 # Contents
 
@@ -158,7 +158,7 @@ step2:import .h
 ##2 cocoapods
 step1:add the following line to your Podfile:
 ````
-pod 'BabyBluetooth','~> 0.5.0'
+pod 'BabyBluetooth','~> 0.6.0'
 
 ````
 

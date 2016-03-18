@@ -15,7 +15,7 @@ The easiest way to use Bluetooth (BLE )in ios,even bady can use. 简单易用的
 - 8:包含多种类型的demo和ios蓝牙开发教程
 - 9:同时支持蓝牙设备中心模式和外设模式（central model and peripheral model）
 
-当前版本 0.5.0
+当前版本 0.6.0
 
 详细文档请参考wiki The full documentation of the project is available on its wiki.
 # [english readme link,please click it!](https://github.com/coolnameismy/BabyBluetooth/blob/master/README_en.md)
@@ -162,7 +162,7 @@ step2:导入.h文件
 ##2 cocoapods
 step1:add the following line to your Podfile:
 ````
-pod 'BabyBluetooth','~> 0.5.0'
+pod 'BabyBluetooth','~> 0.6.0'
 ````
 
 step2:导入.h文件
