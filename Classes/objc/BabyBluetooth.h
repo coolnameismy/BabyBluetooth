@@ -83,7 +83,7 @@
 设置读取到Descriptors值的block
 |  when read descriptors for characteristic 
 */
-- (void)setBlockOnReadValueForDescriptors:(void (^)(CBPeripheral *peripheral,CBDescriptor *descriptorNSError,NSError *error))block;
+- (void)setBlockOnReadValueForDescriptors:(void (^)(CBPeripheral *peripheral,CBDescriptor *descriptor,NSError *error))block;
 
 /**
 写Characteristic成功后的block
@@ -201,7 +201,7 @@ discoverIncludedServices的回调，暂时在babybluetooth中无作用
 |  when read descriptors for characteristic 
 */
 - (void)setBlockOnReadValueForDescriptorsAtChannel:(NSString *)channel
-                                            block:(void (^)(CBPeripheral *peripheral,CBDescriptor *descriptorNSError,NSError *error))block;
+                                            block:(void (^)(CBPeripheral *peripheral,CBDescriptor *descriptor,NSError *error))block;
 
 
 /**

@@ -85,7 +85,7 @@
     [[babySpeaker callback]setBlockOnDiscoverDescriptorsForCharacteristic:block];
 }
 //设置读取到Characteristics描述的值的block
-- (void)setBlockOnReadValueForDescriptors:(void (^)(CBPeripheral *peripheral,CBDescriptor *descriptorNSError,NSError *error))block {
+- (void)setBlockOnReadValueForDescriptors:(void (^)(CBPeripheral *peripheral,CBDescriptor *descriptor,NSError *error))block {
     [[babySpeaker callback]setBlockOnReadValueForDescriptors:block];
 }
 
@@ -183,7 +183,7 @@
 }
 //设置读取到Characteristics描述的值的block
 - (void)setBlockOnReadValueForDescriptorsAtChannel:(NSString *)channel
-                                            block:(void (^)(CBPeripheral *peripheral,CBDescriptor *descriptorNSError,NSError *error))block {
+                                            block:(void (^)(CBPeripheral *peripheral,CBDescriptor *descriptor,NSError *error))block {
     [[babySpeaker callbackOnChnnel:channel createWhenNotExist:YES] setBlockOnReadValueForDescriptors:block];
 }
 
