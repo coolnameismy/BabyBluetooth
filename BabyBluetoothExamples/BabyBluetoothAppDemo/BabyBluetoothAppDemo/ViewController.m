@@ -88,7 +88,7 @@
         //找到cell并修改detaisText
         for (int i=0;i<peripherals.count;i++) {
             UITableViewCell *cell = [weakSelf.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:i inSection:0]];
-            if (cell.textLabel.text == peripheral.name) {
+            if ([cell.textLabel.text isEqualToString:peripheral.name]) {
                 cell.detailTextLabel.text = [NSString stringWithFormat:@"%lu个service",(unsigned long)peripheral.services.count];
             }
         }

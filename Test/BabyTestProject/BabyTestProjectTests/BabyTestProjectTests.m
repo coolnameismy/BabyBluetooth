@@ -275,6 +275,62 @@ NSString * const testPeripleralName = @"BabyBluetoothTestStub";
     [self waitForExpectationsWithTimeout:20 handler:nil];
 }
 
+
+/**
+ 测试获取已连接的外设相关功能
+ 
+ @method: 
+ //获取当前连接的peripherals
+ - (NSArray *)findConnectedPeripherals;
+ //获取当前连接的peripheral
+ - (CBPeripheral *)findConnectedPeripheral:(NSString *)peripheralName;
+ 
+ */
+
+- (void)testConnectedPeripherals {
+    
+    __weak __typeof(self) weakSelf = self;
+    BabyTestExpretaion *fetchPeripheralExp = [self expWithDescription:@"fbug about findConnectedPeripheral instance!"];
+    BabyTestExpretaion *notFoundExp = [self expWithDescription:@"bug about number of connectPeripheral"];
+    
+    //设置委托
+    
+    //设置连接设备的过滤器
+    [self.baby setFilterOnConnectToPeripherals:^BOOL(NSString *peripheralName, NSDictionary *advertisementData, NSNumber *RSSI) {
+        NSString *localName = [NSString stringWithFormat:@"%@",[advertisementData objectForKey:@"kCBAdvDataLocalName"]];
+        NSLog(@"连接设备的过滤器,设备:%@",localName);
+        if ([localName isEqualToString:testPeripleralName]) {
+            return YES;
+        }
+        return NO;
+    }];
+    
+    //设置连接的委托
+    [self.baby setBlockOnConnected:^(CBCentralManager *central, CBPeripheral *peripheral) {
+        NSLog(@"设备：%@--已连接",peripheral.name);
+        
+        //保证peripheralName和peripheral.name的指针也不相同
+        NSString *peripheralName = [peripheral.name mutableCopy];
+        CBPeripheral *finded = [weakSelf.baby findConnectedPeripheral:peripheralName];
+        if (finded == peripheral) {
+            [fetchPeripheralExp fulfill];
+            weakSelf.testPeripheral = peripheral;
+            //断开设备连接
+            [central cancelPeripheralConnection:peripheral];
+        }
+    }];
+    
+    [self.baby setBlockOnDisconnect:^(CBCentralManager *central, CBPeripheral *peripheral, NSError *error) {
+        if (peripheral == weakSelf.testPeripheral && [weakSelf.baby findConnectedPeripheral:[peripheral.name mutableCopy]] == nil) {
+           [notFoundExp fulfill];
+        }
+    }];
+    
+    //启动中心设备
+    self.baby.scanForPeripherals().connectToPeripherals().begin();
+    [self waitForExpectationsWithTimeout:20 handler:nil];
+}
+
 /**
  测试Peripheral操作的委托
  */

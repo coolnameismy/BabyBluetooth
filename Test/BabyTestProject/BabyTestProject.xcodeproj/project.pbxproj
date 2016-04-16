@@ -226,7 +226,7 @@
 				TargetAttributes = {
 					F0AF1DBE1C92A4D100FD1717 = {
 						CreatedOnToolsVersion = 7.2.1;
-						DevelopmentTeam = 9V9UW57Z55;
+						DevelopmentTeam = QGDUF2E9QW;
 					};
 					F0AF1DD71C92A4D100FD1717 = {
 						CreatedOnToolsVersion = 7.2.1;
@@ -348,6 +348,7 @@
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer: liu yanwei (M6RAJ5X9QT)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = dwarf;
@@ -391,6 +392,7 @@
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer: liu yanwei (M6RAJ5X9QT)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
