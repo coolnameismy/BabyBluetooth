@@ -33,7 +33,10 @@ NSString * const testPeripleralName = @"BabyBluetoothTestStub";
 #pragma mark - unit test
 
 /**
+ 测试蓝牙设备状态委托
  test centralManager and peripheralManager can power on
+ 
+ @method: peripheralModelBlockOnPeripheralManagerDidUpdateState
 */
 - (void)testCentralManagerAndPeripheralManagerCanPowerOn {
     
