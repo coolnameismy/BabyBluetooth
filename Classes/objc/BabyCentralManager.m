@@ -473,7 +473,7 @@
 
 - (CBPeripheral *)findConnectedPeripheral:(NSString *)peripheralName {
     for (CBPeripheral *p in connectedPeripherals) {
-        if (p.name == peripheralName) {
+        if ([p.name isEqualToString:peripheralName]) {
             return p;
         }
     }
