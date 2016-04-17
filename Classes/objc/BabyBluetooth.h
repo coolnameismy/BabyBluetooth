@@ -470,7 +470,15 @@ characteristic:(CBCharacteristic *)characteristic
  删除断开自动重连的外设
  */
 - (void)AutoReconnectCancel:(CBPeripheral *)peripheral;
+
+/**
+ 根据外设UUID对应的string获取已配对的外设
  
+ 通过方法获取外设后可以直接连接外设，跳过扫描过程
+ */
+- (CBPeripheral *)retrievePeripheralWithUUIDString:(NSString *)UUIDString;
+
+
 #pragma mark - peripheral model
 
 //进入外设模式

@@ -601,7 +601,10 @@ characteristic:(CBCharacteristic *)characteristic
     [babyCentralManager sometimes_never:peripheral];
 }
  
-
+- (CBPeripheral *)retrievePeripheralWithUUIDString:(NSString *)UUIDString {
+    NSUUID *uuid = [[NSUUID alloc]initWithUUIDString:UUIDString];
+    return [self.centralManager retrievePeripheralsWithIdentifiers:@[uuid]][0];
+}
 #pragma mark - peripheral model
 
 //进入外设模式

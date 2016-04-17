@@ -17,7 +17,11 @@
 
 @end
 
+
 NSString * const testPeripleralName = @"BabyBluetoothTestStub";
+
+# warning testPeripleralUUIDString这个值会根据不同设备变化的，可以通过打印 [[peripheral identifier] UUIDString]] 取得
+NSString * const testPeripleralUUIDString = @"B19A6ED7-29D5-67EF-0207-6F5AE8BC337B";
 
 @implementation BabyTestProjectTests
 
@@ -332,6 +336,29 @@ NSString * const testPeripleralName = @"BabyBluetoothTestStub";
     //启动中心设备
     self.baby.scanForPeripherals().connectToPeripherals().begin();
     [self waitForExpectationsWithTimeout:20 handler:nil];
+}
+
+
+/**
+ 测试根据UUIDString获取外设并快速连接
+ 
+ @method: [baby retrievePeripheralWithUUIDString:testPeripleralUUIDString]
+ 
+ */
+-(void)testRetrievePeripheralWithUUIDString {
+    BabyTestExpretaion *connectExp = [self expWithDescription:@"testRetrievePeripheralsWithIdentifiers falied "];
+    
+    CBPeripheral *p = [self.baby retrievePeripheralWithUUIDString:testPeripleralUUIDString];
+    //设置连接的委托
+    [self.baby setBlockOnConnected:^(CBCentralManager *central, CBPeripheral *peripheral) {
+        if (p == peripheral) {
+            NSLog(@"设备：%@--已连接>>>>>>>",peripheral.name);
+            [connectExp fulfill];
+        }
+    }];
+    self.baby.having(p).connectToPeripherals().begin();
+    
+    [self waitForExpectationsWithTimeout:10 handler:nil];
 }
 
 /**
