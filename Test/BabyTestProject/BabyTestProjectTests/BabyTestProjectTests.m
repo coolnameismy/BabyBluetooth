@@ -71,7 +71,7 @@ NSString * const testPeripleralUUIDString = @"B19A6ED7-29D5-67EF-0207-6F5AE8BC33
 }
 
 /**
- 测试链式方法中心模式主要的委托和过滤器
+ 测试链式方法中心模式主要的委托和过滤器，enjoy()方法
  ！！测试前必须先启动BabyTestStub项目
  
  执行顺序：启动->过滤扫描->扫描->过滤连接->连接->发现服务->发现特征->读取特征->读取特征的描述->读取Rssi->取消扫描->断开连接->结束
@@ -203,7 +203,8 @@ NSString * const testPeripleralUUIDString = @"B19A6ED7-29D5-67EF-0207-6F5AE8BC33
     }];
   
     //启动中心设备
-    self.baby.scanForPeripherals().connectToPeripherals().discoverServices().discoverCharacteristics().readValueForCharacteristic().discoverDescriptorsForCharacteristic().readValueForDescriptors().begin().stop(15);
+//    self.baby.scanForPeripherals().connectToPeripherals().discoverServices().discoverCharacteristics().readValueForCharacteristic().discoverDescriptorsForCharacteristic().readValueForDescriptors().begin().stop(15);
+    self.baby.scanForPeripherals().enjoy().stop(15);
   
     //预期
     [self waitForExpectationsWithTimeout:20 handler:nil];

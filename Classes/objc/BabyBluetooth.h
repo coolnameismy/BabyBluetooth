@@ -405,6 +405,33 @@ sec秒后停止
  */
 - (BabyBluetooth *) with;
 
+/**
+ * enjoy 祝你使用愉快，
+ *
+ *   说明：enjoy是蓝牙全套串行方法的简写（发现服务，发现特征，读取特征，读取特征描述），前面可以必须有scanForPeripherals或having方法，channel可以选择添加。
+     
+    enjoy() 等同于 connectToPeripherals().discoverServices().discoverCharacteristics().readValueForCharacteristic().discoverDescriptorsForCharacteristic().readValueForDescriptors().begin();
+    
+    它可以让你少敲很多代码
+ 
+     ## 例子：
+     - 扫描后来个全套（发现服务，发现特征，读取特征，读取特征描述）
+     
+     ` baby.scanForPeripherals().connectToPeripherals().discoverServices().discoverCharacteristics()
+     .readValueForCharacteristic().discoverDescriptorsForCharacteristic().readValueForDescriptors().begin();
+     `
+     
+     - 直接使用已有的外设连接后全套（发现服务，发现特征，读取特征，读取特征描述）
+
+     ` baby.having(self.peripheral).connectToPeripherals().discoverServices().discoverCharacteristics()
+     .readValueForCharacteristic().discoverDescriptorsForCharacteristic().readValueForDescriptors().begin();
+ `
+ enjoy后面也可以加stop()方法
+ 
+ */
+
+- (BabyBluetooth *(^)()) enjoy;
+
 #pragma mark - 工具方法
 
 /**
@@ -412,6 +439,7 @@ sec秒后停止
  * @return BabyBluetooth共享实例
  */
 + (instancetype)shareBabyBluetooth;
+
 
 /**
 断开连接

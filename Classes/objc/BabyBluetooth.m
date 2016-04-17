@@ -524,6 +524,14 @@
     return self;
 }
 
+- (BabyBluetooth *(^)()) enjoy {
+    return ^BabyBluetooth *(int sec) {
+        self.connectToPeripherals().discoverServices().discoverCharacteristics()
+        .readValueForCharacteristic().discoverDescriptorsForCharacteristic().readValueForDescriptors().begin();
+        return self;
+    };
+}
+
 #pragma mark - 工具方法
 //断开连接
 - (void)cancelPeripheralConnection:(CBPeripheral *)peripheral {
