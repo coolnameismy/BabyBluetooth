@@ -144,6 +144,15 @@
     [[NSNotificationCenter defaultCenter]postNotificationName:BabyNotificationAtDidDiscoverPeripheral
                                                        object:@{@"central":central,@"peripheral":peripheral,@"advertisementData":advertisementData,@"RSSI":RSSI}];
     //扫描到设备callback
+    if ([currChannel filterOnDiscoverPeripherals]) {
+        if ([currChannel filterOnDiscoverPeripherals](peripheral.name,advertisementData,RSSI)) {
+            if ([currChannel blockOnDiscoverPeripherals]) {
+                [[babySpeaker callbackOnCurrChannel] blockOnDiscoverPeripherals](central,peripheral,advertisementData,RSSI);
+            }
+        }
+    }
+    
+    
     if ([currChannel blockOnDiscoverPeripherals]) {
         if ([currChannel filterOnDiscoverPeripherals](peripheral.name,advertisementData,RSSI)) {
             [[babySpeaker callbackOnCurrChannel] blockOnDiscoverPeripherals](central,peripheral,advertisementData,RSSI);
