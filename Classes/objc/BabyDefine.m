@@ -6,11 +6,11 @@
 //  Copyright © 2016年 liuyanwei. All rights reserved.
 //
 
-#import "BabyBlueDefine.h"
+#import "BabyDefine.h"
 
 
 
 
-@implementation BabyBlueDefine
+@implementation BabyDefine
 
 @end

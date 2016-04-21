@@ -7,7 +7,7 @@
 //
 
 #import "BabyPeripheralManager.h"
-
+#import "BabyDefine.h"
 
 #define callbackBlock(...) if ([[babySpeaker callback] __VA_ARGS__])   [[babySpeaker callback] __VA_ARGS__ ]
 
@@ -46,13 +46,13 @@
         else {
             PERIPHERAL_MANAGER_INIT_WAIT_TIMES++;
             if (PERIPHERAL_MANAGER_INIT_WAIT_TIMES > 5) {
-                NSLog(@">>>error： 第%d次等待peripheralManager打开任然失败，请检查蓝牙设备是否可用",PERIPHERAL_MANAGER_INIT_WAIT_TIMES);
+                BabyLog(@">>>error： 第%d次等待peripheralManager打开任然失败，请检查蓝牙设备是否可用",PERIPHERAL_MANAGER_INIT_WAIT_TIMES);
             }
             dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, 3.0 * NSEC_PER_SEC);
             dispatch_after(popTime, dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
                 self.startAdvertising();
             });
-            NSLog(@">>> 第%d次等待peripheralManager打开",PERIPHERAL_MANAGER_INIT_WAIT_TIMES);
+            BabyLog(@">>> 第%d次等待peripheralManager打开",PERIPHERAL_MANAGER_INIT_WAIT_TIMES);
         }
         
         return self;
@@ -101,22 +101,22 @@
 - (void)peripheralManagerDidUpdateState:(CBPeripheralManager *)peripheral {
     switch (peripheral.state) {
         case CBPeripheralManagerStateUnknown:
-            NSLog(@">>>CBPeripheralManagerStateUnknown");
+            BabyLog(@">>>CBPeripheralManagerStateUnknown");
             break;
         case CBPeripheralManagerStateResetting:
-            NSLog(@">>>CBPeripheralManagerStateResetting");
+            BabyLog(@">>>CBPeripheralManagerStateResetting");
             break;
         case CBPeripheralManagerStateUnsupported:
-            NSLog(@">>>CBPeripheralManagerStateUnsupported");
+            BabyLog(@">>>CBPeripheralManagerStateUnsupported");
             break;
         case CBPeripheralManagerStateUnauthorized:
-            NSLog(@">>>CBPeripheralManagerStateUnauthorized");
+            BabyLog(@">>>CBPeripheralManagerStateUnauthorized");
             break;
         case CBPeripheralManagerStatePoweredOff:
-            NSLog(@">>>CBPeripheralManagerStatePoweredOff");
+            BabyLog(@">>>CBPeripheralManagerStatePoweredOff");
             break;
         case CBPeripheralManagerStatePoweredOn:
-            NSLog(@">>>CBPeripheralManagerStatePoweredOn");
+            BabyLog(@">>>CBPeripheralManagerStatePoweredOn");
             //发送centralManagerDidUpdateState通知
             [[NSNotificationCenter defaultCenter]postNotificationName:@"CBPeripheralManagerStatePoweredOn" object:nil];
             break;

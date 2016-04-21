@@ -399,7 +399,7 @@
     //尝试重新等待CBCentralManager打开
     CENTRAL_MANAGER_INIT_WAIT_TIMES ++;
     if (CENTRAL_MANAGER_INIT_WAIT_TIMES >=5 ) {
-        NSLog(@">>> 第%d次等待CBCentralManager 打开任然失败，请检查你蓝牙使用权限或检查设备问题。",CENTRAL_MANAGER_INIT_WAIT_TIMES);
+        BabyLog(@">>> 第%d次等待CBCentralManager 打开任然失败，请检查你蓝牙使用权限或检查设备问题。",CENTRAL_MANAGER_INIT_WAIT_TIMES);
         return;
         //[NSException raise:@"CBCentralManager打开异常" format:@"尝试等待打开CBCentralManager5次，但任未能打开"];
     }
@@ -407,14 +407,14 @@
     dispatch_after(popTime, dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         [self start:cachedPeripheral];
     });
-    NSLog(@">>> 第%d次等待CBCentralManager打开",CENTRAL_MANAGER_INIT_WAIT_TIMES);
+    BabyLog(@">>> 第%d次等待CBCentralManager打开",CENTRAL_MANAGER_INIT_WAIT_TIMES);
 }
 
 //sec秒后停止
 - (BabyBluetooth *(^)(int sec)) stop {
     
     return ^BabyBluetooth *(int sec) {
-        NSLog(@">>> stop in %d sec",sec);
+        BabyLog(@">>> stop in %d sec",sec);
         
         //听见定时器执行babyStop
         timerForStop = [NSTimer timerWithTimeInterval:sec target:self selector:@selector(babyStop) userInfo:nil repeats:NO];
@@ -427,7 +427,7 @@
 
 //私有方法，停止扫描和断开连接，清空pocket
 - (void)babyStop {
-    NSLog(@">>>did stop");
+    BabyLog(@">>>did stop");
     [timerForStop invalidate];
     [self resetSeriseParmeter];
     babyCentralManager->pocket = [[NSMutableDictionary alloc]init];
@@ -559,7 +559,7 @@
             [peripheral discoverDescriptorsForCharacteristic:characteristic];
         }
         else {
-            NSLog(@"!!!设备当前处于非连接状态");
+            BabyLog(@"!!!设备当前处于非连接状态");
         }
         
         return self;

@@ -9,7 +9,7 @@
 //
 
 #import "BabySpeaker.h"
-
+#import "BabyDefine.h"
 
 
 typedef NS_ENUM(NSUInteger, BabySpeakerType) {
@@ -79,15 +79,15 @@ typedef NS_ENUM(NSUInteger, BabySpeakerType) {
     if (channel) {
         if ([self callbackOnChnnel:channel]) {
             currChannel = channel;
-            NSLog(@">>>已切换到%@",channel);
+            BabyLog(@">>>已切换到%@",channel);
         }
         else {
-            NSLog(@">>>所要切换的channel不存在");
+            BabyLog(@">>>所要切换的channel不存在");
         }
     }
     else {
         currChannel = defaultChannel;
-            NSLog(@">>>已切换到默认频道");
+            BabyLog(@">>>已切换到默认频道");
     }
 }
 

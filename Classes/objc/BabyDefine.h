@@ -8,8 +8,19 @@
 
 #import <Foundation/Foundation.h>
 
-//蓝牙系统通知
 
+# pragma mark - baby 行为定义
+
+
+//Baby if show log 是否打印日志，默认打印
+#define BABY_IS_SHOW_LOG 0
+//Baby log
+#define BabyLog(fmt, ...) if(BABY_IS_SHOW_LOG) { NSLog(fmt,##__VA_ARGS__); }
+
+
+# pragma mark - baby通知
+
+//蓝牙系统通知
 //centralManager status did change notification
 #define BabyNotificationAtCentralManagerDidUpdateState @"BabyNotificationAtCentralManagerDidUpdateState"
 //did discover peripheral notification
@@ -37,6 +48,6 @@
 // did centralManager enable notification
 #define BabyNotificationAtCentralManagerEnable @"BabyNotificationAtCentralManagerEnable"
 
-@interface BabyBlueDefine : NSObject
+@interface BabyDefine : NSObject
 
 @end

@@ -18,7 +18,7 @@
 #import "BabyToy.h"
 #import "BabySpeaker.h"
 #import "BabyRhythm.h"
-#import "BabyBlueDefine.h"
+#import "BabyDefine.h"
 
 
 @interface BabyBluetooth : NSObject

@@ -7,6 +7,7 @@
 //
 
 #import "BabyRhythm.h"
+#import "BabyDefine.h"
 
 @implementation BabyRhythm {
     BOOL isOver;
@@ -26,11 +27,11 @@
 - (void)beats {
     
     if (isOver) {
-        NSLog(@">>>beats isOver");
+        BabyLog(@">>>beats isOver");
         return;
     }
     
-    NSLog(@">>>beats at :%@",[NSDate date]);
+    BabyLog(@">>>beats at :%@",[NSDate date]);
     if (self.beatsTimer) {
         [self.beatsTimer setFireDate: [[NSDate date]dateByAddingTimeInterval:self.beatsInterval]];
     }
@@ -42,7 +43,7 @@
 }
 
 - (void)beatsBreak {
-     NSLog(@">>>beatsBreak :%@",[NSDate date]);
+     BabyLog(@">>>beatsBreak :%@",[NSDate date]);
     [self.beatsTimer setFireDate:[NSDate distantFuture]];
     if (blockOnBeatBreak) {
         blockOnBeatBreak(self);
@@ -50,7 +51,7 @@
 }
 
 - (void)beatsOver {
-    NSLog(@">>>beatsOver :%@",[NSDate date]);
+    BabyLog(@">>>beatsOver :%@",[NSDate date]);
     [self.beatsTimer setFireDate:[NSDate distantFuture]];
     isOver = YES;
     if (blockOnBeatOver) {
@@ -60,7 +61,7 @@
 }
 
 - (void)beatsRestart {
-    NSLog(@">>>beatsRestart :%@",[NSDate date]);
+    BabyLog(@">>>beatsRestart :%@",[NSDate date]);
     isOver = NO;
     [self beats];
 }
