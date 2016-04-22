@@ -12,7 +12,7 @@
 //
 
 #import <Foundation/Foundation.h>
-
+#import "BabyDefine.h"
 
 
 @interface BabyRhythm : NSObject
@@ -26,10 +26,6 @@ typedef void (^BBBeatsOverBlock)(BabyRhythm *bry);
 
 //beat interval
 @property NSInteger beatsInterval;
-
-//心跳时间间隔，默认是3
-//defalut interval
-#define beatsDefaultInterval 3;
 
 
 

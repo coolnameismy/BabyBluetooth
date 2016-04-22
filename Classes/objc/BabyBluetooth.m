@@ -398,12 +398,12 @@
     }
     //尝试重新等待CBCentralManager打开
     CENTRAL_MANAGER_INIT_WAIT_TIMES ++;
-    if (CENTRAL_MANAGER_INIT_WAIT_TIMES >=5 ) {
+    if (CENTRAL_MANAGER_INIT_WAIT_TIMES >= KBABY_CENTRAL_MANAGER_INIT_WAIT_TIMES ) {
         BabyLog(@">>> 第%d次等待CBCentralManager 打开任然失败，请检查你蓝牙使用权限或检查设备问题。",CENTRAL_MANAGER_INIT_WAIT_TIMES);
         return;
         //[NSException raise:@"CBCentralManager打开异常" format:@"尝试等待打开CBCentralManager5次，但任未能打开"];
     }
-    dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, 3.0 * NSEC_PER_SEC);
+    dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, KBABY_CENTRAL_MANAGER_INIT_WAIT_SECOND * NSEC_PER_SEC);
     dispatch_after(popTime, dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         [self start:cachedPeripheral];
     });

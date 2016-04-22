@@ -19,7 +19,7 @@
     self = [super init];
     if (self) {
         //beatsInterval
-        _beatsInterval = beatsDefaultInterval;
+        _beatsInterval = KBABYRHYTHM_BEATS_DEFAULT_INTERVAL;
     }
     return  self;
 }

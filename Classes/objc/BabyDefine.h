@@ -1,22 +1,34 @@
-//
-//  BabyBlueDefine.h
-//  BabyTestProject
-//
-//  Created by xuanyan.lyw on 16/4/19.
+/*
+ BabyBluetooth
+ 简单易用的蓝牙ble库，基于CoreBluetooth 作者：刘彦玮
+ https://github.com/coolnameismy/BabyBluetooth
+ 
+ version:0.6.0
+ */
+
+// Created by 刘彦玮 on 6/4/19.
 //  Copyright © 2016年 liuyanwei. All rights reserved.
-//
+//  
 
 #import <Foundation/Foundation.h>
 
 
 # pragma mark - baby 行为定义
 
-
 //Baby if show log 是否打印日志，默认打印
-#define BABY_IS_SHOW_LOG 0
-//Baby log
-#define BabyLog(fmt, ...) if(BABY_IS_SHOW_LOG) { NSLog(fmt,##__VA_ARGS__); }
+#define KBABY_IS_SHOW_LOG 0
 
+//CBcentralManager等待设备打开次数
+# define KBABY_CENTRAL_MANAGER_INIT_WAIT_TIMES 5
+
+//CBcentralManager等待设备打开间隔时间
+# define KBABY_CENTRAL_MANAGER_INIT_WAIT_SECOND 2.0
+
+//BabyRhythm默认心跳时间间隔
+#define KBABYRHYTHM_BEATS_DEFAULT_INTERVAL 3;
+
+//Baby默认链式方法channel名称
+#define KBABY_DETAULT_CHANNEL @"babyDefault"
 
 # pragma mark - baby通知
 
@@ -47,6 +59,17 @@
 //蓝牙扩展通知
 // did centralManager enable notification
 #define BabyNotificationAtCentralManagerEnable @"BabyNotificationAtCentralManagerEnable"
+
+
+
+# pragma mark - baby 定义的方法
+
+//Baby log
+#define BabyLog(fmt, ...) if(KBABY_IS_SHOW_LOG) { NSLog(fmt,##__VA_ARGS__); }
+
+
+
+
 
 @interface BabyDefine : NSObject
 

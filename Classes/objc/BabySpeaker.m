@@ -24,8 +24,6 @@ typedef NS_ENUM(NSUInteger, BabySpeakerType) {
     BabySpeakerTypeDiscoverPeripheralsReadValueForDescriptorsBlock
 };
 
-//默认channel名称
-#define defaultChannel @"babyDefault"
 
 @implementation BabySpeaker {
     //所有委托频道
@@ -42,14 +40,14 @@ typedef NS_ENUM(NSUInteger, BabySpeakerType) {
         BabyCallback *defaultCallback = [[BabyCallback alloc]init];
         notifyList = [[NSMutableDictionary alloc]init];
         channels = [[NSMutableDictionary alloc]init];
-        currChannel = defaultChannel;
-        [channels setObject:defaultCallback forKey:defaultChannel];
+        currChannel = KBABY_DETAULT_CHANNEL;
+        [channels setObject:defaultCallback forKey:KBABY_DETAULT_CHANNEL];
     }
     return self;
 }
 
 - (BabyCallback *)callback {
-    return [channels objectForKey:defaultChannel];
+    return [channels objectForKey:KBABY_DETAULT_CHANNEL];
 }
 
 - (BabyCallback *)callbackOnCurrChannel {
@@ -86,7 +84,7 @@ typedef NS_ENUM(NSUInteger, BabySpeakerType) {
         }
     }
     else {
-        currChannel = defaultChannel;
+        currChannel = KBABY_DETAULT_CHANNEL;
             BabyLog(@">>>已切换到默认频道");
     }
 }
