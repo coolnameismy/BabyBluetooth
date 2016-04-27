@@ -610,11 +610,15 @@ characteristic:(CBCharacteristic *)characteristic
 }
  
 - (CBPeripheral *)retrievePeripheralWithUUIDString:(NSString *)UUIDString {
-    NSUUID *uuid = [[NSUUID alloc]initWithUUIDString:UUIDString];
-    if (uuid) {
-        return [self.centralManager retrievePeripheralsWithIdentifiers:@[uuid]][0];
+    CBPeripheral *p = nil;
+    @try {
+        NSUUID *uuid = [[NSUUID alloc]initWithUUIDString:UUIDString];
+        p = [self.centralManager retrievePeripheralsWithIdentifiers:@[uuid]][0];
+    } @catch (NSException *exception) {
+        BabyLog(@">>> retrievePeripheralWithUUIDString error:%@",exception)
+    } @finally {
     }
-    return nil;
+    return p;
 }
 
 #pragma mark - peripheral model
