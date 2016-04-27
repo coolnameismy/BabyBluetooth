@@ -18,10 +18,11 @@
 @end
 
 
-NSString * const testPeripleralName = @"BabyBluetoothTestStub";
+//NSString * const testPeripleralName = @"BabyBluetoothTestStub";
+NSString * const testPeripleralName = @"baby-default-name";
 
-# warning testPeripleralUUIDString这个值会根据不同设备变化的，可以通过打印 [[peripheral identifier] UUIDString]] 取得
-NSString * const testPeripleralUUIDString = @"B19A6ED7-29D5-67EF-0207-6F5AE8BC337B";
+# warning testPeripleralUUIDString这个值会根据不同设备变化的,同一个设备也可能用为重启会产生变化，可以通过打印 [[peripheral identifier] UUIDString]] 取得
+NSString * const testPeripleralUUIDString = @"FD9C47C0-B6A8-2D91-BD7D-C91810654EE8";
 
 @implementation BabyTestProjectTests
 
@@ -103,7 +104,7 @@ NSString * const testPeripleralUUIDString = @"B19A6ED7-29D5-67EF-0207-6F5AE8BC33
     //只放过测试peripheral名称相等的设备
     [self.baby setFilterOnDiscoverPeripherals:^BOOL(NSString *peripheralName, NSDictionary *advertisementData, NSNumber *RSSI) {
         NSString *localName = [NSString stringWithFormat:@"%@",[advertisementData objectForKey:@"kCBAdvDataLocalName"]];
-        NSLog(@"搜索到了设备:%@",localName);
+        NSLog(@"搜索到了设备:%@ | %@",peripheralName, localName);
         if ([localName isEqualToString:testPeripleralName]) {
             [filterOnDiscoverPeripheralsExp fulfill];
             return YES;
@@ -113,8 +114,9 @@ NSString * const testPeripleralUUIDString = @"B19A6ED7-29D5-67EF-0207-6F5AE8BC33
     
     //设置扫描到设备的委托
     [self.baby setBlockOnDiscoverToPeripherals:^(CBCentralManager *central, CBPeripheral *peripheral, NSDictionary *advertisementData, NSNumber *RSSI) {
-        NSLog(@"搜索到了设备:%@",peripheral.name);
+        
         NSString *localName = [NSString stringWithFormat:@"%@",[advertisementData objectForKey:@"kCBAdvDataLocalName"]];
+        NSLog(@"搜索到了设备:%@ | %@",peripheral.name, localName);
         if ([localName isEqualToString:testPeripleralName]) {
             [blockOnDiscoverToPeripheralsExp fulfill];
             weakSelf.testPeripheral = peripheral;
