@@ -31,10 +31,7 @@
                                  nil];
         
 #else
-        NSDictionary *options = [NSDictionary dictionaryWithObjectsAndKeys:
-                                 //蓝牙power没打开时alert提示框
-                                 [NSNumber numberWithBool:YES],CBCentralManagerOptionShowPowerAlertKey,
-                                 nil];
+        NSDictionary *options = nil;
 #endif
         
         NSArray *backgroundModes = [[[NSBundle mainBundle] infoDictionary]objectForKey:@"UIBackgroundModes"];
