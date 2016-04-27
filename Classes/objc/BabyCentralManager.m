@@ -152,13 +152,6 @@
         }
     }
     
-    
-    if ([currChannel blockOnDiscoverPeripherals]) {
-        if ([currChannel filterOnDiscoverPeripherals](peripheral.name,advertisementData,RSSI)) {
-            [[babySpeaker callbackOnCurrChannel] blockOnDiscoverPeripherals](central,peripheral,advertisementData,RSSI);
-        }
-    }
-    
     //处理连接设备
     if (needConnectPeripheral) {
         if ([currChannel filterOnconnectToPeripherals](peripheral.name,advertisementData,RSSI)) {
