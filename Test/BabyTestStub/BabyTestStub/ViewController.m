@@ -15,7 +15,11 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    [self configAndStartAd];
+   
+}
 
+-(void) configAndStartAd {
     //配置第一个服务s1
     CBMutableService *s1 = makeCBService(@"FFF0");
     //配置s1的3个characteristic
@@ -32,17 +36,18 @@
     //配置委托
     [self babyDelegate];
     //添加服务和启动外设
-//    self.baby.bePeripheral().addServices(@[s1,s2]).startAdvertising();
+    //    self.baby.bePeripheral().addServices(@[s1,s2]).startAdvertising();
     self.baby.bePeripheralWithName(@"BabyBluetoothTestStub").addServices(@[s1,s2]).startAdvertising();
-
 }
-
 //配置委托
 - (void)babyDelegate{
     
     //设置添加service委托 | set didAddService block
     [self.baby peripheralModelBlockOnPeripheralManagerDidUpdateState:^(CBPeripheralManager *peripheral) {
         NSLog(@"PeripheralManager trun status code: %ld",(long)peripheral.state);
+        if (peripheral.state == CBPeripheralManagerStatePoweredOn) {
+           [self configAndStartAd];
+        }
     }];
     
     //设置添加service委托 | set didAddService block
