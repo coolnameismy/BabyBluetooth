@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		79CD9BD81CDB7472009DAD1C /* BabyDefine.m in Sources */ = {isa = PBXBuildFile; fileRef = 79CD9BD71CDB7472009DAD1C /* BabyDefine.m */; };
 		E1D0BC281C1B189B00F46E04 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = E1D0BC271C1B189B00F46E04 /* main.m */; };
 		E1D0BC2B1C1B189B00F46E04 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = E1D0BC2A1C1B189B00F46E04 /* AppDelegate.m */; };
 		E1D0BC2E1C1B189B00F46E04 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E1D0BC2D1C1B189B00F46E04 /* ViewController.m */; };
@@ -25,6 +26,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		79CD9BD61CDB7472009DAD1C /* BabyDefine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BabyDefine.h; sourceTree = "<group>"; };
+		79CD9BD71CDB7472009DAD1C /* BabyDefine.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BabyDefine.m; sourceTree = "<group>"; };
 		E1D0BC231C1B189B00F46E04 /* BluetoothStubOnIOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BluetoothStubOnIOS.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E1D0BC271C1B189B00F46E04 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		E1D0BC291C1B189B00F46E04 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -110,6 +113,8 @@
 		E1D0BC591C1DACE100F46E04 /* BabyBluetooth */ = {
 			isa = PBXGroup;
 			children = (
+				79CD9BD61CDB7472009DAD1C /* BabyDefine.h */,
+				79CD9BD71CDB7472009DAD1C /* BabyDefine.m */,
 				E1D0BC5A1C1DACE100F46E04 /* BabyBluetooth.h */,
 				E1D0BC5B1C1DACE100F46E04 /* BabyBluetooth.m */,
 				E1D0BC5C1C1DACE100F46E04 /* BabyCallback.h */,
@@ -203,6 +208,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				79CD9BD81CDB7472009DAD1C /* BabyDefine.m in Sources */,
 				E1D0BC2E1C1B189B00F46E04 /* ViewController.m in Sources */,
 				E1D0BC711C1DACE100F46E04 /* BabyToy.m in Sources */,
 				E1D0BC6E1C1DACE100F46E04 /* BabyRhythm.m in Sources */,
