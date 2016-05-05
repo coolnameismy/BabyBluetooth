@@ -3,7 +3,8 @@
  简单易用的蓝牙ble库，基于CoreBluetooth 作者：刘彦玮
  https://github.com/coolnameismy/BabyBluetooth
  
- version:0.6.0
+@brief  预定义一些库的执行行为和配置
+ 
  */
 
 // Created by 刘彦玮 on 6/4/19.
