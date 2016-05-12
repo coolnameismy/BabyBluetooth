@@ -30,6 +30,7 @@ The easiest way to use Bluetooth (BLE )in ios,even bady can use. 简单易用的
 * [后期更新](#后期更新)
 * [蓝牙学习资源](#蓝牙学习资源)
 * [期待](#期待)
+* [常见问题](https://github.com/coolnameismy/BabyBluetooth/issues)
 
 # QuickExample
 
@@ -212,7 +213,7 @@ step2:导入.h文件
 
 - 优化babyBluetooch的子类类名
 - 增加对Carthage Install的支持
-- swift版本开发
+- [swift版本开发,目前项目已经兼容swift，详细见这里](https://github.com/coolnameismy/BabyBluetooth-swift)
 
 已经更新的版本说明，请在wiki中查看
 
