@@ -37,11 +37,21 @@
                 [UUIDS addObject:s.UUID];
             }
             //启动广播
-            [_peripheralManager startAdvertising:
-             @{
-               CBAdvertisementDataServiceUUIDsKey :  UUIDS
-               ,CBAdvertisementDataLocalNameKey : _localName
-             }];
+            if (_manufacturerData) {
+                [_peripheralManager startAdvertising:
+                 @{
+                   CBAdvertisementDataServiceUUIDsKey :  UUIDS
+                   ,CBAdvertisementDataLocalNameKey : _localName,
+                   CBAdvertisementDataManufacturerDataKey:_manufacturerData
+                }];
+            } else {
+                [_peripheralManager startAdvertising:
+                 @{
+                   CBAdvertisementDataServiceUUIDsKey :  UUIDS
+                   ,CBAdvertisementDataLocalNameKey : _localName
+                   }];
+            }
+          
         }
         else {
             PERIPHERAL_MANAGER_INIT_WAIT_TIMES++;
@@ -80,7 +90,14 @@
     return ^BabyPeripheralManager*(NSArray *array) {
         _services = [NSMutableArray arrayWithArray:array];
         [self addServicesToPeripheral];
-        return  self;
+        return self;
+    };
+}
+
+- (BabyPeripheralManager *(^)(NSData *data))addManufacturerData {
+    return ^BabyPeripheralManager*(NSData *data) {
+        _manufacturerData = data;
+        return self;
     };
 }
 

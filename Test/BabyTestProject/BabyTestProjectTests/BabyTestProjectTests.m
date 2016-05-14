@@ -365,20 +365,112 @@ NSString * const testPeripleralUUIDString = @"FD9C47C0-B6A8-2D91-BD7D-C91810654E
 }
 
 /**
- 测试Peripheral操作的委托
+ 测试蓝牙未连上是否可以读写操作
  */
-//- (void)testPeripheralOperationOfDelegate {
-    //设置写数据成功的block
-    //    [baby setBlockOnDidWriteValueForCharacteristic:^(CBCharacteristic *characteristic, NSError *error) {
-    //        NSLog(@"setBlockOnDidWriteValueForCharacteristicAtChannel characteristic:%@ and new value:%@",characteristic.UUID, characteristic.value);
-    //    }];
+- (void)testPeripheralOperationOfDelegate {
     
-    //设置通知状态改变的block
-    //    [baby setBlockOnDidUpdateNotificationStateForCharacteristicAtChannel:channelOnCharacteristicView block:^(CBCharacteristic *characteristic, NSError *error) {
-    //        NSLog(@"uid:%@,isNotifying:%@",characteristic.UUID,characteristic.isNotifying?@"on":@"off");
-    //    }];
+    BabyTestExpretaion *connectExp = [self expWithDescription:@"testRetrievePeripheralsWithIdentifiers falied "];
     
-//}
+    //设置查找设备的过滤器
+    //只放过测试peripheral名称相等的设备
+    [self.baby setFilterOnDiscoverPeripherals:^BOOL(NSString *peripheralName, NSDictionary *advertisementData, NSNumber *RSSI) {
+        NSString *localName = [NSString stringWithFormat:@"%@",[advertisementData objectForKey:@"kCBAdvDataLocalName"]];
+        NSLog(@"搜索到了设备:%@ | %@",peripheralName, localName);
+        if ([localName isEqualToString:testPeripleralName]) {
+            return YES;
+        }
+        return NO;
+    }];
+    
+    //设置扫描到设备的委托
+    [self.baby setBlockOnDiscoverToPeripherals:^(CBCentralManager *central, CBPeripheral *peripheral, NSDictionary *advertisementData, NSNumber *RSSI) {
+        
+        NSString *localName = [NSString stringWithFormat:@"%@",[advertisementData objectForKey:@"kCBAdvDataLocalName"]];
+        NSLog(@"搜索到了设备:%@ | %@",peripheral.name, localName);
+        
+    }];
+    
+    //设置连接设备的过滤器
+    [self.baby setFilterOnConnectToPeripherals:^BOOL(NSString *peripheralName, NSDictionary *advertisementData, NSNumber *RSSI) {
+        NSString *localName = [NSString stringWithFormat:@"%@",[advertisementData objectForKey:@"kCBAdvDataLocalName"]];
+        NSLog(@"连接设备的过滤器,设备:%@",localName);
+        if ([localName isEqualToString:testPeripleralName]) {
+            return YES;
+        }
+        return NO;
+    }];
+    
+    //设置连接设备的委托
+    [self.baby setBlockOnConnected:^(CBCentralManager *central, CBPeripheral *peripheral) {
+        NSLog(@"搜索到了设备:%@",peripheral.name);
+        if (self.testPeripheral == peripheral) {
+ 
+        } else {
+            
+        }
+    }];
+    
+    //设置发现设备的Services的委托
+    [self.baby setBlockOnDiscoverServices:^(CBPeripheral *peripheral, NSError *error) {
+        
+    }];
+    
+    //设置发现设service的Characteristics的委托
+    [self.baby setBlockOnDiscoverCharacteristics:^(CBPeripheral *peripheral, CBService *service, NSError *error) {
+        
+    }];
+    
+    //设置读取characteristics的委托
+    [self.baby setBlockOnReadValueForCharacteristic:^(CBPeripheral *peripheral, CBCharacteristic *characteristics, NSError *error) {
+        NSLog(@"characteristic name:%@ value is:%@",characteristics.UUID,characteristics.value);
+        peripheral readValueForCharacteristic:<#(nonnull CBCharacteristic *)#>
+    }];
+    
+    //设置发现characteristics的descriptors的委托
+    [self.baby setBlockOnDiscoverDescriptorsForCharacteristic:^(CBPeripheral *peripheral, CBCharacteristic *characteristic, NSError *error) {
+        NSLog(@"===characteristic name:%@",characteristic.service.UUID);
+        for (CBDescriptor *d in characteristic.descriptors) {
+            NSLog(@"CBDescriptor name is :%@",d.UUID);
+        }
+        
+    }];
+    
+    //设置读取Descriptor的委托
+    [self.baby setBlockOnReadValueForDescriptors:^(CBPeripheral *peripheral, CBDescriptor *descriptor, NSError *error) {
+        NSLog(@"Descriptor name:%@ value is:%@",descriptor.characteristic.UUID, descriptor.value);
+        
+    }];
+    
+    //读取rssi的委托
+    [self.baby setBlockOnDidReadRSSI:^(NSNumber *RSSI, NSError *error) {
+        NSLog(@"setBlockOnDidReadRSSI:RSSI:%@",RSSI);
+        
+    }];
+    
+    //断开设备测试，读取rssi测试
+    [self.baby setBlockOnCancelScanBlock:^(CBCentralManager *centralManager) {
+        NSLog(@"setBlockOnCancelScanBlock");
+        
+    }];
+    
+    //断开连接委托
+    [self.baby setBlockOnDisconnect:^(CBCentralManager *central, CBPeripheral *peripheral, NSError *error) {
+        NSLog(@"设备：%@--断开连接",peripheral.name);
+        
+    }];
+    
+    [self.baby setBlockOnCancelAllPeripheralsConnectionBlock:^(CBCentralManager *centralManager) {
+        NSLog(@"setBlockOnCancelAllPeripheralsConnectionBlock");
+        
+    }];
+    
+    //启动中心设备
+    self.baby.scanForPeripherals().connectToPeripherals().discoverServices().discoverCharacteristics().readValueForCharacteristic().discoverDescriptorsForCharacteristic().readValueForDescriptors().begin().stop(15);
+//    self.baby.scanForPeripherals().enjoy().stop(15);
+    
+    
+    [self waitForExpectationsWithTimeout:10 handler:nil];
+}
 
 
 //- (void)testPerformanceExample {

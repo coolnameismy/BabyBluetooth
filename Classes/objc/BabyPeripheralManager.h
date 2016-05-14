@@ -31,14 +31,24 @@
 - (BabyPeripheralManager *(^)(NSArray *array))addServices;
 
 /**
+ 添加广播包数据
+ */
+- (BabyPeripheralManager *(^)(NSData *data))addManufacturerData;
+
+/**
 启动广播
  */
 - (BabyPeripheralManager *(^)())startAdvertising;
 
 //外设管理器
 @property (nonatomic, strong) CBPeripheralManager *peripheralManager;
+//设备名称
 @property (nonatomic, copy) NSString *localName;
+//设备服务
 @property (nonatomic, strong) NSMutableArray *services;
+//设备广播包数据
+@property (nonatomic, strong) NSData *manufacturerData;
+
 
 @end
 

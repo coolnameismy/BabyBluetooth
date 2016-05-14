@@ -37,7 +37,23 @@
     [self babyDelegate];
     //添加服务和启动外设
     //    self.baby.bePeripheral().addServices(@[s1,s2]).startAdvertising();
-    self.baby.bePeripheralWithName(@"BabyBluetoothTestStub").addServices(@[s1,s2]).startAdvertising();
+    
+    //设置广播包数据
+    NSData *data = [[NSData alloc]initWithBase64EncodedString:@"qAEgECCVXQuEVSHedFvlQc5g5ivB" options:0];
+    
+    self.baby.bePeripheralWithName(@"BabyBluetoothTestStub").addServices(@[s1,s2]).addManufacturerData(data).startAdvertising();
+    
+    
+    /**
+       模拟外设信息
+      
+       localName = BabyBluetoothTestStub
+       uuid: 不固定
+       alink协议隐藏的mac地址:C1:2B:E6:60:CE:41
+     **/
+    
+    
+    
 }
 //配置委托
 - (void)babyDelegate{
@@ -46,7 +62,7 @@
     [self.baby peripheralModelBlockOnPeripheralManagerDidUpdateState:^(CBPeripheralManager *peripheral) {
         NSLog(@"PeripheralManager trun status code: %ld",(long)peripheral.state);
         if (peripheral.state == CBPeripheralManagerStatePoweredOn) {
-           [self configAndStartAd];
+//           [self configAndStartAd];
         }
     }];
     
