@@ -50,6 +50,14 @@
        localName = BabyBluetoothTestStub
        uuid: 不固定
        alink协议隐藏的mac地址:C1:2B:E6:60:CE:41
+     
+       services and characteristics
+         FFF0
+            - FFF1 ， FFF2 ，FFF3
+            - 一个随机的uuid
+            - FFF5 是notiy字段，返回当前时间
+         FFE0
+            - 一个随机的只读uuid
      **/
     
     
@@ -111,8 +119,11 @@
     //设置添加service委托 | set didAddService block
     [self.baby peripheralModelBlockOnDidSubscribeToCharacteristic:^(CBPeripheralManager *peripheral, CBCentral *central, CBCharacteristic *characteristic) {
         NSLog(@"订阅了 %@的数据",characteristic.UUID);
+        if (characteristic.isNotifying) {
+            return;
+        }
         //每秒执行一次给主设备发送一个当前时间的秒数
-        timer = [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(sendData:) userInfo:characteristic  repeats:YES];
+        timer = [NSTimer scheduledTimerWithTimeInterval:3 target:self selector:@selector(sendData:) userInfo:characteristic  repeats:YES];
     }];
     
     //设置添加service委托 | set didAddService block
