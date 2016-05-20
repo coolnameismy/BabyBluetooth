@@ -165,6 +165,10 @@
     callbackBlock(blockOnPeripheralModelDidReceiveWriteRequests)(peripheral,requests);
 }
 
+- (void)peripheralManagerIsReadyToUpdateSubscribers:(CBPeripheralManager *)peripheral {
+    callbackBlock(blockOnPeripheralModelIsReadyToUpdateSubscribers)(peripheral);
+}
+
 - (void)peripheralManager:(CBPeripheralManager *)peripheral central:(CBCentral *)central didSubscribeToCharacteristic:(CBCharacteristic *)characteristic {
     callbackBlock(blockOnPeripheralModelDidSubscribeToCharacteristic)(peripheral,central,characteristic);
 }
