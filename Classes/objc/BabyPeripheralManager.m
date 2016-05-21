@@ -94,6 +94,14 @@
     };
 }
 
+- (BabyPeripheralManager *(^)())removeAllServices {
+    return ^BabyPeripheralManager*() {
+        didAddServices = 0;
+        [_peripheralManager removeAllServices];
+        return self;
+    };
+}
+
 - (BabyPeripheralManager *(^)(NSData *data))addManufacturerData {
     return ^BabyPeripheralManager*(NSData *data) {
         _manufacturerData = data;

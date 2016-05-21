@@ -34,6 +34,10 @@
  添加广播包数据
  */
 - (BabyPeripheralManager *(^)(NSData *data))addManufacturerData;
+/**
+ 移除广播包数据
+ */
+- (BabyPeripheralManager *(^)())removeAllServices;
 
 /**
 启动广播
