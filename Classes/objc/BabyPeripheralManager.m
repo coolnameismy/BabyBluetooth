@@ -69,6 +69,13 @@
     };
 }
 
+- (BabyPeripheralManager *(^)())stopAdvertising {
+    return ^BabyPeripheralManager*() {
+        [_peripheralManager stopAdvertising];
+        return self;
+    };
+}
+
 - (BOOL)canStartAdvertising {
     if (_peripheralManager.state != CBPeripheralManagerStatePoweredOn) {
         return NO;

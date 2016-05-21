@@ -44,6 +44,11 @@
  */
 - (BabyPeripheralManager *(^)())startAdvertising;
 
+/**
+ 停止广播
+ */
+- (BabyPeripheralManager *(^)())stopAdvertising;
+
 //外设管理器
 @property (nonatomic, strong) CBPeripheralManager *peripheralManager;
 //设备名称
