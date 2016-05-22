@@ -101,8 +101,8 @@
     
     //设置添加service委托 | set didAddService block
     [self.baby peripheralModelBlockOnDidReceiveWriteRequests:^(CBPeripheralManager *peripheral,NSArray *requests) {
-        NSLog(@"didReceiveWriteRequests");
         CBATTRequest *request = requests[0];
+        NSLog(@"didReceiveWriteRequests: value:%@",request.value);
         //判断是否有写数据的权限
         if (request.characteristic.properties & CBCharacteristicPropertyWrite) {
             //需要转换成CBMutableCharacteristic对象才能进行写值
