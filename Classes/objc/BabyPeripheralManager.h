@@ -34,11 +34,20 @@
  添加广播包数据
  */
 - (BabyPeripheralManager *(^)(NSData *data))addManufacturerData;
+/**
+ 移除广播包数据
+ */
+- (BabyPeripheralManager *(^)())removeAllServices;
 
 /**
 启动广播
  */
 - (BabyPeripheralManager *(^)())startAdvertising;
+
+/**
+ 停止广播
+ */
+- (BabyPeripheralManager *(^)())stopAdvertising;
 
 //外设管理器
 @property (nonatomic, strong) CBPeripheralManager *peripheralManager;

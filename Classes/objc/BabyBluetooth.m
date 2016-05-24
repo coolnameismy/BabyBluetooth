@@ -656,6 +656,9 @@ characteristic:(CBCharacteristic *)characteristic
 - (void)peripheralModelBlockOnDidReceiveWriteRequests:(void(^)(CBPeripheralManager *peripheral,NSArray *requests))block {
     [[babySpeaker callback]setBlockOnPeripheralModelDidReceiveWriteRequests:block];
 }
+- (void)peripheralModelBlockOnIsReadyToUpdateSubscribers:(void(^)(CBPeripheralManager *peripheral))block {
+    [[babySpeaker callback]setBlockOnPeripheralModelIsReadyToUpdateSubscribers:block];
+}
 - (void)peripheralModelBlockOnDidSubscribeToCharacteristic:(void(^)(CBPeripheralManager *peripheral,CBCentral *central,CBCharacteristic *characteristic))block {
     [[babySpeaker callback]setBlockOnPeripheralModelDidSubscribeToCharacteristic:block];
 }

@@ -538,11 +538,15 @@ characteristic:(CBCharacteristic *)characteristic
  */
 - (void)peripheralModelBlockOnDidReceiveWriteRequests:(void(^)(CBPeripheralManager *peripheral,NSArray *requests))block;
 /**
+ peripheralManager is ready to update subscribers
+ */
+- (void)peripheralModelBlockOnIsReadyToUpdateSubscribers:(void(^)(CBPeripheralManager *peripheral))block;
+/**
  peripheralManager did subscribe to characteristic block
  */
 - (void)peripheralModelBlockOnDidSubscribeToCharacteristic:(void(^)(CBPeripheralManager *peripheral,CBCentral *central,CBCharacteristic *characteristic))block;
 /**
-peripheralManager did subscribe to characteristic block
+ peripheralManager did unsubscribe to characteristic block
 */
 - (void)peripheralModelBlockOnDidUnSubscribeToCharacteristic:(void(^)(CBPeripheralManager *peripheral,CBCentral *central,CBCharacteristic *characteristic))block;
 

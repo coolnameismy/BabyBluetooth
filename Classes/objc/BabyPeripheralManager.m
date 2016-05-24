@@ -69,6 +69,13 @@
     };
 }
 
+- (BabyPeripheralManager *(^)())stopAdvertising {
+    return ^BabyPeripheralManager*() {
+        [_peripheralManager stopAdvertising];
+        return self;
+    };
+}
+
 - (BOOL)canStartAdvertising {
     if (_peripheralManager.state != CBPeripheralManagerStatePoweredOn) {
         return NO;
@@ -90,6 +97,14 @@
     return ^BabyPeripheralManager*(NSArray *array) {
         _services = [NSMutableArray arrayWithArray:array];
         [self addServicesToPeripheral];
+        return self;
+    };
+}
+
+- (BabyPeripheralManager *(^)())removeAllServices {
+    return ^BabyPeripheralManager*() {
+        didAddServices = 0;
+        [_peripheralManager removeAllServices];
         return self;
     };
 }
@@ -163,6 +178,10 @@
 
 - (void)peripheralManager:(CBPeripheralManager *)peripheral didReceiveWriteRequests:(NSArray *)requests {
     callbackBlock(blockOnPeripheralModelDidReceiveWriteRequests)(peripheral,requests);
+}
+
+- (void)peripheralManagerIsReadyToUpdateSubscribers:(CBPeripheralManager *)peripheral {
+    callbackBlock(blockOnPeripheralModelIsReadyToUpdateSubscribers)(peripheral);
 }
 
 - (void)peripheralManager:(CBPeripheralManager *)peripheral central:(CBCentral *)central didSubscribeToCharacteristic:(CBCharacteristic *)characteristic {
