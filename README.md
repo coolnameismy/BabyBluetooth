@@ -17,6 +17,9 @@ The easiest way to use Bluetooth (BLE )in ios,even bady can use. 简单易用的
 
 当前版本 0.7.0 
 
+[更新说明](https://github.com/coolnameismy/BabyBluetooth/wiki/%E6%9B%B4%E6%96%B0%E8%AF%B4%E6%98%8E)
+
+
 详细文档请参考wiki The full documentation of the project is available on its wiki.
 # [english readme link,please click it!](https://github.com/coolnameismy/BabyBluetooth/blob/master/README_en.md)
 
