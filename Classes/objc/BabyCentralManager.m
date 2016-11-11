@@ -407,7 +407,7 @@
 }
 #else
 - (void)peripheral:(CBPeripheral *)peripheral didReadRSSI:(NSNumber *)RSSI error:(NSError *)error {
-    [[NSNotificationCenter defaultCenter]postNotificationName:BabyNotificationAtDidReadRSSI object:@{@"peripheral":peripheral,@"RSSI":RSSI,@"error":error?error:@""}];
+    [[NSNotificationCenter defaultCenter]postNotificationName:BabyNotificationAtDidReadRSSI object:@{@"peripheral":peripheral,@"RSSI":RSSI?RSSI:@100,@"error":error?error:@""}];
     
     BabyLog(@">>>peripheralDidUpdateRSSI -> RSSI:%@",RSSI);
     if ([currChannel blockOnDidReadRSSI]) {
