@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import <CoreBluetooth/CoreBluetooth.h>
 #import "BabyBluetooth.h"
-#import "PeripheralViewContriller.h"
+#import "PeripheralViewController.h"
 
 @interface ViewController : UIViewController<UITableViewDataSource,UITableViewDelegate>
 
