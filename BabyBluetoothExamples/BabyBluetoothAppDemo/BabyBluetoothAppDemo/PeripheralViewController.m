@@ -6,17 +6,17 @@
 //  Copyright (c) 2015年 刘彦玮. All rights reserved.
 //
 
-#import "PeripheralViewContriller.h"
+#import "PeripheralViewController.h"
 
 #define width [UIScreen mainScreen].bounds.size.width
 #define height [UIScreen mainScreen].bounds.size.height
 #define channelOnPeropheralView @"peripheralView"
 
-@interface PeripheralViewContriller ()
+@interface PeripheralViewController ()
 
 @end
 
-@implementation PeripheralViewContriller{
+@implementation PeripheralViewController{
 
 }
 

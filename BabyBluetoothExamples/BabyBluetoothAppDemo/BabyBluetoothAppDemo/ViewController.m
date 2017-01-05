@@ -226,7 +226,7 @@
     [baby cancelScan];
     
     [self.tableView deselectRowAtIndexPath:indexPath animated:YES];
-    PeripheralViewContriller *vc = [[PeripheralViewContriller alloc]init];
+    PeripheralViewController *vc = [[PeripheralViewController alloc]init];
     vc.currPeripheral = [peripherals objectAtIndex:indexPath.row];
     vc->baby = self->baby;
     [self.navigationController pushViewController:vc animated:YES];

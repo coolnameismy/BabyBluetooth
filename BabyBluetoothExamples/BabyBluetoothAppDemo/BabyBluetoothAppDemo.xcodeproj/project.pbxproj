@@ -21,7 +21,7 @@
 		E1DEF5161B98857B0005C9F2 /* BabyCallback.m in Sources */ = {isa = PBXBuildFile; fileRef = E1DEF50A1B98857B0005C9F2 /* BabyCallback.m */; };
 		E1DEF5181B98857B0005C9F2 /* BabySpeaker.m in Sources */ = {isa = PBXBuildFile; fileRef = E1DEF50E1B98857B0005C9F2 /* BabySpeaker.m */; };
 		E1DEF5191B98857B0005C9F2 /* BabyToy.m in Sources */ = {isa = PBXBuildFile; fileRef = E1DEF5101B98857B0005C9F2 /* BabyToy.m */; };
-		F05F7BA21B70AB0F0051C68A /* PeripheralViewContriller.m in Sources */ = {isa = PBXBuildFile; fileRef = F05F7BA11B70AB0F0051C68A /* PeripheralViewContriller.m */; };
+		F05F7BA21B70AB0F0051C68A /* PeripheralViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F05F7BA11B70AB0F0051C68A /* PeripheralViewController.m */; };
 		F05F7BA61B733A240051C68A /* PeripheralInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = F05F7BA51B733A240051C68A /* PeripheralInfo.m */; };
 		F05F7BAD1B7372300051C68A /* SVIndefiniteAnimatedView.m in Sources */ = {isa = PBXBuildFile; fileRef = F05F7BA91B7372300051C68A /* SVIndefiniteAnimatedView.m */; };
 		F05F7BAE1B7372300051C68A /* SVProgressHUD.bundle in Resources */ = {isa = PBXBuildFile; fileRef = F05F7BAA1B7372300051C68A /* SVProgressHUD.bundle */; };
@@ -57,8 +57,8 @@
 		E1DEF50E1B98857B0005C9F2 /* BabySpeaker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = BabySpeaker.m; sourceTree = "<group>"; };
 		E1DEF50F1B98857B0005C9F2 /* BabyToy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BabyToy.h; sourceTree = "<group>"; };
 		E1DEF5101B98857B0005C9F2 /* BabyToy.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BabyToy.m; sourceTree = "<group>"; };
-		F05F7BA01B70AB0F0051C68A /* PeripheralViewContriller.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PeripheralViewContriller.h; sourceTree = "<group>"; };
-		F05F7BA11B70AB0F0051C68A /* PeripheralViewContriller.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PeripheralViewContriller.m; sourceTree = "<group>"; };
+		F05F7BA01B70AB0F0051C68A /* PeripheralViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PeripheralViewController.h; sourceTree = "<group>"; };
+		F05F7BA11B70AB0F0051C68A /* PeripheralViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PeripheralViewController.m; sourceTree = "<group>"; };
 		F05F7BA41B733A240051C68A /* PeripheralInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PeripheralInfo.h; sourceTree = "<group>"; };
 		F05F7BA51B733A240051C68A /* PeripheralInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PeripheralInfo.m; sourceTree = "<group>"; };
 		F05F7BA81B7372300051C68A /* SVIndefiniteAnimatedView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVIndefiniteAnimatedView.h; sourceTree = "<group>"; };
@@ -108,8 +108,8 @@
 				E1807E751B6CA29100E99C63 /* AppDelegate.m */,
 				E1807E771B6CA29100E99C63 /* ViewController.h */,
 				E1807E781B6CA29100E99C63 /* ViewController.m */,
-				F05F7BA01B70AB0F0051C68A /* PeripheralViewContriller.h */,
-				F05F7BA11B70AB0F0051C68A /* PeripheralViewContriller.m */,
+				F05F7BA01B70AB0F0051C68A /* PeripheralViewController.h */,
+				F05F7BA11B70AB0F0051C68A /* PeripheralViewController.m */,
 				F05F7BB01B7442B50051C68A /* CharacteristicViewController.h */,
 				F05F7BB11B7442B50051C68A /* CharacteristicViewController.m */,
 				E1807E7A1B6CA29100E99C63 /* Main.storyboard */,
@@ -265,7 +265,7 @@
 			files = (
 				E1DEF5151B98857B0005C9F2 /* BabyBluetooth.m in Sources */,
 				E16F24AB1C2123B800A5C274 /* BabyCentralManager.m in Sources */,
-				F05F7BA21B70AB0F0051C68A /* PeripheralViewContriller.m in Sources */,
+				F05F7BA21B70AB0F0051C68A /* PeripheralViewController.m in Sources */,
 				E1807E791B6CA29100E99C63 /* ViewController.m in Sources */,
 				79CD9BD21CDB7395009DAD1C /* BabyDefine.m in Sources */,
 				F05F7BA61B733A240051C68A /* PeripheralInfo.m in Sources */,

@@ -14,7 +14,7 @@
 #import "CharacteristicViewController.h"
 
 
-@interface PeripheralViewContriller : UITableViewController{
+@interface PeripheralViewController : UITableViewController{
     @public
     BabyBluetooth *baby;
 }
