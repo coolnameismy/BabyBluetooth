@@ -242,6 +242,8 @@ step2:导入.h文件
 
 ![个人微信公众号](qrcode.jpg)
 
+近期举办了一场知乎live，欢迎大家参与和我进行交流，入口: [知乎live入口：一小时蓝牙应用开发科普](https://zhihu.com/lives/801845027214102528?utm_campaign=zhihulive&utm_source=zhihucolumn&utm_medium=Livecolumn)
+
 # 期待
 
   - 蓝牙库写起来很辛苦，不要忘记点击右上角小星星star和[follow](https://github.com/coolnameismy)支持一下~
