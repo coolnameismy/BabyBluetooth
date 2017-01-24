@@ -36,5 +36,7 @@
 		<string>UIInterfaceOrientationLandscapeLeft</string>
 		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
+    <key>NSBluetoothPeripheralUsageDescription</key>
+    <string>BabyBluetooth能请求打开蓝牙</string>
 </dict>
 </plist>

@@ -217,7 +217,7 @@
 				TargetAttributes = {
 					E1807E6C1B6CA29100E99C63 = {
 						CreatedOnToolsVersion = 6.3.1;
-						DevelopmentTeam = QGDUF2E9QW;
+						DevelopmentTeam = AG54PA963Z;
 						SystemCapabilities = {
 							com.apple.BackgroundModes = {
 								enabled = 0;
@@ -392,10 +392,11 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				DEVELOPMENT_TEAM = AG54PA963Z;
 				INFOPLIST_FILE = BabyBluetoothAppDemo/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = "com.jumppo.app.demo.$(PRODUCT_NAME:rfc1034identifier)";
+				PRODUCT_BUNDLE_IDENTIFIER = com.liuyanwei.libabyBluetooth;
 				PRODUCT_NAME = BabyBluetoothAppDemo;
 				PROVISIONING_PROFILE = "";
 			};
@@ -407,10 +408,11 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				DEVELOPMENT_TEAM = AG54PA963Z;
 				INFOPLIST_FILE = BabyBluetoothAppDemo/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = "com.jumppo.app.demo.$(PRODUCT_NAME:rfc1034identifier)";
+				PRODUCT_BUNDLE_IDENTIFIER = com.liuyanwei.libabyBluetooth;
 				PRODUCT_NAME = BabyBluetoothAppDemo;
 				PROVISIONING_PROFILE = "";
 			};
