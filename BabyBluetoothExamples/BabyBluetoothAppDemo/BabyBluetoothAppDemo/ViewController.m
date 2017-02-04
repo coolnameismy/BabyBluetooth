@@ -15,9 +15,7 @@
 #define height [UIScreen mainScreen].bounds.size.height
 
 @interface ViewController (){
-//    UITableView *tableView;
-    NSMutableArray *peripherals;
-    NSMutableArray *peripheralsAD;
+    NSMutableArray *peripheralDataArray;
     BabyBluetooth *baby;
 }
 
@@ -28,26 +26,18 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    NSLog(@"viewDidLoad");
     [SVProgressHUD showInfoWithStatus:@"准备打开设备"];
+    NSLog(@"viewDidLoad");
+    peripheralDataArray = [[NSMutableArray alloc]init];
     
-    //初始化其他数据 init other
-    peripherals = [[NSMutableArray alloc]init];
-    peripheralsAD = [[NSMutableArray alloc]init];
-   
     //初始化BabyBluetooth 蓝牙库
     baby = [BabyBluetooth shareBabyBluetooth];
     //设置蓝牙委托
     [self babyDelegate];
-    
-    //启动一个定时任务
-    [NSTimer scheduledTimerWithTimeInterval:5 target:self selector:@selector(timerTask) userInfo:nil repeats:YES];
+ 
 }
 
--(void)timerTask{
-//    NSLog(@"timerTask");
 
-}
 
 -(void)viewDidAppear:(BOOL)animated{
     NSLog(@"viewDidAppear");
@@ -77,22 +67,10 @@
     //设置扫描到设备的委托
     [baby setBlockOnDiscoverToPeripherals:^(CBCentralManager *central, CBPeripheral *peripheral, NSDictionary *advertisementData, NSNumber *RSSI) {
         NSLog(@"搜索到了设备:%@",peripheral.name);
-        [weakSelf insertTableView:peripheral advertisementData:advertisementData];
+        [weakSelf insertTableView:peripheral advertisementData:advertisementData RSSI:RSSI];
     }];
     
-    //设置发现设备的Services的委托
-    [baby setBlockOnDiscoverServices:^(CBPeripheral *peripheral, NSError *error) {
-        for (CBService *service in peripheral.services) {
-            NSLog(@"搜索到服务:%@",service.UUID.UUIDString);
-        }
-        //找到cell并修改detaisText
-        for (int i=0;i<peripherals.count;i++) {
-            UITableViewCell *cell = [weakSelf.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:i inSection:0]];
-            if ([cell.textLabel.text isEqualToString:peripheral.name]) {
-                cell.detailTextLabel.text = [NSString stringWithFormat:@"%lu个service",(unsigned long)peripheral.services.count];
-            }
-        }
-    }];
+   
     //设置发现设service的Characteristics的委托
     [baby setBlockOnDiscoverCharacteristics:^(CBPeripheral *peripheral, CBService *service, NSError *error) {
         NSLog(@"===service name:%@",service.UUID);
@@ -166,13 +144,20 @@
 
 #pragma mark -UIViewController 方法
 //插入table数据
--(void)insertTableView:(CBPeripheral *)peripheral advertisementData:(NSDictionary *)advertisementData{
+-(void)insertTableView:(CBPeripheral *)peripheral advertisementData:(NSDictionary *)advertisementData RSSI:(NSNumber *)RSSI{
+    
+    NSArray *peripherals = [peripheralDataArray valueForKey:@"peripheral"];
     if(![peripherals containsObject:peripheral]) {
         NSMutableArray *indexPaths = [[NSMutableArray alloc] init];
         NSIndexPath *indexPath = [NSIndexPath indexPathForRow:peripherals.count inSection:0];
         [indexPaths addObject:indexPath];
-        [peripherals addObject:peripheral];
-        [peripheralsAD addObject:advertisementData];
+        
+        NSMutableDictionary *item = [[NSMutableDictionary alloc] init];
+        [item setValue:peripheral forKey:@"peripheral"];
+        [item setValue:RSSI forKey:@"RSSI"];
+        [item setValue:advertisementData forKey:@"advertisementData"];
+        [peripheralDataArray addObject:item];
+        
         [self.tableView insertRowsAtIndexPaths:indexPaths withRowAnimation:UITableViewRowAnimationAutomatic];
     }
 }
@@ -180,43 +165,40 @@
 #pragma mark -table委托 table delegate
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    return peripherals.count;
+     return peripheralDataArray.count;
 }
 
 
+
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
-
+    
     UITableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:@"cell"];
-    CBPeripheral *peripheral = [peripherals objectAtIndex:indexPath.row];
-    NSDictionary *ad = [peripheralsAD objectAtIndex:indexPath.row];
-
+    NSDictionary *item = [peripheralDataArray objectAtIndex:indexPath.row];
+    CBPeripheral *peripheral = [item objectForKey:@"peripheral"];
+    NSDictionary *advertisementData = [item objectForKey:@"advertisementData"];
+    NSNumber *RSSI = [item objectForKey:@"RSSI"];
+    
     if (!cell) {
         cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:@"cell"];
         cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
     }
     
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
-
+    
     //peripheral的显示名称,优先用kCBAdvDataLocalName的定义，若没有再使用peripheral name
-    NSString *localName;
-    if ([ad objectForKey:@"kCBAdvDataLocalName"]) {
-        localName = [NSString stringWithFormat:@"%@",[ad objectForKey:@"kCBAdvDataLocalName"]];
+    NSString *peripheralName;
+    if ([advertisementData objectForKey:@"kCBAdvDataLocalName"]) {
+        peripheralName = [NSString stringWithFormat:@"%@",[advertisementData objectForKey:@"kCBAdvDataLocalName"]];
+    }else if(!([peripheral.name isEqualToString:@""] || peripheral.name == nil)){
+        peripheralName = peripheral.name;
     }else{
-        localName = peripheral.name;
+        peripheralName = [peripheral.identifier UUIDString];
     }
     
-    cell.textLabel.text = localName;
+    cell.textLabel.text = peripheralName;
     //信号和服务
-    cell.detailTextLabel.text = @"读取中...";
-    //找到cell并修改detaisText
-    NSArray *serviceUUIDs = [ad objectForKey:@"kCBAdvDataServiceUUIDs"];
-    if (serviceUUIDs) {
-        cell.detailTextLabel.text = [NSString stringWithFormat:@"%lu个service",(unsigned long)serviceUUIDs.count];
-    }else{
-        cell.detailTextLabel.text = [NSString stringWithFormat:@"0个service"];
-    }
+    cell.detailTextLabel.text = [NSString stringWithFormat:@"RSSI:%@",RSSI];
     
-    //次线程读取RSSI和服务数量
     
     return cell;
 }
@@ -227,7 +209,9 @@
     
     [self.tableView deselectRowAtIndexPath:indexPath animated:YES];
     PeripheralViewController *vc = [[PeripheralViewController alloc]init];
-    vc.currPeripheral = [peripherals objectAtIndex:indexPath.row];
+    NSDictionary *item = [peripheralDataArray objectAtIndex:indexPath.row];
+    CBPeripheral *peripheral = [item objectForKey:@"peripheral"];
+    vc.currPeripheral = peripheral;
     vc->baby = self->baby;
     [self.navigationController pushViewController:vc animated:YES];
     
