@@ -242,6 +242,10 @@ step2:导入.h文件
 
 ![个人微信公众号](qrcode.jpg)
 
+# 招聘
+
+  阿里云-iot事业部招人，p6 p7 前端,android,iOS,风光无限 一起造作，有兴趣的投简历到 coolnameismy@gmail.com
+
 # 期待
 
   - 蓝牙库写起来很辛苦，不要忘记点击右上角小星星star和[follow](https://github.com/coolnameismy)支持一下~
